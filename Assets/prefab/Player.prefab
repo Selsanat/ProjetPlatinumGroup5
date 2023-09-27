@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1695210002650652747}
-  - component: {fileID: 4807578478213677145}
-  - component: {fileID: 7963406407944737606}
   - component: {fileID: 6795477575308435137}
   - component: {fileID: 333968321591459072}
   - component: {fileID: 254682124699223800}
@@ -37,54 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4807578478213677145
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2540696069469602004}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0640851, y: 1.7955539, z: 1}
-  m_Center: {x: -0.29683608, y: -0.25684273, z: 0}
---- !u!54 &7963406407944737606
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2540696069469602004}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &6795477575308435137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,9 +78,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe637f34c374867448e448d8c7b9fb5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PlayerControls: {fileID: 0}
-  moveSpeed: 8
-  jumpForce: 5
+  moveSpeed: 5
+  jumpForce: 15
+  gravityScale: 1
+  maxFallSpeed: 2
+  maxSpeed: 1.5
+  friction: 1
+  rightCollisionRange:
+    length: 1
+    offset: {x: 1, y: 1, z: 0}
+  leftCollisionRange:
+    length: 1
+    offset: {x: 1, y: 1, z: 0}
+  upCollisionRange:
+    length: 1
+    offset: {x: 1, y: 1, z: 0}
+  downCollisionRange:
+    length: 1
+    offset: {x: 1, y: 1, z: 0}
+  convertVelocityOnTurningAround: 0
 --- !u!212 &254682124699223800
 SpriteRenderer:
   m_ObjectHideFlags: 0
