@@ -15,15 +15,9 @@ public class RoundManager : MonoBehaviour
     [SerializeField]
     private RoundState _roundState = RoundState.SoloRound;
     [SerializeField]
-    private bool _isRoundRunning = false;
-    [SerializeField]
     private int _roundNumber = 0;
     [SerializeField]
     private int _aliveCount = 0;
-    [SerializeField]
-    private bool _isRoundFinished = false;
-    [SerializeField]
-    private bool _isRoundStarted = false;
     [SerializeField]
     private bool _isTeam1Dead = false;
     [SerializeField]
@@ -90,8 +84,6 @@ public class RoundManager : MonoBehaviour
     public void newRoud()
     {
         _roundNumber++;
-        _isRoundFinished = false;
-        _isRoundStarted = false;
         _isPlayer1Dead = false;
         _isPlayer2Dead = false;
         _isPlayer3Dead = false;
