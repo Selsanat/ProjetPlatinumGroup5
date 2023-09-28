@@ -125,211 +125,206 @@ public class RoundManager : MonoBehaviour
     public void choiceTypeRound()
     {
         int random = Random.Range(0, 4);
-        if (random == 0) // 1v1v1v1
+
+        switch(random)
         {
-            _roundState = RoundState.SoloRound;
-            foreach (GameObject player in _players)
-            {
-                player.tag = "Player";
-            }
-        }
-        else if (random == 1) // 2v2
-        {
-            _roundState = RoundState.DuoRound;
-            for (int i = 1; i <= 4; i++) // 2 joueurs par équipe
-            {
-                int randomIndex = Random.Range(0, _playerAvailable.Count);
-                if (i <= 2)
-                {
-                    _playerAvailable[randomIndex].tag = "Team1";
-                    _team1.Add(_playerAvailable[randomIndex]);
-                    _playerAvailable.RemoveAt(randomIndex);
-                }
-                else
-                {
-                    _playerAvailable[randomIndex].tag = "Team2";
-                    _team2.Add(_playerAvailable[randomIndex]);
-                    _playerAvailable.RemoveAt(randomIndex);
-                }
-
-            }
-
-
-
-        }
-
-        else if (random == 2) // 1v3
-        {
-            _roundState = RoundState.TrioRound;
-            GameObject playerMostPoint = null;
-            foreach (GameObject player in _players)
-            {
-                
-                /*if(playerMostPoint == null || player._point > playerMostPoint._point)
-                {
-                    playerMostPoint.tag = "Team2";
-                    _team2.Add(playerMostPoint);
-
-                    playerMostPoint = player;
-                }
-                else
-                {
-                    player.tag = "Team2";
-                    _team2.Add(player);
-                }*/
-            }
-            playerMostPoint.tag = "Team1";
-            _team1.Add(playerMostPoint);
-
-        }
-        else if(random == 3) // 2v1v1
-        {
-            _roundState = RoundState.DuoSoloRound;
-            
-
-            int randomDuo = Random.Range(0, 3);
-
-            if(randomDuo == 0) //plus fort avec le plus faible
-            {
-                GameObject playerMostPoint = null;
-                GameObject playerLeastPoint = null;
-
+            case 0:// 1v1v1v1
+                _roundState = RoundState.SoloRound;
                 foreach (GameObject player in _players)
-                {
-
-
-                    /*if (playerMostPoint == null || player.points > playerMostPoint.points)
-                    {
-                        playerMostPoint = player;
-                    }
-
-                    if (playerLeastPoint == null || player.points < playerLeastPoint.points)
-                    {
-                        playerLeastPoint = player;
-                    }*/
-                }
-
-                playerMostPoint.tag = "Team1";
-                _playerAvailable.Remove(playerMostPoint);
-                _team1.Add(playerMostPoint);
-                playerLeastPoint.tag = "Team1";
-                _playerAvailable.Remove(playerLeastPoint);
-                _team1.Add(playerLeastPoint);
-
-                foreach (GameObject player in _playerAvailable)
                 {
                     player.tag = "Player";
                 }
-            }
-            else if (randomDuo == 1) //plus fort avec le plus fort
-            {
-                GameObject playerMostPoint = null;
-                GameObject secondPlayerMostPoints = null;
+                break;
 
-                /*foreach (GameObject player in _players)
+            case 1: // 2v2
+                _roundState = RoundState.DuoRound;
+                for (int i = 1; i <= 4; i++) // 2 joueurs par équipe
                 {
-
-
-                    if (playerMostPoint == null || player.points > playerMostPoint.points)
+                    int randomIndex = Random.Range(0, _playerAvailable.Count);
+                    if (i <= 2)
                     {
-                        playerMostPoint = player;
+                        _playerAvailable[randomIndex].tag = "Team1";
+                        _team1.Add(_playerAvailable[randomIndex]);
+                        _playerAvailable.RemoveAt(randomIndex);
                     }
-                    
+                    else
+                    {
+                        _playerAvailable[randomIndex].tag = "Team2";
+                        _team2.Add(_playerAvailable[randomIndex]);
+                        _playerAvailable.RemoveAt(randomIndex);
+                    }
+
                 }
+                break;
+
+            case 2:// 1v3
+                _roundState = RoundState.TrioRound;
+                GameObject playerMostPoints = null;
                 foreach (GameObject player in _players)
                 {
 
-
-                    if (secondPlayerMostPoints == null || player.points > secondPlayerMostPoints.points && player != playerMostPoint)
+                    /*if(playerMostPoints == null || player._point > playerMostPoints._point)
                     {
-                        secondPlayerMostPoints = player;
+                        playerMostPoints.tag = "Team2";
+                        _team2.Add(playerMostPoints);
+
+                        playerMostPoints = player;
                     }
-
-                }*/
-                playerMostPoint.tag = "Team1";
-                secondPlayerMostPoints.tag = "Team1";
-                _team1.Add(playerMostPoint);
-                _team1.Add(secondPlayerMostPoints);
-
-                _playerAvailable.Remove(playerMostPoint);
-                _playerAvailable.Remove(secondPlayerMostPoints);
-
-                foreach (GameObject player in _playerAvailable)
-                {
-                    player.tag = "Player";
-                }
-
-            }
-            else if (randomDuo == 1) //plus faible avec le plus faible
-            {
-                GameObject playerMostPoint = null;
-                GameObject secondPlayerMostPoints = null;
-
-                /*foreach (GameObject player in _players)
-                {
-
-
-                    if (playerMostPoint == null || player.points > playerMostPoint.points)
+                    else
                     {
-                        playerMostPoint = player;
-                    }
-
-                }
-                foreach (GameObject player in _players)
-                {
-
-
-                    if (secondPlayerMostPoints == null || player.points > secondPlayerMostPoints.points && player != playerMostPoint)
-                    {
-                        secondPlayerMostPoints = player;
-                    }
-
-                }*/
-                playerMostPoint.tag = "Player";
-                secondPlayerMostPoints.tag = "Player";
-                _playerAvailable.Remove(playerMostPoint);
-                _playerAvailable.Remove(secondPlayerMostPoints);
-
-                foreach (GameObject player in _playerAvailable)
-                {
-                    player.tag = "Team1";
-                    _team1.Add(player);
-
-                }
-            }
-            else if (randomDuo == 3) //millieu avec millieu
-            {
-                GameObject playerMostPoint = null;
-                GameObject playerLeastPoint = null;
-
-                foreach (GameObject player in _players)
-                {
-
-
-                    /*if (playerMostPoint == null || player.points > playerMostPoint.points)
-                    {
-                        playerMostPoint = player;
-                    }
-
-                    if (playerLeastPoint == null || player.points < playerLeastPoint.points)
-                    {
-                        playerLeastPoint = player;
+                        player.tag = "Team2";
+                        _team2.Add(player);
                     }*/
                 }
+                playerMostPoints.tag = "Team1";
+                _team1.Add(playerMostPoints);
+                break;
 
-                playerMostPoint.tag = "Player";
-                _playerAvailable.Remove(playerMostPoint);
-                playerLeastPoint.tag = "Player";
-                _playerAvailable.Remove(playerLeastPoint);
+            case 3: // 2v1v1
+                _roundState = RoundState.DuoSoloRound;
 
-                foreach (GameObject player in _playerAvailable)
+
+                int randomDuo = Random.Range(0, 3);
+                switch(randomDuo)
                 {
-                    player.tag = "Team1";
-                    _team1.Add(player);
+                    case 0: //plus fort avec le plus faible
+                        GameObject playerMostPoint = null;
+                        GameObject playerLeastPoint = null;
 
+                        foreach (GameObject player in _players)
+                        {
+
+
+                            /*if (playerMostPoint == null || player.points > playerMostPoint.points)
+                            {
+                                playerMostPoint = player;
+                            }
+
+                            if (playerLeastPoint == null || player.points < playerLeastPoint.points)
+                            {
+                                playerLeastPoint = player;
+                            }*/
+                        }
+
+                        playerMostPoint.tag = "Team1";
+                        _playerAvailable.Remove(playerMostPoint);
+                        _team1.Add(playerMostPoint);
+                        playerLeastPoint.tag = "Team1";
+                        _playerAvailable.Remove(playerLeastPoint);
+                        _team1.Add(playerLeastPoint);
+
+                        foreach (GameObject player in _playerAvailable)
+                        {
+                            player.tag = "Player";
+                        }
+                        break;
+                    case 1: //plus fort avec le plus fort
+                        playerMostPoint = null;
+                        GameObject secondPlayerMostPoints = null;
+
+                        /*foreach (GameObject player in _players)
+                        {
+
+
+                            if (playerMostPoint == null || player.points > playerMostPoint.points)
+                            {
+                                playerMostPoint = player;
+                            }
+
+                        }
+                        foreach (GameObject player in _players)
+                        {
+
+
+                            if (secondPlayerMostPoints == null || player.points > secondPlayerMostPoints.points && player != playerMostPoint)
+                            {
+                                secondPlayerMostPoints = player;
+                            }
+
+                        }*/
+                        playerMostPoint.tag = "Team1";
+                        secondPlayerMostPoints.tag = "Team1";
+                        _team1.Add(playerMostPoint);
+                        _team1.Add(secondPlayerMostPoints);
+
+                        _playerAvailable.Remove(playerMostPoint);
+                        _playerAvailable.Remove(secondPlayerMostPoints);
+
+                        foreach (GameObject player in _playerAvailable)
+                        {
+                            player.tag = "Player";
+                        }
+                        break;
+                    case 2: //plus faible avec le plus faible
+                        playerMostPoint = null;
+                        secondPlayerMostPoints = null;
+
+                        /*foreach (GameObject player in _players)
+                        {
+
+
+                            if (playerMostPoint == null || player.points > playerMostPoint.points)
+                            {
+                                playerMostPoint = player;
+                            }
+
+                        }
+                        foreach (GameObject player in _players)
+                        {
+
+
+                            if (secondPlayerMostPoints == null || player.points > secondPlayerMostPoints.points && player != playerMostPoint)
+                            {
+                                secondPlayerMostPoints = player;
+                            }
+
+                        }*/
+                        playerMostPoint.tag = "Player";
+                        secondPlayerMostPoints.tag = "Player";
+                        _playerAvailable.Remove(playerMostPoint);
+                        _playerAvailable.Remove(secondPlayerMostPoints);
+
+                        foreach (GameObject player in _playerAvailable)
+                        {
+                            player.tag = "Team1";
+                            _team1.Add(player);
+
+                        }
+                        break;
+                        case 3: //millieu avec millieu
+                        playerMostPoint = null;
+                        playerLeastPoint = null;
+
+                        foreach (GameObject player in _players)
+                        {
+
+
+                            /*if (playerMostPoint == null || player.points > playerMostPoint.points)
+                            {
+                                playerMostPoint = player;
+                            }
+
+                            if (playerLeastPoint == null || player.points < playerLeastPoint.points)
+                            {
+                                playerLeastPoint = player;
+                            }*/
+                        }
+
+                        playerMostPoint.tag = "Player";
+                        _playerAvailable.Remove(playerMostPoint);
+                        playerLeastPoint.tag = "Player";
+                        _playerAvailable.Remove(playerLeastPoint);
+
+                        foreach (GameObject player in _playerAvailable)
+                        {
+                            player.tag = "Team1";
+                            _team1.Add(player);
+
+                        }
+                        break;
                 }
-            }
-
+                break;            
         }
+        
     }
 }
