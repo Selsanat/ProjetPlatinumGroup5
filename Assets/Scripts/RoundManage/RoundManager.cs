@@ -90,11 +90,11 @@ public class RoundManager : MonoBehaviour
                 newRoud();
                 _timer.StopTimer();
             }
-            else if (_isTeam1Dead) 
+            /*else if(_aliveCount == 2 && !_team1[0]._isDead && !_team1[1]._isDead) // s'il y a deux survivant et qu'ils sont de la team 1
             {
                 newRoud();
                 _timer.StopTimer();
-            }
+            }*/
         }
     }
 
