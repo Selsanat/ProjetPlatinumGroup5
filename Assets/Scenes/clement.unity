@@ -338,6 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 591656586}
   - component: {fileID: 591656585}
+  - component: {fileID: 591656587}
   m_Layer: 0
   m_Name: RoundManager
   m_TagString: Untagged
@@ -374,6 +375,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &591656587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591656584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a719c499ed74a2e4e9bcb831e566b1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roundBeforeTeamRound: 3
+  _roundState: 0
+  _roundNumber: 0
+  _aliveCount: 0
+  _isTeam1Dead: 0
+  _isTeam2Dead: 0
+  _players: []
+  _team1: []
+  _team2: []
+  _playerAvailable: []
+  _isPlayer1Dead: 0
+  _isPlayer2Dead: 0
+  _isPlayer3Dead: 0
+  _isPlayer4Dead: 0
 --- !u!1 &1265352157
 GameObject:
   m_ObjectHideFlags: 0
