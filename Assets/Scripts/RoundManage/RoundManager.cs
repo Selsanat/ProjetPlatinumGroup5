@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class RoundManager : MonoBehaviour
 {
@@ -134,7 +133,7 @@ public class RoundManager : MonoBehaviour
                 {
                     player.tag = "Player";
                 }
-                break;
+            break;
 
             case 1: // 2v2
                 _roundState = RoundState.DuoRound;
@@ -155,7 +154,7 @@ public class RoundManager : MonoBehaviour
                     }
 
                 }
-                break;
+            break;
 
             case 2:// 1v3
                 _roundState = RoundState.TrioRound;
@@ -178,7 +177,7 @@ public class RoundManager : MonoBehaviour
                 }
                 playerMostPoints.tag = "Team1";
                 _team1.Add(playerMostPoints);
-                break;
+            break;
 
             case 3: // 2v1v1
                 _roundState = RoundState.DuoSoloRound;
@@ -217,7 +216,8 @@ public class RoundManager : MonoBehaviour
                         {
                             player.tag = "Player";
                         }
-                        break;
+                    break;
+
                     case 1: //plus fort avec le plus fort
                         playerMostPoint = null;
                         GameObject secondPlayerMostPoints = null;
@@ -254,7 +254,8 @@ public class RoundManager : MonoBehaviour
                         {
                             player.tag = "Player";
                         }
-                        break;
+                    break;
+
                     case 2: //plus faible avec le plus faible
                         playerMostPoint = null;
                         secondPlayerMostPoints = null;
@@ -290,8 +291,9 @@ public class RoundManager : MonoBehaviour
                             _team1.Add(player);
 
                         }
-                        break;
-                        case 3: //millieu avec millieu
+                    break;
+
+                    case 3: //millieu avec millieu
                         playerMostPoint = null;
                         playerLeastPoint = null;
 
@@ -321,9 +323,9 @@ public class RoundManager : MonoBehaviour
                             _team1.Add(player);
 
                         }
-                        break;
+                    break;
                 }
-                break;            
+            break;            
         }
         
     }
