@@ -5,7 +5,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using UnityEngine.Rendering;
 
+//rajouté un struct qui a les raycast param 
+//pour la détéction de la coll, tracé un trait et voir s'il est entre un coté 
 public class PlayerController : MonoBehaviour
 {
     #region Inputs
@@ -18,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("Speed du joueur")] [SerializeField] float moveSpeed = 5;
     [Tooltip("Force de saut")] [SerializeField] float jumpForce = 5;
+    [Tooltip("Force de saut")][SerializeField] float MinJump = 1;
     [Tooltip("Fall speed")] [SerializeField] float gravityScale = 5;
     [Tooltip("Fall speed maximale")] [SerializeField] float maxFallSpeed = 5;
     [Tooltip("Vitesse maximale horizontale du joueur")] [SerializeField] float maxSpeed = 5;
@@ -42,7 +46,7 @@ public class PlayerController : MonoBehaviour
     #region Parameters GD
     [Header("Parameters")]
     [Tooltip("si actif, le joueur en se tournant gardera son momentum. Ex : le joueur est a sa vitesse maxiamale, il le sera encore en se tournant")] 
-    [SerializeField] bool convertVelocityOnTurningAround;
+    [SerializeField] float keepVelocityOnTurnAround;
     #endregion
 
     #region InitInputs
@@ -119,7 +123,7 @@ public class PlayerController : MonoBehaviour
     {
         float InputDirection = _actions[0].ReadValue<Vector2>().x;
         // On check d'abord si le joueur est en train d'aller vers un mur/collision. Si c'est le cas, on l'arrête
-        if ((InputDirection > 0 ||velocityDirection.x>0) && collidesRight || (InputDirection < 0 || velocityDirection.x<0) && collidesLeft)
+        if ((InputDirection > 0 ||velocityDirection.x > 0) && collidesRight || (InputDirection < 0 || velocityDirection.x < 0) && collidesLeft)
         {
             velocityDirection.x = 0;
             return;
@@ -127,19 +131,14 @@ public class PlayerController : MonoBehaviour
         // Si le joueur bouge, on le bouge en conséquence
         if (InputDirection != 0)
         {
+            print(velocityDirection.x);
             #region KeepVelocityTurningAround
-            // Si le joueur se tourne, on transfère le momentum
-            if (convertVelocityOnTurningAround)
+            // Si le joueur se tourne, on transfère une partie du momentum
+            velocityDirection.x = Mathf.Abs(velocityDirection.x) * Mathf.Sign(InputDirection);
+
+            if (Mathf.Sign(InputDirection) != Mathf.Sign(velocityDirection.x))
             {
-                velocityDirection.x = Mathf.Abs(velocityDirection.x) * Mathf.Sign(InputDirection);
-            }
-            // Si le joueur se tourne, on reset le momentum
-            else
-            {
-                if (Mathf.Sign(InputDirection) != Mathf.Sign(velocityDirection.x))
-                {
-                    velocityDirection.x = 0;
-                }
+                velocityDirection.x = Mathf.Abs(velocityDirection.x) *keepVelocityOnTurnAround / 100;
             }
             #endregion
 
@@ -154,14 +153,27 @@ public class PlayerController : MonoBehaviour
     }
     void CalculateVerticalVelocity()
     {
+        print(velocityDirection.y);
         float inputDirection = _actions[0].ReadValue<Vector2>().y;
 
-        if (collidesDown && velocityDirection.y < 0 || collidesDown && inputDirection <= 0) { velocityDirection.y = 0;  return; }
-        if (inputDirection>0 && collidesDown && !collidesUp)
-        {
-            velocityDirection.y += jumpForce*Time.deltaTime;
-        }
+        // Si le joueur collides vers le bas (donc au sol) et qu'il est sous gravité, on l'arrête et return
+        // On l'arrête et return  également si il ne saute pas et est au sol pour éviter les calculs inutiles
+        if (collidesDown && velocityDirection.y < 0 || collidesUp && velocityDirection.y > 0|| collidesDown && inputDirection <= 0) { velocityDirection.y = 0;  return; }
         velocityDirection.y -= gravityScale * Time.deltaTime;
+
+        if (inputDirection > 0)
+        {
+            if(collidesDown && !collidesUp)
+            {
+                velocityDirection.y += jumpForce * Time.deltaTime;
+            }
+        }
+        else
+        {
+            velocityDirection.y = Mathf.Clamp(velocityDirection.y, -maxFallSpeed, jumpForce/MinJump);
+            return;
+        }
+
         velocityDirection.y = Mathf.Clamp(velocityDirection.y, -maxFallSpeed, maxFallSpeed);
 
     }
@@ -169,10 +181,14 @@ public class PlayerController : MonoBehaviour
     void castDirections()
     {
         //On cast sur les 4 directions et obtiens les bool de "est ce que une direction touche une surface"
-        collidesDown = Physics.CheckBox(transform.position + downCollisionRange.offset, downCollisionRange.dimmensions/2);
-        collidesLeft = Physics.CheckBox(transform.position + leftCollisionRange.offset, leftCollisionRange.dimmensions / 2);
-        collidesUp = Physics.CheckBox(transform.position + upCollisionRange.offset, upCollisionRange.dimmensions / 2);
-        collidesRight = Physics.CheckBox(transform.position + rightCollisionRange.offset, rightCollisionRange.dimmensions/2);
+        Vector3 tempNextPlayerPos = transform.position + velocityDirection;
+
+        // Pour chaque axe, teste si le joueur va se retrouver dans un mur après le déplacement de la prochaine frame
+        // Si le joueur sera dans un mur après s'être déplacer, cela veut donc dire qu'il collides avec un objet dans la direction dans laquelle il veut aller
+        collidesDown = Physics.OverlapBox(tempNextPlayerPos + downCollisionRange.offset, downCollisionRange.dimmensions/2).Length !=0;
+        collidesLeft = Physics.OverlapBox(tempNextPlayerPos + leftCollisionRange.offset, leftCollisionRange.dimmensions / 2).Length != 0;
+        collidesUp = Physics.OverlapBox(tempNextPlayerPos + upCollisionRange.offset, upCollisionRange.dimmensions / 2).Length != 0;
+        collidesRight = Physics.OverlapBox(tempNextPlayerPos + rightCollisionRange.offset, rightCollisionRange.dimmensions / 2).Length != 0 ;
     }
 
     private void Attack(InputAction.CallbackContext context)
