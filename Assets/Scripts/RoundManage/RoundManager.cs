@@ -11,8 +11,40 @@ public class RoundManager : MonoBehaviour
         TrioRound,
         DuoSoloRound
     }
+
+    public enum PlayerTeam // a mettre dans le player, et le mettre de base a available
+    {
+        Team1 = 0, 
+        Team2 = 1,
+        Team3 = 2,
+        Team4 = 3,
+        Available = 4
+    }
+    
+    public PlayerTeam GetPlayerTeam(GameObject player)
+    {
+        if (player.tag == "Team1")
+            return PlayerTeam.Team1;
+        else if (player.tag == "Team2")
+            return PlayerTeam.Team2;
+        else if (player.tag == "Team3")
+            return PlayerTeam.Team3;
+        else if (player.tag == "Team4")
+            return PlayerTeam.Team4;
+        else
+            return PlayerTeam.Available;
+    }
+    PlayerTeam playerTeam;
     [SerializeField]
     private int _roundBeforeTeamRound = 3;
+    [SerializeField]
+    private int[] solo;
+    [SerializeField] 
+    private int[] duo;
+    [SerializeField] 
+    private int[] trio;
+    [SerializeField] 
+    private int[] duoSolo;
     [SerializeField]
     private RoundState _roundState = RoundState.SoloRound;
     [SerializeField]
@@ -39,6 +71,11 @@ public class RoundManager : MonoBehaviour
     private void Start()
     {
         _timer = FindAnyObjectByType<Timer>();
+        solo = new int[] { 1, 1, 1, 1 };
+        duo = new int[] { 2, 2};
+        trio = new int[] { 1, 3 };
+        duoSolo = new int[] { 2, 1, 1 };
+        
     }
     public void checkWin()
     {
@@ -119,6 +156,26 @@ public class RoundManager : MonoBehaviour
         _timer.StartTimer();
 
 
+    }
+
+    public void test(int[] TypeRound)
+    {
+
+        foreach(int i in TypeRound)
+        {
+            for(int j = 0; j <= i; j++)
+            {
+                int random = Random.Range(0, _players.Length);
+                playerTeam = (PlayerTeam)i;
+                while (_players[random].PlayerTeam != PlayerTeam.Available)
+                {
+                    random = Random.Range(0, _players.Length);
+                }
+                _players[random].PlayerTeam = playerTeam;
+
+
+            }
+        }
     }
 
     public void choiceTypeRound()
