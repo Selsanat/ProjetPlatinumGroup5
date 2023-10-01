@@ -106,12 +106,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        castDirections();
+        
         CalculateVerticalVelocity();
         CalculateHorizontalVelocity();
-
+        castDirections();
         applyVelocity();
-        print(collidesDown);
     }
 
     void CalculateHorizontalVelocity()
@@ -179,21 +178,19 @@ public class PlayerController : MonoBehaviour
         // Pour chaque axe, teste si le joueur va se retrouver dans un mur après le déplacement de la prochaine frame
         // Si le joueur sera dans un mur après s'être déplacer, cela veut donc dire qu'il collides avec un objet dans la direction dans laquelle il veut aller
         RaycastHit[] tempRaycastHitsPlayer = Physics.BoxCastAll(tempNextPlayerPos, CollisionRange.dimmensions / 2, velocityDirection, Quaternion.identity, 1f);
-/*        if(!Physics.CheckBox(tempNextPlayerPos,CollisionRange.dimmensions/2)) {
+        if(tempRaycastHitsPlayer.Length==0) {
             collidesDown = false;
             collidesRight = false;
             collidesLeft = false;
             collidesUp = false;
             return; 
-        }*/
+        }
         foreach(RaycastHit hit in tempRaycastHitsPlayer)
         {
-            print(hit.distance);
-/*            collidesLeft = hit.point.x ==0 && distance.x<= CollisionRange.dimmensions.x;
-            collidesRight = hit.point.x ==0 && distance.x >= CollisionRange.dimmensions.x;
-
-            collidesDown = hit.point.y == 0 && distance.y <= CollisionRange.dimmensions.y;
-            collidesUp = hit.point.y  == 0 && distance.y >= CollisionRange.dimmensions.y;*/
+            collidesDown = velocityDirection.y < 0 && tempNextPlayerPos.y - CollisionRange.dimmensions.y / 2 <= hit.point.y;
+            collidesUp = velocityDirection.y > 0 && tempNextPlayerPos.y + CollisionRange.dimmensions.y / 2 >= hit.point.y;
+            collidesRight = velocityDirection.x > 0 && tempNextPlayerPos.x + CollisionRange.dimmensions.x / 2 <= hit.point.x;
+            collidesLeft = velocityDirection.x < 0 && tempNextPlayerPos.x - CollisionRange.dimmensions.x / 2 >= hit.point.x;
         }
 /*        collidesDown = Physics.OverlapBox(tempNextPlayerPos + downCollisionRange.offset, downCollisionRange.dimmensions/2).Length !=0;
         collidesLeft = Physics.OverlapBox(tempNextPlayerPos + leftCollisionRange.offset, leftCollisionRange.dimmensions / 2).Length != 0;
