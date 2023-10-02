@@ -20,6 +20,14 @@ public class RoundManager : MonoBehaviour
         Team4 = 3,
         Available = 4
     }
+
+    public enum PlayerState
+    {
+        vivant,
+        mort
+    }
+
+    
     
     public PlayerTeam GetPlayerTeam(GameObject player)
     {
@@ -38,14 +46,6 @@ public class RoundManager : MonoBehaviour
     [SerializeField]
     private int _roundBeforeTeamRound = 3;
     [SerializeField]
-    private int[] solo;
-    [SerializeField] 
-    private int[] duo;
-    [SerializeField] 
-    private int[] trio;
-    [SerializeField] 
-    private int[] duoSolo;
-    [SerializeField]
     private RoundState _roundState = RoundState.SoloRound;
     [SerializeField]
     private int _roundNumber = 0;
@@ -56,27 +56,57 @@ public class RoundManager : MonoBehaviour
     [SerializeField]
     private bool _isTeam2Dead = false;
     [SerializeField]
+    private GameObject[] AliveDead;
+    [SerializeField]
     private GameObject[] _players;
     [SerializeField]
     private List<GameObject> _team1, _team2, _playerAvailable;
+    [SerializeField]
 
     private Timer _timer;
+
+    private Typeround typeRound;
 
     public bool _isPlayer1Dead = false;
     public bool _isPlayer2Dead = false;
     public bool _isPlayer3Dead = false;
     public bool _isPlayer4Dead = false;
 
+    struct Typeround
+    {
+        [SerializeField]
+        public int[] solo;
+        [SerializeField]
+        public int[] duo;
+        [SerializeField]
+        public int[] trio;
+        [SerializeField]
+        public int[] duoSolo;
 
+
+
+    }
     private void Start()
     {
         _timer = FindAnyObjectByType<Timer>();
-        solo = new int[] { 1, 1, 1, 1 };
-        duo = new int[] { 2, 2};
-        trio = new int[] { 1, 3 };
-        duoSolo = new int[] { 2, 1, 1 };
-        
+
+        typeRound.solo = new int[] { 1, 1, 1, 1 };
+        typeRound.duo = new int[] { 2, 2 };
+        typeRound.trio = new int[] { 3, 1};
+        typeRound.duoSolo = new int[] { 2, 1, 1 };
     }
+    public void testCheckWin()
+    {
+        List<GameObject> playerAlive = new List<GameObject>();
+
+        foreach (int i in TypeRound)
+        {
+
+        }
+
+
+    }
+
     public void checkWin()
     {
         if(_roundState == RoundState.SoloRound) // 1v1v1v1
@@ -126,11 +156,11 @@ public class RoundManager : MonoBehaviour
                 newRoud();
                 _timer.StopTimer();
             }
-            /*else if(_aliveCount == 2 && !_team1[0]._isDead && !_team1[1]._isDead) // s'il y a deux survivant et qu'ils sont de la team 1
+            else if (_aliveCount == 2 && !_team1[0]._isDead && !_team1[1]._isDead) // s'il y a deux survivant et qu'ils sont de la team 1
             {
                 newRoud();
                 _timer.StopTimer();
-            }*/
+            }
         }
     }
 
@@ -172,8 +202,6 @@ public class RoundManager : MonoBehaviour
                     random = Random.Range(0, _players.Length);
                 }
                 _players[random].PlayerTeam = playerTeam;
-
-
             }
         }
     }
@@ -219,7 +247,7 @@ public class RoundManager : MonoBehaviour
                 foreach (GameObject player in _players)
                 {
 
-                    /*if(playerMostPoints == null || player._point > playerMostPoints._point)
+                    if (playerMostPoints == null || player._point > playerMostPoints._point)
                     {
                         playerMostPoints.tag = "Team2";
                         _team2.Add(playerMostPoints);
@@ -230,7 +258,7 @@ public class RoundManager : MonoBehaviour
                     {
                         player.tag = "Team2";
                         _team2.Add(player);
-                    }*/
+                    }
                 }
                 playerMostPoints.tag = "Team1";
                 _team1.Add(playerMostPoints);
@@ -251,7 +279,7 @@ public class RoundManager : MonoBehaviour
                         {
 
 
-                            /*if (playerMostPoint == null || player.points > playerMostPoint.points)
+                            if (playerMostPoint == null || player.points > playerMostPoint.points)
                             {
                                 playerMostPoint = player;
                             }
@@ -259,7 +287,7 @@ public class RoundManager : MonoBehaviour
                             if (playerLeastPoint == null || player.points < playerLeastPoint.points)
                             {
                                 playerLeastPoint = player;
-                            }*/
+                            }
                         }
 
                         playerMostPoint.tag = "Team1";
@@ -279,7 +307,7 @@ public class RoundManager : MonoBehaviour
                         playerMostPoint = null;
                         GameObject secondPlayerMostPoints = null;
 
-                        /*foreach (GameObject player in _players)
+                        foreach (GameObject player in _players)
                         {
 
 
@@ -298,7 +326,7 @@ public class RoundManager : MonoBehaviour
                                 secondPlayerMostPoints = player;
                             }
 
-                        }*/
+                        }
                         playerMostPoint.tag = "Team1";
                         secondPlayerMostPoints.tag = "Team1";
                         _team1.Add(playerMostPoint);
@@ -317,7 +345,7 @@ public class RoundManager : MonoBehaviour
                         playerMostPoint = null;
                         secondPlayerMostPoints = null;
 
-                        /*foreach (GameObject player in _players)
+                        foreach (GameObject player in _players)
                         {
 
 
@@ -336,7 +364,7 @@ public class RoundManager : MonoBehaviour
                                 secondPlayerMostPoints = player;
                             }
 
-                        }*/
+                        }
                         playerMostPoint.tag = "Player";
                         secondPlayerMostPoints.tag = "Player";
                         _playerAvailable.Remove(playerMostPoint);
@@ -358,7 +386,7 @@ public class RoundManager : MonoBehaviour
                         {
 
 
-                            /*if (playerMostPoint == null || player.points > playerMostPoint.points)
+                            if (playerMostPoint == null || player.points > playerMostPoint.points)
                             {
                                 playerMostPoint = player;
                             }
@@ -366,7 +394,7 @@ public class RoundManager : MonoBehaviour
                             if (playerLeastPoint == null || player.points < playerLeastPoint.points)
                             {
                                 playerLeastPoint = player;
-                            }*/
+                            }
                         }
 
                         playerMostPoint.tag = "Player";
