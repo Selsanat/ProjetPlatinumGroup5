@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class RoundManager : MonoBehaviour
 {
@@ -204,6 +205,19 @@ public class RoundManager : MonoBehaviour
                 _players[random].PlayerTeam = playerTeam;
             }
         }
+    }
+
+    //sort order by d un parametre 
+
+
+    public List<GameObject> sortingPlayerPoints(GameObject[] players)
+    {
+        List<GameObject> sortPlayer = new List<GameObject>(players.Length);
+        foreach(GameObject p in players)
+            sortPlayer.Add(p);
+
+        sortPlayer = players.OrderBy(x => x.GetComponentInChildren()<Player>()._points).ToList();
+        return sortPlayer;
     }
 
     public void choiceTypeRound()
