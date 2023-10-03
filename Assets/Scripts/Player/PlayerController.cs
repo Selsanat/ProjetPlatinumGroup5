@@ -35,10 +35,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool seeGizmos = true;
     [SerializeField] RaycastParam CollisionRange;
 
-    private bool collidesDown = false;
-    private bool collidesLeft = false;
-    private bool collidesUp = false;
-    private bool collidesRight = false;
+    public bool collidesDown = false;
+    public bool collidesLeft = false;
+    public bool collidesUp = false;
+    public bool collidesRight = false;
     #endregion
 
     #region Parameters GD
@@ -169,6 +169,13 @@ public class PlayerController : MonoBehaviour
         if ((inputDirection.x > 0 || velocityDirection.x > 0) && collidesRight || (inputDirection.x < 0 || velocityDirection.x < 0) && collidesLeft) { velocityDirection.x = 0; }
         transform.Translate(velocityDirection);
     }
+    void ResetCollideCheck()
+    {
+        collidesDown = false;
+        collidesRight = false;
+        collidesLeft = false;
+        collidesUp = false;
+    }
 
     void castDirections()
     {
@@ -177,25 +184,29 @@ public class PlayerController : MonoBehaviour
 
         // Pour chaque axe, teste si le joueur va se retrouver dans un mur après le déplacement de la prochaine frame
         // Si le joueur sera dans un mur après s'être déplacer, cela veut donc dire qu'il collides avec un objet dans la direction dans laquelle il veut aller
-        RaycastHit[] tempRaycastHitsPlayer = Physics.BoxCastAll(tempNextPlayerPos, CollisionRange.dimmensions / 2, velocityDirection, Quaternion.identity, 1f);
-        if(tempRaycastHitsPlayer.Length==0) {
-            collidesDown = false;
-            collidesRight = false;
-            collidesLeft = false;
-            collidesUp = false;
+        Collider[] tempRaycastHitsPlayer = Physics.OverlapBox(tempNextPlayerPos, CollisionRange.dimmensions / 2, Quaternion.identity);
+/*        if(tempRaycastHitsPlayer.Length==0) {
+            ResetCollideCheck();
             return; 
-        }
-        foreach(RaycastHit hit in tempRaycastHitsPlayer)
+        }*/
+        bool tempup = false;
+        bool tempdown = false;
+        bool templeft = false;
+        bool tempright = false;
+        foreach (Collider hit in tempRaycastHitsPlayer)
         {
-            collidesDown = velocityDirection.y < 0 && tempNextPlayerPos.y - CollisionRange.dimmensions.y / 2 <= hit.point.y;
-            collidesUp = velocityDirection.y > 0 && tempNextPlayerPos.y + CollisionRange.dimmensions.y / 2 >= hit.point.y;
-            collidesRight = velocityDirection.x > 0 && tempNextPlayerPos.x + CollisionRange.dimmensions.x / 2 <= hit.point.x;
-            collidesLeft = velocityDirection.x < 0 && tempNextPlayerPos.x - CollisionRange.dimmensions.x / 2 >= hit.point.x;
+            Vector3 tempClosest = hit.ClosestPointOnBounds(tempNextPlayerPos);
+            print(tempClosest.x + "Collision, Point :" + (tempNextPlayerPos.x - CollisionRange.dimmensions.x / 2));
+            tempdown = tempdown || (velocityDirection.y<0 &&  tempNextPlayerPos.y-CollisionRange.dimmensions.y/2 <=tempClosest.y) ;
+            tempup = tempup || (velocityDirection.y > 0 && tempNextPlayerPos.y + CollisionRange.dimmensions.y / 2 >= tempClosest.y);
+
+            templeft = templeft ||( tempNextPlayerPos.x - CollisionRange.dimmensions.x / 2 >= tempClosest.x);
+            tempright = tempright ||(tempNextPlayerPos.x + CollisionRange.dimmensions.x / 2 <= tempClosest.x);
         }
-/*        collidesDown = Physics.OverlapBox(tempNextPlayerPos + downCollisionRange.offset, downCollisionRange.dimmensions/2).Length !=0;
-        collidesLeft = Physics.OverlapBox(tempNextPlayerPos + leftCollisionRange.offset, leftCollisionRange.dimmensions / 2).Length != 0;
-        collidesUp = Physics.OverlapBox(tempNextPlayerPos + upCollisionRange.offset, upCollisionRange.dimmensions / 2).Length != 0;
-        collidesRight = Physics.OverlapBox(tempNextPlayerPos + rightCollisionRange.offset, rightCollisionRange.dimmensions / 2).Length != 0 ;*/
+        collidesDown = tempdown;
+        collidesLeft = templeft;
+        collidesRight = tempright;
+        collidesUp = tempup;
         
     }
 
