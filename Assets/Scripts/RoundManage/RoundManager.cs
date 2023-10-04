@@ -5,7 +5,7 @@ using System.Linq;
 
 public class RoundManager : MonoBehaviour
 {
-    private enum RoundState
+   /* private enum RoundState
     {
         SoloRound,
         DuoRound,
@@ -427,5 +427,5 @@ public class RoundManager : MonoBehaviour
             break;            
         }
         
-    }
+    }*/
 }
