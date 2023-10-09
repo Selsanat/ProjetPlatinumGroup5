@@ -4,123 +4,82 @@ using UnityEngine;
 
 public class BouleMouvement : MonoBehaviour
 {
-    public Transform player; // Référence au joueur (doit être affectée dans l'inspecteur Unity)
+    public Transform player; // R f rence au joueur (doit  tre affect e dans l'inspecteur Unity)
+
+    [Tooltip("Vitesse de rotation de la boule autour du joueur")]
     public float rotationSpeed = 5.0f; // Vitesse de rotation de la boule autour du joueur
     public Vector3 rotationAxis = Vector3.left; // Axe de rotation
-
+    [Tooltip("Sens de rotation initial")]
     public bool clockwise = true; // Sens de rotation initial
 
+    [Tooltip("Taille de la boule")]
     public float size = 1;
-    public Vector3 offset; // Vecteur de décalage initial entre le joueur et la boule
-    public Vector3 offsetInit; // Vecteur de décalage initial entre le joueur et la boule
-    bool isChangingSize = false;
+    [Tooltip("Vitesse de lancer de la boule")]
+    public float speedThrowing = 1;
+
+    public Vector3 offset; // Vecteur de d calage initial entre le joueur et la boule
+    private float angle = 0;
+    private bool isThrowing = false;
+
     void Start()
     {
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.position.z);
-        // Calcule le vecteur de décalage initial entre le joueur et la boule
+        // Calcule le vecteur de d calage initial entre le joueur et la boule
         offset = (player.position - this.transform.position) * size;
-        offsetInit = (player.position - this.transform.position) * size;
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(size > 1)
-                StartCoroutine(sizeDown());
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            StartCoroutine(agrandissement());
+            isThrowing = true;
         }
     }
 
-    public IEnumerator agrandissement()
-    {
-        float currentSize = size;
-        isChangingSize = true;
-        size += 0.5f;
-        while(currentSize <= size)
-        {
-            
-            Quaternion rotation = Quaternion.Euler(0, 0, Time.deltaTime * (clockwise ? rotationSpeed : -rotationSpeed));
-
-            // Normalise l'offset pour maintenir une distance constante
-            offset = offset.normalized * offset.magnitude;
-
-            offset = rotation * offset * currentSize;
-
-            Vector3 newPosition = player.position + offset;
-
-            // Déplace la boule à la nouvelle position
-            transform.position = newPosition;
-
-            // Assurez-vous que la boule regarde toujours vers le joueur
-            transform.LookAt(player);
-
-            currentSize += 0.1f;
-            yield return new WaitForSeconds(0.01f);
-        }
-        isChangingSize = false;
-        yield return null;
-    }
-
-
-    public IEnumerator sizeDown()
-    {
-        float currentSize = size;
-        isChangingSize = true;
-        size -= 0.5f;
-        while (currentSize >= size)
-        {
-
-            Quaternion rotation = Quaternion.Euler(0, 0, Time.deltaTime * (clockwise ? rotationSpeed : -rotationSpeed));
-
-            // Normalise l'offset pour maintenir une distance constante
-            offset = offset.normalized * offset.magnitude;
-
-            offset = rotation * offset * currentSize;
-
-            Vector3 newPosition = player.position + offset;
-
-            // Déplace la boule à la nouvelle position
-            transform.position = newPosition;
-
-            // Assurez-vous que la boule regarde toujours vers le joueur
-            transform.LookAt(player);
-
-            currentSize -= 0.1f;
-            yield return new WaitForSeconds(0.01f);
-        }
-        isChangingSize = false;
-        yield return null;
-    }
+   
     private void FixedUpdate()
     {
-        if(!isChangingSize)
+
+        switch (isThrowing)
         {
-            // Calcule la nouvelle position de la boule autour du joueur
-            Quaternion rotation = Quaternion.Euler(0, 0, Time.deltaTime * (clockwise ? rotationSpeed : -rotationSpeed));
-
-            // Normalise l'offset pour maintenir une distance constante
-            offset = offset.normalized * offset.magnitude;
-
-            offset = rotation * offset;
-
-            Vector3 newPosition = player.position + offset;
-
-            // Déplace la boule à la nouvelle position
-            transform.position = newPosition;
-
-            // Assurez-vous que la boule regarde toujours vers le joueur
-            transform.LookAt(player);
+            case false:
+                updateRotationBoule();
+                break;
+            case true:
+                updateThrowing();
+                break;
+            
         }
-        
-        
+
+
     }
 
+    private void updateThrowing()
+    {
 
-    // Fonction appelée lorsque la boule entre en collision avec un autre objet
+        // D place la boule   la nouvelle position
+        transform.position += transform.InverseTransformDirection(Vector3.forward) * Time.deltaTime * speedThrowing;
+        
+    }
+    private void updateRotationBoule()
+    {
+        // Calcule la nouvelle position de la boule autour du joueur
+        Quaternion rotation = Quaternion.Euler(0, 0, Time.deltaTime* (clockwise? rotationSpeed : -rotationSpeed));
+
+        // Normalise l'offset pour maintenir une distance constante
+        offset = offset.normalized* offset.magnitude;
+
+        offset = rotation * offset;
+
+        Vector3 newPosition = player.position + offset;
+
+        // D place la boule   la nouvelle position
+        transform.position = newPosition;
+
+        // Assurez-vous que la boule regarde toujours vers le joueur
+        transform.LookAt(player);
+    }
+    // Fonction appel e lorsque la boule entre en collision avec un autre objet
     private void OnCollisionEnter(Collision collision)
     {
         // Change le sens de rotation lorsque la collision se produit
