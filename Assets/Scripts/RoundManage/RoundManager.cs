@@ -33,6 +33,7 @@ public class RoundManager : MonoBehaviour
         TrioRound,
         DuoSoloRound
     }
+    private Typeround _typeRound;
 
     [SerializeField]
     private int _roundBeforeTeamRound = 3;
@@ -56,7 +57,6 @@ public class RoundManager : MonoBehaviour
 
     private Timer _timer;
 
-    private Typeround _typeRound;
 
     public bool _isPlayer1Dead = false;
     public bool _isPlayer2Dead = false;
@@ -65,11 +65,7 @@ public class RoundManager : MonoBehaviour
 
     struct Typeround
     {
-        public int[] solo;
-        public int[] duo;
-        public int[] trio;
-        public int[] duoSolo;
-
+        public int[] solo, duo, trio, duoSolo;
     }
     private void Start()
     {
