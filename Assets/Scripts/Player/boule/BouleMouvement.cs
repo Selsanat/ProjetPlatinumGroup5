@@ -73,7 +73,9 @@ public class BouleMouvement : MonoBehaviour
             _beforeThrow = this.transform;
         }
         Debug.Log(this.transform.localRotation.y);
-        if(_clockwise && this.transform.rotation.y == 90) //avec le look at, la rotation peut switch de sens, il faut donc changé le inversé le up 
+        //if ((_clockwise && this.transform.rotation.y == 90) || (!_clockwise && this.transform.rotation.y == -90)) //avec le look at, la rotation peut switch de sens, il faut donc changé le inversé le up 
+
+        if (_clockwise && this.transform.rotation.y == 90) //avec le look at, la rotation peut switch de sens, il faut donc changé le inversé le up 
         {
             transform.position += -this.transform.up * Time.deltaTime * _speedThrowing;
             Debug.Log("test");
