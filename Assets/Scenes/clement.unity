@@ -387,6 +387,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a719c499ed74a2e4e9bcb831e566b1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _roundBeforeTeamRound: 3
+  _roundState: 0
+  _roundNumber: 0
+  _aliveCount: 0
+  _isTeam1Dead: 0
+  _isTeam2Dead: 0
+  AliveDead: []
+  _players: []
+  _team1: []
+  _team2: []
+  _playerAvailable: []
+  _timer: {fileID: 0}
+  _isPlayer1Dead: 0
+  _isPlayer2Dead: 0
+  _isPlayer3Dead: 0
+  _isPlayer4Dead: 0
 --- !u!1 &615130678
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92009c9f4246ebe4aa27bedc863595be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
   _rotationSpeed: 100
   _clockwise: 1
   _size: 1
@@ -718,7 +733,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &1373862579
 CapsuleCollider:
@@ -930,7 +945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1674794939
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -3,9 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+
+
+public class Player : MonoBehaviour
+{
+    public enum PlayerTeam // a mettre dans le player, et le mettre de base a available
+    {
+        Team1 = 0,
+        Team2 = 1,
+        Team3 = 2,
+        Team4 = 3,
+        Available = 4
+    }
+    public PlayerTeam _playerTeam = PlayerTeam.Available;
+
+    public bool _isDead = false;
+    public int _points = 0;
+
+
+
+}
 public class RoundManager : MonoBehaviour
 {
-   /* private enum RoundState
+    
+    private enum RoundState
     {
         SoloRound,
         DuoRound,
@@ -13,37 +34,6 @@ public class RoundManager : MonoBehaviour
         DuoSoloRound
     }
 
-    public enum PlayerTeam // a mettre dans le player, et le mettre de base a available
-    {
-        Team1 = 0, 
-        Team2 = 1,
-        Team3 = 2,
-        Team4 = 3,
-        Available = 4
-    }
-
-    public enum PlayerState
-    {
-        vivant,
-        mort
-    }
-
-    
-    
-    public PlayerTeam GetPlayerTeam(GameObject player)
-    {
-        if (player.tag == "Team1")
-            return PlayerTeam.Team1;
-        else if (player.tag == "Team2")
-            return PlayerTeam.Team2;
-        else if (player.tag == "Team3")
-            return PlayerTeam.Team3;
-        else if (player.tag == "Team4")
-            return PlayerTeam.Team4;
-        else
-            return PlayerTeam.Available;
-    }
-    PlayerTeam playerTeam;
     [SerializeField]
     private int _roundBeforeTeamRound = 3;
     [SerializeField]
@@ -66,7 +56,7 @@ public class RoundManager : MonoBehaviour
 
     private Timer _timer;
 
-    private Typeround typeRound;
+    private Typeround _typeRound;
 
     public bool _isPlayer1Dead = false;
     public bool _isPlayer2Dead = false;
@@ -75,42 +65,51 @@ public class RoundManager : MonoBehaviour
 
     struct Typeround
     {
-        [SerializeField]
         public int[] solo;
-        [SerializeField]
         public int[] duo;
-        [SerializeField]
         public int[] trio;
-        [SerializeField]
         public int[] duoSolo;
-
-
 
     }
     private void Start()
     {
         _timer = FindAnyObjectByType<Timer>();
 
-        typeRound.solo = new int[] { 1, 1, 1, 1 };
-        typeRound.duo = new int[] { 2, 2 };
-        typeRound.trio = new int[] { 3, 1};
-        typeRound.duoSolo = new int[] { 2, 1, 1 };
+        _typeRound.solo = new int[] { 1, 1, 1, 1 };
+        _typeRound.duo = new int[] { 2, 2 };
+        _typeRound.trio = new int[] { 3, 1 };
+        _typeRound.duoSolo = new int[] { 2, 1, 1 };
     }
     public void testCheckWin()
     {
-        List<GameObject> playerAlive = new List<GameObject>();
-
-        foreach (int i in TypeRound)
+        //soit avoir des liste qui refer si dans chaque team il y a des morts
+        foreach (var player in _players) 
         {
-
+            if (player.GetComponent<Player>()._isDead)
+            {
+                switch (player.GetComponent<Player>()._playerTeam)
+                {
+                    case Player.PlayerTeam.Team1:
+                        _isPlayer1Dead = true;
+                        break;
+                    case Player.PlayerTeam.Team2:
+                        _isPlayer2Dead = true;
+                        break;
+                    case Player.PlayerTeam.Team3:
+                        _isPlayer3Dead = true;
+                        break;
+                    case Player.PlayerTeam.Team4:
+                        _isPlayer4Dead = true;
+                        break;
+                }
+            }
         }
-
 
     }
 
     public void checkWin()
     {
-        if(_roundState == RoundState.SoloRound) // 1v1v1v1
+        if (_roundState == RoundState.SoloRound) // 1v1v1v1
         {
             if (_aliveCount == 1)
             {
@@ -118,7 +117,7 @@ public class RoundManager : MonoBehaviour
                 _timer.StopTimer();
             }
         }
-        else if(_roundState == RoundState.DuoRound) // 2v2
+        else if (_roundState == RoundState.DuoRound) // 2v2
         {
 
             if (_isTeam1Dead)
@@ -135,7 +134,7 @@ public class RoundManager : MonoBehaviour
 
             }
         }
-        else if(_roundState == RoundState.TrioRound) //1v3
+        else if (_roundState == RoundState.TrioRound) //1v3
         {
             if (_isTeam1Dead) //team 1 toujours solo
             {
@@ -152,12 +151,12 @@ public class RoundManager : MonoBehaviour
         }
         else if (_roundState == RoundState.DuoSoloRound) //2v1v1
         {
-            if(_aliveCount == 1) // toutes les équipes peuvent win ici
+            if (_aliveCount == 1) // toutes les équipes peuvent win ici
             {
                 newRoud();
                 _timer.StopTimer();
             }
-            else if (_aliveCount == 2 && !_team1[0]._isDead && !_team1[1]._isDead) // s'il y a deux survivant et qu'ils sont de la team 1
+            else if (_aliveCount == 2 && !_team1[0].GetComponent<Player>()._isDead && !_team1[1].GetComponent<Player>()._isDead) // s'il y a deux survivant et qu'ils sont de la team 1
             {
                 newRoud();
                 _timer.StopTimer();
@@ -168,10 +167,6 @@ public class RoundManager : MonoBehaviour
     public void newRoud()
     {
         _roundNumber++;
-        _isPlayer1Dead = false;
-        _isPlayer2Dead = false;
-        _isPlayer3Dead = false;
-        _isPlayer4Dead = false;
         _isTeam1Dead = false;
         _isTeam2Dead = false;
         _aliveCount = 0;
@@ -181,8 +176,8 @@ public class RoundManager : MonoBehaviour
 
         _playerAvailable = new List<GameObject>(_players);
 
-        if(_roundNumber >= _roundBeforeTeamRound)
-            choiceTypeRound();
+        if (_roundNumber >= _roundBeforeTeamRound)
+            test(_typeRound.solo);
 
         _timer.StartTimer();
 
@@ -192,17 +187,17 @@ public class RoundManager : MonoBehaviour
     public void test(int[] TypeRound)
     {
 
-        foreach(int i in TypeRound)
+        foreach (int i in TypeRound)
         {
-            for(int j = 0; j <= i; j++)
+            for (int j = 0; j <= i; j++)
             {
                 int random = Random.Range(0, _players.Length);
-                playerTeam = (PlayerTeam)i;
-                while (_players[random].PlayerTeam != PlayerTeam.Available)
+                Player.PlayerTeam playerTeam = (Player.PlayerTeam)i;
+                while (_players[random].GetComponent<Player>()._playerTeam != Player.PlayerTeam.Available)
                 {
                     random = Random.Range(0, _players.Length);
                 }
-                _players[random].PlayerTeam = playerTeam;
+                _players[random].GetComponent<Player>()._playerTeam = playerTeam;
             }
         }
     }
@@ -213,18 +208,18 @@ public class RoundManager : MonoBehaviour
     public List<GameObject> sortingPlayerPoints(GameObject[] players)
     {
         List<GameObject> sortPlayer = new List<GameObject>(players.Length);
-        foreach(GameObject p in players)
+        foreach (GameObject p in players)
             sortPlayer.Add(p);
 
-        sortPlayer = players.OrderBy(x => x.GetComponentInChildren()<Player>()._points).ToList();
+        sortPlayer = players.OrderBy(x => x.GetComponent<Player>()._points).ToList();
         return sortPlayer;
     }
 
-    public void choiceTypeRound()
+    /*public void choiceTypeRound()
     {
         int random = Random.Range(0, 4);
 
-        switch(random)
+        switch (random)
         {
             case 0:// 1v1v1v1
                 _roundState = RoundState.SoloRound;
@@ -232,7 +227,7 @@ public class RoundManager : MonoBehaviour
                 {
                     player.tag = "Player";
                 }
-            break;
+                break;
 
             case 1: // 2v2
                 _roundState = RoundState.DuoRound;
@@ -253,7 +248,7 @@ public class RoundManager : MonoBehaviour
                     }
 
                 }
-            break;
+                break;
 
             case 2:// 1v3
                 _roundState = RoundState.TrioRound;
@@ -276,14 +271,14 @@ public class RoundManager : MonoBehaviour
                 }
                 playerMostPoints.tag = "Team1";
                 _team1.Add(playerMostPoints);
-            break;
+                break;
 
             case 3: // 2v1v1
                 _roundState = RoundState.DuoSoloRound;
 
 
                 int randomDuo = Random.Range(0, 3);
-                switch(randomDuo)
+                switch (randomDuo)
                 {
                     case 0: //plus fort avec le plus faible
                         GameObject playerMostPoint = null;
@@ -315,7 +310,7 @@ public class RoundManager : MonoBehaviour
                         {
                             player.tag = "Player";
                         }
-                    break;
+                        break;
 
                     case 1: //plus fort avec le plus fort
                         playerMostPoint = null;
@@ -353,7 +348,7 @@ public class RoundManager : MonoBehaviour
                         {
                             player.tag = "Player";
                         }
-                    break;
+                        break;
 
                     case 2: //plus faible avec le plus faible
                         playerMostPoint = null;
@@ -390,7 +385,7 @@ public class RoundManager : MonoBehaviour
                             _team1.Add(player);
 
                         }
-                    break;
+                        break;
 
                     case 3: //millieu avec millieu
                         playerMostPoint = null;
@@ -422,10 +417,10 @@ public class RoundManager : MonoBehaviour
                             _team1.Add(player);
 
                         }
-                    break;
+                        break;
                 }
-            break;            
+                break;
         }
-        
+
     }*/
 }
