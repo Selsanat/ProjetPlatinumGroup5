@@ -5,6 +5,7 @@ using UnityEngine;
 public class BouleMouvement : MonoBehaviour
 {
     #region public variables
+
     [Tooltip("Vitesse de rotation de la boule autour du joueur")]
     public float _rotationSpeed = 100.0f; // Vitesse de rotation de la boule autour du joueur
     [Tooltip("Sens de rotation initial")]
@@ -14,14 +15,15 @@ public class BouleMouvement : MonoBehaviour
     public float _size = 1.0f;
     [Tooltip("Vitesse de lancer de la boule")]
     public float _speedThrowing = 10.0f;
-
-    public Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     #endregion
+
     #region Private variables
+
     private bool _isThrowing = false;
     private bool _canReturn = true; // a mettre en false de base
     private Transform _beforeThrow;
-    private Transform _player; 
+    private Transform _player;
+    private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
 
     #endregion
 
@@ -54,6 +56,7 @@ public class BouleMouvement : MonoBehaviour
    
     private void FixedUpdate()
     {
+
         switch (_isThrowing)
         {
             case false:
@@ -71,29 +74,10 @@ public class BouleMouvement : MonoBehaviour
         if(_beforeThrow == null)
             _beforeThrow = this.transform;
         
-        if ((_clockwise && this.transform.rotation.y == 90) || (!_clockwise && this.transform.rotation.y == -90)) //avec le look at, la rotation peut switch de sens, il faut donc changé le inversé le up 
+        if ((_clockwise && this.transform.rotation.eulerAngles.y == 90) || (!_clockwise && this.transform.rotation.eulerAngles.y == 270)) //avec le look at, la rotation peut switch de sens, il faut donc changé le inversé le up 
             transform.position += -this.transform.up * Time.deltaTime * _speedThrowing;
         else
             transform.position += this.transform.up * Time.deltaTime * _speedThrowing;
-
-        /*if (_clockwise && this.transform.rotation.y == 90) //avec le look at, la rotation peut switch de sens, il faut donc changé le inversé le up 
-        {
-            transform.position += -this.transform.up * Time.deltaTime * _speedThrowing;
-            Debug.Log("90");
-        }
-        else if (!_clockwise && this.transform.rotation.y == -90)
-        {
-            transform.position += -this.transform.up * Time.deltaTime * _speedThrowing;
-            Debug.Log("-90");
-        }
-        else
-        {
-            transform.position += this.transform.up * Time.deltaTime * _speedThrowing;
-            Debug.Log("else");
-        }
-        */
-
-
     }
 
     private void returnBoule()
