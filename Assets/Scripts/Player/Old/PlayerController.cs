@@ -8,8 +8,6 @@ using DG.Tweening;
 using UnityEngine.Rendering;
 using TMPro;
 
-//rajouté un struct qui a les raycast param 
-//pour la détéction de la coll, tracé un trait et voir s'il est entre un coté 
 public class PlayerController : MonoBehaviour
 {
     #region Inputs
@@ -91,7 +89,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         //Setup Liste des inputs
-        _IPplayercontrols = this.GetComponent<PlayerInput>().actions;
+        _IPplayercontrols = this.GetComponent<UnityEngine.InputSystem.PlayerInput>().actions;
         _actions = new List<InputAction>();
         for (int i = 0; i < _IPplayercontrols.actionMaps[0].actions.Count; i++)
         {
