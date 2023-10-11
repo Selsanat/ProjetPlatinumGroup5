@@ -27,9 +27,14 @@ public class BouleMouvement : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        _player = FindAnyObjectByType<PlayerController>().transform;
+    }
+
     void Start()
     {
-        _player = GetComponentsInParent<Transform>()[1];
+        //_player = GetComponentsInParent<Transform>()[1];
 
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _player.position.z);
         _offset = (_player.position - this.transform.position) * _size;// Calcule le vecteur de d calage initial entre le joueur et la boule
@@ -37,20 +42,28 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
             _isThrowing = true;
 
         }
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            _isThrowing = false;
+            //_canReturn = false;
+            returnBoule();
+        }
         else if(Input.GetMouseButtonDown(0))
         {
-            if(_isThrowing && _canReturn)
+            if(_isThrowing)
             {
                 _isThrowing = false;
-                _canReturn = false;
+                //_canReturn = false;
                 returnBoule();
             }
         }
+
     }
 
    
@@ -60,7 +73,8 @@ public class BouleMouvement : MonoBehaviour
         switch (_isThrowing)
         {
             case false:
-                updateRotationBoule();
+                //updateRotationBoule();
+                transform.RotateAround(_player.transform.position , Vector3.forward, 50 * Time.deltaTime);
                 break;
             case true:
                 updateThrowing();
@@ -74,10 +88,7 @@ public class BouleMouvement : MonoBehaviour
         if(_beforeThrow == null)
             _beforeThrow = this.transform;
         
-        if ((_clockwise && this.transform.rotation.eulerAngles.y == 90) || (!_clockwise && this.transform.rotation.eulerAngles.y == 270)) //avec le look at, la rotation peut switch de sens, il faut donc changé le inversé le up 
-            transform.position += -this.transform.up * Time.deltaTime * _speedThrowing;
-        else
-            transform.position += this.transform.up * Time.deltaTime * _speedThrowing;
+            transform.position += -this.transform.forward * Time.deltaTime * _speedThrowing;
     }
 
     private void returnBoule()
@@ -90,7 +101,7 @@ public class BouleMouvement : MonoBehaviour
     {
         
         Quaternion rotation = Quaternion.Euler(0, 0, Time.deltaTime* (_clockwise? _rotationSpeed : -_rotationSpeed));// Calcule la nouvelle position de la boule autour du joueur
-        _offset = _offset.normalized* _offset.magnitude; // Normalise l'_offset pour maintenir une distance constante
+        _offset = _offset.normalized * _offset.magnitude; // Normalise l'_offset pour maintenir une distance constante
         _offset = rotation * _offset;
         Vector3 newPosition = _player.position + _offset;
         transform.position = newPosition;// D place la boule   la nouvelle position
