@@ -18,6 +18,7 @@ public class WalkState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        StateMachine.transform.Translate(StateMachine.velocity); 
         #region Jump
 
         if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
@@ -35,26 +36,35 @@ public class WalkState : TemplateState
         }
         #endregion
 
+        #region HasHitWall
+        if (DetectCollision.isColliding(Mathf.Sign(StateMachine.velocity.x) * Vector2.right, StateMachine.transform, Vector2.zero))
+        {
+            StateMachine.velocity.x = 0;
+            StateMachine.ChangeState(StateMachine.stateIdle);
+            return;
+        }
+        #endregion
         #region StopInput
         if (_IOrientWriter.orient.x == 0)
         {
-            #region HasHitWall
-            if (DetectCollision.isColliding(Mathf.Sign(StateMachine.velocity.x) * Vector2.right, StateMachine.transform, Vector2.zero))
-            {
-                StateMachine.velocity.x = 0;
-                StateMachine.ChangeState(StateMachine.stateIdle);
-                return;
-            }
-            #endregion
-
             #region Decelerate
             StateMachine.ChangeState(StateMachine.stateDecelerate);
             return; 
             #endregion
         }
+        else
+        {
+            //Debug.Log(Mathf.Sign(_IOrientWriter.orient.x) + " Mon input, et voila ma velocité : " + Mathf.Sign(StateMachine.velocity.x));
+            if (Mathf.Sign(_IOrientWriter.orient.x) != Mathf.Sign(StateMachine.velocity.x))
+            {
+
+                StateMachine.ChangeState(StateMachine.turnDecelerateState);
+                return;
+            }
+        }
         #endregion
 
 
-        StateMachine.transform.Translate(StateMachine.velocity);
+
     }
 }

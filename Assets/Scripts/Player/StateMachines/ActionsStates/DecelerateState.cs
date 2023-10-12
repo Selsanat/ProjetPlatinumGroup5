@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DetectCollisionExtension;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class DecelerateState : TemplateState
@@ -38,17 +39,19 @@ public class DecelerateState : TemplateState
         }
         #endregion
 
+        #region HasHitWall
+        if (DetectCollision.isColliding(Mathf.Sign(StateMachine.velocity.x) * Vector2.right, StateMachine.transform, Vector2.zero))
+        {
+            StateMachine.velocity.x = 0;
+            StateMachine.ChangeState(StateMachine.stateIdle);
+            return;
+        }
+        #endregion
         #region StopInput
+
         if (_IOrientWriter.orient.x == 0)
         {
-            #region HasHitWall
-            if (DetectCollision.isColliding(Mathf.Sign(StateMachine.velocity.x) * Vector2.right, StateMachine.transform, Vector2.zero))
-            {
-                StateMachine.velocity.x = 0;
-                StateMachine.ChangeState(StateMachine.stateIdle);
-                return;
-            }
-            #endregion
+
 
             #region ToIdle
 
@@ -61,13 +64,23 @@ public class DecelerateState : TemplateState
         }
         else
         {
-            StateMachine.ChangeState(StateMachine.stateAccelerate);
+            if (_timer >= _movementParams.decelerationTime)
+            {
+                StateMachine.ChangeState(StateMachine.stateAccelerate);
+                return;
+            }
+
+            if (sign != Mathf.Sign(_IOrientWriter.orient.x))
+            {
+                StateMachine.ChangeState(StateMachine.turnDecelerateState);
+                return;
+            }
         }
         #endregion
 
         _timer += Time.deltaTime;
-        Debug.Log(_timer + " Temps atm, et temps de deceleration : " + _movementParams.decelerationTime);
-        StateMachine.velocity.x = (1- _timer) * (_movementParams.maxSpeed * Vector2.right.x* sign);
+        //Debug.Log(_timer + " Temps atm, et temps de deceleration : " + _movementParams.decelerationTime);
+        StateMachine.velocity.x = (_movementParams.decelerationTime - _timer) * (_movementParams.maxSpeed * Vector2.right.x* sign);
         StateMachine.transform.Translate(StateMachine.velocity);
     }
 }

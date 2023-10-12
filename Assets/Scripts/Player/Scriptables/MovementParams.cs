@@ -24,6 +24,9 @@ public class MovementParams : ScriptableObject
     [Tooltip("Temps alloué au joueur pour sauter alors qu'il n'est plus sur la plateforme")]public float coyoteWindow = 0;
     [Range(0, 2)]
     [Tooltip("Temps ou on enregistre le saut du joueur si il est en l'air pour le faire sauter si il touche le sol entre temps")] public float jumpBuffer = 0.15f;
+
+    [Range(0, 2)]
+    [Tooltip("Window d'antigravité pour contrôler le saut")] public float apexModifier = 0.15f;
     #endregion
 
     #region Fall
@@ -51,6 +54,11 @@ public class MovementParams : ScriptableObject
     [Tooltip("Temps que prend le joueur a Accélerer")]public float accelerationTime = 2;
     [Range(0, 2)]
     [Tooltip("Temps que prend le joueur a Décélérer")]public float decelerationTime = 2;
+
+    [Range(0, 2)]
+    [Tooltip("Temps que prend le joueur a Accélerer")]public float turnAccelerationTime = 2;
+    [Range(0, 2)]
+    [Tooltip("Temps que prend le joueur a Décélérer")] public float turnDecelerationTime = 2;
 
     #endregion
 

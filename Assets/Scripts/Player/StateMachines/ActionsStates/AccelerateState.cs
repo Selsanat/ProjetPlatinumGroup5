@@ -29,24 +29,23 @@ public class AccelerateState : TemplateState
         #endregion
 
         #region Fall
-        if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector3.zero))
+        if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector2.down*Time.deltaTime*_movementParams.gravityScale))
         {
             StateMachine.ChangeState(StateMachine.fallState);
             return;
         }
         #endregion
-
+        #region HasHitWall
+        if (DetectCollision.isColliding(Mathf.Sign(_IOrientWriter.orient.x) * Vector2.right, StateMachine.transform, Vector2.zero))
+        {
+            StateMachine.velocity.x = 0;
+            StateMachine.ChangeState(StateMachine.stateIdle);
+            return;
+        }
+        #endregion
         #region StopInput
         if (_IOrientWriter.orient.x == 0)
         {
-            #region HasHitWall
-            if (DetectCollision.isColliding(Mathf.Sign(StateMachine.velocity.x) * Vector2.right, StateMachine.transform, Vector2.zero))
-            {
-                StateMachine.velocity.x = 0;
-                StateMachine.ChangeState(StateMachine.stateIdle);
-                return;
-            }
-            #endregion
 
             #region Decelerate
             StateMachine.ChangeState(StateMachine.stateDecelerate);

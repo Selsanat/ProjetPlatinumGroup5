@@ -22,26 +22,37 @@ public class FallState : TemplateState
     protected override void OnStateUpdate()
     {
 
+
         #region JumpBuffer 
-        if(_iWantsJumpWriter.jumpBuffer>0) _iWantsJumpWriter.jumpBuffer -= Time.deltaTime;
+        if (_iWantsJumpWriter.jumpBuffer>0) _iWantsJumpWriter.jumpBuffer -= Time.deltaTime;
         if (_iWantsJumpWriter.wantsJump) _iWantsJumpWriter.jumpBuffer = _movementParams.jumpBuffer;
         #endregion
 
-        if (DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector2.zero))
+        if (DetectCollision.isColliding(Vector2.down, StateMachine.transform, StateMachine.velocity))
         {
-                StateMachine.ChangeState(StateMachine.stateIdle);
+                StateMachine.velocity.y = 0;
+                StateMachine.transform.Translate(StateMachine.velocity);
+                StateMachine.ChangeState(StateMachine.stateAccelerate);
                 return;
         }
 
+        #region HasHitWall
+        if (DetectCollision.isColliding(Mathf.Sign(StateMachine.velocity.x) * Vector2.right, StateMachine.transform, Vector2.zero))
+        {
+            StateMachine.velocity.x = 0;
+        }
+        #endregion
+
         _timer += Time.deltaTime;
 
-        StateMachine.velocity.y = _timer * _movementParams.maxFallSpeed * Vector2.down.y* _movementParams.gravityScale;
+        StateMachine.velocity.y = _timer * _movementParams.maxFallSpeed * Vector2.down.y * _movementParams.gravityScale;
         StateMachine.velocity.y = Mathf.Clamp(StateMachine.velocity.y, -_movementParams.maxFallSpeed, _movementParams.maxFallSpeed);
 
-        StateMachine.velocity.x += Time.deltaTime / _movementParams.accelerationTime * _IOrientWriter.orient.x * (_movementParams.apexControl);
+        StateMachine.velocity.x += Time.deltaTime / _movementParams.accelerationTime * _IOrientWriter.orient.x * (_movementParams.airControl);
         StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -_movementParams.maxSpeed, _movementParams.maxSpeed);
 
 
         StateMachine.transform.Translate(StateMachine.velocity);
+
     }
 }
