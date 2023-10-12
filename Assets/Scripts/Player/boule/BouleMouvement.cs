@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -111,12 +112,9 @@ public class BouleMouvement : MonoBehaviour
         {
             if (contactPoints[i] != null)
             {
-                while (Vector3.Distance(transform.position, contactPoints[i]) > 0.01f)
-                {
-                    new WaitForSeconds(1f);
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, contactPoints[i], Time.deltaTime).normalized * Time.deltaTime * _speedBack;
+                    
+                this.transform.position = Vector3.MoveTowards(this.transform.position, contactPoints[i], Time.deltaTime * _speedBack);
 
-                }
                 //_rb.AddForce((this.transform.position - contactPoints[i]) * Time.deltaTime * _speedThrowing, ForceMode.VelocityChange);
             }
         }
