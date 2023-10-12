@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -20,15 +21,16 @@ public class BouleMouvement : MonoBehaviour
     #region Private variables
 
     private bool _isThrowing = false;
-    private bool _canReturn = true; // a mettre en false de base
     private Transform _beforeThrow;
     private Transform _player;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
+    private Rigidbody _rb;
 
     #endregion
 
     private void Awake()
     {
+        _rb = GetComponent<Rigidbody>();
         _player = FindAnyObjectByType<PlayerController>().transform;
     }
 
@@ -46,9 +48,11 @@ public class BouleMouvement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             _isThrowing = true;
+            updateThrowing();
+
 
         }
-        if(Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             _isThrowing = false;
             //_canReturn = false;
@@ -73,11 +77,10 @@ public class BouleMouvement : MonoBehaviour
         switch (_isThrowing)
         {
             case false:
-                //updateRotationBoule();
-                transform.RotateAround(_player.transform.position , Vector3.forward, 50 * Time.deltaTime);
+                updateRotationBoule();
+                //transform.RotateAround(_player.transform.position , Vector3.forward, 50 * Time.deltaTime);
                 break;
             case true:
-                updateThrowing();
                 break;
         }
 
@@ -86,15 +89,21 @@ public class BouleMouvement : MonoBehaviour
     private void updateThrowing()
     {
         if(_beforeThrow == null)
+        {
             _beforeThrow = this.transform;
-        
-            transform.position += -this.transform.forward * Time.deltaTime * _speedThrowing;
+        }
+        _rb.AddForce(-this.transform.forward * Time.deltaTime * _speedThrowing, ForceMode.VelocityChange);
+
+        //_rb.velocity = -this.transform.forward * Time.deltaTime * _speedThrowing;
+        //transform.position += -this.transform.forward * Time.deltaTime * _speedThrowing;
     }
 
     private void returnBoule()
     {
         this.transform.position = _beforeThrow.position;
         this.transform.rotation = _beforeThrow.rotation;
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
         _beforeThrow = null;
     }
     private void updateRotationBoule()
@@ -113,7 +122,5 @@ public class BouleMouvement : MonoBehaviour
     {
         _clockwise = !_clockwise;// Change le sens de rotation lorsque la collision se produit
 
-        if (_isThrowing)
-            _canReturn = true;
     }
 }
