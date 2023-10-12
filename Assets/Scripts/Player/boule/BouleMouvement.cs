@@ -58,7 +58,7 @@ public class BouleMouvement : MonoBehaviour
         {
             _isThrowing = false;
             //_canReturn = false;
-            returnBoule();
+            StartCoroutine(returnBoule());
         }
         else if(Input.GetMouseButtonDown(0))
         {
@@ -100,7 +100,7 @@ public class BouleMouvement : MonoBehaviour
         //transform.position += -this.transform.forward * Time.deltaTime * _speedThrowing;
     }
 
-    private void returnBoule()
+    private IEnumerator returnBoule()
     {
         if(contactPoints.Count == 0)
         {
@@ -113,7 +113,9 @@ public class BouleMouvement : MonoBehaviour
             {
                 while (Vector3.Distance(transform.position, contactPoints[i]) > 0.01f)
                 {
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, contactPoints[i], Time.deltaTime);
+                    new WaitForSeconds(1f);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, contactPoints[i], Time.deltaTime).normalized * Time.deltaTime * _speedBack;
+
                 }
                 //_rb.AddForce((this.transform.position - contactPoints[i]) * Time.deltaTime * _speedThrowing, ForceMode.VelocityChange);
             }
@@ -123,6 +125,8 @@ public class BouleMouvement : MonoBehaviour
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         _beforeThrow = null;
+
+        yield return null;
     }
     private void updateRotationBoule()
     {
