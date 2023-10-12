@@ -28,9 +28,9 @@ public class JumpState : TemplateState
 
 
         float percent = _timer / movementParams.timeToReachJumpHeight;
-        StateMachine.velocity.y = movementParams.jumpHeight/10 - movementParams.timeToReachJumpHeight * percent;
-        StateMachine.velocity.x += Time.deltaTime / _movementParams.accelerationTime * _IOrientWriter.orient.x * (_movementParams.airControl/10);
-        StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -_movementParams.maxSpeed / 100, _movementParams.maxSpeed / 100);
+        StateMachine.velocity.y = movementParams.jumpHeight - movementParams.timeToReachJumpHeight * percent;
+        StateMachine.velocity.x += Time.deltaTime / _movementParams.accelerationTime * _IOrientWriter.orient.x * (_movementParams.airControl);
+        StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -_movementParams.maxSpeed , _movementParams.maxSpeed );
         StateMachine.transform.Translate(StateMachine.velocity);
     }
 }

@@ -61,6 +61,7 @@ public class PlayerStateMachine : MonoBehaviour
         //Debug.Log(GetComponent<IWantsJumpWriter>().wantsJump);
         //Debug.Log(GetComponent<IWantsJumpWriter>().jumpBuffer);
         CurrentState.StateUpdate();
+
     }
     private void _InitAllStates()
     {

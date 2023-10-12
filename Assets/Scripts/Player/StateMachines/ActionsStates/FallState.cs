@@ -35,11 +35,11 @@ public class FallState : TemplateState
 
         _timer += Time.deltaTime;
 
-        StateMachine.velocity.y = _timer * _movementParams.maxFallSpeed * Vector2.down.y;
+        StateMachine.velocity.y = _timer * _movementParams.maxFallSpeed * Vector2.down.y* _movementParams.gravityScale;
         StateMachine.velocity.y = Mathf.Clamp(StateMachine.velocity.y, -_movementParams.maxFallSpeed, _movementParams.maxFallSpeed);
 
-        StateMachine.velocity.x += Time.deltaTime / _movementParams.accelerationTime * _IOrientWriter.orient.x * (_movementParams.apexControl/10);
-        StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -_movementParams.maxSpeed/100, _movementParams.maxSpeed/100);
+        StateMachine.velocity.x += Time.deltaTime / _movementParams.accelerationTime * _IOrientWriter.orient.x * (_movementParams.apexControl);
+        StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -_movementParams.maxSpeed, _movementParams.maxSpeed);
 
 
         StateMachine.transform.Translate(StateMachine.velocity);
