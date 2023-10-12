@@ -16,6 +16,7 @@ public class BouleMouvement : MonoBehaviour
     public float _size = 1.0f;
     [Tooltip("Vitesse de lancer de la boule")]
     public float _speedThrowing = 10.0f;
+    public float _speedBack = 2.0f;
     #endregion
 
     #region Private variables
@@ -25,6 +26,7 @@ public class BouleMouvement : MonoBehaviour
     private Transform _player;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     private Rigidbody _rb;
+    private List<Vector3> contactPoints;
 
     #endregion
 
@@ -37,7 +39,7 @@ public class BouleMouvement : MonoBehaviour
     void Start()
     {
         //_player = GetComponentsInParent<Transform>()[1];
-
+        contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _player.position.z);
         _offset = (_player.position - this.transform.position) * _size;// Calcule le vecteur de d calage initial entre le joueur et la boule
     }
@@ -100,8 +102,24 @@ public class BouleMouvement : MonoBehaviour
 
     private void returnBoule()
     {
-        this.transform.position = _beforeThrow.position;
-        this.transform.rotation = _beforeThrow.rotation;
+        if(contactPoints.Count == 0)
+        {
+            contactPoints.Add(_beforeThrow.position);
+        }
+
+        for(int i = contactPoints.Count - 1; i != 0; i--)
+        {
+            if (contactPoints[i] != null)
+            {
+                while (Vector3.Distance(transform.position, contactPoints[i]) > 0.01f)
+                {
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, contactPoints[i], Time.deltaTime);
+                }
+                //_rb.AddForce((this.transform.position - contactPoints[i]) * Time.deltaTime * _speedThrowing, ForceMode.VelocityChange);
+            }
+        }
+        contactPoints.Clear();
+        
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         _beforeThrow = null;
@@ -121,6 +139,9 @@ public class BouleMouvement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         _clockwise = !_clockwise;// Change le sens de rotation lorsque la collision se produit
-
+        if(_isThrowing)
+        {
+            contactPoints.Add(this.transform.position);
+        }
     }
 }
