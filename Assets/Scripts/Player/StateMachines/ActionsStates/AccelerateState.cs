@@ -46,7 +46,6 @@ public class AccelerateState : TemplateState
         #region StopInput
         if (_IOrientWriter.orient.x == 0)
         {
-
             #region Decelerate
             StateMachine.ChangeState(StateMachine.stateDecelerate);
             return;

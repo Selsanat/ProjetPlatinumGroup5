@@ -14,9 +14,9 @@ public class MovementParams : ScriptableObject
 
     [Range(0,1)]
     [Tooltip("Force de saut")] public float jumpHeight = 0.5f;
-    [Range(0, 10)]
+    [Range(0, 2)]
     [Tooltip("Time to reach jumpheight")] public float timeToReachJumpHeight = 2;
-    [Range(1, 5)]
+    [Range(0, 1)]
     [Tooltip("Saut Min")] public float minJump = 0;
     [Range(0, 5)]
     [Tooltip("Temps Avant de sauter")]public float jumpCastTime = 0;
