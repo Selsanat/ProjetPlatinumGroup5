@@ -78,10 +78,7 @@ public class BouleMouvement : MonoBehaviour
 
         }
         if (_isReturning)
-        {
-
             returnBoule();
-        }   
         
 
     }
@@ -89,15 +86,8 @@ public class BouleMouvement : MonoBehaviour
    
     private void FixedUpdate()
     {
-
-        switch (_isThrowing)
-        {
-            case false:
-                updateRotationBoule();
-                break;
-            case true:
-                break;
-        }
+        if(_isThrowing)
+            updateRotationBoule();
 
     }
 
@@ -160,6 +150,20 @@ public class BouleMouvement : MonoBehaviour
         if(_isThrowing)
         {
             _contactPoints.Add(this.transform.position);
+        }
+        if(collision.gameObject.tag == "Player")
+        {
+            if (_contactPoints.Count == 0)
+            {
+                _contactPoints.Add(_beforeThrow.position);
+            }
+            _destPoint = _contactPoints.Count;
+            _target = _contactPoints[_destPoint - 1];
+            _isReturning = true;
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+            this.transform.rotation = Quaternion.identity;
+            this.GetComponentInChildren<SphereCollider>().material = null;
         }
     }
 }
