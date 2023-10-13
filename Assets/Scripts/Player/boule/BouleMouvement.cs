@@ -27,7 +27,11 @@ public class BouleMouvement : MonoBehaviour
     private Transform _player;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     private Rigidbody _rb;
-    private List<Vector3> contactPoints;
+    public List<Vector3> _contactPoints;
+    private Vector3 _target;
+    private int _destPoint;
+    private bool _isReturning = false;
+
 
     #endregion
 
@@ -40,7 +44,7 @@ public class BouleMouvement : MonoBehaviour
     void Start()
     {
         //_player = GetComponentsInParent<Transform>()[1];
-        contactPoints = new List<Vector3>();
+        _contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _player.position.z);
         _offset = (_player.position - this.transform.position) * _size;// Calcule le vecteur de d calage initial entre le joueur et la boule
     }
@@ -57,19 +61,24 @@ public class BouleMouvement : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            _isThrowing = false;
-            //_canReturn = false;
-            StartCoroutine(returnBoule());
-        }
-        else if(Input.GetMouseButtonDown(0))
-        {
-            if(_isThrowing)
+            if(_contactPoints.Count == 0)
             {
-                _isThrowing = false;
-                //_canReturn = false;
-                returnBoule();
+                _contactPoints.Add(_beforeThrow.position);
             }
+            _destPoint = _contactPoints.Count;
+            _target = _contactPoints[_destPoint - 1];
+            _isReturning = true;
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+            this.transform.rotation = Quaternion.identity;
+
         }
+        if(_isReturning)
+        {
+
+            returnBoule();
+        }   
+        
 
     }
 
@@ -81,7 +90,6 @@ public class BouleMouvement : MonoBehaviour
         {
             case false:
                 updateRotationBoule();
-                //transform.RotateAround(_player.transform.position , Vector3.forward, 50 * Time.deltaTime);
                 break;
             case true:
                 break;
@@ -101,30 +109,34 @@ public class BouleMouvement : MonoBehaviour
         //transform.position += -this.transform.forward * Time.deltaTime * _speedThrowing;
     }
 
-    private IEnumerator returnBoule()
+    private void returnBoule()
     {
-        if(contactPoints.Count == 0)
-        {
-            contactPoints.Add(_beforeThrow.position);
-        }
-
-        for(int i = contactPoints.Count - 1; i != 0; i--)
-        {
-            if (contactPoints[i] != null)
-            {
-                    
-                this.transform.position = Vector3.MoveTowards(this.transform.position, contactPoints[i], Time.deltaTime * _speedBack);
-
-                //_rb.AddForce((this.transform.position - contactPoints[i]) * Time.deltaTime * _speedThrowing, ForceMode.VelocityChange);
-            }
-        }
-        contactPoints.Clear();
         
-        _rb.velocity = Vector3.zero;
-        _rb.angularVelocity = Vector3.zero;
-        _beforeThrow = null;
 
-        yield return null;
+        Vector3 dir = (_target - this.transform.position).normalized;
+        transform.Translate(dir * Time.deltaTime * _speedBack, Space.World);
+
+        if (_target == _contactPoints[0] && Vector3.Distance(transform.position, _target) < 0.1f)
+        {
+            _contactPoints.Clear();
+            //this.transform.position = _beforeThrow.position;
+            this.transform.rotation = _beforeThrow.rotation;
+            _beforeThrow = null;
+            _isReturning = false;
+            _isThrowing = false;
+
+            return;
+
+        }
+        if (Vector3.Distance(transform.position, _target) < 0.1f)
+        {
+            _destPoint--;
+            _target = _contactPoints[_destPoint];
+        }
+        
+        
+
+
     }
     private void updateRotationBoule()
     {
@@ -143,7 +155,7 @@ public class BouleMouvement : MonoBehaviour
         _clockwise = !_clockwise;// Change le sens de rotation lorsque la collision se produit
         if(_isThrowing)
         {
-            contactPoints.Add(this.transform.position);
+            _contactPoints.Add(this.transform.position);
         }
     }
 }
