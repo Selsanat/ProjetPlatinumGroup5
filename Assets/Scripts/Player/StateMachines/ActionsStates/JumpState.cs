@@ -21,7 +21,10 @@ public class JumpState : TemplateState
     {
         _timer += Time.deltaTime;
         StateMachine.velocity.y = _movementParams.jumpHeight * (1 - _timer / _movementParams.timeToReachJumpHeight);
-        (_IOrientWriter.orient.y == 0 && _timer)
+        if (_IOrientWriter.orient.y == 0)
+        {
+
+        }
         //Debug.Log(StateMachine.velocity.y);
 
 

@@ -38,7 +38,7 @@ public class BouleMouvement : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _player = FindAnyObjectByType<PlayerController>().transform;
+        _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
     }
 
     void Start()
@@ -51,8 +51,8 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(_player==null) _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             _isThrowing = true;
             updateThrowing();
