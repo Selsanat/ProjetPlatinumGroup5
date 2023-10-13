@@ -17,9 +17,9 @@ public class FallState : TemplateState
     protected override void OnStateEnter(TemplateState previousState)
     {
         _timer = (StateMachine.velocity.y/_movementParams.maxFallSpeed)* _movementParams.timeToReachMaxFallSpeed;
-        Debug.Log(StateMachine.PreviousState);
-        Debug.Log(StateMachine.jumpState);
-        Debug.Log(StateMachine.PreviousState != StateMachine.jumpState);
+        //Debug.Log(StateMachine.PreviousState);
+        //Debug.Log(StateMachine.jumpState);
+        //Debug.Log(StateMachine.PreviousState != StateMachine.jumpState);
         if (StateMachine.PreviousState != StateMachine.jumpState) _coyote = _movementParams.coyoteWindow;
         else _coyote = 0;
     }

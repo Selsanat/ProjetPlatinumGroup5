@@ -13,20 +13,19 @@ public class MovementParams : ScriptableObject
     [Header("Jump")]
 
     [Range(0,1)]
-    [Tooltip("Force de saut")] public float jumpHeight = 0.5f;
+    [Tooltip("Force de saut")] public float jumpForce = 0.5f;
     [Range(0, 2)]
     [Tooltip("Time to reach jumpheight")] public float timeToReachJumpHeight = 2;
     [Range(0, 1)]
     [Tooltip("Saut Min")] public float minJump = 0;
-    [Range(0, 5)]
-    [Tooltip("Temps Avant de sauter")]public float jumpCastTime = 0;
     [Range(0, 2)]
     [Tooltip("Temps alloué au joueur pour sauter alors qu'il n'est plus sur la plateforme")]public float coyoteWindow = 0;
     [Range(0, 2)]
     [Tooltip("Temps ou on enregistre le saut du joueur si il est en l'air pour le faire sauter si il touche le sol entre temps")] public float jumpBuffer = 0.15f;
-
     [Range(0, 2)]
     [Tooltip("Window d'antigravité pour contrôler le saut")] public float apexModifier = 0.15f;
+    [Range(0, 1)]
+    [Tooltip("% of jumpforce subtracted to run speed")] public float inertieLoss = 0.15f;
     #endregion
 
     #region Fall

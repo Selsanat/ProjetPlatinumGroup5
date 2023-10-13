@@ -137,10 +137,6 @@ public class BouleMouvement : MonoBehaviour
             _destPoint--;
             _target = _contactPoints[_destPoint];
         }
-        
-        
-
-
     }
     private void updateRotationBoule()
     {
