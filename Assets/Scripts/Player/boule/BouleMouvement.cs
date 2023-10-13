@@ -18,6 +18,7 @@ public class BouleMouvement : MonoBehaviour
     [Tooltip("Vitesse de lancer de la boule")]
     public float _speedThrowing = 10.0f;
     public float _speedBack = 2.0f;
+    public PhysicMaterial _bounce;
     #endregion
 
     #region Private variables
@@ -52,14 +53,15 @@ public class BouleMouvement : MonoBehaviour
     private void Update()
     {
         if(_player==null) _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            this.GetComponentInChildren<SphereCollider>().material = _bounce;
             _isThrowing = true;
             updateThrowing();
 
 
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             if(_contactPoints.Count == 0)
             {
@@ -71,9 +73,11 @@ public class BouleMouvement : MonoBehaviour
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
             this.transform.rotation = Quaternion.identity;
+            this.GetComponentInChildren<SphereCollider>().material = null;
+
 
         }
-        if(_isReturning)
+        if (_isReturning)
         {
 
             returnBoule();
