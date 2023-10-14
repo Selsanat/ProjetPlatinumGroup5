@@ -52,33 +52,21 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-        if(_player==null) _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
+        if(_player == null) 
+            _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             this.GetComponentInChildren<SphereCollider>().material = _bounce;
             _isThrowing = true;
             updateThrowing();
-
-
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            if(_contactPoints.Count == 0)
-            {
-                _contactPoints.Add(_beforeThrow.position);
-            }
-            _destPoint = _contactPoints.Count;
-            _target = _contactPoints[_destPoint - 1];
-            _isReturning = true;
-            _rb.velocity = Vector3.zero;
-            _rb.angularVelocity = Vector3.zero;
-            this.transform.rotation = Quaternion.identity;
-            this.GetComponentInChildren<SphereCollider>().material = null;
-
+            setUpBoule();
 
         }
-        if (_isReturning)
-            returnBoule();
+        
         
 
     }
@@ -86,21 +74,20 @@ public class BouleMouvement : MonoBehaviour
    
     private void FixedUpdate()
     {
-        if(_isThrowing)
+        if(!_isThrowing)
             updateRotationBoule();
+        if (_isReturning)
+            returnBoule();
 
     }
 
     private void updateThrowing()
     {
         if(_beforeThrow == null)
-        {
             _beforeThrow = this.transform;
-        }
+
         _rb.AddForce(-this.transform.forward * Time.deltaTime * _speedThrowing, ForceMode.VelocityChange);
 
-        //_rb.velocity = -this.transform.forward * Time.deltaTime * _speedThrowing;
-        //transform.position += -this.transform.forward * Time.deltaTime * _speedThrowing;
     }
 
     private void returnBoule()
@@ -113,12 +100,10 @@ public class BouleMouvement : MonoBehaviour
         if (_target == _contactPoints[0] && Vector3.Distance(transform.position, _target) < 0.1f)
         {
             _contactPoints.Clear();
-            //this.transform.position = _beforeThrow.position;
             this.transform.rotation = _beforeThrow.rotation;
             _beforeThrow = null;
             _isReturning = false;
             _isThrowing = false;
-
             return;
 
         }
@@ -128,8 +113,6 @@ public class BouleMouvement : MonoBehaviour
             _target = _contactPoints[_destPoint];
         }
         
-        
-
 
     }
     private void updateRotationBoule()
@@ -140,30 +123,31 @@ public class BouleMouvement : MonoBehaviour
         _offset = rotation * _offset;
         Vector3 newPosition = _player.position + _offset;
         transform.position = newPosition;// D place la boule   la nouvelle position
-        
         transform.LookAt(_player);// Assurez-vous que la boule regarde toujours vers le joueur
     }
-    // Fonction appel e lorsque la boule entre en collision avec un autre objet
+
+    private void setUpBoule()
+    {
+        if (_contactPoints.Count == 0)
+            _contactPoints.Add(_beforeThrow.position);
+
+        _destPoint = _contactPoints.Count;
+        _target = _contactPoints[_destPoint - 1];
+        _isReturning = true;
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        this.transform.rotation = Quaternion.identity;
+        this.GetComponentInChildren<SphereCollider>().material = null;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        _clockwise = !_clockwise;// Change le sens de rotation lorsque la collision se produit
+        _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
+
         if(_isThrowing)
-        {
             _contactPoints.Add(this.transform.position);
-        }
+
         if(collision.gameObject.tag == "Player")
-        {
-            if (_contactPoints.Count == 0)
-            {
-                _contactPoints.Add(_beforeThrow.position);
-            }
-            _destPoint = _contactPoints.Count;
-            _target = _contactPoints[_destPoint - 1];
-            _isReturning = true;
-            _rb.velocity = Vector3.zero;
-            _rb.angularVelocity = Vector3.zero;
-            this.transform.rotation = Quaternion.identity;
-            this.GetComponentInChildren<SphereCollider>().material = null;
-        }
+            setUpBoule();
     }
 }
