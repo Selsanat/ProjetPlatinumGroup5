@@ -9,20 +9,20 @@ namespace DetectCollisionExtension
         {
             bool sideway = direction.x != 0;
             Ray ray;
-            BoxCollider boxCollider = transform.GetComponent<BoxCollider>();
+            CharacterController characterController = transform.GetComponent<CharacterController>();
             RaycastHit HitInfo;
             Vector3 origin;
 
             float DistanceBetweenRays;
             if (sideway)
             {
-                DistanceBetweenRays = (boxCollider.bounds.size.y) / (NOofRays - 1);
-                origin = new Vector3(boxCollider.bounds.center.x + offset.x, boxCollider.bounds.min.y + offset.y, transform.position.z);
+                DistanceBetweenRays = (characterController.bounds.size.y) / (NOofRays - 1);
+                origin = new Vector3(characterController.bounds.center.x + offset.x, characterController.bounds.min.y + offset.y, transform.position.z);
             }
             else
             {
-                DistanceBetweenRays = (boxCollider.bounds.size.x) / (NOofRays - 1);
-                origin = new Vector3(boxCollider.bounds.min.x + offset.x, boxCollider.bounds.center.y + offset.y, transform.position.z);
+                DistanceBetweenRays = (characterController.bounds.size.x) / (NOofRays - 1);
+                origin = new Vector3(characterController.bounds.min.x + offset.x, characterController.bounds.center.y + offset.y, transform.position.z);
             }
 
 
@@ -35,14 +35,14 @@ namespace DetectCollisionExtension
 
                 if (sideway)
                 {
-                    Debug.DrawRay(origin, direction * boxCollider.size.x / 2, Color.yellow);
-                    if (Physics.Raycast(ray, out HitInfo, boxCollider.size.x / 2))
+                    Debug.DrawRay(origin, direction * characterController.radius / 2, Color.yellow);
+                    if (Physics.Raycast(ray, out HitInfo, characterController.radius + characterController.skinWidth / 2))
                     {
                         return true;
                     }
                 }
-                Debug.DrawRay(origin, direction* boxCollider.size.y / 2, Color.yellow);
-                if (Physics.Raycast(ray, out HitInfo, boxCollider.size.y / 2))
+                Debug.DrawRay(origin, direction* characterController.height/ 2, Color.yellow);
+                if (Physics.Raycast(ray, out HitInfo, characterController.height / 2 + characterController.skinWidth))
                 {
                     return true;
                 }

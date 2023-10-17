@@ -35,14 +35,14 @@ public class AccelerateState : TemplateState
             return;
         }
         #endregion
-        #region HasHitWall
+        /*#region HasHitWall
         if (DetectCollision.isColliding(Mathf.Sign(_IOrientWriter.orient.x) * Vector2.right, StateMachine.transform, Vector2.zero))
         {
             StateMachine.velocity.x = 0;
             StateMachine.ChangeState(StateMachine.stateIdle);
             return;
         }
-        #endregion
+        #endregion*/
         #region StopInput
         if (_IOrientWriter.orient.x == 0)
         {
@@ -66,6 +66,6 @@ public class AccelerateState : TemplateState
         _timer += Time.deltaTime;
 
         StateMachine.velocity.x = (_timer / _movementParams.accelerationTime)* (_movementParams.maxSpeed * _IOrientWriter.orient.x);
-        StateMachine.transform.Translate(StateMachine.velocity);
+        _characterController.Move(StateMachine.velocity);
     }
 }

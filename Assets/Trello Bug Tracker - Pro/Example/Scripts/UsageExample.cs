@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 namespace DG
 {
@@ -35,7 +34,6 @@ namespace DG
 
         // Trello API obj
         private Trello trello;
-        string relevantData ;
 
         // Platform dependent Log Path
         private string logPath
@@ -150,7 +148,7 @@ namespace DG
             }
 #endif
             // this one is meant to be replaced with relevant data about your game
-            
+            string relevantData = "Deaths: 100, coins: 50, respect: 0.5";
             yield return trello.SetUpAttachmentInCardRoutine(cardID, "MoreData.txt", relevantData);
 
             /**
@@ -169,12 +167,6 @@ namespace DG
             StartCoroutine(SetActiveForSecondsRoutine(successUI, 2));
         }
 
-        void Update()
-        {
-             relevantData += Time.time + "Velocité : " +FindObjectOfType<PlayerStateMachine>()?.velocity.ToString()+ "\n";
-             relevantData += Time.time + "State : " + FindObjectOfType<PlayerStateMachine>()?.CurrentState.ToString() + "\n";
-             relevantData += Time.time + "Input : " + FindObjectOfType<Movable>()?.orient.ToString() + "\n";
-        }
         // Sets gameObject active or inactive for timeInSeconds
         public IEnumerator SetActiveForSecondsRoutine(GameObject gameObject, float timeInSeconds, bool setActive = true)
         {

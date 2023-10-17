@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9479213e8202b49b7488d68ee5c9cf, type: 3}
   m_Name: PlayerMovement
   m_EditorClassIdentifier: 
-  jumpForce: 0.242
-  timeToReachJumpHeight: 0.46
+  jumpMaxHeight: 0.047
+  jumpDuration: 0.58
   minJump: 0.218
   coyoteWindow: 0.99
   jumpBuffer: 0.11
   apexModifier: 0.09
   inertieLoss: 0
-  gravityScale: 1
+  gravityScale: 0
   timeToReachMaxFallSpeed: 0.3
   maxFallSpeed: 1
   airControl: 0.82
