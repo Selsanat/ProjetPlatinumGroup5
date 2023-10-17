@@ -29,7 +29,7 @@ public class AccelerateState : TemplateState
         #endregion
 
         #region Fall
-        if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector2.down*Time.deltaTime*_movementParams.gravityScale))
+        if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector2.down*Time.deltaTime*_movementParams.fallDuration))
         {
             StateMachine.ChangeState(StateMachine.fallState);
             return;

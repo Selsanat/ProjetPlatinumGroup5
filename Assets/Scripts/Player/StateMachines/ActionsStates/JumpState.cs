@@ -19,25 +19,38 @@ public class JumpState : TemplateState
         float h = _movementParams.jumpMaxHeight;
         float th = _movementParams.jumpDuration / 2;
 
+
         StateMachine.velocity.y = 2 * h / th;
     }
 
     protected override void OnStateUpdate()
     {
-        if (_timer > _movementParams.jumpDuration / 2)
+        _timer += Time.deltaTime;
+        if (StateMachine.velocity.y < 0)
         {
             StateMachine.ChangeState(StateMachine.fallState);
             return;
         }
 
-        _timer += Time.deltaTime;
+        #region Yvelocity
 
-        float h = _movementParams.jumpMaxHeight;
-        float th = _movementParams.jumpDuration / 2;
-        float g = -(2 * h) / Mathf.Pow(th,2);
+        float h;
+        float th;
+        float g;
+        if (_IOrientWriter.orient.y == 0)
+        {
+            h = _movementParams.minJump;
+            th = _movementParams.minJump/ _movementParams.jumpMaxHeight * _movementParams.jumpDuration / 2;
+        }
+        else
+        {
+            h = _movementParams.jumpMaxHeight;
+            th = _movementParams.jumpDuration / 2;
+        }
+        g = (-2 * h) / Mathf.Pow(th, 2);
 
-
-        StateMachine.velocity.y += g * Time.deltaTime;
+        StateMachine.velocity.y += g * Time.deltaTime; 
+        #endregion
 
         _characterController.Move(StateMachine.velocity);
     }

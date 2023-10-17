@@ -21,22 +21,26 @@ public class FallState : TemplateState
 
     protected override void OnStateUpdate()
     {
-        if (DetectCollision.isColliding(Mathf.Sign(StateMachine.velocity.x) * Vector2.down, StateMachine.transform, StateMachine.velocity*Time.deltaTime))
+        if (DetectCollision.isColliding(Mathf.Abs(StateMachine.velocity.y) * Vector2.down, StateMachine.transform,Vector2.zero))
         {
             StateMachine.velocity.y = 0;
+
+            if (_IOrientWriter.orient.x != 0)
+            {
+                StateMachine.ChangeState(StateMachine.stateAccelerate);
+                return;
+            }
             StateMachine.ChangeState(StateMachine.stateIdle);
             return;
         }
-        else
-        {
 
-            float h = _movementParams.jumpMaxHeight;
-            float th = _movementParams.jumpDuration / 2;
-            float g = -(2 * h) / Mathf.Pow(th, 2);
 
-            StateMachine.velocity.y += g * Time.deltaTime;
-        }
+        float h = _movementParams.jumpMaxHeight;
+        float th = _movementParams.fallDuration / 2;
+        float g = -(2 * h) / Mathf.Pow(th, 2);
 
+        StateMachine.velocity.y += g * Time.deltaTime;
+        //StateMachine.velocity.y =- _movementParams.gravityScale;
         _characterController.Move(StateMachine.velocity);
     }
 }
