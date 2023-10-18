@@ -14,23 +14,24 @@ public class JumpState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
-        _timer = 0;
+        _timer = StateMachine.velocity.x / _movementParams.airMaxSpeedX * _movementParams.JumpAccelerationTime;
 
         float h = _movementParams.jumpMaxHeight;
         float th = _movementParams.jumpDuration / 2;
 
-
+        StateMachine.velocity.x *= _movementParams.inertieLoss;
         StateMachine.velocity.y = 2 * h / th;
     }
 
     protected override void OnStateUpdate()
     {
-        _timer += Time.deltaTime;
-        if (StateMachine.velocity.y < 0)
+
+        if (StateMachine.velocity.y < 0 || DetectCollision.isColliding(Vector2.up, StateMachine.transform, Vector3.zero, false))
         {
             StateMachine.ChangeState(StateMachine.fallState);
             return;
         }
+
 
         #region Yvelocity
 
@@ -49,7 +50,19 @@ public class JumpState : TemplateState
         }
         g = (-2 * h) / Mathf.Pow(th, 2);
 
-        StateMachine.velocity.y += g * Time.deltaTime; 
+        StateMachine.velocity.y += g * Time.deltaTime;
+        #endregion
+
+        #region Xvelocity
+
+        float accelerationTime = _movementParams.JumpAccelerationTime;
+        float airMaxSpeed = _movementParams.airMaxSpeedX;
+
+        _timer += Time.deltaTime * _IOrientWriter.orient.x;
+        _timer = Mathf.Clamp(_timer, -accelerationTime, accelerationTime);
+
+        StateMachine.velocity.x = (_timer / accelerationTime) * airMaxSpeed;
+        StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -airMaxSpeed, airMaxSpeed);
         #endregion
 
         _characterController.Move(StateMachine.velocity);

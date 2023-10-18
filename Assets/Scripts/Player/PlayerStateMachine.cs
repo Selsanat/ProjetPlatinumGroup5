@@ -42,6 +42,7 @@ public class PlayerStateMachine : MonoBehaviour
     public TemplateState PreviousState { get; private set; }
 
     public Vector2 velocity;
+    public float JumpBuffer;
     private void Awake()
     {
         _InitAllStates();
