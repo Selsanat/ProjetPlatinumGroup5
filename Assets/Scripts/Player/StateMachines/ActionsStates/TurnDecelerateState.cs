@@ -66,6 +66,7 @@ public class TurnDecelerateState : TemplateState
         {
             StateMachine.velocity.y = 0;
             StateMachine.velocity.x = (_movementParams.turnDecelerationTime - _timer) * (_movementParams.maxSpeed * Vector2.right.x * sign);
+            StateMachine.velocity.x = Mathf.Abs(StateMachine.velocity.x) * _IOrientWriter.orient.x;
         }
         #endregion
         #region HasHitWall

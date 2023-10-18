@@ -1,20 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine.Utility;
 using DetectCollisionExtension;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class TurnAccelerateState : TemplateState
 {
 
+    private float sign;
     private float _timer;
+    private CharacterController characterController;
+    RaycastHit HitInfo;
 
     protected override void OnStateInit()
     {
+
     }
 
     protected override void OnStateEnter(TemplateState previousState)
     {
         _timer = StateMachine.velocity.x / _movementParams.maxSpeed * _movementParams.turnAccelerationTime;
+        characterController = StateMachine.GetComponent<CharacterController>();
     }
 
     protected override void OnStateUpdate()
@@ -31,8 +38,36 @@ public class TurnAccelerateState : TemplateState
         #region Fall
         if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector3.zero))
         {
-            StateMachine.ChangeState(StateMachine.fallState);
-            return;
+            Vector3 origin = StateMachine.transform.position + characterController.center;
+            float distance = characterController.bounds.extents.y + characterController.skinWidth;
+            Ray ray = new Ray(origin, Vector2.down);
+            Vector3 dir = Vector3.Cross(StateMachine.transform.position, HitInfo.normal);
+
+            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold)))
+            {
+                dir.z = 0;
+                dir *= -_IOrientWriter.orient.x;
+                dir = dir.normalized;
+
+                StateMachine.velocity = (_timer / _movementParams.accelerationTime) * (_movementParams.maxSpeed*dir);
+                if (dir.normalized.Abs() == Vector3.right)
+                {
+                    StateMachine.velocity.y -= 0.1f;
+                }
+
+            }
+            else
+            {
+
+                StateMachine.ChangeState(StateMachine.fallState);
+                return;
+            }
+        }
+        else
+        {
+            StateMachine.velocity.y = 0;
+            StateMachine.velocity.x = (_timer / _movementParams.turnAccelerationTime) * (_movementParams.maxSpeed * _IOrientWriter.orient.x);
+            StateMachine.velocity.x = Mathf.Abs(StateMachine.velocity.x) * _IOrientWriter.orient.x;
         }
         #endregion
         #region HasHitWall
@@ -66,7 +101,7 @@ public class TurnAccelerateState : TemplateState
 
         _timer += Time.deltaTime;
 
-        StateMachine.velocity.x = (_timer / _movementParams.turnAccelerationTime) * (_movementParams.maxSpeed * _IOrientWriter.orient.x);
+
         StateMachine.transform.Translate(StateMachine.velocity);
     }
 }
