@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 
@@ -5,7 +6,7 @@ namespace DetectCollisionExtension
 {
     public static class DetectCollision
     {
-        public static bool isColliding(Vector2 direction, Transform transform, Vector3 offset, float margin = 1f, float NOofRays = 5)
+        public static bool isColliding(Vector2 direction, Transform transform, Vector3 offset, bool centered = true, float margin = 0.01f, float NOofRays = 6)
         {
             bool sideway = direction.x != 0;
             Ray ray;
@@ -17,7 +18,7 @@ namespace DetectCollisionExtension
             if (sideway)
             {
                 DistanceBetweenRays = (characterController.bounds.size.y) / (NOofRays - 1);
-                origin = new Vector3(characterController.bounds.center.x + offset.x, characterController.bounds.min.y + offset.y, transform.position.z);
+                origin = new Vector3(characterController.center.x + offset.x, characterController.bounds.min.y + offset.y, transform.position.z);
             }
             else
             {
@@ -25,25 +26,29 @@ namespace DetectCollisionExtension
                 origin = new Vector3(characterController.bounds.min.x + offset.x, characterController.bounds.center.y + offset.y, transform.position.z);
             }
 
-
+            if (!centered)
+            {
+                NOofRays = 1;
+                origin = new Vector3(characterController.bounds.center.x + offset.x, characterController.bounds.center.y + offset.y, transform.position.z);
+            }
 
             for (int i = 0; i < NOofRays; i++)
             {
                 // Ray to be casted.
                 ray = new Ray(origin, direction);
                 //Draw ray on screen to see visually. Remember visual length is not actual length.
-
+                
                 if (sideway)
                 {
-                    Debug.DrawRay(origin, direction * characterController.radius / 2, Color.yellow);
-                    if (Physics.Raycast(ray, out HitInfo, characterController.radius + characterController.skinWidth / 2))
+                    Debug.DrawRay(origin, direction * (characterController.bounds.extents.x + characterController.skinWidth+margin), Color.yellow);
+                    if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.x + characterController.skinWidth + margin))
                     {
                         return true;
                     }
                 }
-                Debug.DrawRay(origin, direction* characterController.height/ 2, Color.yellow);
-                if (Physics.Raycast(ray, out HitInfo, characterController.height / 2 + characterController.skinWidth))
+                if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.y + characterController.skinWidth + margin))
                 {
+                    Debug.DrawRay(origin, direction * (characterController.bounds.extents.y + characterController.skinWidth + margin), Color.yellow);
                     return true;
                 }
 
