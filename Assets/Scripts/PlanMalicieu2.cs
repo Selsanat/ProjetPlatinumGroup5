@@ -3,17 +3,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using OpenAI_API.Images;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Networking;
 
 public class PlanMalicieu2 : MonoBehaviour
 {
     public TMP_Text text;
     public TMP_Text OutText;
+    public Material mat;
     // Start is called before the first frame update
     async Task stp()
     {
-        var api = new OpenAI_API.OpenAIAPI("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");
+        var api = new OpenAI_API.OpenAIAPI("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");
         var chat = api.Chat.CreateConversation();
 
         /// give instruction as System
@@ -45,8 +48,42 @@ public class PlanMalicieu2 : MonoBehaviour
         }*/
     }
 
-    public void test()
+    async Task Dalle()
+    {
+        var api = new OpenAI_API.OpenAIAPI("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");
+        var chat = api.Chat.CreateConversation();
+        //async Task<ImageResult> CreateImageAsync(ImageGenerationRequest request);
+
+        // for example
+        //var result = await api.ImageGenerations.CreateImageAsync(new ImageGenerationRequest("A drawing of a computer writing a test", 1, ImageSize._512));
+        // or
+        var result = await api.ImageGenerations.CreateImageAsync(text.text);
+
+        StartCoroutine(GetTexture(result.Data[0].Url));
+        print(result.Data[0].Url);
+    }
+
+    IEnumerator GetTexture(string url)
+    {
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            print(www.error);
+        }
+        else
+        {
+             mat.mainTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+             
+        }
+    }
+    public void GPT()
     {
         _ = stp();
+    }
+    public void DalleGenerate()
+    {
+        _ = Dalle();
     }
 }
