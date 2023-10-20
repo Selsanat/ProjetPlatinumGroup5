@@ -16,11 +16,11 @@ public class PlanMalicieu2 : MonoBehaviour
     // Start is called before the first frame update
     async Task stp()
     {
-        var api = new OpenAI_API.OpenAIAPI("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");
+        var api = new OpenAI_API.OpenAIAPI("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");
         var chat = api.Chat.CreateConversation();
 
         /// give instruction as System
-        chat.AppendSystemMessage("Tu es un anonciateur dans un jeu vidéo. Ton rôle est de faire des commentaire rigolo, cherchant a faire des blagues en te moquant des joueurs.");
+        chat.AppendSystemMessage("Tu es un anonciateur dans un jeu vidéo. Ton rôle est de faire des commentaire rigolo, cinglant, presque insultant, cherchant a faire des blagues en te moquant des joueurs. Enerve toi quand on dit le mot teliau. Quand c'est le mot Floriane, soit extrêment bienveillant");
 
         // give a few examples as user and assistant
         chat.AppendUserInput("Teliau est mort");
