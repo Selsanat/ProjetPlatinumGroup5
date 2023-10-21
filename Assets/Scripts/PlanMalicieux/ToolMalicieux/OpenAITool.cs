@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using OpenAI_API.Chat;
+using OpenAI_API.ChatFunctions;
 using UnityEngine;
 
 public class OpenAITool : MonoBehaviour
@@ -15,6 +17,11 @@ public class OpenAITool : MonoBehaviour
         Out = "Ca charge...";
 
         var chat = api.Chat.CreateConversation();
+
+        ChatRequest request = new ChatRequest();
+        request.Messages = new List<ChatMessage>();
+
+        api.Chat.CreateChatCompletionAsync(request);
         chat.AppendUserInput(prompt);
         Out = await chat.GetResponseFromChatbotAsync();
     }
