@@ -33,6 +33,7 @@ public class BouleMouvement : MonoBehaviour
     private int _destPoint;
     private bool _isReturning = false;
     private float _distance;
+    private bool _canThrow = true;
 
 
     #endregion
@@ -57,13 +58,13 @@ public class BouleMouvement : MonoBehaviour
         if(_player == null) 
             _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow)
         {
             this.GetComponentInChildren<SphereCollider>().material = _bounce;
             _isThrowing = true;
             updateThrowing();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift) && _isThrowing)
         {
             setUpBoule();
 
@@ -119,14 +120,15 @@ public class BouleMouvement : MonoBehaviour
     }
     private void updateRotationBoule()
     {
-        transform.RotateAround(_player.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward), 50 * Time.deltaTime);
-        transform.LookAt(_player);
-        /*Quaternion rotation = Quaternion.Euler(0, 0, Time.deltaTime* (_clockwise? _rotationSpeed : -_rotationSpeed));// Calcule la nouvelle position de la boule autour du joueur
+        //transform.RotateAround(_player.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward), 50 * Time.deltaTime);
+        Quaternion rotation = Quaternion.Euler(0, 0, Time.deltaTime * (_clockwise ? _rotationSpeed : -_rotationSpeed));// Calcule la nouvelle position de la boule autour du joueur
         _offset = _offset.normalized * _offset.magnitude; // Normalise l'_offset pour maintenir une distance constante
         _offset = rotation * _offset;
         Vector3 newPosition = _player.position + _offset;
         transform.position = newPosition;// D place la boule   la nouvelle position
-        // Assurez-vous que la boule regarde toujours vers le joueur*/
+        // Assurez-vous que la boule regarde toujours vers le joueur
+        transform.LookAt(_player);
+
     }
     private void resetBool()
     {
@@ -156,9 +158,9 @@ public class BouleMouvement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //if(collision.gameObject.tag == "rebondi")
-        _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
+        //_clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
 
-      
+        _canThrow = false;
 
         if (_isThrowing)
             _contactPoints.Add(this.transform.position);
@@ -168,7 +170,8 @@ public class BouleMouvement : MonoBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
-        resetBool();
+        //resetBool();
+        _canThrow = true;
     }
 
 
