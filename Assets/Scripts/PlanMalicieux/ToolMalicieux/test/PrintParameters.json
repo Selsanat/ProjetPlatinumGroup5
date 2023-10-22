@@ -1,0 +1,10 @@
+{
+	"type" : "object",
+	"properties": {
+		"texte": {
+			"type": "string",
+			"description": "Le texte a ecrire",
+			},
+		},
+		"required": ["texte"],
+}
