@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
+using OpenAI_API.Chat;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
@@ -26,6 +27,7 @@ public class OpenAIToolEditor : Editor
         //_openAITool.parametersFunction = EditorGUILayout.ObjectField(_openAITool.parametersFunction, typeof(Object));
         if (GUILayout.Button("TestPrompt"))
         {
+            _openAITool.request ??= new ChatRequest();
             OpenAIToolWindow window = new OpenAIToolWindow();
             window.tool = this._openAITool;
             window.initWindow();

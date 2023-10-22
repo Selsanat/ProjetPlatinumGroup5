@@ -19,7 +19,7 @@ public class OpenAIToolWindow : EditorWindow
     private void OnGUI()
     {
         GUILayout.Label("Prompt :");
-         tool.prompt = GUILayout.TextArea( tool.prompt, GUILayout.Width(200), GUILayout.Height(200));
+         tool.prompt = GUILayout.TextArea( tool.prompt, GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
 
         if (GUILayout.Button("TestPrompt"))
         {
@@ -27,6 +27,19 @@ public class OpenAIToolWindow : EditorWindow
         }
 
         GUILayout.Label("Prompt :");
-        GUILayout.TextArea(tool.Out, GUILayout.Width(200), GUILayout.Height(200));
+        GUILayout.TextArea(tool.Out,  GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
     }
+
+    void OnEnable()
+        => AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
+
+    void OnDisable()
+        => AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
+
+    void OnAfterAssemblyReload()
+    {
+        if (!tool.TempFileExists) return;
+        EditorApplication.ExecuteMenuItem("Edit/Do Task");
+        AssetDatabase.DeleteAsset(tool.TempFilePath + "AIExCommandTest.cs");
     }
+}

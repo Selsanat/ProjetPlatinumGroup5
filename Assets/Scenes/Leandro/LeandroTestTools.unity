@@ -212,7 +212,7 @@ Transform:
   m_GameObject: {fileID: 1199621997}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -151.25967, y: 301.5194, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -267,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 1201824977}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.976702, y: -4.055043, z: 13.592517}
+  m_LocalPosition: {x: -150.25967, y: 302.5194, z: 13.592517}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -285,30 +285,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855fa63b442329849b001945eb970e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: "Comment s'est pass\xE9 la premi\xE8re guerre mondiale"
-  Out: "La Premi\xE8re Guerre mondiale a \xE9t\xE9 d\xE9clench\xE9e en 1914 apr\xE8s
-    l'assassinat de l'archiduc Fran\xE7ois-Ferdinand d'Autriche \xE0 Sarajevo. Le
-    conflit a oppos\xE9 deux grandes alliances : d'un c\xF4t\xE9, les puissances
-    centrales (l'Allemagne, l'Autriche-Hongrie, l'Empire ottoman et la Bulgarie)
-    et de l'autre, les Alli\xE9s (la France, la Grande-Bretagne, la Russie, l'Italie,
-    les \xC9tats-Unis et d'autres pays).\n\nLa guerre a \xE9t\xE9 caract\xE9ris\xE9e
-    par l'utilisation de nouvelles technologies militaires telles que les avions,
-    les tanks, les gaz toxiques et l'artillerie lourde. Elle a \xE9galement \xE9t\xE9
-    marqu\xE9e par des combats de tranch\xE9es meurtriers sur le front ouest, o\xF9
-    les soldats ont \xE9t\xE9 confront\xE9s \xE0 des conditions de vie extr\xEAmement
-    difficiles.\n\nLa guerre a provoqu\xE9 des pertes humaines immenses, avec environ
-    10 millions de soldats tu\xE9s et 20 millions de bless\xE9s. Les civils ont \xE9galement
-    \xE9t\xE9 touch\xE9s, notamment par des p\xE9nuries alimentaires et des bombardements.\n\nLa
-    Premi\xE8re Guerre mondiale s'est finalement termin\xE9e le 11 novembre 1918
-    avec la signature de l'Armistice de Rethondes, mettant fin au conflit sur le
-    front occidental. Les cons\xE9quences de la guerre ont \xE9t\xE9 profondes, avec
-    d'importants changements politiques, \xE9conomiques et sociaux \xE0 travers le
-    monde, notamment l'effondrement des empires tsariste russe, ottoman et austro-hongrois.\n\nEn
-    outre, le trait\xE9 de Versailles, sign\xE9 en 1919, a traumatis\xE9 l'Allemagne
-    en imposant des sanctions punitives et en laissant un sentiment de ressentiment
-    et d'injustice, ce qui allait contribuer \xE0 l'\xE9mergence de la Seconde Guerre
-    mondiale quelques d\xE9cennies plus tard."
-  Key: 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
+  prompt: "Fais appara\xEEtre 100 cubes a des positions al\xE9atoires entre 20.20
+    et 0.0"
+  Out: 
+  Key: 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
+  TempFilePath: Assets/Scripts/PlanMalicieux/ToolMalicieux/test/AICommandTest.cs
 --- !u!1 &2080099461
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,6 +301,7 @@ GameObject:
   - component: {fileID: 2080099464}
   - component: {fileID: 2080099463}
   - component: {fileID: 2080099462}
+  - component: {fileID: 2080099465}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -395,12 +377,56 @@ Transform:
   m_GameObject: {fileID: 2080099461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: -152.25967, y: 303.5194, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2080099465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080099461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
