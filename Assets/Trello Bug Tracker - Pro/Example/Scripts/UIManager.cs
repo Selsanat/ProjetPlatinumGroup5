@@ -42,7 +42,7 @@ namespace DG
                 {
                     screenshots.Add((Texture2D)ri.texture);
                 }
-                UsageExample.Instance.SendReport(inputTitle.text, inputDescription.text, reportOptionsDropDown.captionText.text, screenshots);
+                UsageExample.Instance.SendReport("(Bug) "+inputTitle.text, inputDescription.text, reportOptionsDropDown.captionText.text, screenshots);
 
                 // After reporting We clear the input fields so they are ready to be used again
                 inputTitle.text = "";
