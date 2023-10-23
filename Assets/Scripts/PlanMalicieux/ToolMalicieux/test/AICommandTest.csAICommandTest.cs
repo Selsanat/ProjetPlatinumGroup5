@@ -5,38 +5,26 @@ using UnityEngine;
 
 using UnityEngine;
 
-public class AdjustablePlatform : MonoBehaviour
+public class Script : MonoBehaviour
 {
-    public float speed = 5f;
-    public float maxDistance = 10f;
-
+    public float speed = 2f;
+    public float distance = 5f;
     private Vector3 startPos;
-    private Vector3 endPos;
-    private bool movingForward = true;
+    private float direction = 1f;
 
     private void Start()
     {
         startPos = transform.position;
-        endPos = startPos + transform.right * maxDistance;
     }
 
     private void Update()
     {
-        if (movingForward)
+        float newX = transform.position.x + direction * speed * Time.deltaTime;
+        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+
+        if (Mathf.Abs(transform.position.x - startPos.x) >= distance)
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPos, speed * Time.deltaTime);
-            if (transform.position == endPos)
-            {
-                movingForward = false;
-            }
-        }
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
-            if (transform.position == startPos)
-            {
-                movingForward = true;
-            }
+            direction *= -1f;
         }
     }
 }

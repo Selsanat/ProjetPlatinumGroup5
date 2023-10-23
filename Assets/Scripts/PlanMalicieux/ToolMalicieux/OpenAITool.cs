@@ -92,6 +92,7 @@ public class OpenAITool : MonoBehaviour
             new Function("CreateScript", "Gives/generate the script asked by the User. This function can only be called if the user expressly asked for a script", CreateCodeParam)
         };
         Out = "Ca charge...";
+        print("envoie de requete");
         var result = await api.Chat.CreateChatCompletionAsync(request);
         Out = "";
         ChatChoice firstChoice = result.Choices[0];
