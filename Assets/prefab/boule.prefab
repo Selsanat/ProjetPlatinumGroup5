@@ -121,13 +121,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationSpeed: 100
   _clockwise: 1
+  _resetSpeed: 400
   _size: 1
   _speedThrowing: 700
   _speedBack: 2
   _bounce: {fileID: 13400000, guid: caeeb704470a5f24ea763d68ef881759, type: 2}
-  _resetSpeed: 400
-  _lerpDuration: 2
-  _lerpSpeed: 2
+  _lerpDurationFast: 2
+  _lerpDurationSlow: 2
   _lerpCurve:
     serializedVersion: 2
     m_Curve:
@@ -152,7 +152,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _contactPoints: []
+  _beforeThrow: {x: 0, y: 0, z: 0}
 --- !u!54 &3963803855671988263
 Rigidbody:
   m_ObjectHideFlags: 0

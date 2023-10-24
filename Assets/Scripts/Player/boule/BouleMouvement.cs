@@ -13,16 +13,19 @@ public class BouleMouvement : MonoBehaviour
     public float _rotationSpeed = 100.0f; // Vitesse de rotation de la boule autour du joueur
     [Tooltip("Sens de rotation initial")]
     public bool _clockwise = true; // Sens de rotation initial
-
+    [Tooltip("vitesse à laquelle la boule va revenir en place après un bug de déplacement")]
+    public float _resetSpeed = 400;
     [Tooltip("Taille de la boule")]
     public float _size = 1.0f;
     [Tooltip("Vitesse de lancer de la boule")]
     public float _speedThrowing = 10.0f;
+    [Tooltip("Vitesse du lancer de la boule")]
     public float _speedBack = 2.0f;
     public PhysicMaterial _bounce;
-    public float _resetSpeed = 2.0f;
-    public float _lerpDuration = 2.0f;
-    public float _lerpSpeed = 2.0f;
+    [Tooltip("Combien de temps avant que la boule ai sa vitesse max au retour")]
+    public float _lerpDurationFast = 2.0f;
+    [Tooltip("Combien de temps avant que la boule ai fini de ralentire")]
+    public float _lerpDurationSlow = 2.0f;
     public AnimationCurve _lerpCurve;
     #endregion
 
@@ -41,6 +44,10 @@ public class BouleMouvement : MonoBehaviour
     private bool _canThrow = true;
     private bool _resetedBoul = false;
     private SphereCollider _sphereCollider;
+    private float currentSpeed = 0;
+    private float _lerpTime = 0;
+    private bool _isLerpSlowFinished = false;
+
 
     #endregion
 
@@ -53,7 +60,6 @@ public class BouleMouvement : MonoBehaviour
 
     void Start()
     {
-        //_player = GetComponentsInParent<Transform>()[1];
         _contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _player.position.z);
         _offset = (_player.position - this.transform.position) * _size;// Calcule le vecteur de d calage initial entre le joueur et la boule
@@ -64,6 +70,8 @@ public class BouleMouvement : MonoBehaviour
     {
         if(_player == null) 
             _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
+
+        this.transform.LookAt(_player);
         if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow && !_isReturning)
         {
             _sphereCollider.material = _bounce;
@@ -75,7 +83,8 @@ public class BouleMouvement : MonoBehaviour
             setUpBoule();
 
         }
-        if(!(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f) && !(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) < -0.1f) && _resetedBoul && !_isThrowing && !_isReturning)
+        if(!(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f) && !(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) < -0.1f) 
+            && _resetedBoul && !_isThrowing && !_isReturning)
         {
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
@@ -97,7 +106,7 @@ public class BouleMouvement : MonoBehaviour
 
     }
 
-    private void updateThrowing()
+    private void updateThrowing() //lancé de la boule
     {
         if (_beforeThrow == Vector3.zero)
         {
@@ -110,16 +119,45 @@ public class BouleMouvement : MonoBehaviour
 
     }
 
-    private void lerpReturnBoule()
+    
+    private void returnBoule() // retour de la boule
     {
-
-        _isReturning = true;
-    }
-    private void returnBoule()
-    {
-        
         Vector3 dir = (_target - this.transform.position).normalized;
-        transform.Translate(dir * Time.deltaTime * _speedBack, Space.World);
+        if (_target == _contactPoints[_contactPoints.Count - 1])
+        {
+            if(!_isLerpSlowFinished)
+            {
+                _rb.velocity = Vector3.zero;
+                _rb.angularVelocity = Vector3.zero;
+                _lerpTime += Time.deltaTime;
+                float pourcentageComplete = _lerpTime / _lerpDurationSlow;
+                currentSpeed = Mathf.Lerp(_speedThrowing, 0, _lerpCurve.Evaluate(pourcentageComplete));
+                _rb.AddForce(-this.transform.forward * Time.deltaTime * currentSpeed, ForceMode.VelocityChange);
+                if (currentSpeed == 0)
+                {
+                    _isLerpSlowFinished = true;
+                    _lerpTime = 0;
+                    _rb.velocity = Vector3.zero;
+                    _rb.angularVelocity = Vector3.zero;
+                }
+
+            }
+            else if(_isLerpSlowFinished)
+            {
+                _lerpTime += Time.deltaTime;
+                float pourcentageComplete = _lerpTime / _lerpDurationFast;
+                currentSpeed = Mathf.Lerp(0, _speedBack, _lerpCurve.Evaluate(pourcentageComplete));
+                transform.Translate(dir * Time.deltaTime * currentSpeed, Space.World);
+            }
+            
+        }
+        else
+        {
+            
+            transform.Translate(dir * Time.deltaTime * _speedBack, Space.World);
+
+        }
+
 
         if (_target == _contactPoints[0] )
         {
@@ -152,25 +190,17 @@ public class BouleMouvement : MonoBehaviour
         
 
     }
-    private void updateRotationBoule()
+    private void updateRotationBoule() // rotation de la boule
     {
         if (_resetedBoul)
             return;
 
         transform.RotateAround(_player.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _rotationSpeed * Time.deltaTime);
         transform.LookAt(_player);
-
-       /* Quaternion rotation = Quaternion.Euler(0, 0, Time.deltaTime * (_clockwise ? _rotationSpeed : -_rotationSpeed));// Calcule la nouvelle position de la boule autour du joueur
-        _offset = _offset.normalized * _offset.magnitude; // Normalise l'_offset pour maintenir une distance constante
-        _offset = rotation * _offset;
-        Vector3 newPosition = _player.position + _offset;
-        transform.position = newPosition;// D place la boule   la nouvelle position*/
-        // Assurez-vous que la boule regarde toujours vers le joueur
-
     }
 
 
-    private void resetBool()
+    private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
         _resetedBoul = true;
         transform.LookAt(_player);
@@ -193,7 +223,7 @@ public class BouleMouvement : MonoBehaviour
         
 
     }
-    private void setUpBoule()
+    private void setUpBoule() // set up la boule Quand le joueur relache la touche
     {
         if (_contactPoints.Count == 0)
             _contactPoints.Add(_beforeThrow);
@@ -204,7 +234,11 @@ public class BouleMouvement : MonoBehaviour
         _rb.angularVelocity = Vector3.zero;
         this.transform.rotation = Quaternion.identity;
         _sphereCollider.material = null;
-        lerpReturnBoule();
+        currentSpeed = _speedThrowing;
+        _isLerpSlowFinished = false;
+        _lerpTime = 0;
+        _isReturning = true;
+
     }
   
     private void OnCollisionEnter(Collision collision)
