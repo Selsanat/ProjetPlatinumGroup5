@@ -144,14 +144,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8885932740852423821}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.04893694, y: 0, z: 0, w: 0.9988019}
   m_LocalPosition: {x: 0, y: -0.82, z: 2.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7536746513119400259}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -5.61, y: 0, z: 0}
 --- !u!114 &2440285559612817661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,19 +180,11 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 553294c3-046b-46ee-b4fe-0aadd1e864d6
-    m_ActionName: PlayerActions/Movements[/Keyboard/z,/Keyboard/s,/Keyboard/a,/Keyboard/space,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b1abdf25-8e30-42ff-a03f-93caaf9df15b
-    m_ActionName: PlayerActions/Attack
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 112887d3-b371-47d0-a5ab-b0476aeb41de
-    m_ActionName: UI/New action
+    m_ActionId: fd35cd5d-5b08-4650-b41a-d1d76cf3f946
+    m_ActionName: Movements/Cross[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/buttonSouth,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
-  m_DefaultActionMap: PlayerActions
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Movements
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &7261740563455768311
@@ -210,6 +202,7 @@ MonoBehaviour:
   movementsParam: {fileID: 11400000, guid: 4b32cca2a285f544299136e4a536e538, type: 2}
   velocity: {x: 0, y: 0}
   JumpBuffer: 0
+  activeHUD: 0
 --- !u!114 &2545758844294942097
 MonoBehaviour:
   m_ObjectHideFlags: 0

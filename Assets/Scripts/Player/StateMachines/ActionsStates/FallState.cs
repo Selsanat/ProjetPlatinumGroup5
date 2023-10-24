@@ -55,8 +55,13 @@ public class FallState : TemplateState
         _timer += Time.deltaTime * _IOrientWriter.orient.x;
         _timer = Mathf.Clamp(_timer, -accelerationTime, accelerationTime);
 
-        StateMachine.velocity.x = (_timer / accelerationTime) * airMaxSpeed;
+        StateMachine.velocity.x = Mathf.Abs((_timer / accelerationTime) * airMaxSpeed )* _IOrientWriter.orient.x;
         StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -airMaxSpeed, airMaxSpeed);
+
+        if (_IOrientWriter.orient.x == 0)
+        {
+            StateMachine.velocity.x = 0;
+        }
         #endregion
         _characterController.Move(StateMachine.velocity);
     }

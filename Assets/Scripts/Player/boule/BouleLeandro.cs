@@ -18,7 +18,9 @@ public class BouleLeandro : MonoBehaviour
     public Vector2 dir;
     public bool activeHUD = false;
 
+
     private CharacterController controller;
+    private PlayerStateMachine player;
 
     void Start()
     {
@@ -27,13 +29,14 @@ public class BouleLeandro : MonoBehaviour
     }
     void FixedUpdate()
     {
-        PlayerStateMachine player = FindObjectOfType<PlayerStateMachine>();
+        player = FindObjectOfType<PlayerStateMachine>();
         origin = player.transform;
 
 
         time +=Time.deltaTime*sens;
 
         move = (origin.position + new Vector3(Mathf.Cos(time * vitesse) * distance, Mathf.Sin(time * vitesse) * distance, 0)) - transform.position;
+
         dir = ((Vector2)move + player.velocity).normalized;
         if (DetectCollision.isColliding((dir * controller.radius * 2), transform, (Vector2)move.normalized * 0.2f, false))
         {
@@ -46,9 +49,12 @@ public class BouleLeandro : MonoBehaviour
     {
         if (!activeHUD) return;
         GUILayout.BeginVertical(GUI.skin.box);
-        GUILayout.Label("dir :" + dir);
-        GUILayout.Label("sens :" + sens);
         GUILayout.Label("move :" + move);
+        GUILayout.Label("PlayerVelocity :" + player.velocity);
+        GUILayout.Label("dir = move + velocity :" + dir);
+
+        GUILayout.Label("sens :" + sens);
+        
         GUILayout.Label("time :" + time);
         GUILayout.EndVertical();
     }
