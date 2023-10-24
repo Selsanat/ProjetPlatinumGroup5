@@ -10,33 +10,42 @@ public class BouleMouvement : MonoBehaviour
     #region public variables
 
     [Header("Vitesse de rotation de la boule autour du joueur")]
+    [Space(5)]
     public float _rotationSpeed = 100.0f; // Vitesse de rotation de la boule autour du joueur
     [Space(10)]
     [Header("Sens de rotation initial (true va de gauche à droite)")]
+    [Space(5)]
     public bool _clockwise = true; // Sens de rotation initial
     [Space(10)]
     [Header("vitesse à laquelle la boule va revenir en place après un bug de déplacement")]
+    [Space(5)]
     public float _resetSpeed = 400;
     [Space(10)]
-    [Header("Taille de la boule")]
+    [Header("Distance entre la boule et le player (c'est une multiplication donc ca va vite)")]
+    [Space(5)]
     public float _size = 1.0f;
     [Space(10)]
     [Header("Vitesse de lancer de la boule")]
+    [Space(5)]
     public float _speedThrowing = 10.0f;
     [Space(10)]
     [Header("Vitesse du lancer de la boule")]
     public float _speedBack = 2.0f;
     [Space(10)]
     [Header("Combien de temps avant que la boule ai sa vitesse max au retour (en seconde)")]
+    [Space(5)]
     public float _lerpDurationFast = 2.0f;
     [Space(10)]
     [Header("Combien de temps avant que la boule ai fini de ralentire (en seconde)")]
+    [Space(5)]
     public float _lerpDurationSlow = 2.0f;
     [Space(10)]
-    [Header("la courbe de vitesse que va prendre la boule")]
+    [Header("la courbe de vitesse que va prendre la boule (en terme de vitesse)")]
+    [Space(5)]
     public AnimationCurve _lerpCurve;
     [Space(10)]
     [Header("Le material de la boule ne pas touché")]
+    [Space(5)]
     public PhysicMaterial _bounce;
     #endregion
 
@@ -130,7 +139,7 @@ public class BouleMouvement : MonoBehaviour
 
     }
 
-    
+
     private void returnBoule() // retour de la boule
     {
         Vector3 dir = (_target - this.transform.position).normalized;
@@ -245,7 +254,7 @@ public class BouleMouvement : MonoBehaviour
         _rb.angularVelocity = Vector3.zero;
         this.transform.rotation = Quaternion.identity;
         _sphereCollider.material = null;
-        currentSpeed = _speedThrowing;
+        currentSpeed = _speedThrowing / 2;
         _isLerpSlowFinished = false;
         _lerpTime = 0;
         _isReturning = true;
