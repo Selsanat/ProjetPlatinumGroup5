@@ -1,9 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
+using UnityEngine.UI;
 
 public class GameStateMachine : MonoBehaviour
 {
+    [System.Serializable]
+    public class Menu
+    {
+        public GameObject menuObject;
+        public Button[] buttons;
+    }
+
+    public enum GameState
+    {
+        menuState,
+        playState
+    }
+    public Menu[] Menus;
     public MenuState menuState { get; } = new MenuState();
 
     public GameStateTemplate[] AllStates => new GameStateTemplate[]

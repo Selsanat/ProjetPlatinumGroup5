@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MenuManager;
 
 public abstract class TemplateState
 {
@@ -31,4 +32,7 @@ public abstract class TemplateState
     protected virtual void OnStateEnter(TemplateState previousState) { }
     protected virtual void OnStateExit(TemplateState nextState) { }
     protected virtual void OnStateUpdate() { }
+
+
+
 }
