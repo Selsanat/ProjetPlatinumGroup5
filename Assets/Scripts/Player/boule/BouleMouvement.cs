@@ -9,30 +9,41 @@ public class BouleMouvement : MonoBehaviour
 {
     #region public variables
 
-    [Tooltip("Vitesse de rotation de la boule autour du joueur")]
+    [Header("Vitesse de rotation de la boule autour du joueur")]
     public float _rotationSpeed = 100.0f; // Vitesse de rotation de la boule autour du joueur
-    [Tooltip("Sens de rotation initial")]
+    [Space(10)]
+    [Header("Sens de rotation initial (true va de gauche à droite)")]
     public bool _clockwise = true; // Sens de rotation initial
-    [Tooltip("vitesse à laquelle la boule va revenir en place après un bug de déplacement")]
+    [Space(10)]
+    [Header("vitesse à laquelle la boule va revenir en place après un bug de déplacement")]
     public float _resetSpeed = 400;
-    [Tooltip("Taille de la boule")]
+    [Space(10)]
+    [Header("Taille de la boule")]
     public float _size = 1.0f;
-    [Tooltip("Vitesse de lancer de la boule")]
+    [Space(10)]
+    [Header("Vitesse de lancer de la boule")]
     public float _speedThrowing = 10.0f;
-    [Tooltip("Vitesse du lancer de la boule")]
+    [Space(10)]
+    [Header("Vitesse du lancer de la boule")]
     public float _speedBack = 2.0f;
-    public PhysicMaterial _bounce;
-    [Tooltip("Combien de temps avant que la boule ai sa vitesse max au retour")]
+    [Space(10)]
+    [Header("Combien de temps avant que la boule ai sa vitesse max au retour (en seconde)")]
     public float _lerpDurationFast = 2.0f;
-    [Tooltip("Combien de temps avant que la boule ai fini de ralentire")]
+    [Space(10)]
+    [Header("Combien de temps avant que la boule ai fini de ralentire (en seconde)")]
     public float _lerpDurationSlow = 2.0f;
+    [Space(10)]
+    [Header("la courbe de vitesse que va prendre la boule")]
     public AnimationCurve _lerpCurve;
+    [Space(10)]
+    [Header("Le material de la boule ne pas touché")]
+    public PhysicMaterial _bounce;
     #endregion
 
     #region Private variables
 
     private bool _isThrowing = false;
-    public Vector3 _beforeThrow;
+    private Vector3 _beforeThrow;
     private Transform _player;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     private Rigidbody _rb;
