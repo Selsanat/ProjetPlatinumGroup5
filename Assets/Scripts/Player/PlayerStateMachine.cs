@@ -76,7 +76,7 @@ public class PlayerStateMachine : MonoBehaviour
         {
             CurrentState.StateExit(state);
         }
-        print("State was :" + CurrentState + " And now is : " + state);
+        //print("State was :" + CurrentState + " And now is : " + state);
         PreviousState = CurrentState;
         CurrentState = state;
         if (CurrentState != null)

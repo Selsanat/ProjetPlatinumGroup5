@@ -19,6 +19,7 @@ public class BouleMouvement : MonoBehaviour
     public float _speedThrowing = 10.0f;
     public float _speedBack = 2.0f;
     public PhysicMaterial _bounce;
+    public float _resetSpeed = 2.0f;
     #endregion
 
     #region Private variables
@@ -59,7 +60,7 @@ public class BouleMouvement : MonoBehaviour
         if(_player == null) 
             _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow && !_isReturning)
         {
             this.GetComponentInChildren<SphereCollider>().material = _bounce;
             _isThrowing = true;
@@ -70,7 +71,7 @@ public class BouleMouvement : MonoBehaviour
             setUpBoule();
 
         }
-        if(!(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 1.0f) && !(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) < -1.0f) && _resetedBoul)
+        if(!(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f) && !(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) < -0.1f) && _resetedBoul && !_isThrowing && !_isReturning)
         {
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
@@ -111,11 +112,12 @@ public class BouleMouvement : MonoBehaviour
         {
             _contactPoints.Clear();
             this.transform.rotation = _beforeThrow.rotation;
+            this.transform.position = _beforeThrow.position;
             _beforeThrow = null;
             _isReturning = false;
             _isThrowing = false;
-            //this.transform.SetParent(_player);
             resetBool();
+            //this.transform.SetParent(_player);
             return;
 
         }
@@ -146,19 +148,24 @@ public class BouleMouvement : MonoBehaviour
     private void resetBool()
     {
         _resetedBoul = true;
+        transform.LookAt(_player);
+        if (Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f )
+        {
+            if(_distance <= Vector3.Distance(_player.position, this.transform.position) )
+            {
+                _rb.AddForce(this.transform.forward * Time.deltaTime * _resetSpeed, ForceMode.VelocityChange);
+                print("plus grand");
+            }
+            else if (_distance > Vector3.Distance(_player.position, this.transform.position))
+            {
+                _rb.AddForce(-this.transform.forward * Time.deltaTime * _resetSpeed, ForceMode.VelocityChange);
+                print("plus petit");
 
-        if (Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 1.0f )
-        {
-            _rb.AddForce(this.transform.forward * Time.deltaTime * 0.5f, ForceMode.VelocityChange);
-            print("plus grand");
+            }
+
             // Téléporte la boule à la nouvelle position
         }
-        else if (Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) < -1.0f)
-        {
-            _rb.AddForce(-this.transform.forward * Time.deltaTime * 0.5f, ForceMode.VelocityChange);
-           print("plus petit");
-            // Téléporte la boule à la nouvelle position
-        }
+        
 
     }
     private void setUpBoule()
@@ -195,9 +202,9 @@ public class BouleMouvement : MonoBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
-        print("_distance = " + _distance + " distance réel : " + Vector3.Distance(_player.position, this.transform.position));
+        if(!_isThrowing && !_isReturning)
+            resetBool();
 
-        resetBool();
         _canThrow = true;
     }
 
