@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -20,23 +21,26 @@ public class BouleMouvement : MonoBehaviour
     public float _speedBack = 2.0f;
     public PhysicMaterial _bounce;
     public float _resetSpeed = 2.0f;
+    public float _lerpDuration = 2.0f;
+    public float _lerpSpeed = 2.0f;
+    public AnimationCurve _lerpCurve;
     #endregion
 
     #region Private variables
 
     private bool _isThrowing = false;
-    private Transform _beforeThrow;
+    public Vector3 _beforeThrow;
     private Transform _player;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     private Rigidbody _rb;
-    public List<Vector3> _contactPoints;
+    private List<Vector3> _contactPoints;
     private Vector3 _target;
     private int _destPoint;
     private bool _isReturning = false;
     private float _distance;
     private bool _canThrow = true;
     private bool _resetedBoul = false;
-
+    private SphereCollider _sphereCollider;
 
     #endregion
 
@@ -44,6 +48,7 @@ public class BouleMouvement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
+        _sphereCollider = GetComponentInChildren<SphereCollider>();
     }
 
     void Start()
@@ -59,14 +64,13 @@ public class BouleMouvement : MonoBehaviour
     {
         if(_player == null) 
             _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
-
         if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow && !_isReturning)
         {
-            this.GetComponentInChildren<SphereCollider>().material = _bounce;
+            _sphereCollider.material = _bounce;
             _isThrowing = true;
             updateThrowing();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) && _isThrowing)
+        if (Input.GetKeyUp(KeyCode.LeftShift) && _isThrowing && !_isReturning)
         {
             setUpBoule();
 
@@ -76,7 +80,9 @@ public class BouleMouvement : MonoBehaviour
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
             _resetedBoul = false;
-            print("reseted");
+            _sphereCollider.isTrigger = false;
+
+            //print("reseted");
         }
 
     }
@@ -93,36 +99,53 @@ public class BouleMouvement : MonoBehaviour
 
     private void updateThrowing()
     {
-        //this.transform.SetParent(null);
-        if (_beforeThrow == null)
-            _beforeThrow = this.transform;
+        if (_beforeThrow == Vector3.zero)
+        {
+            _beforeThrow = this.transform.position;
+            _contactPoints.Add(_beforeThrow);
+        }
+        this.transform.SetParent(null);
 
         _rb.AddForce(-this.transform.forward * Time.deltaTime * _speedThrowing, ForceMode.VelocityChange);
 
     }
 
+    private void lerpReturnBoule()
+    {
+
+        _isReturning = true;
+    }
     private void returnBoule()
     {
         
-
         Vector3 dir = (_target - this.transform.position).normalized;
         transform.Translate(dir * Time.deltaTime * _speedBack, Space.World);
 
-        if (_target == _contactPoints[0] && Vector3.Distance(transform.position, _target) < 0.1f)
+        if (_target == _contactPoints[0] )
         {
-            _contactPoints.Clear();
-            this.transform.rotation = _beforeThrow.rotation;
-            this.transform.position = _beforeThrow.position;
-            _beforeThrow = null;
-            _isReturning = false;
-            _isThrowing = false;
-            resetBool();
-            //this.transform.SetParent(_player);
-            return;
+
+            if (Vector3.Distance(transform.position, _target) < 0.1f )
+            {
+                _contactPoints.Clear();
+                _isReturning = false;
+                _isThrowing = false;
+                this.transform.SetParent(_player);
+                _beforeThrow = Vector3.zero;
+                if(Vector3.Distance(transform.position, _player.position) > 0.1f)
+                {
+                    _sphereCollider.isTrigger = true;
+                    resetBool();
+                }
+
+                print("last");
+                return;
+            }
+            
 
         }
         if (Vector3.Distance(transform.position, _target) < 0.1f)
         {
+
             _destPoint--;
             _target = _contactPoints[_destPoint];
         }
@@ -145,6 +168,8 @@ public class BouleMouvement : MonoBehaviour
         // Assurez-vous que la boule regarde toujours vers le joueur
 
     }
+
+
     private void resetBool()
     {
         _resetedBoul = true;
@@ -171,15 +196,15 @@ public class BouleMouvement : MonoBehaviour
     private void setUpBoule()
     {
         if (_contactPoints.Count == 0)
-            _contactPoints.Add(_beforeThrow.position);
+            _contactPoints.Add(_beforeThrow);
 
         _destPoint = _contactPoints.Count;
         _target = _contactPoints[_destPoint - 1];
-        _isReturning = true;
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         this.transform.rotation = Quaternion.identity;
-        this.GetComponentInChildren<SphereCollider>().material = null;
+        _sphereCollider.material = null;
+        lerpReturnBoule();
     }
   
     private void OnCollisionEnter(Collision collision)
