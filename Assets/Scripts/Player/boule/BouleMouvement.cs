@@ -91,7 +91,6 @@ public class BouleMouvement : MonoBehaviour
         if(_player == null) 
             _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
 
-        this.transform.LookAt(_player);
         if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow && !_isReturning)
         {
             _sphereCollider.material = _bounce;
@@ -145,7 +144,7 @@ public class BouleMouvement : MonoBehaviour
         Vector3 dir = (_target - this.transform.position).normalized;
         if (_target == _contactPoints[_contactPoints.Count - 1])
         {
-            if(!_isLerpSlowFinished)
+            /*if(!_isLerpSlowFinished)
             {
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = Vector3.zero;
@@ -162,7 +161,7 @@ public class BouleMouvement : MonoBehaviour
                 }
 
             }
-            else if(_isLerpSlowFinished)
+            else*/ //if(_isLerpSlowFinished)
             {
                 _lerpTime += Time.deltaTime;
                 float pourcentageComplete = _lerpTime / _lerpDurationFast;
@@ -252,7 +251,6 @@ public class BouleMouvement : MonoBehaviour
         _target = _contactPoints[_destPoint - 1];
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
-        this.transform.rotation = Quaternion.identity;
         _sphereCollider.material = null;
         currentSpeed = _speedThrowing / 2;
         _isLerpSlowFinished = false;
