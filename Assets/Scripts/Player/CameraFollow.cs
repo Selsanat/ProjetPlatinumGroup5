@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
             }
 
             dist = dist / players.Length;
-            dist = Mathf.Clamp(dist, 3, 9999);
+            dist = Mathf.Clamp(dist, 3, dist);
             transform.position = new Vector3(center.x/ players.Length, center.y/ players.Length);
             GetComponent<Camera>().orthographicSize = dist;
         }
