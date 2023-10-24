@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9479213e8202b49b7488d68ee5c9cf, type: 3}
   m_Name: PlayerMovement
   m_EditorClassIdentifier: 
-  jumpMaxHeight: 0.087
-  jumpDuration: 1
+  jumpMaxHeight: 0.1
+  jumpDuration: 1.2
   minJump: 0.038
-  coyoteWindow: 0.99
+  coyoteWindow: 2
   inertieLoss: 1
-  JumpAccelerationTime: 0.07
-  airMaxSpeedX: 0.16
-  fallDuration: 0.672
-  maxFallSpeed: 2
-  fallAccelerationTime: 0.1
-  fallMaxSpeedX: 0.16
-  maxSpeed: 0.179
-  accelerationTime: 0.122
-  decelerationTime: 0.094
-  turnAccelerationTime: 0.141
-  turnDecelerationTime: 0.131
+  JumpAccelerationTime: 0.05
+  airMaxSpeedX: 0.21
+  fallDuration: 0.995
+  maxFallSpeed: 1.474
+  fallAccelerationTime: 0.281
+  fallMaxSpeedX: 0.21
+  maxSpeed: 0.241
+  accelerationTime: 0.222
+  decelerationTime: 0.064
+  turnAccelerationTime: 0.071
+  turnDecelerationTime: 0.081
   slideSlopeThresHold: 2
