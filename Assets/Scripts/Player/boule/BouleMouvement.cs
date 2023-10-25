@@ -138,20 +138,21 @@ public class BouleMouvement : MonoBehaviour
 
     }
 
-
     private void returnBoule() // retour de la boule
     {
         Vector3 dir = (_target - this.transform.position).normalized;
         if (_target == _contactPoints[_contactPoints.Count - 1])
         {
-            /*if(!_isLerpSlowFinished)
+            if (!_isLerpSlowFinished)
             {
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = Vector3.zero;
                 _lerpTime += Time.deltaTime;
                 float pourcentageComplete = _lerpTime / _lerpDurationSlow;
-                currentSpeed = Mathf.Lerp(_speedThrowing, 0, _lerpCurve.Evaluate(pourcentageComplete));
-                _rb.AddForce(-this.transform.forward * Time.deltaTime * currentSpeed, ForceMode.VelocityChange);
+
+                currentSpeed = Mathf.Lerp(_speedBack, 0, _lerpCurve.Evaluate(pourcentageComplete));
+                transform.Translate(-this.transform.forward * Time.deltaTime * currentSpeed / 2.4f, Space.World);
+                //_rb.AddForce(-this.transform.forward * Time.deltaTime * currentSpeed, ForceMode.VelocityChange);
                 if (currentSpeed == 0)
                 {
                     _isLerpSlowFinished = true;
@@ -161,11 +162,11 @@ public class BouleMouvement : MonoBehaviour
                 }
 
             }
-            else*/ //if(_isLerpSlowFinished)
+            else if (_isLerpSlowFinished)
             {
                 _lerpTime += Time.deltaTime;
                 float pourcentageComplete = _lerpTime / _lerpDurationFast;
-                currentSpeed = Mathf.Lerp(0, _speedBack, _lerpCurve.Evaluate(pourcentageComplete));
+                currentSpeed = Mathf.Lerp(0.2f, _speedBack, _lerpCurve.Evaluate(pourcentageComplete));
                 transform.Translate(dir * Time.deltaTime * currentSpeed, Space.World);
             }
             
@@ -252,7 +253,7 @@ public class BouleMouvement : MonoBehaviour
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         _sphereCollider.material = null;
-        currentSpeed = _speedThrowing / 2;
+        currentSpeed = 0;
         _isLerpSlowFinished = false;
         _lerpTime = 0;
         _isReturning = true;
