@@ -43,6 +43,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public Vector2 velocity;
     public float JumpBuffer;
+    public bool activeHUD = false;
     private void Awake()
     {
         _InitAllStates();
@@ -67,6 +68,7 @@ public class PlayerStateMachine : MonoBehaviour
     }
     private void OnGUI()
     {
+        if (!activeHUD) return;
         GUILayout.BeginVertical(GUI.skin.box);
         GUILayout.Label("State machine :" + CurrentState);
         GUILayout.Label(DetectCollision.isColliding(Mathf.Sign(velocity.x) * Vector2.right,transform, Vector2.zero) ? "OnGround" : "InAir");
