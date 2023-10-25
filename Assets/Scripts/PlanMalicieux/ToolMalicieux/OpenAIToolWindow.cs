@@ -1,25 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class OpenAIToolWindow : EditorWindow
 {
     public OpenAITool tool = null;
     private OpenAIToolWindow window;
+    Vector2 ScrollPos = Vector2.zero;
     [MenuItem("LeandroTools/ToolsTropStylésDeLaMortQuiTue")]
+
+
     public void initWindow()
     {
         window = (OpenAIToolWindow)EditorWindow.GetWindow(typeof(OpenAIToolWindow));
         window.titleContent = new GUIContent("ToolLeandroTropStylés");
         window.minSize = new Vector2(250, 500);
         window.Show();
+
     }
 
     private void OnGUI()
     {
         GUILayout.Label("Prompt :");
-         tool.prompt = GUILayout.TextArea( tool.prompt, GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
+        
+         ScrollPos = EditorGUILayout.BeginScrollView(ScrollPos, GUILayout.Height(100));
+        tool.prompt = GUILayout.TextArea( tool.prompt, GUILayout.ExpandHeight(false), GUILayout.ExpandWidth(false));
+        EditorGUILayout.EndScrollView();
+
 
         if (GUILayout.Button("TestPrompt"))
         {
