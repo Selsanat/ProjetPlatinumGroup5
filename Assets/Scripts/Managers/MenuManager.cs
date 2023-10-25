@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject mainMenu;
     
     public static MenuManager Instance;
 

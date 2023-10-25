@@ -10,7 +10,7 @@ public class MenuState : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
-        manager.HideAllMenusExceptThis(manager.mainMenu);
+        manager.HideAllMenusExceptThis(ui);
     }
 
     protected override void OnStateUpdate()

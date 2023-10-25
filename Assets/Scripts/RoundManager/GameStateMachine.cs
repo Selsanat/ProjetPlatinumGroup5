@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
@@ -11,22 +13,23 @@ public class GameStateMachine : MonoBehaviour
     public class Menu
     {
         public GameObject menuObject;
+        [HideInInspector]
+        public string thisMenu;
+        [HideInInspector]
         public Button[] buttons;
     }
-
-    public enum GameState
-    {
-        menuState,
-        playState
-    }
+    [SerializeField]
+    public string[][] _choiceState;
+    [SerializeField]
+    public string[] _choices;
+    [SerializeField]
     public Menu[] Menus;
     public MenuState menuState { get; } = new MenuState();
 
     public GameStateTemplate[] AllStates => new GameStateTemplate[]
     {
-        menuState
+        menuState,
     };
-
     public GameStateTemplate StartState => menuState;
     public GameStateTemplate CurrentState { get; private set; }
     public GameStateTemplate PreviousState { get; private set; }
@@ -37,7 +40,7 @@ public class GameStateMachine : MonoBehaviour
     }
     void Start()
     {
-
+        
         ChangeState(StartState);
     }
 
@@ -70,7 +73,24 @@ public class GameStateMachine : MonoBehaviour
         CurrentState = state;
         if (CurrentState != null)
         {
+            state.ui = Menus[0].menuObject;
             CurrentState.StateEnter(state);
+        }
+    }
+    public void ChangeState(int state, string menu)
+    {
+        var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
+        var fileInfo = info.GetFiles();
+        foreach (GameStateTemplate State in AllStates)
+        {
+            
+            if (State.GetType() == fileInfo[state].GetType())
+            {
+                GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
+                thatState.ui = Menus.ToList().Find(x => x.thisMenu == menu).menuObject;
+                print(thatState.ui);
+                ChangeState(thatState);
+            }
         }
     }
 }

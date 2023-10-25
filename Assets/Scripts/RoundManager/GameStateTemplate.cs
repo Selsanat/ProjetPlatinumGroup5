@@ -7,6 +7,8 @@ public abstract class GameStateTemplate
     protected GameStateMachine StateMachine { get; private set; }
     protected MenuManager manager => MenuManager.Instance;
     protected void ChangeState(GameStateTemplate state) => StateMachine.ChangeState(state);
+    [HideInInspector]
+    public GameObject ui;
 
     public void Init(GameStateMachine stateMachine)
     {
