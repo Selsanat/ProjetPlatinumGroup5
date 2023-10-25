@@ -9,14 +9,18 @@ using UnityEngine.InputSystem.Interactions;
 
 public class WalkState : TemplateState
 {
+    
     private CharacterController characterController;
     RaycastHit HitInfo;
+
     protected override void OnStateInit()
     {
+        
     }
 
     protected override void OnStateEnter(TemplateState previousState)
     {
+        animator.Play("Walk");
         StateMachine.velocity.x = _movementParams.maxSpeed* Mathf.Sign(StateMachine.velocity.x);
          characterController = StateMachine.GetComponent<CharacterController>();
     }

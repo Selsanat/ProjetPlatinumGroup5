@@ -16,6 +16,7 @@ public class FallState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
+        animator.Play("Fall");
         StateMachine.velocity.y = 0;
         _timer = StateMachine.velocity.x / _movementParams.fallMaxSpeedX * _movementParams.fallAccelerationTime;
     }
