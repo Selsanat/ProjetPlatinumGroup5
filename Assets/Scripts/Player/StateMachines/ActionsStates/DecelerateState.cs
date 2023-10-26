@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine.Utility;
 using DetectCollisionExtension;
 using Unity.Mathematics;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class DecelerateState : TemplateState
 {
     private float sign;
     private float _timer;
+    private CharacterController characterController;
+    RaycastHit HitInfo;
 
     protected override void OnStateInit()
     {
@@ -17,12 +21,13 @@ public class DecelerateState : TemplateState
     {
         _timer = (1-(Mathf.Abs(StateMachine.velocity.x / _movementParams.maxSpeed)))* _movementParams.decelerationTime;
         sign = Mathf.Sign(StateMachine.velocity.x);
+        characterController = StateMachine.GetComponent<CharacterController>();
 
     }
 
     protected override void OnStateUpdate()
     {
-
+        _timer += Time.deltaTime;
         #region Jump
         if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
         {
@@ -31,28 +36,45 @@ public class DecelerateState : TemplateState
         }
         #endregion
 
+
         #region Fall
         if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector3.zero))
         {
-            StateMachine.ChangeState(StateMachine.fallState);
-            return;
-        }
-        #endregion
+            Vector3 origin = StateMachine.transform.position + characterController.center;
+            float distance = characterController.bounds.extents.y + characterController.skinWidth;
+            Ray ray = new Ray(origin, Vector2.down);
+            Vector3 dir = Vector3.Cross(StateMachine.transform.position, HitInfo.normal);
 
-        #region HasHitWall
-        if (DetectCollision.isColliding(Mathf.Sign(StateMachine.velocity.x) * Vector2.right, StateMachine.transform, Vector2.zero))
+            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold)))
+            {
+                dir.z = 0;
+                dir *= -_IOrientWriter.orient.x;
+                dir = dir.normalized;
+
+                StateMachine.velocity = (_movementParams.decelerationTime - _timer) * (_movementParams.maxSpeed*dir);
+                if (dir.normalized.Abs() == Vector3.right)
+                {
+                    StateMachine.velocity.y -= 0.1f;
+                }
+
+            }
+            else
+            {
+                StateMachine.ChangeState(StateMachine.fallState);
+                return;
+            }
+        }
+        else
         {
-            StateMachine.velocity.x = 0;
-            StateMachine.ChangeState(StateMachine.stateIdle);
-            return;
+            StateMachine.velocity.y = 0;
+            StateMachine.velocity.x = (_movementParams.decelerationTime - _timer) * (_movementParams.maxSpeed * Vector2.right.x * sign);
+            StateMachine.velocity.x = Mathf.Abs(StateMachine.velocity.x) * _IOrientWriter.orient.x;
         }
         #endregion
         #region StopInput
 
         if (_IOrientWriter.orient.x == 0)
         {
-
-
             #region ToIdle
 
             if (_timer >= _movementParams.decelerationTime)
@@ -78,9 +100,9 @@ public class DecelerateState : TemplateState
         }
         #endregion
 
-        _timer += Time.deltaTime;
+        
         //Debug.Log(_timer + " Temps atm, et temps de deceleration : " + _movementParams.decelerationTime);
-        StateMachine.velocity.x = (_movementParams.decelerationTime - _timer) * (_movementParams.maxSpeed * Vector2.right.x* sign);
-        StateMachine.transform.Translate(StateMachine.velocity);
+
+        _characterController.Move(StateMachine.velocity);
     }
 }

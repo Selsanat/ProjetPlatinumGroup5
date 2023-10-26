@@ -1,13 +1,18 @@
+using DetectCollisionExtension;
 using System.Collections;
 using System.Collections.Generic;
-using DetectCollisionExtension;
+using Cinemachine.Utility;
+using Microsoft.Win32.SafeHandles;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 
 public class AccelerateState : TemplateState
 {
 
     private float _timer;
-
+    private CharacterController characterController;
+    RaycastHit HitInfo;
     protected override void OnStateInit()
     {
     }
@@ -15,6 +20,7 @@ public class AccelerateState : TemplateState
     protected override void OnStateEnter(TemplateState previousState)
     {
         _timer = StateMachine.velocity.x / _movementParams.maxSpeed* _movementParams.accelerationTime;
+        characterController = StateMachine.GetComponent<CharacterController>();
     }
 
     protected override void OnStateUpdate()
@@ -26,6 +32,8 @@ public class AccelerateState : TemplateState
             return;
         }
         #endregion
+
+        _timer += Time.deltaTime;
         #region Jump
         if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
         {
@@ -35,20 +43,49 @@ public class AccelerateState : TemplateState
         #endregion
 
         #region Fall
-        if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector2.down*Time.deltaTime*_movementParams.gravityScale))
+        if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector3.zero))
         {
-            StateMachine.ChangeState(StateMachine.fallState);
-            return;
+            Vector3 origin = StateMachine.transform.position + characterController.center;
+            float distance = characterController.bounds.extents.y + characterController.skinWidth;
+            Ray ray = new Ray(origin, Vector2.down);
+            Vector3 dir = Vector3.Cross(StateMachine.transform.position, HitInfo.normal);
+
+            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold)))
+            {
+                dir.z = 0;
+                dir *= -_IOrientWriter.orient.x;
+                dir = dir.normalized;
+
+                StateMachine.velocity = _timer / _movementParams.accelerationTime*(_movementParams.maxSpeed*dir);
+                if (dir.normalized.Abs() == Vector3.right)
+                {
+                    StateMachine.velocity.y -= 0.1f;
+                }
+
+            }
+            else
+            {
+                StateMachine.ChangeState(StateMachine.fallState);
+                return;
+            }
+        }
+        else
+        {
+            StateMachine.velocity.y = 0;
+            StateMachine.velocity.x = (_timer / _movementParams.accelerationTime) * (_movementParams.maxSpeed);
+            StateMachine.velocity.x = Mathf.Abs(StateMachine.velocity.x) * _IOrientWriter.orient.x;
         }
         #endregion
-        #region HasHitWall
+
+
+        /*#region HasHitWall
         if (DetectCollision.isColliding(Mathf.Sign(_IOrientWriter.orient.x) * Vector2.right, StateMachine.transform, Vector2.zero))
         {
             StateMachine.velocity.x = 0;
             StateMachine.ChangeState(StateMachine.stateIdle);
             return;
         }
-        #endregion
+        #endregion*/
         #region StopInput
         if (_IOrientWriter.orient.x == 0)
         {
@@ -69,9 +106,8 @@ public class AccelerateState : TemplateState
         } 
         #endregion
 
-        _timer += Time.deltaTime;
 
-        StateMachine.velocity.x = (_timer / _movementParams.accelerationTime)* (_movementParams.maxSpeed * _IOrientWriter.orient.x);
-        StateMachine.transform.Translate(StateMachine.velocity);
+        
+        _characterController.Move(StateMachine.velocity);
     }
 }

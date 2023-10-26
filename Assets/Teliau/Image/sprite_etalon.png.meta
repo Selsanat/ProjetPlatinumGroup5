@@ -1,0 +1,2679 @@
+fileFormatVersion: 2
+guid: 4d5c6b7e976fc364c8ea28ae02329466
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sprite_etalon_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 705
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f0657f03a726c946a8d00787f5f914f
+      internalID: -1929160082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 705
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc95665a900bf244789aced1fd3a5fbe
+      internalID: -1913357951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_2
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 705
+        width: 20
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00ae534c44738194aa75d3765867fa29
+      internalID: 182687683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_3
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 705
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ab05f23e4e7f3645aa5f70d8ccdd397
+      internalID: -230951950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_4
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 705
+        width: 18
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d7dc865ce163bb44a8b6bb7d4b57a33
+      internalID: -999407119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_5
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 705
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b3db9e35099913409378642cfa0f796
+      internalID: 894665449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_6
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 661
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4959ed584767f19448b09231bd39a570
+      internalID: 1593711103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_7
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 664
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c12a4b6eee58df04090d180d72752e5a
+      internalID: 1150247845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_8
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 663
+        width: 29
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7d11f87c85ed4749beb4a10dcb1a361
+      internalID: -1543900539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_9
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 661
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73622b090f075344a9c3e77f9519840e
+      internalID: 1210335736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_10
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 661
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a984909643c51bf4ea32b735a9c91a45
+      internalID: 2041503130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_11
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 664
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 668c7032090ad8a45bb68561275561b0
+      internalID: -7437051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_12
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 619
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 036b6e78fd99a5643ad03ca84f8ae114
+      internalID: 507199028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_13
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 617
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 068a7f4b0f78737498a0853ca72b47fb
+      internalID: 363712895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_14
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 617
+        width: 27
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03419d2e04cca0c4d92085457511e417
+      internalID: 1867451614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_15
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 608
+        width: 36
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f4710f6dce130744b47da9e5940b9ad
+      internalID: -1377186855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_16
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 617
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa3c5bba128e3cb4f86832c0bd962d68
+      internalID: 1571636618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_17
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 617
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9270f8fa5b9c23e4f823122c0d90e230
+      internalID: 423351091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_18
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 573
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 818a8008333cc4d4490d961945e65817
+      internalID: -813361909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_19
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 573
+        width: 48
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aeb7bbbfeabbccc40b1d2f29a6943ea1
+      internalID: 1241912342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_20
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 573
+        width: 50
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fece8ba87c0ae0469ce5c19940ea9dd
+      internalID: 51939895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_21
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 573
+        width: 40
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15e1e92d413ae4f43a59c34b6a9a86d2
+      internalID: 978194808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_22
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 597
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03c4b634c9d1f4e438d24874b33c0d24
+      internalID: 1695470280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_23
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 573
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6bd2b9dfe8834448b2d09337ed62986
+      internalID: 1530121721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_24
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 570
+        width: 55
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b6d8370d87042042a8f7852db83b658
+      internalID: 1640367575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 529
+        width: 43
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96542a9f1119e18448952d0cf791f408
+      internalID: 429921487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_26
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 529
+        width: 39
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac4b0682aa480e34e8923dee048bad14
+      internalID: 1729713614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_27
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 531
+        width: 31
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 379ca4f8eae23fc4f8e623436c6ad334
+      internalID: 706685540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_28
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 564
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 532320b1299214547b6f4e8b05780b33
+      internalID: -1395651616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_29
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 557
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd4bd4992fac89440a0e987eb5f6d201
+      internalID: -1037496334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_30
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 558
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbf542046fd14a54385a1d973db83808
+      internalID: 2116435657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_31
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 551
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88373021858cbbc48aeec4f1a6e5c46a
+      internalID: 1562878226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_32
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 538
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee7f3b5f184bf1b4298ca43a5bfae027
+      internalID: 1152032592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_33
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 548
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6041043f1963624cb3712a5c9fac696
+      internalID: 536629120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_34
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 544
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fa081bfd1b88984ea20d335cedb563f
+      internalID: -2049686756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_35
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 529
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f454478ef710164892c1e4659678d3a
+      internalID: 1026214231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_36
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 530
+        width: 31
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53a754aab56764a4f80f81056c39c91c
+      internalID: -851024305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_37
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 533
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d902ede6baf3dc459bf040a0a9cc6db
+      internalID: -388772313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_38
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 485
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51ccb2a0cfa27b149bd559f93838d0f3
+      internalID: 277487987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_39
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 504
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bd737d075fa8104781da99d8c2a875b
+      internalID: -1589620697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_40
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 514
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7be8f9d918fb61458757b578f6ec67a
+      internalID: -133201476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_41
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 507
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f579a5e0aa656624999dd2d744c96856
+      internalID: 1208321736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_42
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 502
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd2688f2179e81e4fa4bcae8c808de06
+      internalID: -1031869283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_43
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 485
+        width: 40
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80d480ba0dd7a8a409075b1aa25bb26f
+      internalID: -498626046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_44
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 485
+        width: 33
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce9f185082585e04092c3c800d59de93
+      internalID: -1052251500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_45
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 504
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aff480c79aae100428886b3c7f4de0ec
+      internalID: 1652493774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_46
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 492
+        width: 4
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24a27c9dc38293a49808af9578096605
+      internalID: 168736892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_47
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 485
+        width: 42
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d3d6b9f7f853ab4f86d123cb3ab346b
+      internalID: 1345836758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_48
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 485
+        width: 37
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0467f75d9b976e24282824123ba51233
+      internalID: -239697848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_49
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 485
+        width: 40
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09aa145ecbd0a7f42ba1e3aef2b65f00
+      internalID: -394394407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_50
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 441
+        width: 40
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2459a4ebefcea844895062c9cf15ba9
+      internalID: 1245228208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_51
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 441
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05fe0c1a540c2cc47ad15ab165411733
+      internalID: 1192104360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_52
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 441
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff4cd73198756414da4843cebab19348
+      internalID: 1237543096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_53
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 441
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0d76099ed2969b4d95ff34ab2397de9
+      internalID: -1227943558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_54
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 441
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 186c1bfcb1b39384a853673e5902681f
+      internalID: 182045457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_55
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 443
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a780682e20acc424d9030caf157acfcb
+      internalID: 762154968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_56
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 399
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a087585ca74fc0f4d960e4e8c7c69429
+      internalID: 1984096445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_57
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 399
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1887e355b84e2c4dad9d88c124addc9
+      internalID: 518204457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_58
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 400
+        width: 20
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4f90381ff38b764f837acc044e16347
+      internalID: 56586531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_59
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 400
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9d73130d62d29543827b843d9f78f15
+      internalID: 936657862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_60
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 397
+        width: 21
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aca2a6b35ea4b814ab6466dee9febb09
+      internalID: -563820973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_61
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 397
+        width: 21
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 647501d8d82646a44b95f1a2b96f8aa5
+      internalID: -368218132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_62
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 353
+        width: 21
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1fb5a83eab95684f91ffa160ddf8b10
+      internalID: -1750799663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_63
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 361
+        width: 19
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c95bd173122b474ba51bc26ebc26e7c
+      internalID: 1646835519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_64
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 354
+        width: 16
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0693f88f4900e3c42b44bef091d058e1
+      internalID: 1256160327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_65
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 354
+        width: 15
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61bc0a527923b634db7a0a9c7aebeabf
+      internalID: -2103337841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_66
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 354
+        width: 16
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e20466e95cf889469bed8355f7d7efd
+      internalID: 1540289143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_67
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 354
+        width: 14
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61cf2093a16903040bce67a7d69435bc
+      internalID: -812163111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_68
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 310
+        width: 14
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aefba9d1052aa34088db3ce2cce196b
+      internalID: 642144945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_69
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 310
+        width: 14
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94fd57d42b54d9f4abd29f666d6293e3
+      internalID: -87976645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_70
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 310
+        width: 16
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcb98b570d58453459b2d08bfa337f6d
+      internalID: -1779891809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_71
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 310
+        width: 16
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e708b1109ff0f154e81485fda2c0f6fa
+      internalID: -320589869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_72
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 310
+        width: 15
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57d35fd48fffda64aabce03474d034fe
+      internalID: -525785452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_73
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 310
+        width: 14
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db296d0652900fb4a9734d41cb4c5708
+      internalID: 495226914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_74
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 266
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff027ac9566d0784982753c5f59b49c9
+      internalID: -195467660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_75
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 266
+        width: 16
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e17c17bad7034a74c8e476044979147f
+      internalID: 179846659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_76
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 266
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55b3acb3ea6f3ee46b9980728dab3482
+      internalID: -1778560295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_77
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 265
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 163a495dc74ea34439a9839fe5c1d7bf
+      internalID: -1685849048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_78
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 265
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c9b95db5aecdb24da6519f002ce38c2
+      internalID: 1104776325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_79
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 265
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7092460f8aea4b24d9e98a6629ae3af7
+      internalID: 496229584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_80
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 221
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfc860416d3271f4ea8253786b534a69
+      internalID: 1781989769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_81
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 221
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: babf950f1e7bb8745b7254431150478f
+      internalID: -1511441802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_82
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 221
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 784937590e21aa747b50866c5fa71cea
+      internalID: 1281601117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_83
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 221
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 852fc2554451a43468dad3d9fad766b0
+      internalID: 1543428781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_84
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 221
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b6ab248bb54f6d4b8ebc51a100161d2
+      internalID: -1717423843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_85
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 221
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95c4776f1fa8c834bb249cd5513727f4
+      internalID: -233009466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_86
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 177
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce419061d4586cc46ae4c1cb9639d2f6
+      internalID: -50087690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_87
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 177
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bbf548e96eeaef498823f5ca9b493ec
+      internalID: -962365600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_88
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 177
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fde79604c6cdc064aa8fd528946974f3
+      internalID: 2135051788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_89
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 177
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a90eec71e8bf72b4284b3b9480d0cbfb
+      internalID: 1543560030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_90
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 177
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be485e1711a8b3d458397d4ea151ca6a
+      internalID: 1341246237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_91
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 177
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34556c909230e86498729b354ddf5bff
+      internalID: -442618457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_92
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 177
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df6ff7b7d4fdc8d4db518ba34970f99c
+      internalID: -1680434063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_93
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 177
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 143136d074f1fd44c89d378bc08ebce0
+      internalID: 767671098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_94
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 133
+        width: 31
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70874502222f8324abf6c48448e15b81
+      internalID: -1006776041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_95
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 133
+        width: 58
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d6a4ea2e93128648bcc503d797dcfec
+      internalID: 2017759788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_96
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 133
+        width: 54
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0905622ee96c25479895301b7129112
+      internalID: -589819929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_97
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 133
+        width: 43
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d05c06247c2ae214b828481d5a65ceab
+      internalID: 736514012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_98
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 133
+        width: 43
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b024dbd52c16964885e6baa606771f4
+      internalID: 141271273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_99
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 133
+        width: 42
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5cc9ac4b27ff8646a576fe4e295f0ad
+      internalID: -2140806537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_100
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 89
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 956b9a049c0616a43879005c240efba1
+      internalID: 1518268561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_101
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 89
+        width: 20
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c3543642f37cb64a891bab5cdbfba59
+      internalID: -1588204206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_102
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 89
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bba699dce5a9e0041969c85564ef3930
+      internalID: -199582902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_103
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 89
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bbd9307ceff222469d257a94390f6ba
+      internalID: 1964988140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_104
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 89
+        width: 30
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9fefee92cab7a649a5d09115458c469
+      internalID: -296019588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_105
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 89
+        width: 35
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e30c7ec19d0e8ef4985ddb5da1bdfeae
+      internalID: 1730433704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_106
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 89
+        width: 32
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae5b6d394f9658e47b28aa9b2773e8f0
+      internalID: 1870441319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_107
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 45
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a30bcaa9a9ce6e045907caaff11f87e9
+      internalID: 174543270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_108
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 51
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 583363e126244ad489180c94fe2ba179
+      internalID: -1743717572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_109
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 48
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a372013fe05488e439fa06bdae776ddc
+      internalID: -882075463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_110
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 47
+        width: 18
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8172b16ca7dfcc4458d7cba86c45f430
+      internalID: -449476843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_111
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 49
+        width: 19
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 687a806fad2d30046b1fab54118ecf2d
+      internalID: -1382979045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_112
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 51
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b9ec9ddc60673648be34f3a318628c7
+      internalID: 850773625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_113
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 4
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce03f206dc3e0a24794801e93f50ea68
+      internalID: 618958993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_114
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 3
+        width: 18
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b3ba9d633952914cb0710a9a1a0b440
+      internalID: 1712475309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_etalon_115
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 5
+        width: 18
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30edcf4d8ae6f224e8ee3aab83e6e58f
+      internalID: -998797103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 06c1418f2c0c003449b8b9b6e4d427ba
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      sprite_etalon_0: -1929160082
+      sprite_etalon_1: -1913357951
+      sprite_etalon_10: 2041503130
+      sprite_etalon_100: 1518268561
+      sprite_etalon_101: -1588204206
+      sprite_etalon_102: -199582902
+      sprite_etalon_103: 1964988140
+      sprite_etalon_104: -296019588
+      sprite_etalon_105: 1730433704
+      sprite_etalon_106: 1870441319
+      sprite_etalon_107: 174543270
+      sprite_etalon_108: -1743717572
+      sprite_etalon_109: -882075463
+      sprite_etalon_11: -7437051
+      sprite_etalon_110: -449476843
+      sprite_etalon_111: -1382979045
+      sprite_etalon_112: 850773625
+      sprite_etalon_113: 618958993
+      sprite_etalon_114: 1712475309
+      sprite_etalon_115: -998797103
+      sprite_etalon_12: 507199028
+      sprite_etalon_13: 363712895
+      sprite_etalon_14: 1867451614
+      sprite_etalon_15: -1377186855
+      sprite_etalon_16: 1571636618
+      sprite_etalon_17: 423351091
+      sprite_etalon_18: -813361909
+      sprite_etalon_19: 1241912342
+      sprite_etalon_2: 182687683
+      sprite_etalon_20: 51939895
+      sprite_etalon_21: 978194808
+      sprite_etalon_22: 1695470280
+      sprite_etalon_23: 1530121721
+      sprite_etalon_24: 1640367575
+      sprite_etalon_25: 429921487
+      sprite_etalon_26: 1729713614
+      sprite_etalon_27: 706685540
+      sprite_etalon_28: -1395651616
+      sprite_etalon_29: -1037496334
+      sprite_etalon_3: -230951950
+      sprite_etalon_30: 2116435657
+      sprite_etalon_31: 1562878226
+      sprite_etalon_32: 1152032592
+      sprite_etalon_33: 536629120
+      sprite_etalon_34: -2049686756
+      sprite_etalon_35: 1026214231
+      sprite_etalon_36: -851024305
+      sprite_etalon_37: -388772313
+      sprite_etalon_38: 277487987
+      sprite_etalon_39: -1589620697
+      sprite_etalon_4: -999407119
+      sprite_etalon_40: -133201476
+      sprite_etalon_41: 1208321736
+      sprite_etalon_42: -1031869283
+      sprite_etalon_43: -498626046
+      sprite_etalon_44: -1052251500
+      sprite_etalon_45: 1652493774
+      sprite_etalon_46: 168736892
+      sprite_etalon_47: 1345836758
+      sprite_etalon_48: -239697848
+      sprite_etalon_49: -394394407
+      sprite_etalon_5: 894665449
+      sprite_etalon_50: 1245228208
+      sprite_etalon_51: 1192104360
+      sprite_etalon_52: 1237543096
+      sprite_etalon_53: -1227943558
+      sprite_etalon_54: 182045457
+      sprite_etalon_55: 762154968
+      sprite_etalon_56: 1984096445
+      sprite_etalon_57: 518204457
+      sprite_etalon_58: 56586531
+      sprite_etalon_59: 936657862
+      sprite_etalon_6: 1593711103
+      sprite_etalon_60: -563820973
+      sprite_etalon_61: -368218132
+      sprite_etalon_62: -1750799663
+      sprite_etalon_63: 1646835519
+      sprite_etalon_64: 1256160327
+      sprite_etalon_65: -2103337841
+      sprite_etalon_66: 1540289143
+      sprite_etalon_67: -812163111
+      sprite_etalon_68: 642144945
+      sprite_etalon_69: -87976645
+      sprite_etalon_7: 1150247845
+      sprite_etalon_70: -1779891809
+      sprite_etalon_71: -320589869
+      sprite_etalon_72: -525785452
+      sprite_etalon_73: 495226914
+      sprite_etalon_74: -195467660
+      sprite_etalon_75: 179846659
+      sprite_etalon_76: -1778560295
+      sprite_etalon_77: -1685849048
+      sprite_etalon_78: 1104776325
+      sprite_etalon_79: 496229584
+      sprite_etalon_8: -1543900539
+      sprite_etalon_80: 1781989769
+      sprite_etalon_81: -1511441802
+      sprite_etalon_82: 1281601117
+      sprite_etalon_83: 1543428781
+      sprite_etalon_84: -1717423843
+      sprite_etalon_85: -233009466
+      sprite_etalon_86: -50087690
+      sprite_etalon_87: -962365600
+      sprite_etalon_88: 2135051788
+      sprite_etalon_89: 1543560030
+      sprite_etalon_9: 1210335736
+      sprite_etalon_90: 1341246237
+      sprite_etalon_91: -442618457
+      sprite_etalon_92: -1680434063
+      sprite_etalon_93: 767671098
+      sprite_etalon_94: -1006776041
+      sprite_etalon_95: 2017759788
+      sprite_etalon_96: -589819929
+      sprite_etalon_97: 736514012
+      sprite_etalon_98: 141271273
+      sprite_etalon_99: -2140806537
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

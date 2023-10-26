@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MenuManager;
 
 public abstract class TemplateState
 {
@@ -9,6 +10,9 @@ public abstract class TemplateState
     protected MovementParams movementParams => StateMachine.movementsParam;
     protected IOrientWriter _IOrientWriter => StateMachine.GetComponent<IOrientWriter>();
     protected IWantsJumpWriter _iWantsJumpWriter => StateMachine.GetComponent<IWantsJumpWriter>();
+
+    protected CharacterController _characterController => StateMachine.GetComponent<CharacterController>();
+
     protected IMouvementLockedReader _iMouvementLockedReader => StateMachine.GetComponent<IMouvementLockedReader>();
     protected IMouvementLockedWriter _iMouvementLockedWriter => StateMachine.GetComponent<IMouvementLockedWriter>();
     protected void ChangeState(TemplateState state) => StateMachine.ChangeState(state);
@@ -29,4 +33,7 @@ public abstract class TemplateState
     protected virtual void OnStateEnter(TemplateState previousState) { }
     protected virtual void OnStateExit(TemplateState nextState) { }
     protected virtual void OnStateUpdate() { }
+
+
+
 }

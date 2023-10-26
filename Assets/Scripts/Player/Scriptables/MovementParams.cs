@@ -12,44 +12,42 @@ public class MovementParams : ScriptableObject
 
     [Header("Jump")]
 
-    [Range(0,1)]
-    [Tooltip("Force de saut")] public float jumpHeight = 0.5f;
-    [Range(0, 2)]
-    [Tooltip("Time to reach jumpheight")] public float timeToReachJumpHeight = 2;
-    [Range(0, 1)]
-    [Tooltip("Saut Min")] public float minJump = 0;
+    [Range(0, 0.3f)]
+    [Tooltip("Force de saut")] public float jumpMaxHeight = 0.5f;
     [Range(0, 5)]
-    [Tooltip("Temps Avant de sauter")]public float jumpCastTime = 0;
+    [Tooltip("Time to reach jumpheight")] public float jumpDuration = 1;
+    [Range(0, 0.3f)]
+    [Tooltip("Saut Min")] public float minJump = 0;
     [Range(0, 2)]
     [Tooltip("Temps alloué au joueur pour sauter alors qu'il n'est plus sur la plateforme")]public float coyoteWindow = 0;
-    [Range(0, 2)]
-    [Tooltip("Temps ou on enregistre le saut du joueur si il est en l'air pour le faire sauter si il touche le sol entre temps")] public float jumpBuffer = 0.15f;
+    [Range(0, 1)]
+    [Tooltip("% of jumpforce subtracted to run speed")] public float inertieLoss = 0.15f;
 
     [Range(0, 2)]
-    [Tooltip("Window d'antigravité pour contrôler le saut")] public float apexModifier = 0.15f;
+    [Tooltip("Air Acceleration time")] public float JumpAccelerationTime = 1;
+    [Range(0, 2)]
+    [Tooltip("Air max Speed X")] public float airMaxSpeedX = 1;
+
     #endregion
 
     #region Fall
 
     [Header("Fall")]
-
-
-    [Tooltip("Fall speed")]public float gravityScale = 5;
-    [Range(0, 5)]
-    [Tooltip("Time to reach max fall speed")] public float timeToReachMaxFallSpeed = 0.3f;
+    [Range(0, 2)]
+    [Tooltip("Fall speed")]public float fallDuration = 5;
     [Range(0, 2)]
     [Tooltip("Fall speed maximale")]public float maxFallSpeed = 5;
+    [Range(0, 2)]
+    [Tooltip("Fall speed acceleration time")] public float fallAccelerationTime = 1;
+    [Range(0, 2)]
+    [Tooltip("fall max X Speed")] public float fallMaxSpeedX = 1;
 
-    [Range(0, 2)]
-    [Tooltip("% of control of the player while in the air")]public float airControl = 50;
-    [Range(0, 2)]
-    [Tooltip("Air control after hitting the apex of a jump")]public float apexControl = 50;
     #endregion
 
     #region Run
     [Header("Run")]
     [Range(0, 2)]
-    [Tooltip("Vitesse maximale horizontale du joueur")]public float maxSpeed = 50;
+    [Tooltip("Vitesse maximale horizontale du joueur")]public float maxSpeed = 1;
     [Range(0, 2)]
     [Tooltip("Temps que prend le joueur a Accélerer")]public float accelerationTime = 2;
     [Range(0, 2)]
@@ -59,6 +57,9 @@ public class MovementParams : ScriptableObject
     [Tooltip("Temps que prend le joueur a Accélerer")]public float turnAccelerationTime = 2;
     [Range(0, 2)]
     [Tooltip("Temps que prend le joueur a Décélérer")] public float turnDecelerationTime = 2;
+
+    [Range(0, 2)]
+    [Tooltip("A quel point le joueur peut prendre une pente pentue")] public float slideSlopeThresHold = 2;
 
     #endregion
 

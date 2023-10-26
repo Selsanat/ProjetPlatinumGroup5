@@ -17,22 +17,16 @@ public class FallState : TemplateState
     protected override void OnStateEnter(TemplateState previousState)
     {
         _timer = (StateMachine.velocity.y/_movementParams.maxFallSpeed)* _movementParams.timeToReachMaxFallSpeed;
-        /*Debug.Log(StateMachine.PreviousState);
+        Debug.Log(StateMachine.PreviousState);
         Debug.Log(StateMachine.jumpState);
-        Debug.Log(StateMachine.PreviousState != StateMachine.jumpState);*/
+        Debug.Log(StateMachine.PreviousState != StateMachine.jumpState);
         if (StateMachine.PreviousState != StateMachine.jumpState) _coyote = _movementParams.coyoteWindow;
         else _coyote = 0;
     }
 
     protected override void OnStateUpdate()
     {
-        #region Death
-        if (_iMouvementLockedReader.isMouvementLocked)
-        {
-            StateMachine.ChangeState(StateMachine.deathState);
-            return;
-        }
-        #endregion
+
 
         #region JumpBuffer 
         if (_iWantsJumpWriter.jumpBuffer>0) _iWantsJumpWriter.jumpBuffer -= Time.deltaTime;
@@ -54,26 +48,35 @@ public class FallState : TemplateState
                 StateMachine.transform.Translate(StateMachine.velocity);
                 StateMachine.ChangeState(StateMachine.stateIdle);
                 return;
-
         }
 
-        #region HasHitWall
-        if (DetectCollision.isColliding(Mathf.Sign(StateMachine.velocity.x) * Vector2.right, StateMachine.transform, Vector2.zero))
+
+        #region Yvelocity
+        float h = _movementParams.jumpMaxHeight;
+        float th = _movementParams.fallDuration / 2;
+        float g = -(2 * h) / Mathf.Pow(th, 2);
+
+        StateMachine.velocity.y += g * Time.deltaTime;
+        StateMachine.velocity.y = Mathf.Clamp(StateMachine.velocity.y, -_movementParams.maxFallSpeed, _movementParams.maxFallSpeed);
+        //StateMachine.velocity.y =- _movementParams.gravityScale; 
+        #endregion
+
+        #region Xvelocity
+
+        float accelerationTime = _movementParams.fallAccelerationTime;
+        float airMaxSpeed = _movementParams.fallMaxSpeedX;
+
+        _timer += Time.deltaTime * _IOrientWriter.orient.x;
+        _timer = Mathf.Clamp(_timer, -accelerationTime, accelerationTime);
+
+        StateMachine.velocity.x = Mathf.Abs((_timer / accelerationTime) * airMaxSpeed )* _IOrientWriter.orient.x;
+        StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -airMaxSpeed, airMaxSpeed);
+
+        if (_IOrientWriter.orient.x == 0)
         {
             StateMachine.velocity.x = 0;
         }
         #endregion
-
-        _timer += Time.deltaTime;
-
-        StateMachine.velocity.y = _timer * _movementParams.maxFallSpeed * Vector2.down.y * _movementParams.gravityScale;
-        StateMachine.velocity.y = Mathf.Clamp(StateMachine.velocity.y, -_movementParams.maxFallSpeed, _movementParams.maxFallSpeed);
-
-        StateMachine.velocity.x += Time.deltaTime / _movementParams.accelerationTime * _IOrientWriter.orient.x * (_movementParams.airControl);
-        StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -_movementParams.maxSpeed, _movementParams.maxSpeed);
-
-
-        StateMachine.transform.Translate(StateMachine.velocity);
-
+        _characterController.Move(StateMachine.velocity);
     }
 }

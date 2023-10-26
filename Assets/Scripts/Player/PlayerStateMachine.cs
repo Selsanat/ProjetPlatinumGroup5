@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using DetectCollisionExtension;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,6 +44,8 @@ public class PlayerStateMachine : MonoBehaviour
     public TemplateState PreviousState { get; private set; }
 
     public Vector2 velocity;
+    public float JumpBuffer;
+    public bool activeHUD = false;
     private void Awake()
     {
         _InitAllStates();
@@ -64,6 +67,16 @@ public class PlayerStateMachine : MonoBehaviour
         //Debug.Log(GetComponent<IWantsJumpWriter>().jumpBuffer);
         CurrentState.StateUpdate();
 
+    }
+    private void OnGUI()
+    {
+        if (!activeHUD) return;
+        GUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("State machine :" + CurrentState);
+        GUILayout.Label(DetectCollision.isColliding(Mathf.Sign(velocity.x) * Vector2.right,transform, Vector2.zero) ? "OnGround" : "InAir");
+        GUILayout.Label(velocity+"");
+        GUILayout.Label(Time.time + "");
+        GUILayout.EndVertical();
     }
     private void _InitAllStates()
     {
