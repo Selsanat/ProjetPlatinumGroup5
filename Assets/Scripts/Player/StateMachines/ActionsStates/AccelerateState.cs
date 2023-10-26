@@ -19,7 +19,13 @@ public class AccelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
-
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            StateMachine.ChangeState(StateMachine.deathState);
+            return;
+        }
+        #endregion
         #region Jump
         if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
         {

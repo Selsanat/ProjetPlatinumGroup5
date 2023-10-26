@@ -21,6 +21,13 @@ public class TurnDecelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            StateMachine.ChangeState(StateMachine.deathState);
+            return;
+        }
+        #endregion
 
         #region Jump
         if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
@@ -66,7 +73,7 @@ public class TurnDecelerateState : TemplateState
             }
         }
         #endregion
-
+        
         _timer += Time.deltaTime;
         //Debug.Log(_timer + " Temps atm, et temps de deceleration : " + _movementParams.turnDecelerationTime);
         StateMachine.velocity.x = (_movementParams.turnDecelerationTime - _timer) * (_movementParams.maxSpeed * Vector2.right.x * sign);

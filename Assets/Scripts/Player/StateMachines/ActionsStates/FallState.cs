@@ -26,7 +26,13 @@ public class FallState : TemplateState
 
     protected override void OnStateUpdate()
     {
-
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            StateMachine.ChangeState(StateMachine.deathState);
+            return;
+        }
+        #endregion
 
         #region JumpBuffer 
         if (_iWantsJumpWriter.jumpBuffer>0) _iWantsJumpWriter.jumpBuffer -= Time.deltaTime;

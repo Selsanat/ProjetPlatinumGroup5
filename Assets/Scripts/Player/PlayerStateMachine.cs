@@ -86,4 +86,10 @@ public class PlayerStateMachine : MonoBehaviour
             CurrentState.StateEnter(state);
         }
     }
+
+    public void getHit()
+    {
+        if(CurrentState != deathState)
+            ChangeState(deathState);
+    }
 }

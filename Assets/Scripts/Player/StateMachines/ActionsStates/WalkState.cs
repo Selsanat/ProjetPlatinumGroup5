@@ -18,6 +18,13 @@ public class WalkState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            StateMachine.ChangeState(StateMachine.deathState);
+            return;
+        }
+        #endregion
         StateMachine.transform.Translate(StateMachine.velocity); 
         #region Jump
 

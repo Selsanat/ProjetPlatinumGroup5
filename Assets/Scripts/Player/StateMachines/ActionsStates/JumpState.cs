@@ -19,6 +19,13 @@ public class JumpState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            StateMachine.ChangeState(StateMachine.deathState);
+            return;
+        }
+        #endregion
         _timer += Time.deltaTime;
         StateMachine.velocity.y = _movementParams.jumpHeight * (1 - _timer / _movementParams.timeToReachJumpHeight);
         if (_IOrientWriter.orient.y == 0)

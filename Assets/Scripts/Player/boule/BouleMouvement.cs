@@ -272,7 +272,7 @@ public class BouleMouvement : MonoBehaviour
 
         if(collision.gameObject.tag == "Player")
         {
-            collision.gameObject.SetActive(false);
+            collision.gameObject.GetComponentInChildren<PlayerStateMachine>().getHit();
             if(_isThrowing)
                 setUpBoule();
 

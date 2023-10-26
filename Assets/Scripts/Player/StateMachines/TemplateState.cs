@@ -9,11 +9,11 @@ public abstract class TemplateState
     protected MovementParams movementParams => StateMachine.movementsParam;
     protected IOrientWriter _IOrientWriter => StateMachine.GetComponent<IOrientWriter>();
     protected IWantsJumpWriter _iWantsJumpWriter => StateMachine.GetComponent<IWantsJumpWriter>();
-
+    protected IMouvementLockedReader _iMouvementLockedReader => StateMachine.GetComponent<IMouvementLockedReader>();
+    protected IMouvementLockedWriter _iMouvementLockedWriter => StateMachine.GetComponent<IMouvementLockedWriter>();
     protected void ChangeState(TemplateState state) => StateMachine.ChangeState(state);
 
     protected MovementParams _movementParams => StateMachine.movementsParam;
-
     public void Init(PlayerStateMachine stateMachine)
     {
         StateMachine = stateMachine;
