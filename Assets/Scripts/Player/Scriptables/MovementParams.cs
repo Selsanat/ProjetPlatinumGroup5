@@ -19,7 +19,7 @@ public class MovementParams : ScriptableObject
     [Range(0, 0.3f)]
     [Tooltip("Saut Min")] public float minJump = 0;
     [Range(0, 2)]
-    [Tooltip("Temps alloué au joueur pour sauter alors qu'il n'est plus sur la plateforme")]public float coyoteWindow = 0;
+    [Tooltip("Temps alloué au joueur pour sauter alors qu'il n'est plus sur la plateforme")] public float coyoteWindow = 0;
     [Range(0, 1)]
     [Tooltip("% of jumpforce subtracted to run speed")] public float inertieLoss = 0.15f;
 
@@ -34,9 +34,9 @@ public class MovementParams : ScriptableObject
 
     [Header("Fall")]
     [Range(0, 2)]
-    [Tooltip("Fall speed")]public float fallDuration = 5;
+    [Tooltip("Fall speed")] public float fallDuration = 5;
     [Range(0, 2)]
-    [Tooltip("Fall speed maximale")]public float maxFallSpeed = 5;
+    [Tooltip("Fall speed maximale")] public float maxFallSpeed = 5;
     [Range(0, 2)]
     [Tooltip("Fall speed acceleration time")] public float fallAccelerationTime = 1;
     [Range(0, 2)]
@@ -47,14 +47,14 @@ public class MovementParams : ScriptableObject
     #region Run
     [Header("Run")]
     [Range(0, 2)]
-    [Tooltip("Vitesse maximale horizontale du joueur")]public float maxSpeed = 1;
+    [Tooltip("Vitesse maximale horizontale du joueur")] public float maxSpeed = 1;
     [Range(0, 2)]
-    [Tooltip("Temps que prend le joueur a Accélerer")]public float accelerationTime = 2;
+    [Tooltip("Temps que prend le joueur a Accélerer")] public float accelerationTime = 2;
     [Range(0, 2)]
-    [Tooltip("Temps que prend le joueur a Décélérer")]public float decelerationTime = 2;
+    [Tooltip("Temps que prend le joueur a Décélérer")] public float decelerationTime = 2;
 
     [Range(0, 2)]
-    [Tooltip("Temps que prend le joueur a Accélerer")]public float turnAccelerationTime = 2;
+    [Tooltip("Temps que prend le joueur a Accélerer")] public float turnAccelerationTime = 2;
     [Range(0, 2)]
     [Tooltip("Temps que prend le joueur a Décélérer")] public float turnDecelerationTime = 2;
 
