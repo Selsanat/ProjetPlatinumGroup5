@@ -26,7 +26,7 @@ public class RingOfFire : MonoBehaviour
     {
         
     
-        if (period > 0.5f)
+        if (period > 15f)
             {
                 //Do Stuff
                 
@@ -37,7 +37,8 @@ public class RingOfFire : MonoBehaviour
                     float distance = Vector3.Distance(player.transform.position, position);
                     if (distance > diameter)
                     {
-                        Debug.Log(player.name + "t'es mort");
+                        Destroy(player);
+                        //Debug.Log(player.name + "t'es mort");
                     }
                     else
                     {
@@ -83,10 +84,11 @@ public class RingOfFire : MonoBehaviour
             float xScaled = Mathf.Cos(currentRadian);
             float yScaled = Mathf.Sin(currentRadian);
 
-            float x = xScaled * radius;
-            float y = yScaled * radius;
+            float x = xScaled * radius + position.x;
+            float y = yScaled * radius + position.y;
 
             Vector3 currentPosition = new Vector3(x, y, 0);
+            
 
             circleRenderer.SetPosition(currentStep, currentPosition);
         }
