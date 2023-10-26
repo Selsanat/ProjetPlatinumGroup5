@@ -24,7 +24,6 @@ public class IdleState : TemplateState
         #region Death
         if (_iMouvementLockedReader.isMouvementLocked)
         {
-            StateMachine.ChangeState(StateMachine.deathState);
             return;
         }
         #endregion

@@ -103,6 +103,10 @@ public class PlayerStateMachine : MonoBehaviour
     public void getHit()
     {
         if(CurrentState != deathState)
+        {
             ChangeState(deathState);
+            
+        }
     }
+    
 }

@@ -27,12 +27,13 @@ public abstract class TemplateState
 
     public void StateEnter(TemplateState previousState) => OnStateEnter(previousState);
     public void StateExit(TemplateState nextState) => OnStateExit(nextState);
-
     public void StateUpdate() => OnStateUpdate();
     protected virtual void OnStateInit() { }
     protected virtual void OnStateEnter(TemplateState previousState) { }
     protected virtual void OnStateExit(TemplateState nextState) { }
     protected virtual void OnStateUpdate() { }
+    public void LockMouvement() => _iMouvementLockedWriter.isMouvementLocked = true;
+    public void UnlockMouvement() => _iMouvementLockedWriter.isMouvementLocked = false;
 
 
 

@@ -188,12 +188,13 @@ public class BouleMouvement : MonoBehaviour
                 _contactPoints.Clear();
                 _isReturning = false;
                 _isThrowing = false;
-                this.transform.SetParent(_player);
                 _beforeThrow = Vector3.zero;
                 if(Vector3.Distance(transform.position, _player.position) > 0.1f)
                 {
                     _sphereCollider.isTrigger = true;
                     resetBool();
+                    this.transform.SetParent(_player);
+
                 }
 
                 print("last");
@@ -230,13 +231,10 @@ public class BouleMouvement : MonoBehaviour
             if(_distance <= Vector3.Distance(_player.position, this.transform.position) )
             {
                 _rb.AddForce(this.transform.forward * Time.deltaTime * _resetSpeed, ForceMode.VelocityChange);
-                print("plus grand");
             }
             else if (_distance > Vector3.Distance(_player.position, this.transform.position))
             {
                 _rb.AddForce(-this.transform.forward * Time.deltaTime * _resetSpeed, ForceMode.VelocityChange);
-                print("plus petit");
-
             }
 
             // Téléporte la boule à la nouvelle position
@@ -265,7 +263,6 @@ public class BouleMouvement : MonoBehaviour
     {
         //if(collision.gameObject.tag == "rebondi")
         _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
-
         _canThrow = false;
 
         if (_isThrowing)
@@ -273,18 +270,22 @@ public class BouleMouvement : MonoBehaviour
 
         if(collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponentInChildren<PlayerStateMachine>().getHit();
+            print("player");
+            collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
             _gameManager.playerDied();
             if (_isThrowing)
                 setUpBoule();
+            //Destroy(collision.gameObject);
 
         }
+        
+        
     }
     private void OnCollisionExit(Collision collision)
     {
-        if(!_isThrowing && !_isReturning)
-            resetBool();
 
+        if (!_isThrowing && !_isReturning)
+            resetBool();
         _canThrow = true;
     }
 
