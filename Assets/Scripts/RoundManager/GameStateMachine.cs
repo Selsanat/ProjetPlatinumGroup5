@@ -45,9 +45,6 @@ public class GameStateMachine : MonoBehaviour
     public GameStateTemplate CurrentState { get; private set; }
     public GameStateTemplate PreviousState { get; private set; }
 
-
-    public int state;
-    public string menu;
     private void Awake()
     {
         _InitAllStates();
@@ -106,7 +103,7 @@ public class GameStateMachine : MonoBehaviour
         }
     }
     
-    public void ChangeState()
+    public void ChangeState(int state, string menu)
     {
         print("StateChangé");
         var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");

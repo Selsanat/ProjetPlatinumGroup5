@@ -102,24 +102,27 @@ public class GameStateMachineEditor : Editor
                     _choiceIndex = EditorGUILayout.Popup(listeButton[j].name, _choiceIndex, _gameStateMachine._choices);
                     _choiceIndex = Mathf.Clamp(_choiceIndex, 0, _choiceIndex);
                     _gameStateMachine._choiceState[i].choices[j] = _gameStateMachine._choices[_choiceIndex];
-                    if (bouton != null)
-                    {
-                        if (bouton.onClick.GetPersistentEventCount() > 0)
-                            UnityEventTools.RemovePersistentListener(bouton.onClick, 0);
 
-                        SerializedProperty vstate = serializedObject.FindProperty("state");
-                        SerializedProperty vmenu = serializedObject.FindProperty("menu");
-                        vstate.intValue = _choiceIndex;
-                        vmenu.stringValue = _gameStateMachine._choices[_choiceIndex];
 
-                        GameStateMachine myScriptInstance = _gameStateMachine;
-                        var targetinfo =
-                            UnityEvent.GetValidMethodInfo(myScriptInstance, "ChangeState", Type.EmptyTypes);
-                        UnityAction action =
-                            Delegate.CreateDelegate(typeof(UnityAction), myScriptInstance, targetinfo, false) as
-                                UnityAction;
-                        UnityEventTools.AddVoidPersistentListener(bouton.onClick, action);
-                    }
+
+
+
+                    //Type actionType = typeof(UnityAction<int,string>);
+                    //create delegate of _gameStateMachine.ChangeState
+
+                    //var targetAction = Delegate.CreateDelegate(actionType, _gameStateMachine, targetMethod);
+                    UnityAction<int,string> targetAction = _gameStateMachine.ChangeState;
+                    UnityEvent<int,string> unityEvent = new UnityEvent<int,string>();
+                    UnityEventTools.AddPersistentListener<int,string>(unityEvent, targetAction);
+
+                    //Debug.Log(ButtonsObjects[j]);
+
+                    //UnityEventTools.AddPersistentListener(ButtonsObjects[j].onClick, new UnityAction(() => _gameStateMachine.ChangeState(_choiceIndex, _gameStateMachine._choices[index])));
+
+                    //UnityEventTools.AddPersistentListener(bouton.onClick, () => _gameStateMachine.ChangeState(_choiceIndex, _gameStateMachine._choices[index]));
+                    // ButtonsObjects[j].onClick.AddListener(() => _gameStateMachine.ChangeState(_choiceIndex, _gameStateMachine._choices[index]) );
+                    // ButtonsObjects[j].onClick.AddListener(delegate { Debug.Log("Hello"); });
+                    // menu.FindPropertyRelative("buttons").GetArrayElementAtIndex(j).objectReferenceValue = ButtonsObjects[j];
                 }
             }
 
