@@ -25,17 +25,6 @@ public class JumpState : TemplateState
 
     protected override void OnStateUpdate()
     {
-        #region Death
-        if (_iMouvementLockedReader.isMouvementLocked)
-        {
-            StateMachine.ChangeState(StateMachine.deathState);
-            return;
-        }
-        #endregion
-        _timer += Time.deltaTime;
-        StateMachine.velocity.y = _movementParams.jumpHeight * (1 - _timer / _movementParams.timeToReachJumpHeight);
-        if (_IOrientWriter.orient.y == 0)
-        {
 
         if (StateMachine.velocity.y < 0 || DetectCollision.isColliding(Vector2.up, StateMachine.transform, Vector3.zero, false))
         {
@@ -52,7 +41,7 @@ public class JumpState : TemplateState
         if (_IOrientWriter.orient.y == 0)
         {
             h = _movementParams.minJump;
-            th = _movementParams.minJump/ _movementParams.jumpMaxHeight * _movementParams.jumpDuration / 2;
+            th = _movementParams.minJump / _movementParams.jumpMaxHeight * _movementParams.jumpDuration / 2;
         }
         else
         {

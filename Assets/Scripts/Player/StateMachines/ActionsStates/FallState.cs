@@ -8,7 +8,7 @@ using Vector2 = UnityEngine.Vector2;
 
 public class FallState : TemplateState
 {
-    private float _timer;  
+    private float _timer;
     private float _coyote;
     protected override void OnStateInit()
     {
@@ -16,38 +16,24 @@ public class FallState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
-        _timer = (StateMachine.velocity.y/_movementParams.maxFallSpeed)* _movementParams.timeToReachMaxFallSpeed;
-        Debug.Log(StateMachine.PreviousState);
-        Debug.Log(StateMachine.jumpState);
-        Debug.Log(StateMachine.PreviousState != StateMachine.jumpState);
-        if (StateMachine.PreviousState != StateMachine.jumpState) _coyote = _movementParams.coyoteWindow;
-        else _coyote = 0;
+        StateMachine.velocity.y = 0;
+        _timer = StateMachine.velocity.x / _movementParams.fallMaxSpeedX * _movementParams.fallAccelerationTime;
     }
 
     protected override void OnStateUpdate()
     {
-
-
-        #region JumpBuffer 
-        if (_iWantsJumpWriter.jumpBuffer>0) _iWantsJumpWriter.jumpBuffer -= Time.deltaTime;
-        if (_iWantsJumpWriter.wantsJump) _iWantsJumpWriter.jumpBuffer = _movementParams.jumpBuffer;
-        #endregion
-
-        if (_iWantsJumpWriter.jumpBuffer > 0 && _coyote > 0)
+        if (DetectCollision.isColliding(Mathf.Abs(StateMachine.velocity.y) * Vector2.down, StateMachine.transform, Vector2.zero))
         {
-            _iWantsJumpWriter.jumpBuffer = 0;
-            StateMachine.ChangeState(StateMachine.jumpState);
-            return;
-        }
-        _coyote -= Time.deltaTime;
+            StateMachine.velocity.y = 0;
 
-        if (DetectCollision.isColliding(Vector2.down, StateMachine.transform, StateMachine.velocity))
-        {
-            
-                StateMachine.velocity.y = 0;
-                StateMachine.transform.Translate(StateMachine.velocity);
-                StateMachine.ChangeState(StateMachine.stateIdle);
+            if (_IOrientWriter.orient.x != 0 &&
+                !DetectCollision.isColliding(Mathf.Sign(_IOrientWriter.orient.x) * Vector2.right, StateMachine.transform, Vector2.zero))
+            {
+                StateMachine.ChangeState(StateMachine.stateAccelerate);
                 return;
+            }
+            StateMachine.ChangeState(StateMachine.stateIdle);
+            return;
         }
 
 
@@ -69,7 +55,7 @@ public class FallState : TemplateState
         _timer += Time.deltaTime * _IOrientWriter.orient.x;
         _timer = Mathf.Clamp(_timer, -accelerationTime, accelerationTime);
 
-        StateMachine.velocity.x = Mathf.Abs((_timer / accelerationTime) * airMaxSpeed )* _IOrientWriter.orient.x;
+        StateMachine.velocity.x = Mathf.Abs((_timer / accelerationTime) * airMaxSpeed) * _IOrientWriter.orient.x;
         StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -airMaxSpeed, airMaxSpeed);
 
         if (_IOrientWriter.orient.x == 0)
