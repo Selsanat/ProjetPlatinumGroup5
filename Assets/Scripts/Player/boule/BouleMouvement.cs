@@ -67,7 +67,7 @@ public class BouleMouvement : MonoBehaviour
     private float currentSpeed = 0;
     private float _lerpTime = 0;
     private bool _isLerpSlowFinished = false;
-    private GameManager _gameManager => GameManager.Instance;
+    private RoundManager _roundManager => RoundManager.Instance;
 
 
     #endregion
@@ -272,7 +272,7 @@ public class BouleMouvement : MonoBehaviour
         {
             print("player");
             collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
-            _gameManager.playerDied();
+            _roundManager.playerDied(collision.gameObject.GetComponentInChildren<playerClass>());
             if (_isThrowing)
                 setUpBoule();
             //Destroy(collision.gameObject);
