@@ -19,14 +19,14 @@ public class RingOfFire : MonoBehaviour
         transform.position = position;
         transform.localScale = new Vector3(diameter, diameter, 1f);
         circleRenderer = GetComponent<LineRenderer>();
-
+        circleRenderer.enabled = false;
     }
 
     private void Update()
     {
         
     
-        if (period > 15f)
+        if (period > 1.5f)
             {
                 //Do Stuff
                 
@@ -54,6 +54,7 @@ public class RingOfFire : MonoBehaviour
         {
             if (decrementation <= 0)
             {
+                circleRenderer.enabled = true;
                 diameter = diameter - Time.deltaTime;
                 transform.localScale = new Vector3(diameter, diameter, 1f);
                 

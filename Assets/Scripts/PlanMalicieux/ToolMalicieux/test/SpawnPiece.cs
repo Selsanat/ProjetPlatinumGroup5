@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-using UnityEngine;
-
 public class SpawnObject : MonoBehaviour
 {
     public GameObject objectToSpawn;
