@@ -657,6 +657,13 @@ MonoBehaviour:
   - choices:
     - MenuState
     - MenuState
+  - choices:
+    - MenuState
+  - choices:
+    - MenuState
+    - MenuState
+    - MenuState
+    - MenuState
   _choices:
   - MenuState
   - 
@@ -668,6 +675,17 @@ MonoBehaviour:
     buttons:
     - {fileID: 1441794422}
     - {fileID: 1032678537}
+  - menuObject: {fileID: 1140899298}
+    thisMenu: MenuState
+    buttons:
+    - {fileID: 1337418057}
+  - menuObject: {fileID: 709608200}
+    thisMenu: MenuState
+    buttons:
+    - {fileID: 586492493}
+    - {fileID: 1552558930}
+    - {fileID: 2051147654}
+    - {fileID: 2070002461}
 --- !u!1 &586492491
 GameObject:
   m_ObjectHideFlags: 0
