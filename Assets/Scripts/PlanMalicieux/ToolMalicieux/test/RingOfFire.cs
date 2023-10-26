@@ -8,9 +8,9 @@ public class RingOfFire : MonoBehaviour
 {
     public Vector2 positionx, positiony, position;
     public float diameter, timing;
-    public float decrementation;
-    public float period = 0.0f;
-
+    private float decrementation;
+    private float period = 0.0f;
+    private LineRenderer circleRenderer;
     private async void Start()
     {
         decrementation = timing;
@@ -18,6 +18,7 @@ public class RingOfFire : MonoBehaviour
         position.y = Random.Range(positiony.x, positiony.y);
         transform.position = position;
         transform.localScale = new Vector3(diameter, diameter, 1f);
+        circleRenderer = GetComponent<LineRenderer>();
 
     }
 
@@ -54,7 +55,9 @@ public class RingOfFire : MonoBehaviour
             {
                 diameter = diameter - Time.deltaTime;
                 transform.localScale = new Vector3(diameter, diameter, 1f);
-                OnDrawGizmosSelected();
+                
+                DrawCircle(100, diameter, new Vector3(position.x, position.y, 4f));
+                OnDrawGizmos();
             }
             else
             {
@@ -62,12 +65,31 @@ public class RingOfFire : MonoBehaviour
             }
         }
     }
-    public void OnDrawGizmosSelected()
+    public void OnDrawGizmos()
     {
-        // Draw a yellow sphere at the transform's position
-        //Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(new Vector3(position.x, position.y, 4), diameter);
     }
+    void DrawCircle(int stepts, float radius, Vector3 center)
+    {
+        transform.position = center;
+        circleRenderer.positionCount = stepts;
 
+        for(int currentStep = 0;  currentStep < stepts; currentStep++)
+        {
+            float circumferenceProgress = (float)currentStep / stepts;
+
+            float currentRadian = circumferenceProgress * 2 * Mathf.PI;
+
+            float xScaled = Mathf.Cos(currentRadian);
+            float yScaled = Mathf.Sin(currentRadian);
+
+            float x = xScaled * radius;
+            float y = yScaled * radius;
+
+            Vector3 currentPosition = new Vector3(x, y, 0);
+
+            circleRenderer.SetPosition(currentStep, currentPosition);
+        }
+    }
 
 }
