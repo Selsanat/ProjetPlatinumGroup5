@@ -18,16 +18,6 @@ public class MenuManager : MonoBehaviour
         else Destroy(this.gameObject);
     }
 
-    public void HideAllMenusExceptThis(GameObject menu)
-    {
-        foreach (Transform child in transform)
-        {
-            if (child.gameObject != menu)
-            {
-                child.gameObject.SetActive(false);
-            }
-        }
-    }
 
 
 }

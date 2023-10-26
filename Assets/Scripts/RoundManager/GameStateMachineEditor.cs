@@ -1,15 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
 using OpenAI_API.Chat;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Events;
 using UnityEditor.SceneManagement;
+using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
@@ -51,15 +57,16 @@ public class GameStateMachineEditor : Editor
     }
     public override void OnInspectorGUI()
     {
-        var t1 = serializedObject.FindProperty("_choiceState");
-        Debug.Log(t1);
+        SerializedProperty _choiceStates = serializedObject.FindProperty("_choiceStates");
+        
+        //Debug.Log(_choiceStates.arraySize);
         serializedObject.Update();
         _menus.arraySize = EditorGUILayout.IntField("Size", _menus.arraySize);
 
-        _gameStateMachine._choiceState ??= new string[_menus.arraySize][];
-        if (_gameStateMachine._choiceState.Length != _menus.arraySize) _gameStateMachine._choiceState = new string[_menus.arraySize][];
+        _gameStateMachine._choiceState ??= new GameStateMachine._choiceStates[_menus.arraySize];
+        if (_gameStateMachine._choiceState.Length != _menus.arraySize) _gameStateMachine._choiceState = new GameStateMachine._choiceStates[_menus.arraySize];
 
-        t1.arraySize = _menus.arraySize;
+        //t1.arraySize = _menus.arraySize;
         for (int i = 0; i < _menus.arraySize; i++)
         {
             var menu = _menus.GetArrayElementAtIndex(i);
@@ -81,20 +88,38 @@ public class GameStateMachineEditor : Editor
                 var buttons = menu.FindPropertyRelative("buttons");
                 buttons.arraySize = listeButton.Length;
 
-                _gameStateMachine._choiceState[i] ??= new string[listeButton.Length];
-                if (_gameStateMachine._choiceState[i].Length != listeButton.Length) _gameStateMachine._choiceState[i] = new string[listeButton.Length];
-                t1.GetArrayElementAtIndex(i).arraySize = listeButton.Length;
+                _gameStateMachine._choiceState[i].choices ??= new string[listeButton.Length];
+                if (_gameStateMachine._choiceState[i].choices.Length != listeButton.Length) _gameStateMachine._choiceState[i].choices = new string[listeButton.Length];
                 for (int j = 0; j < listeButton.Length; j++)
                 {
-                    int _choiceIndex = _gameStateMachine._choices.ToList().IndexOf(_gameStateMachine._choiceState[i][j]);
-                    ButtonsObjects[j].onClick.RemoveAllListeners();
+
+                    Button bouton = (Button)menu.FindPropertyRelative("buttons").GetArrayElementAtIndex(j).objectReferenceValue;
+                    int _choiceIndex = _gameStateMachine._choices.ToList().IndexOf(_gameStateMachine._choiceState[i].choices[j]);
+
+
                     var button = buttons.GetArrayElementAtIndex(j);
                     button.objectReferenceValue = listeButton[j];
                     _choiceIndex = EditorGUILayout.Popup(listeButton[j].name, _choiceIndex, _gameStateMachine._choices);
-                    _gameStateMachine._choiceState[i][j] = _gameStateMachine._choices[_choiceIndex];
-                    ButtonsObjects[j].onClick.AddListener(() => _gameStateMachine.ChangeState(_choiceIndex, _gameStateMachine._choices[index]));
+                    _choiceIndex = Mathf.Clamp(_choiceIndex, 0, _choiceIndex);
+                    _gameStateMachine._choiceState[i].choices[j] = _gameStateMachine._choices[_choiceIndex];
+                    if (bouton != null)
+                    {
+                        if (bouton.onClick.GetPersistentEventCount() > 0)
+                            UnityEventTools.RemovePersistentListener(bouton.onClick, 0);
 
-                    t1.GetArrayElementAtIndex(i).GetArrayElementAtIndex(j).objectReferenceValue = listeButton[j];
+                        SerializedProperty vstate = serializedObject.FindProperty("state");
+                        SerializedProperty vmenu = serializedObject.FindProperty("menu");
+                        vstate.intValue = _choiceIndex;
+                        vmenu.stringValue = _gameStateMachine._choices[_choiceIndex];
+
+                        GameStateMachine myScriptInstance = _gameStateMachine;
+                        var targetinfo =
+                            UnityEvent.GetValidMethodInfo(myScriptInstance, "ChangeState", Type.EmptyTypes);
+                        UnityAction action =
+                            Delegate.CreateDelegate(typeof(UnityAction), myScriptInstance, targetinfo, false) as
+                                UnityAction;
+                        UnityEventTools.AddVoidPersistentListener(bouton.onClick, action);
+                    }
                 }
             }
 
@@ -104,9 +129,11 @@ public class GameStateMachineEditor : Editor
             EditorGUILayout.Space();
 
         }
+        GameStateMachine myBaseScript = (GameStateMachine)target;
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(target);
+            EditorUtility.SetDirty(myBaseScript);
+                EditorUtility.SetDirty(target);
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
         serializedObject.ApplyModifiedProperties();

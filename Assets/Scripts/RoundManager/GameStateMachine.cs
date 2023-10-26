@@ -18,8 +18,19 @@ public class GameStateMachine : MonoBehaviour
         [HideInInspector]
         public Button[] buttons;
     }
-    [SerializeField]
-    public string[][] _choiceState;
+
+    [System.Serializable]
+    public class _choiceStates
+    {
+        public string[] choices = new string[0];
+
+       public  _choiceStates(int taille)
+        {
+            this.choices = new string[taille];
+        }
+    }
+
+    [SerializeField] public _choiceStates[] _choiceState;
     [SerializeField]
     public string[] _choices;
     [SerializeField]
@@ -34,13 +45,28 @@ public class GameStateMachine : MonoBehaviour
     public GameStateTemplate CurrentState { get; private set; }
     public GameStateTemplate PreviousState { get; private set; }
 
+
+    public int state;
+    public string menu;
     private void Awake()
     {
         _InitAllStates();
     }
     void Start()
     {
-        
+        var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
+        var fileInfo = info.GetFiles();
+        foreach (GameStateTemplate State in AllStates)
+        {
+            foreach (FileInfo file in fileInfo)
+            {
+                if (State.GetType() == file.GetType())
+                {
+                    GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
+                    thatState.ui = Menus[AllStates.ToList().IndexOf(State)].menuObject;
+                }
+            }
+        }
         ChangeState(StartState);
     }
 
@@ -65,6 +91,8 @@ public class GameStateMachine : MonoBehaviour
     }
     public void ChangeState(GameStateTemplate state)
     {
+
+
         if (CurrentState != null)
         {
             CurrentState.StateExit(state);
@@ -77,8 +105,10 @@ public class GameStateMachine : MonoBehaviour
             CurrentState.StateEnter(state);
         }
     }
-    public void ChangeState(int state, string menu)
+    
+    public void ChangeState()
     {
+        print("StateChangé");
         var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
         var fileInfo = info.GetFiles();
         foreach (GameStateTemplate State in AllStates)
@@ -90,6 +120,17 @@ public class GameStateMachine : MonoBehaviour
                 thatState.ui = Menus.ToList().Find(x => x.thisMenu == menu).menuObject;
                 print(thatState.ui);
                 ChangeState(thatState);
+            }
+        }
+        
+    }
+    public void HideAllMenusExceptThis(GameObject ui)
+    {
+        foreach (Menu menu in Menus)
+        {
+            if (menu.menuObject != ui)
+            {
+                menu.menuObject.SetActive(false);
             }
         }
     }
