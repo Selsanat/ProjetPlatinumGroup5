@@ -36,10 +36,15 @@ public class GameStateMachine : MonoBehaviour
     [SerializeField]
     public Menu[] Menus;
     public MenuState menuState { get; } = new MenuState();
+    public StateParam paramState { get; } = new StateParam();
+
+    public StateSelectionPerso selectionPersoState { get; } = new StateSelectionPerso();
 
     public GameStateTemplate[] AllStates => new GameStateTemplate[]
     {
         menuState,
+        paramState,
+        selectionPersoState
     };
     public GameStateTemplate StartState => menuState;
     public GameStateTemplate CurrentState { get; private set; }
@@ -57,12 +62,18 @@ public class GameStateMachine : MonoBehaviour
         {
             foreach (FileInfo file in fileInfo)
             {
-                if (State.GetType() == file.GetType())
+                if (State.GetType().ToString() == file.Name.Replace(".cs", string.Empty))
                 {
                     GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
                     thatState.ui = Menus[AllStates.ToList().IndexOf(State)].menuObject;
                 }
             }
+        }
+
+        foreach (GameStateTemplate State in AllStates)
+        {
+            print("Scene : " + State.GetType());
+            print("ui : " + State.ui);
         }
         ChangeState(StartState);
     }
@@ -96,39 +107,34 @@ public class GameStateMachine : MonoBehaviour
         }
         PreviousState = CurrentState;
         CurrentState = state;
+        print(state);
         if (CurrentState != null)
         {
-            state.ui = Menus[0].menuObject;
             CurrentState.StateEnter(state);
         }
     }
     
-    public void ChangeState(int state, string menu)
+    public void ChangeState(int state)
     {
-        print("StateChangé");
         var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
         var fileInfo = info.GetFiles();
         foreach (GameStateTemplate State in AllStates)
         {
-            
-            if (State.GetType() == fileInfo[state].GetType())
+            if (State.GetType().ToString() == fileInfo[state*2].Name.Replace(".cs", string.Empty))
             {
                 GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
-                thatState.ui = Menus.ToList().Find(x => x.thisMenu == menu).menuObject;
-                print(thatState.ui);
                 ChangeState(thatState);
             }
         }
-        
     }
     public void HideAllMenusExceptThis(GameObject ui)
     {
         foreach (Menu menu in Menus)
         {
-            if (menu.menuObject != ui)
-            {
                 menu.menuObject.SetActive(false);
-            }
         }
+        ui.SetActive(true);
+        print(ui.GetComponentInChildren < Button>());
+        ui.GetComponentInChildren<Button>().Select();
     }
 }

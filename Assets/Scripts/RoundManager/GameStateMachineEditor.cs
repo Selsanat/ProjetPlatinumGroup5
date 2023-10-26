@@ -20,6 +20,7 @@ using UnityEngine.InputSystem.HID;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
 using static UnityEditor.VersionControl.Asset;
+using Object = UnityEngine.Object;
 
 [CustomEditor(typeof(GameStateMachine))]
 public class GameStateMachineEditor : Editor
@@ -27,7 +28,7 @@ public class GameStateMachineEditor : Editor
 
     private GameStateMachine _gameStateMachine = null;
     private SerializedProperty _menus;
-
+    public UnityEvent<int, string> OnMyEvent;
 
 
     private void OnEnable()
@@ -39,20 +40,25 @@ public class GameStateMachineEditor : Editor
         var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
         var fileInfo = info.GetFiles();
         _gameStateMachine._choices = new string[fileInfo.Length];
+        int compteur = 0;
         for (int i = 0; i < fileInfo.Length; i++)
         {
-            FileInfo file = fileInfo[i];
-            if (!file.Name.Contains(".meta"))
-            {
-                _gameStateMachine._choices[i] = file.Name.Replace(".cs", string.Empty);
-                t2.arraySize = fileInfo.Length;
-                t2.GetArrayElementAtIndex(i).stringValue = file.Name.Replace(".cs", string.Empty);
-            }
-                
-
+                FileInfo file = fileInfo[i];
+                if (!file.Name.Contains(".meta"))
+                {
+                    _gameStateMachine._choices[i-compteur] = file.Name.Replace(".cs", string.Empty);
+                    t2.arraySize = fileInfo.Length;
+                    t2.GetArrayElementAtIndex(i - compteur).stringValue = file.Name.Replace(".cs", string.Empty);
+                }
+                else
+                {
+                    compteur++;
+                }
         }
-
-
+        /*foreach (string choice in _gameStateMachine._choices)
+        {
+            Debug.Log("Choix :" +choice);
+        }*/
         serializedObject.ApplyModifiedProperties();
     }
     public override void OnInspectorGUI()
@@ -76,9 +82,9 @@ public class GameStateMachineEditor : Editor
 
             var thismenuchoix = menu.FindPropertyRelative("thisMenu");
             int index = _gameStateMachine._choices.ToList().IndexOf(thismenuchoix.stringValue);
-            index = Mathf.Clamp(index, 0, _gameStateMachine._choices.Length - 1);
             index = EditorGUILayout.Popup("This menu is :", index, _gameStateMachine._choices);
             thismenuchoix.stringValue = _gameStateMachine._choices[index];
+
 
             EditorGUILayout.Space();
             if (menuObjectGameObject != null)
@@ -103,34 +109,20 @@ public class GameStateMachineEditor : Editor
                     _choiceIndex = Mathf.Clamp(_choiceIndex, 0, _choiceIndex);
                     _gameStateMachine._choiceState[i].choices[j] = _gameStateMachine._choices[_choiceIndex];
 
+                    if (bouton != null)
+                    {
+                        if(bouton.onClick.GetPersistentEventCount()>0) UnityEventTools.RemovePersistentListener(bouton.onClick, 0);
+                        var targetinfo = UnityEvent.GetValidMethodInfo(_gameStateMachine,
+                            "ChangeState", new Type[] { typeof(int) });
 
+                        UnityAction<int> action = Delegate.CreateDelegate(typeof(UnityAction<int>), _gameStateMachine, targetinfo, false) as UnityAction<int>;
+                        UnityEventTools.AddIntPersistentListener(bouton.onClick, action, _choiceIndex);
+                    }
 
-
-
-                    //Type actionType = typeof(UnityAction<int,string>);
-                    //create delegate of _gameStateMachine.ChangeState
-
-                    //var targetAction = Delegate.CreateDelegate(actionType, _gameStateMachine, targetMethod);
-                    UnityAction<int,string> targetAction = _gameStateMachine.ChangeState;
-                    UnityEvent<int,string> unityEvent = new UnityEvent<int,string>();
-                    UnityEventTools.AddPersistentListener<int,string>(unityEvent, targetAction);
-
-                    //Debug.Log(ButtonsObjects[j]);
-
-                    //UnityEventTools.AddPersistentListener(ButtonsObjects[j].onClick, new UnityAction(() => _gameStateMachine.ChangeState(_choiceIndex, _gameStateMachine._choices[index])));
-
-                    //UnityEventTools.AddPersistentListener(bouton.onClick, () => _gameStateMachine.ChangeState(_choiceIndex, _gameStateMachine._choices[index]));
-                    // ButtonsObjects[j].onClick.AddListener(() => _gameStateMachine.ChangeState(_choiceIndex, _gameStateMachine._choices[index]) );
-                    // ButtonsObjects[j].onClick.AddListener(delegate { Debug.Log("Hello"); });
-                    // menu.FindPropertyRelative("buttons").GetArrayElementAtIndex(j).objectReferenceValue = ButtonsObjects[j];
                 }
             }
-
-
-
             EditorGUILayout.Space();
             EditorGUILayout.Space();
-
         }
         GameStateMachine myBaseScript = (GameStateMachine)target;
         if (GUI.changed)

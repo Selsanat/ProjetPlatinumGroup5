@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateParam : GameStateTemplate
+public class StateSelectionPerso : GameStateTemplate
 {
     protected override void OnStateInit()
     {
@@ -10,7 +10,6 @@ public class StateParam : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
-        Debug.Log(ui);
         StateMachine.HideAllMenusExceptThis(ui);
     }
 
