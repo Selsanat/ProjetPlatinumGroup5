@@ -67,6 +67,7 @@ public class BouleMouvement : MonoBehaviour
     private float currentSpeed = 0;
     private float _lerpTime = 0;
     private bool _isLerpSlowFinished = false;
+    private GameManager _gameManager => GameManager.Instance;
 
 
     #endregion
@@ -273,7 +274,8 @@ public class BouleMouvement : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponentInChildren<PlayerStateMachine>().getHit();
-            if(_isThrowing)
+            _gameManager.playerDied();
+            if (_isThrowing)
                 setUpBoule();
 
         }
