@@ -26,6 +26,13 @@ public class TurnDecelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            return;
+        }
+        #endregion
+
         _timer += Time.deltaTime;
         #region Jump
         if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)

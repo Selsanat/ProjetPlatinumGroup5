@@ -8,7 +8,7 @@ using Vector2 = UnityEngine.Vector2;
 
 public class FallState : TemplateState
 {
-    private float _timer;  
+    private float _timer;
     private float _coyote;
     protected override void OnStateInit()
     {
@@ -23,18 +23,24 @@ public class FallState : TemplateState
 
     protected override void OnStateUpdate()
     {
-        if (DetectCollision.isColliding(Mathf.Abs(StateMachine.velocity.y) * Vector2.down, StateMachine.transform,Vector2.zero))
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            return;
+        }
+        #endregion
+        if (DetectCollision.isColliding(Mathf.Abs(StateMachine.velocity.y) * Vector2.down, StateMachine.transform, Vector2.zero))
         {
             StateMachine.velocity.y = 0;
 
             if (_IOrientWriter.orient.x != 0 &&
-                !DetectCollision.isColliding(Mathf.Sign(_IOrientWriter.orient.x) * Vector2.right,StateMachine.transform, Vector2.zero))
+                !DetectCollision.isColliding(Mathf.Sign(_IOrientWriter.orient.x) * Vector2.right, StateMachine.transform, Vector2.zero))
             {
                 StateMachine.ChangeState(StateMachine.stateAccelerate);
                 return;
             }
-                StateMachine.ChangeState(StateMachine.stateIdle);
-                return;
+            StateMachine.ChangeState(StateMachine.stateIdle);
+            return;
         }
 
 
@@ -56,7 +62,7 @@ public class FallState : TemplateState
         _timer += Time.deltaTime * _IOrientWriter.orient.x;
         _timer = Mathf.Clamp(_timer, -accelerationTime, accelerationTime);
 
-        StateMachine.velocity.x = Mathf.Abs((_timer / accelerationTime) * airMaxSpeed )* _IOrientWriter.orient.x;
+        StateMachine.velocity.x = Mathf.Abs((_timer / accelerationTime) * airMaxSpeed) * _IOrientWriter.orient.x;
         StateMachine.velocity.x = Mathf.Clamp(StateMachine.velocity.x, -airMaxSpeed, airMaxSpeed);
 
         if (_IOrientWriter.orient.x == 0)

@@ -26,7 +26,12 @@ public class TurnAccelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
-
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            return;
+        }
+        #endregion
         #region Jump
         if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
         {
