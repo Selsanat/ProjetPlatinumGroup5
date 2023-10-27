@@ -1,9 +1,5 @@
-using OpenAI_API.Chat;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using OpenAI_API.Images;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;

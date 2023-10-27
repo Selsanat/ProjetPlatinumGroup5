@@ -1,7 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 public class PlayerInput : MonoBehaviour
 {
 
@@ -56,6 +57,10 @@ public class PlayerInput : MonoBehaviour
             jump.wantsJump = true;
         }
         else jump.wantsJump = false;
+
+        _iaActions[1].performed += ctx => SceneManager.LoadScene("LeandroMenu");
+
     }
+
 }
  

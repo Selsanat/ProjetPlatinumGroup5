@@ -1,21 +1,11 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using Microsoft.CSharp;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using OpenAI_API;
 using OpenAI_API.Chat;
 using OpenAI_API.ChatFunctions;
-using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
-using UnityEngine.Windows;
 
 
 public class OpenAITool : MonoBehaviour

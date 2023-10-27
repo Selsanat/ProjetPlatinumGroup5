@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using DetectCollisionExtension;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
+
 public class JumpState : TemplateState
 {
     private float _timer;

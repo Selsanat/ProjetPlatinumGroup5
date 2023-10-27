@@ -1,27 +1,13 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Threading;
-using JetBrains.Annotations;
-using Newtonsoft.Json.Linq;
-using OpenAI_API.Chat;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Events;
 using UnityEditor.SceneManagement;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.InputSystem.Interactions;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.VersionControl.Asset;
-using Object = UnityEngine.Object;
 
 [CustomEditor(typeof(GameStateMachine))]
 public class GameStateMachineEditor : Editor

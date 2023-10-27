@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class StateSelectionPerso : GameStateTemplate
 {
     protected override void OnStateInit()

@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
 using OpenAI_API.ChatFunctions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OpenAI_API.Chat
 {

@@ -283,7 +283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Cl\xE9ment"
+  m_text: Gym
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -663,10 +663,10 @@ MonoBehaviour:
     - MenuState
     - StateSelectionPerso
   - choices:
-    - Go to scene
-    - Go to scene
-    - Go to scene
-    - Go to scene
+    - MenuState
+    - MenuState
+    - MenuState
+    - MenuState
   _choices:
   - MenuState
   - StateParam
@@ -701,7 +701,7 @@ MonoBehaviour:
     scenes:
     - {fileID: 102900000, guid: 98b5497873e227e429705b022de802fe, type: 3}
     - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
-    - {fileID: 102900000, guid: 34e987869b392634bba9a412f05f2b41, type: 3}
+    - {fileID: 102900000, guid: 709d4351fec86c249a7ac20fccb7372f, type: 3}
     - {fileID: 102900000, guid: 61c8207e264df1e41aad3bd246e7cc2f, type: 3}
 --- !u!1 &545650442
 GameObject:
@@ -851,7 +851,7 @@ GameObject:
   - component: {fileID: 586492496}
   - component: {fileID: 586492497}
   m_Layer: 5
-  m_Name: Teliau
+  m_Name: Map test tim teliau
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -987,7 +987,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 5
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1390,7 +1390,7 @@ GameObject:
   - component: {fileID: 717612147}
   - component: {fileID: 717612146}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Lvl 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Julien
+  m_text: Lvl 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2120,7 +2120,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Teliau
+  m_text: Map test tim teliau
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2591,7 +2591,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 5
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2954,7 +2954,7 @@ GameObject:
   - component: {fileID: 2051147655}
   - component: {fileID: 2051147657}
   m_Layer: 5
-  m_Name: "Cl\xE9ment"
+  m_Name: Gym
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3069,7 +3069,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 5
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3083,7 +3083,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: clement
+          m_StringArgument: Map Gym
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &2070002459
@@ -3214,7 +3214,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 5
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

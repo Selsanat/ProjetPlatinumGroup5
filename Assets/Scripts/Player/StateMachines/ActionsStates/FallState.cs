@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using DetectCollisionExtension;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
 using Vector2 = UnityEngine.Vector2;
 
 public class FallState : TemplateState

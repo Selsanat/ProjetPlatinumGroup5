@@ -1,14 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+
 
 public class GameStateMachine : MonoBehaviour
 {
@@ -21,7 +18,7 @@ public class GameStateMachine : MonoBehaviour
         [HideInInspector]
         public Button[] buttons;
 
-        public SceneAsset[] scenes;
+        public Object[] scenes;
     }
 
     [System.Serializable]
@@ -61,6 +58,7 @@ public class GameStateMachine : MonoBehaviour
     }
     void Start()
     {
+        
         var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
         var fileInfo = info.GetFiles();
         foreach (GameStateTemplate State in AllStates)
@@ -74,13 +72,14 @@ public class GameStateMachine : MonoBehaviour
                 }
             }
         }
+        ChangeState(menuState);
         ChangeState(StartState);
     }
 
     private void FixedUpdate()
     {
+        
         CurrentState.StateUpdate();
-
     }
     private void OnGUI()
     {
@@ -106,7 +105,6 @@ public class GameStateMachine : MonoBehaviour
         }
         PreviousState = CurrentState;
         CurrentState = state;
-        print(state);
         if (CurrentState != null)
         {
             CurrentState.StateEnter(state);

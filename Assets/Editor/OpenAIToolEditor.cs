@@ -1,12 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using Newtonsoft.Json.Linq;
 using OpenAI_API.Chat;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.InputSystem.Interactions;
 
 [CustomEditor(typeof(OpenAITool))]
 public class OpenAIToolEditor : Editor

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
+using System.Linq;
 
 public class MenuState : GameStateTemplate
 {
@@ -11,6 +8,7 @@ public class MenuState : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
+        if(ui == null) ui = StateMachine.Menus[StateMachine.AllStates.ToList().IndexOf(this)].menuObject;
         StateMachine.HideAllMenusExceptThis(ui);
     }
 
