@@ -18,6 +18,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEditor.VersionControl.Asset;
 using Object = UnityEngine.Object;
@@ -28,8 +29,6 @@ public class GameStateMachineEditor : Editor
 
     private GameStateMachine _gameStateMachine = null;
     private SerializedProperty _menus;
-    public UnityEvent<int, string> OnMyEvent;
-
 
     private void OnEnable()
     {
@@ -55,10 +54,8 @@ public class GameStateMachineEditor : Editor
                     compteur++;
                 }
         }
-        /*foreach (string choice in _gameStateMachine._choices)
-        {
-            Debug.Log("Choix :" +choice);
-        }*/
+        _gameStateMachine._choices.ToList().RemoveAll(x => x == null);
+        t2.GetArrayElementAtIndex(fileInfo.Length - 1).stringValue = "Go to scene";
         serializedObject.ApplyModifiedProperties();
     }
     public override void OnInspectorGUI()
@@ -94,6 +91,9 @@ public class GameStateMachineEditor : Editor
                 var buttons = menu.FindPropertyRelative("buttons");
                 buttons.arraySize = listeButton.Length;
 
+                var scenes = menu.FindPropertyRelative("scenes");
+                scenes.arraySize = listeButton.Length;
+
                 _gameStateMachine._choiceState[i].choices ??= new string[listeButton.Length];
                 if (_gameStateMachine._choiceState[i].choices.Length != listeButton.Length) _gameStateMachine._choiceState[i].choices = new string[listeButton.Length];
                 for (int j = 0; j < listeButton.Length; j++)
@@ -103,21 +103,44 @@ public class GameStateMachineEditor : Editor
                     int _choiceIndex = _gameStateMachine._choices.ToList().IndexOf(_gameStateMachine._choiceState[i].choices[j]);
 
 
+
+                    if (bouton != null)
+                    {
+                        if (_gameStateMachine._choices.Length > _choiceIndex && _choiceIndex>0)
+                        {
+                            if (_gameStateMachine._choices[_choiceIndex] == "Go to scene")
+                            {
+                                var scene = (SceneAsset)scenes.GetArrayElementAtIndex(j).objectReferenceValue;
+                                scene =
+                                    EditorGUILayout.ObjectField("Scene", scene, typeof(SceneAsset),
+                                        false) as SceneAsset;
+                                if (scene != null)
+                                    scenes.GetArrayElementAtIndex(j).objectReferenceValue = scene;
+                            }
+                        }
+
+                        if (bouton.onClick.GetPersistentEventCount()>0) UnityEventTools.RemovePersistentListener(bouton.onClick, 0);
+                        if (bouton.onClick.GetPersistentEventCount() > 0) UnityEventTools.RemovePersistentListener(bouton.onClick, 0);
+
+
+                        var targetinfo = UnityEvent.GetValidMethodInfo(_gameStateMachine,
+                            "ChangeState", new Type[] { typeof(int) });
+                        UnityAction<int> action = Delegate.CreateDelegate(typeof(UnityAction<int>), _gameStateMachine, targetinfo, false) as UnityAction<int>;
+                        UnityEventTools.AddIntPersistentListener(bouton.onClick, action, _choiceIndex);
+
+                        if (scenes.GetArrayElementAtIndex(j).objectReferenceValue != null)
+                        {
+                            var targetinfo2 = UnityEvent.GetValidMethodInfo(_gameStateMachine, "ChangeScene", new Type[] { typeof(string) });
+                            UnityAction<string> action2 = Delegate.CreateDelegate(typeof(UnityAction<string>), _gameStateMachine, targetinfo2, false) as UnityAction<string>;
+                            UnityEventTools.AddStringPersistentListener(bouton.onClick, action2, scenes.GetArrayElementAtIndex(j).objectReferenceValue.name);
+                        }
+
+                    }
                     var button = buttons.GetArrayElementAtIndex(j);
                     button.objectReferenceValue = listeButton[j];
                     _choiceIndex = EditorGUILayout.Popup(listeButton[j].name, _choiceIndex, _gameStateMachine._choices);
                     _choiceIndex = Mathf.Clamp(_choiceIndex, 0, _choiceIndex);
                     _gameStateMachine._choiceState[i].choices[j] = _gameStateMachine._choices[_choiceIndex];
-
-                    if (bouton != null)
-                    {
-                        if(bouton.onClick.GetPersistentEventCount()>0) UnityEventTools.RemovePersistentListener(bouton.onClick, 0);
-                        var targetinfo = UnityEvent.GetValidMethodInfo(_gameStateMachine,
-                            "ChangeState", new Type[] { typeof(int) });
-
-                        UnityAction<int> action = Delegate.CreateDelegate(typeof(UnityAction<int>), _gameStateMachine, targetinfo, false) as UnityAction<int>;
-                        UnityEventTools.AddIntPersistentListener(bouton.onClick, action, _choiceIndex);
-                    }
 
                 }
             }

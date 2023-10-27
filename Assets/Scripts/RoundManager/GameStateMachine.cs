@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameStateMachine : MonoBehaviour
@@ -17,6 +20,8 @@ public class GameStateMachine : MonoBehaviour
         public string thisMenu;
         [HideInInspector]
         public Button[] buttons;
+
+        public SceneAsset[] scenes;
     }
 
     [System.Serializable]
@@ -69,12 +74,6 @@ public class GameStateMachine : MonoBehaviour
                 }
             }
         }
-
-        foreach (GameStateTemplate State in AllStates)
-        {
-            print("Scene : " + State.GetType());
-            print("ui : " + State.ui);
-        }
         ChangeState(StartState);
     }
 
@@ -125,7 +124,13 @@ public class GameStateMachine : MonoBehaviour
                 GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
                 ChangeState(thatState);
             }
+
         }
+    }
+
+    public void ChangeScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
     }
     public void HideAllMenusExceptThis(GameObject ui)
     {
@@ -133,8 +138,8 @@ public class GameStateMachine : MonoBehaviour
         {
                 menu.menuObject.SetActive(false);
         }
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
         ui.SetActive(true);
-        print(ui.GetComponentInChildren < Button>());
         ui.GetComponentInChildren<Button>().Select();
     }
 }
