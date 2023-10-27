@@ -283,7 +283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: vert
+  m_text: "Cl\xE9ment"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -658,15 +658,15 @@ MonoBehaviour:
   _choiceState:
   - choices:
     - StateSelectionPerso
-    - MenuState
-  - choices:
-    - MenuState
-    - StateSelectionPerso
-  - choices:
-    - MenuState
     - StateParam
-    - StateSelectionPerso
+  - choices:
     - MenuState
+    - StateSelectionPerso
+  - choices:
+    - Go to scene
+    - Go to scene
+    - Go to scene
+    - Go to scene
   _choices:
   - MenuState
   - StateParam
@@ -682,7 +682,7 @@ MonoBehaviour:
     - {fileID: 1032678540}
     scenes:
     - {fileID: 0}
-    - {fileID: 102900000, guid: 797220c0d6f762242a5cf0a6bb73d938, type: 3}
+    - {fileID: 0}
   - menuObject: {fileID: 1140899298}
     thisMenu: StateParam
     buttons:
@@ -699,10 +699,10 @@ MonoBehaviour:
     - {fileID: 2051147657}
     - {fileID: 2070002464}
     scenes:
-    - {fileID: 0}
+    - {fileID: 102900000, guid: 98b5497873e227e429705b022de802fe, type: 3}
+    - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
+    - {fileID: 102900000, guid: 34e987869b392634bba9a412f05f2b41, type: 3}
     - {fileID: 102900000, guid: 61c8207e264df1e41aad3bd246e7cc2f, type: 3}
-    - {fileID: 0}
-    - {fileID: 0}
 --- !u!1 &545650442
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +851,7 @@ GameObject:
   - component: {fileID: 586492496}
   - component: {fileID: 586492497}
   m_Layer: 5
-  m_Name: bleu
+  m_Name: Teliau
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -987,9 +987,21 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 252545730}
+        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Map Test Tim Teliau
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &592112610
@@ -1423,7 +1435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rouge
+  m_text: Julien
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1557,7 +1569,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jaune
+  m_text: "L\xE9andro"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2014,21 +2026,9 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 252545730}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Map Cursed
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1140899298
@@ -2120,7 +2120,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: bleu
+  m_text: Teliau
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2476,7 +2476,7 @@ GameObject:
   - component: {fileID: 1552558931}
   - component: {fileID: 1552558933}
   m_Layer: 5
-  m_Name: rouge
+  m_Name: Julien
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2591,7 +2591,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 1
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2605,7 +2605,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Leandro
+          m_StringArgument: Level 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1692461272
@@ -2954,7 +2954,7 @@ GameObject:
   - component: {fileID: 2051147655}
   - component: {fileID: 2051147657}
   m_Layer: 5
-  m_Name: vert
+  m_Name: "Cl\xE9ment"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3069,9 +3069,21 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 2
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 252545730}
+        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: clement
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &2070002459
@@ -3087,7 +3099,7 @@ GameObject:
   - component: {fileID: 2070002462}
   - component: {fileID: 2070002464}
   m_Layer: 5
-  m_Name: jaune
+  m_Name: "L\xE9andro"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3202,9 +3214,21 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 252545730}
+        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Leandro
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1660057539 &9223372036854775807

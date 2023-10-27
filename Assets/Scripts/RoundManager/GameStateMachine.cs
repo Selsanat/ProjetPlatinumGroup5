@@ -119,12 +119,14 @@ public class GameStateMachine : MonoBehaviour
         var fileInfo = info.GetFiles();
         foreach (GameStateTemplate State in AllStates)
         {
-            if (State.GetType().ToString() == fileInfo[state*2].Name.Replace(".cs", string.Empty))
+            if (state * 2 < fileInfo.Length)
             {
-                GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
-                ChangeState(thatState);
+                if (State.GetType().ToString() == fileInfo[state * 2].Name.Replace(".cs", string.Empty))
+                {
+                    GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
+                    ChangeState(thatState);
+                }
             }
-
         }
     }
 
