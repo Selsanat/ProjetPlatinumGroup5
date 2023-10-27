@@ -10,6 +10,7 @@ public abstract class TemplateState
     protected MovementParams movementParams => StateMachine.movementsParam;
     protected IOrientWriter _IOrientWriter => StateMachine.GetComponent<IOrientWriter>();
     protected IWantsJumpWriter _iWantsJumpWriter => StateMachine.GetComponent<IWantsJumpWriter>();
+    protected Animator animator => StateMachine.GetComponentInChildren<Animator>();
 
     protected CharacterController _characterController => StateMachine.GetComponent<CharacterController>();
 

@@ -60,6 +60,17 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Vector3 x = gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale;
+        gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale = new Vector3(Mathf.Sign(velocity.x), x.y,x.z);
+
+        if ( 1== 1)
+        {
+           // GameObject.animator.SpriteRenderer.Flip = false;
+        }
+        else
+        {
+           // GameObject.animator.SpriteRenderer.Flip = true;
+        }
         //Debug.Log(velocity);
         //Debug.Log(GetComponent<IWantsJumpWriter>().wantsJump);
         //Debug.Log(GetComponent<IWantsJumpWriter>().jumpBuffer);

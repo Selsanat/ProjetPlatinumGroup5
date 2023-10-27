@@ -15,6 +15,7 @@ public class IdleState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
+        animator.Play("Idle");
         if(_IOrientWriter.orient.x==0)
         StateMachine.velocity = Vector2.zero;
     }
