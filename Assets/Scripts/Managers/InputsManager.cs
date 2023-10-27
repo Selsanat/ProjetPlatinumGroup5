@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputsManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class InputsManager : MonoBehaviour
     //Input Manager Singleton
 
     public static InputsManager Instance;
+    public PlayerInputManager inputmanager => gameObject.GetComponent<PlayerInputManager>();
     void Awake()
     {
         if (Instance == null)

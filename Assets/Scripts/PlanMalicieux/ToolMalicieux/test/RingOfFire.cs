@@ -38,7 +38,7 @@ public class RingOfFire : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log(player.name + "t'es pas mort");
+                       // Debug.Log(player.name + "t'es pas mort");
                     }
                 }
             period = 0;
