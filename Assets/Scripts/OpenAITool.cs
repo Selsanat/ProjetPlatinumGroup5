@@ -23,7 +23,6 @@ public class OpenAITool : MonoBehaviour
 
 
         request ??= new ChatRequest();
-
         request.Messages ??= new List<ChatMessage>();
         request.Messages.Add(new ChatMessage(ChatMessageRole.User, prompt));
         //string param = @"{ ""type"" : ""object"",""properties"": { ""texte"": { ""type"": ""string"",""description"": ""Le texte a ecrire"", }, },""required"": [""texte""], }";

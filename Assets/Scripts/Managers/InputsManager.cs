@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 
 public class InputsManager : MonoBehaviour
 {
@@ -8,7 +10,8 @@ public class InputsManager : MonoBehaviour
     //Input Manager Singleton
 
     public static InputsManager Instance;
-    public PlayerInputManager inputmanager => gameObject.GetComponent<PlayerInputManager>();
+    public PlayerInputManager playerInputManager => gameObject.GetComponent<PlayerInputManager>();
+    public List<PlayerStateMachine> PlayersStateMachines = new List<PlayerStateMachine>();
     void Awake()
     {
         if (Instance == null)

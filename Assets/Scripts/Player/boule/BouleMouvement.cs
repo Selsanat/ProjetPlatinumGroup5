@@ -266,7 +266,6 @@ public class BouleMouvement : MonoBehaviour
 
         if(collision.gameObject.tag == "Player")
         {
-            print("player");
             collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
             _roundManager.playerDied(collision.gameObject.GetComponentInChildren<playerClass>());
             if (_isThrowing)

@@ -43,7 +43,7 @@ public class GameStateMachine : MonoBehaviour
 
     public StateSelectionPerso selectionPersoState { get; } = new StateSelectionPerso();
     public StateRound roundState { get; } = new StateRound();
-    private AsyncOperation asyncLoadLevel = null;
+    
     public GameStateTemplate[] AllStates => new GameStateTemplate[]
     {
         menuState,
@@ -54,6 +54,8 @@ public class GameStateMachine : MonoBehaviour
     public GameStateTemplate StartState => menuState;
     public GameStateTemplate CurrentState { get; private set; }
     public GameStateTemplate PreviousState { get; private set; }
+
+    private AsyncOperation asyncLoadLevel = null;
 
     private void Awake()
     {
