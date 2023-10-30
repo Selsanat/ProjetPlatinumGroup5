@@ -40,6 +40,10 @@ public class BouleMouvement : MonoBehaviour
     [Space(5)]
     public float _lerpDurationSlow = 2.0f;
     [Space(10)]
+    [Header("Combien de temps avant que la boule revienne (en seconde)")]
+    [Space(5)]
+    public float _retourTimeMax = 2.0f;
+    [Space(10)]
     [Header("la courbe de vitesse que va prendre la boule (en terme de vitesse)")]
     [Space(5)]
     public AnimationCurve _lerpCurve;
@@ -48,8 +52,8 @@ public class BouleMouvement : MonoBehaviour
     [Space(5)]
     public PhysicMaterial _bounce;
     [Space(5)]
-    [Header("Le player ne pas touché")]
 
+    [Header("Le player ne pas touché")]
     public Transform _player;
 
     #endregion
@@ -69,6 +73,7 @@ public class BouleMouvement : MonoBehaviour
     private bool _isLerpSlowFinished = false;
     private List<GameObject> _collidingObject;
     private Vector3 _vecHit;
+    private float _timeThrowing = 0;
     private RoundManager _roundManager => RoundManager.Instance;
 
     private enum StateBoule
@@ -84,6 +89,7 @@ public class BouleMouvement : MonoBehaviour
     {
         GUILayout.Label("state idle: " + stateBoule);
         GUILayout.Label("distance base : " + _distance);
+        GUILayout.Label("timer : " + _timeThrowing);
         GUILayout.Label("distance : " + Vector3.Distance(_player.position, this.transform.position));
     }
     #endregion
@@ -123,6 +129,15 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.reseting && _collidingObject.Count != 0)
         {
             _clockwise = !_clockwise;
+        }
+        if(stateBoule == StateBoule.throwing)
+        {
+            _timeThrowing += Time.deltaTime;
+            if(_timeThrowing >= _retourTimeMax)
+            {
+                setUpBoule();
+                _timeThrowing = 0;
+            }
         }
 
     }
