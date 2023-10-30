@@ -33,10 +33,6 @@ public class PilloneV2 : MonoBehaviour
     {
         if (!isMoving)
             return;
-            if (collision.CompareTag("Player"))
-        {
-            
-        }
 
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, currentPillar.position, step);
