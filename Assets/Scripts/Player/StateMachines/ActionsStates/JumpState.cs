@@ -24,13 +24,6 @@ public class JumpState : TemplateState
     protected override void OnStateUpdate()
     {
 
-        #region Death
-        if (_iMouvementLockedReader.isMouvementLocked)
-        {
-            return;
-        }
-        #endregion
-
         if (StateMachine.velocity.y < 0 || DetectCollision.isColliding(Vector2.up, StateMachine.transform, Vector3.zero, false))
         {
             StateMachine.ChangeState(StateMachine.fallState);

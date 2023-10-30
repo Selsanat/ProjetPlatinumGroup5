@@ -20,7 +20,11 @@ public abstract class GameStateTemplate
     public void StateExit(GameStateTemplate nextState) => OnStateExit(nextState);
     public void StateUpdate() => OnStateUpdate();
     protected virtual void OnStateInit() { }
-    protected virtual void OnStateEnter(GameStateTemplate previousState) { }
+
+    protected virtual void OnStateEnter(GameStateTemplate previousState)
+    {
+        StateMachine.HideAllMenusExceptThis(ui);
+    }
     protected virtual void OnStateExit(GameStateTemplate nextState) { }
     protected virtual void OnStateUpdate() { }
 

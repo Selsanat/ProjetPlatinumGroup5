@@ -15,33 +15,26 @@ public class StateRound : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
-        List<InputDevice> devices = new List<InputDevice>();
-        foreach (var device in InputSystem.devices)
-        {
-            if (device is Gamepad || device is Keyboard)
-            {
-                devices.Add(device);
-            }
-        }
-        StateMachine.HideAllMenusExceptThis(ui);
-        for(int i =0; i< managerManager.gameParams.NombreJoueurs;i++)
-        {
-            var player = inputsManager.playerInputManager.JoinPlayer(-1,-1,null, devices[i]);
-            player.transform.position = GameObject.FindGameObjectsWithTag("SpawnPoints")[i].transform.position;
-            PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
-            //playerStateMachine.CurrentState.LockMouvement();
-            inputsManager.PlayersStateMachines.Add(playerStateMachine);
-           
-        }
-        
+        StateMachine.HideAllMenusExceptThis();
+        RoundManager.Instance.StartRound();
+        AnimationDebutDeRound();
+    }
+
+
+    protected override void OnStateUpdate()
+    {
+    }
+
+    #region Animation Debut De round
+    void AnimationDebutDeRound()
+    {
         cam = Camera.main;
-        Debug.Log(cam);
         DOTween.Init();
         Vector3 StartPos = cam.transform.position;
         Sequence mySequence = DOTween.Sequence();
-        foreach (var player in inputsManager.PlayersStateMachines)
+        foreach (var player in inputsManager.playerInputs)
         {
-            Vector3 pos = player.transform.position;
+            Vector3 pos = player._playerStateMachine.transform.position;
             pos.z = cam.transform.position.z;
             mySequence.Append(cam.transform.DOMove(pos, 1, false)).SetEase(Ease.InQuad);
             mySequence.Join(cam.DOOrthoSize(5, 1)).SetEase(Ease.OutSine);
@@ -51,18 +44,14 @@ public class StateRound : GameStateTemplate
         mySequence.Join(cam.DOOrthoSize(15, 1));
         mySequence.OnComplete(unlockMovements);
         mySequence.Play();
-
-
+       
     }
-
     void unlockMovements()
     {
-        foreach (var player in inputsManager.PlayersStateMachines)
+        foreach (var player in inputsManager.playerInputs)
         {
-           // player.CurrentState.UnlockMouvement();
+            player._playerStateMachine._iMouvementLockedWriter.isMouvementLocked = false;
         }
     }
-    protected override void OnStateUpdate()
-    {
-    }
+    #endregion
 }

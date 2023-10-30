@@ -20,12 +20,7 @@ public class AccelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
-        #region Death
-        if (_iMouvementLockedReader.isMouvementLocked)
-        {
-            return;
-        }
-        #endregion
+
 
         _timer += Time.deltaTime;
         #region Jump

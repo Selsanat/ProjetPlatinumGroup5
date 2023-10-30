@@ -46,7 +46,6 @@ public class BouleMouvement : MonoBehaviour
     #endregion
 
     #region Private variables
-
     private bool _isThrowing = false;
     private Vector3 _beforeThrow;
     private Transform _player;
@@ -264,18 +263,14 @@ public class BouleMouvement : MonoBehaviour
         if (_isThrowing)
             _contactPoints.Add(this.transform.position);
 
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player" && collision.gameObject != transform.parent.gameObject)
         {
-            collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
-            _roundManager.playerDied(collision.gameObject.GetComponentInChildren<playerClass>());
-            if (_isThrowing)
-                setUpBoule();
-            //Destroy(collision.gameObject);
-
+            RoundManager.Instance.KillPlayer(collision.gameObject.GetComponent<PlayerStateMachine>());
+            collision.gameObject.GetComponentInChildren<PlayerStateMachine>()._iMouvementLockedWriter.isMouvementLocked = true;
         }
-        
-        
     }
+
+    
     private void OnCollisionExit(Collision collision)
     {
 

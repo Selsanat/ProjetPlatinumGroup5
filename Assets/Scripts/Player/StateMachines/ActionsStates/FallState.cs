@@ -19,16 +19,15 @@ public class FallState : TemplateState
 
     protected override void OnStateUpdate()
     {
-        #region Death
-        if (_iMouvementLockedReader.isMouvementLocked)
-        {
-            return;
-        }
-        #endregion
+
         if (DetectCollision.isColliding(Mathf.Abs(StateMachine.velocity.y) * Vector2.down, StateMachine.transform, Vector2.zero))
         {
             StateMachine.velocity.y = 0;
-
+            if (StateMachine._iMouvementLockedReader.isMouvementLocked)
+            {
+                StateMachine.ChangeState(StateMachine.deathState);
+                return;
+            }
             if (_IOrientWriter.orient.x != 0 &&
                 !DetectCollision.isColliding(Mathf.Sign(_IOrientWriter.orient.x) * Vector2.right, StateMachine.transform, Vector2.zero))
             {

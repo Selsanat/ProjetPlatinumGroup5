@@ -43,13 +43,15 @@ public class GameStateMachine : MonoBehaviour
 
     public StateSelectionPerso selectionPersoState { get; } = new StateSelectionPerso();
     public StateRound roundState { get; } = new StateRound();
-    
+    public RoundEnd endRound { get; } = new RoundEnd();
+
     public GameStateTemplate[] AllStates => new GameStateTemplate[]
     {
         menuState,
         paramState,
         selectionPersoState,
-        roundState
+        roundState,
+        endRound
     };
     public GameStateTemplate StartState => menuState;
     public GameStateTemplate CurrentState { get; private set; }
@@ -57,8 +59,14 @@ public class GameStateMachine : MonoBehaviour
 
     private AsyncOperation asyncLoadLevel = null;
 
+    public static GameStateMachine Instance;
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else Destroy(this.gameObject);
         _InitAllStates();
     }
     void Start()
@@ -172,6 +180,13 @@ public class GameStateMachine : MonoBehaviour
         {
             ui.SetActive(true);
             ui.GetComponentInChildren<Button>().Select();
+        }
+    }
+    public void HideAllMenusExceptThis()
+    {
+        foreach (Menu menu in Menus)
+        {
+            menu.menuObject.SetActive(false);
         }
     }
 
