@@ -77,6 +77,7 @@ public class BouleMouvement : MonoBehaviour
     private void OnGUI()
     {
         GUILayout.Label("state idle: " + stateBoule);
+        GUILayout.Label("distance base : " + _distance);
         GUILayout.Label("distance : " + Vector3.Distance(_player.position, this.transform.position));
     }
     #endregion
@@ -99,9 +100,7 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-        if (_player == null)
-            _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
-
+        
         if (Input.GetKeyDown(KeyCode.LeftShift) && stateBoule == StateBoule.idle)
         {
             _sphereCollider.material = _bounce;
@@ -135,10 +134,12 @@ public class BouleMouvement : MonoBehaviour
             _rb.angularVelocity = Vector3.zero;
             stateBoule = StateBoule.idle;
             _sphereCollider.isTrigger = false;
+            
+            this.transform.SetParent(_player);
 
-            //print("reseted");
+            print("reseted");
         }
-        else if ((Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f))
+        else if ((Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f) && (stateBoule == StateBoule.idle || stateBoule == StateBoule.reseting))
         {
             resetBool();
         }
@@ -213,7 +214,6 @@ public class BouleMouvement : MonoBehaviour
                 {
                     _sphereCollider.isTrigger = true;
                     resetBool();
-                    this.transform.SetParent(_player);
 
                 }
 
@@ -262,6 +262,14 @@ public class BouleMouvement : MonoBehaviour
 
             // Téléporte la boule à la nouvelle position
         }
+        else
+        {
+            stateBoule = StateBoule.idle;
+            _sphereCollider.isTrigger = false;
+            this.transform.SetParent(_player);
+
+
+        }
 
 
     }
@@ -285,7 +293,7 @@ public class BouleMouvement : MonoBehaviour
     private void stayup()
     {
         RaycastHit hit;
-        if (_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f))
+        if (_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f) && stateBoule == StateBoule.idle)
         {
             Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.yellow);
 
@@ -296,7 +304,7 @@ public class BouleMouvement : MonoBehaviour
             }
 
         }
-        else if(_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.up, out hit, 0.5f))
+        else if(_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.up, out hit, 0.5f) && stateBoule == StateBoule.idle)
         {
 
             if ((this.transform.position.y > vec.y))
