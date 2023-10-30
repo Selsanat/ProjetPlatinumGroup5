@@ -13,11 +13,11 @@ public class BouleMouvement : MonoBehaviour
     [Space(5)]
     public float _rotationSpeed = 100.0f; // Vitesse de rotation de la boule autour du joueur
     [Space(10)]
-    [Header("Sens de rotation initial (true va de gauche ï¿½ droite)")]
+    [Header("Sens de rotation initial (true va de gauche à droite)")]
     [Space(5)]
     public bool _clockwise = true; // Sens de rotation initial
     [Space(10)]
-    [Header("vitesse ï¿½ laquelle la boule va revenir en place aprï¿½s un bug de dï¿½placement")]
+    [Header("vitesse à laquelle la boule va revenir en place après un bug de déplacement")]
     [Space(5)]
     public float _resetSpeed = 400;
     [Space(10)]
@@ -44,11 +44,11 @@ public class BouleMouvement : MonoBehaviour
     [Space(5)]
     public AnimationCurve _lerpCurve;
     [Space(10)]
-    [Header("Le material de la boule ne pas touchï¿½")]
+    [Header("Le material de la boule ne pas touché")]
     [Space(5)]
     public PhysicMaterial _bounce;
     [Space(5)]
-    [Header("Le player ne pas touchï¿½")]
+    [Header("Le player ne pas touché")]
 
     public Transform _player;
 
@@ -59,7 +59,7 @@ public class BouleMouvement : MonoBehaviour
     private Vector3 _beforeThrow;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     private Rigidbody _rb;
-    public List<Vector3> _contactPoints;
+    private List<Vector3> _contactPoints;
     private Vector3 _target;
     private int _destPoint;
     private float _distance;
@@ -77,6 +77,7 @@ public class BouleMouvement : MonoBehaviour
         throwing,
         returning,
         reseting,
+        death
     }
     StateBoule stateBoule = StateBoule.idle;
     private void OnGUI()
@@ -134,15 +135,26 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.returning)
             returnBoule();
 
-        if ((Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) <= 0.1f) && stateBoule == StateBoule.reseting)
+        if ((Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) <= 0.1f))
         {
-            _rb.velocity = Vector3.zero;
-            _rb.angularVelocity = Vector3.zero;
-            stateBoule = StateBoule.idle;
-            _sphereCollider.isTrigger = false;
-            this.transform.SetParent(_player);
+            
+            if (stateBoule == StateBoule.reseting)
+            {
+                stateBoule = StateBoule.idle;
+                _sphereCollider.isTrigger = false;
+                _rb.velocity = Vector3.zero;
+                _rb.angularVelocity = Vector3.zero;
+                this.transform.SetParent(_player);
 
-            print("reseted");
+            }
+            else if(stateBoule == StateBoule.death)
+            {
+                _rb.velocity = Vector3.zero;
+                _rb.angularVelocity = Vector3.zero;
+                this.transform.SetParent(_player);
+                //anime mort
+            }
+
         }
         else if ((Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f) && (stateBoule == StateBoule.idle || stateBoule == StateBoule.reseting))
         {
@@ -151,8 +163,13 @@ public class BouleMouvement : MonoBehaviour
 
 
     }
-
-    private void updateThrowing() //lancï¿½ de la boule
+    public void returnBouleDeath()
+    {
+        _sphereCollider.isTrigger = true;
+        resetBool();
+        stateBoule = StateBoule.death;
+    }
+    private void updateThrowing() //lancé de la boule
     {
         if (_beforeThrow == Vector3.zero)
         {
@@ -168,9 +185,9 @@ public class BouleMouvement : MonoBehaviour
     private void returnBoule() // retour de la boule
     {
         Vector3 dir = (_target - this.transform.position).normalized;
-        if (_target == _contactPoints[_contactPoints.Count - 1])
+        if (_target == _contactPoints[_contactPoints.Count - 1]) //si on est sur le premier point
         {
-            if (!_isLerpSlowFinished)
+            if (!_isLerpSlowFinished) //lorsque l'on ralentie
             {
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = Vector3.zero;
@@ -188,7 +205,7 @@ public class BouleMouvement : MonoBehaviour
                 }
 
             }
-            else if (_isLerpSlowFinished)
+            else if (_isLerpSlowFinished) //lorsque l'on accélère
             {
                 _lerpTime += Time.deltaTime;
                 float pourcentageComplete = _lerpTime / _lerpDurationFast;
@@ -197,24 +214,27 @@ public class BouleMouvement : MonoBehaviour
             }
 
         }
-        else
+        else 
         {
-
             transform.Translate(dir * Time.deltaTime * _speedBack, Space.World);
-
+        }
+        if (Vector3.Distance(transform.position, _target) < 0.5f && _target != _contactPoints[0])
+        {
+            print("next point");
+            _destPoint--;
+            _target = _contactPoints[_destPoint];
         }
 
-
-        if (_target == _contactPoints[0])
+        if (_target == _contactPoints[0]) //si on est sur le dernier
         {
 
-            if (Vector3.Distance(transform.position, _target) < 0.3f)
+            if (Vector3.Distance(transform.position, _target) < 0.5f) // si on est assez proche du dernier point
             {
                 _contactPoints.Clear();
 
                 stateBoule = StateBoule.idle;
                 _beforeThrow = Vector3.zero;
-                if (Vector3.Distance(transform.position, _player.position) > 0.1f)
+                if (Vector3.Distance(transform.position, _player.position) > 0.6f) // si on est loin du joueur, alors on le fait revenir et l empechant de collide avec autres chose
                 {
                     _sphereCollider.isTrigger = true;
                     resetBool();
@@ -227,12 +247,7 @@ public class BouleMouvement : MonoBehaviour
 
 
         }
-        if (Vector3.Distance(transform.position, _target) < 0.1f)
-        {
-
-            _destPoint--;
-            _target = _contactPoints[_destPoint];
-        }
+        
 
 
     }
@@ -264,7 +279,7 @@ public class BouleMouvement : MonoBehaviour
                 _rb.AddForce(-this.transform.forward * Time.deltaTime * _resetSpeed, ForceMode.VelocityChange);
             }
 
-            // Tï¿½lï¿½porte la boule ï¿½ la nouvelle position
+            // Téléporte la boule à la nouvelle position
         }
         else
         {
