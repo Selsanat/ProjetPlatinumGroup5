@@ -13,11 +13,11 @@ public class BouleMouvement : MonoBehaviour
     [Space(5)]
     public float _rotationSpeed = 100.0f; // Vitesse de rotation de la boule autour du joueur
     [Space(10)]
-    [Header("Sens de rotation initial (true va de gauche à droite)")]
+    [Header("Sens de rotation initial (true va de gauche ï¿½ droite)")]
     [Space(5)]
     public bool _clockwise = true; // Sens de rotation initial
     [Space(10)]
-    [Header("vitesse à laquelle la boule va revenir en place après un bug de déplacement")]
+    [Header("vitesse ï¿½ laquelle la boule va revenir en place aprï¿½s un bug de dï¿½placement")]
     [Space(5)]
     public float _resetSpeed = 400;
     [Space(10)]
@@ -44,11 +44,11 @@ public class BouleMouvement : MonoBehaviour
     [Space(5)]
     public AnimationCurve _lerpCurve;
     [Space(10)]
-    [Header("Le material de la boule ne pas touché")]
+    [Header("Le material de la boule ne pas touchï¿½")]
     [Space(5)]
     public PhysicMaterial _bounce;
     [Space(5)]
-    [Header("Le player ne pas touché")]
+    [Header("Le player ne pas touchï¿½")]
 
     public Transform _player;
 
@@ -59,7 +59,7 @@ public class BouleMouvement : MonoBehaviour
     private Vector3 _beforeThrow;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     private Rigidbody _rb;
-    private List<Vector3> _contactPoints;
+    public List<Vector3> _contactPoints;
     private Vector3 _target;
     private int _destPoint;
     private float _distance;
@@ -152,7 +152,7 @@ public class BouleMouvement : MonoBehaviour
 
     }
 
-    private void updateThrowing() //lancé de la boule
+    private void updateThrowing() //lancï¿½ de la boule
     {
         if (_beforeThrow == Vector3.zero)
         {
@@ -208,7 +208,7 @@ public class BouleMouvement : MonoBehaviour
         if (_target == _contactPoints[0])
         {
 
-            if (Vector3.Distance(transform.position, _target) < 0.1f)
+            if (Vector3.Distance(transform.position, _target) < 0.3f)
             {
                 _contactPoints.Clear();
 
@@ -264,7 +264,7 @@ public class BouleMouvement : MonoBehaviour
                 _rb.AddForce(-this.transform.forward * Time.deltaTime * _resetSpeed, ForceMode.VelocityChange);
             }
 
-            // Téléporte la boule à la nouvelle position
+            // Tï¿½lï¿½porte la boule ï¿½ la nouvelle position
         }
         else
         {
