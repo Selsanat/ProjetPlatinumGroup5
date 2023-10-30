@@ -642,6 +642,31 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 6653954633270439346}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _speedBack
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _rotationSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _speedThrowing
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpDurationFast
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpDurationSlow
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6389024400992320988, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: m_Name
