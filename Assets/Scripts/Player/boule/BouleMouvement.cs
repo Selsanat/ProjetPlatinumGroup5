@@ -121,7 +121,7 @@ public class BouleMouvement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftShift) && stateBoule == StateBoule.throwing)
         {
             setUpBoule();
-
+            _timeThrowing = 0;
         }
 
         stayup();
