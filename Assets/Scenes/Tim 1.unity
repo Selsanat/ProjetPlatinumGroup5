@@ -14417,8 +14417,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserPrefab: {fileID: 7220799518193687064, guid: ef32b93cd2db25e4a907f3956b7c10fc,
     type: 3}
-  pointA: {fileID: 1288520919}
-  pointB: {fileID: 1288520919}
+  pointA: {fileID: 0}
+  pointB: {fileID: 0}
   minTimeBetweenShots: 3
   maxTimeBetweenShots: 5
   minLaserDuration: 0.5
@@ -17243,37 +17243,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1273452153}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1288520918
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1288520919}
-  m_Layer: 0
-  m_Name: B
-  m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1288520919
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288520918}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.380001, y: 7.5, z: 11.506119}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1288963897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29478,5 +29447,4 @@ SceneRoots:
   - {fileID: 1927441606}
   - {fileID: 140700661}
   - {fileID: 1299865729}
-  - {fileID: 1288520919}
   - {fileID: 1036574020}

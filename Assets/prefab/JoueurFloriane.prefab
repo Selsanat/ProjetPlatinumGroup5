@@ -266,8 +266,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.04893694, y: 0, z: 0, w: 0.9988019}
   m_LocalPosition: {x: 0, y: -0.82, z: 2.98}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7536746513119400259}
   - {fileID: 5047118458150591035}
@@ -311,6 +311,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 836caf15-c37f-49c5-8e8a-a8e99e5a9719
     m_ActionName: UI/Select[/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 618abc81-6861-45dc-9f4e-ad42b9bda195
+    m_ActionName: Movements/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movements
