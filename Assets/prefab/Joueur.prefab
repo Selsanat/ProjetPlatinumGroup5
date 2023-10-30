@@ -311,6 +311,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 836caf15-c37f-49c5-8e8a-a8e99e5a9719
     m_ActionName: UI/Select[/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 618abc81-6861-45dc-9f4e-ad42b9bda195
+    m_ActionName: Movements/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movements
@@ -586,7 +590,7 @@ PrefabInstance:
     - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.04
+      value: 1.36
       objectReference: {fileID: 0}
     - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
@@ -637,6 +641,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: boule
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389024400992320988, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
