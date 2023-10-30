@@ -47,12 +47,16 @@ public class BouleMouvement : MonoBehaviour
     [Header("Le material de la boule ne pas touché")]
     [Space(5)]
     public PhysicMaterial _bounce;
+    [Space(5)]
+    [Header("Le player ne pas touché")]
+
+    public Transform _player;
+
     #endregion
 
     #region Private variables
 
     private Vector3 _beforeThrow;
-    private Transform _player;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     private Rigidbody _rb;
     private List<Vector3> _contactPoints;
@@ -63,7 +67,8 @@ public class BouleMouvement : MonoBehaviour
     private float currentSpeed = 0;
     private float _lerpTime = 0;
     private bool _isLerpSlowFinished = false;
-    public List<GameObject> _collidingObject;
+    private List<GameObject> _collidingObject;
+    private Vector3 _vecHit;
     private RoundManager _roundManager => RoundManager.Instance;
 
     private enum StateBoule
@@ -86,7 +91,6 @@ public class BouleMouvement : MonoBehaviour
     {
         _collidingObject = new List<GameObject>();
         _rb = GetComponent<Rigidbody>();
-        _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
         _sphereCollider = GetComponentInChildren<SphereCollider>();
     }
 
@@ -112,7 +116,9 @@ public class BouleMouvement : MonoBehaviour
             setUpBoule();
 
         }
+
         stayup();
+        
         if (stateBoule == StateBoule.reseting && _collidingObject.Count != 0)
         {
             _clockwise = !_clockwise;
@@ -134,7 +140,6 @@ public class BouleMouvement : MonoBehaviour
             _rb.angularVelocity = Vector3.zero;
             stateBoule = StateBoule.idle;
             _sphereCollider.isTrigger = false;
-            
             this.transform.SetParent(_player);
 
             print("reseted");
@@ -174,7 +179,6 @@ public class BouleMouvement : MonoBehaviour
 
                 currentSpeed = Mathf.Lerp(_speedBack, 0, _lerpCurve.Evaluate(pourcentageComplete));
                 transform.Translate(-this.transform.forward * Time.deltaTime * currentSpeed / 2.4f, Space.World);
-                //_rb.AddForce(-this.transform.forward * Time.deltaTime * currentSpeed, ForceMode.VelocityChange);
                 if (currentSpeed == 0)
                 {
                     _isLerpSlowFinished = true;
@@ -289,7 +293,6 @@ public class BouleMouvement : MonoBehaviour
         stateBoule = StateBoule.returning;
 
     }
-    private Vector3 vec;
     private void stayup()
     {
         RaycastHit hit;
@@ -297,22 +300,22 @@ public class BouleMouvement : MonoBehaviour
         {
             Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.yellow);
 
-            if ((this.transform.position.y < vec.y))
+            if ((this.transform.position.y < _vecHit.y))
             {
                 print("stayup");
-                transform.position = new Vector3(this.transform.position.x, vec.y, this.transform.position.z);
+                transform.position = new Vector3(this.transform.position.x, _vecHit.y, this.transform.position.z);
             }
 
         }
         else if(_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.up, out hit, 0.5f) && stateBoule == StateBoule.idle)
         {
 
-            if ((this.transform.position.y > vec.y))
+            if ((this.transform.position.y > _vecHit.y))
             {
                 print("staydown");
                 Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.yellow);
 
-                transform.position = new Vector3(this.transform.position.x, vec.y, this.transform.position.z);
+                transform.position = new Vector3(this.transform.position.x, _vecHit.y, this.transform.position.z);
 
             }
 
@@ -332,7 +335,7 @@ public class BouleMouvement : MonoBehaviour
         _collidingObject.Add(collision.gameObject);
         if (stateBoule == StateBoule.throwing)
             _contactPoints.Add(this.transform.position);
-        vec = collision.contacts[0].point;
+        _vecHit = collision.contacts[0].point;
         if (collision.gameObject.tag == "Player")
         {
             print("player");
