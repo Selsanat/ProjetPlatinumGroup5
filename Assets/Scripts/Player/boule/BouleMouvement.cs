@@ -105,7 +105,7 @@ public class BouleMouvement : MonoBehaviour
     private void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.LeftShift) && stateBoule == StateBoule.idle)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && stateBoule == StateBoule.idle) // Quand le joueur appuie sur la touche
         {
             _sphereCollider.material = _bounce;
             stateBoule = StateBoule.throwing;
@@ -178,7 +178,7 @@ public class BouleMouvement : MonoBehaviour
                 float pourcentageComplete = _lerpTime / _lerpDurationSlow;
 
                 currentSpeed = Mathf.Lerp(_speedBack, 0, _lerpCurve.Evaluate(pourcentageComplete));
-                transform.Translate(-this.transform.forward * Time.deltaTime * currentSpeed / 2.4f, Space.World);
+                transform.Translate(-dir * Time.deltaTime * currentSpeed / 2.4f, Space.World);
                 if (currentSpeed == 0)
                 {
                     _isLerpSlowFinished = true;
