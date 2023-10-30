@@ -1,5 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using DG.Tweening;
+using Unity.VisualScripting;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -47,7 +51,6 @@ public class BouleMouvement : MonoBehaviour
 
     #region Private variables
 
-    private bool _isThrowing = false;
     private Vector3 _beforeThrow;
     private Transform _player;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
@@ -55,21 +58,32 @@ public class BouleMouvement : MonoBehaviour
     private List<Vector3> _contactPoints;
     private Vector3 _target;
     private int _destPoint;
-    private bool _isReturning = false;
     private float _distance;
-    private bool _canThrow = true;
-    private bool _resetedBoul = false;
     private SphereCollider _sphereCollider;
     private float currentSpeed = 0;
     private float _lerpTime = 0;
     private bool _isLerpSlowFinished = false;
+    public List<GameObject> _collidingObject;
     private RoundManager _roundManager => RoundManager.Instance;
 
-
+    private enum StateBoule
+    {
+        idle,
+        throwing,
+        returning,
+        reseting,
+    }
+    StateBoule stateBoule = StateBoule.idle;
+    private void OnGUI()
+    {
+        GUILayout.Label("state idle: " + stateBoule);
+        GUILayout.Label("distance : " + Vector3.Distance(_player.position, this.transform.position));
+    }
     #endregion
 
     private void Awake()
     {
+        _collidingObject = new List<GameObject>();
         _rb = GetComponent<Rigidbody>();
         _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
         _sphereCollider = GetComponentInChildren<SphereCollider>();
@@ -85,40 +99,50 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-        if(_player == null) 
+        if (_player == null)
             _player = FindAnyObjectByType<PlayerStateMachine>()?.transform;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow && !_isReturning)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && stateBoule == StateBoule.idle)
         {
             _sphereCollider.material = _bounce;
-            _isThrowing = true;
+            stateBoule = StateBoule.throwing;
             updateThrowing();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) && _isThrowing && !_isReturning)
+        if (Input.GetKeyUp(KeyCode.LeftShift) && stateBoule == StateBoule.throwing)
         {
             setUpBoule();
 
         }
-        if(!(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f) && !(Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) < -0.1f) 
-            && _resetedBoul && !_isThrowing && !_isReturning)
+        stayup();
+        if (stateBoule == StateBoule.reseting && _collidingObject.Count != 0)
         {
-            _rb.velocity = Vector3.zero;
-            _rb.angularVelocity = Vector3.zero;
-            _resetedBoul = false;
-            _sphereCollider.isTrigger = false;
-
-            //print("reseted");
+            _clockwise = !_clockwise;
         }
 
     }
 
-   
+
     private void FixedUpdate()
     {
-        if(!_isThrowing)
+        if (stateBoule == StateBoule.idle)
             updateRotationBoule();
-        if (_isReturning)
+        if (stateBoule == StateBoule.returning)
             returnBoule();
+
+        if ((Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) <= 0.1f) && stateBoule == StateBoule.reseting)
+        {
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+            stateBoule = StateBoule.idle;
+            _sphereCollider.isTrigger = false;
+
+            //print("reseted");
+        }
+        else if ((Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f))
+        {
+            resetBool();
+        }
+
 
     }
 
@@ -166,26 +190,26 @@ public class BouleMouvement : MonoBehaviour
                 currentSpeed = Mathf.Lerp(0.2f, _speedBack, _lerpCurve.Evaluate(pourcentageComplete));
                 transform.Translate(dir * Time.deltaTime * currentSpeed, Space.World);
             }
-            
+
         }
         else
         {
-            
+
             transform.Translate(dir * Time.deltaTime * _speedBack, Space.World);
 
         }
 
 
-        if (_target == _contactPoints[0] )
+        if (_target == _contactPoints[0])
         {
 
-            if (Vector3.Distance(transform.position, _target) < 0.1f )
+            if (Vector3.Distance(transform.position, _target) < 0.1f)
             {
                 _contactPoints.Clear();
-                _isReturning = false;
-                _isThrowing = false;
+
+                stateBoule = StateBoule.idle;
                 _beforeThrow = Vector3.zero;
-                if(Vector3.Distance(transform.position, _player.position) > 0.1f)
+                if (Vector3.Distance(transform.position, _player.position) > 0.1f)
                 {
                     _sphereCollider.isTrigger = true;
                     resetBool();
@@ -196,7 +220,7 @@ public class BouleMouvement : MonoBehaviour
                 print("last");
                 return;
             }
-            
+
 
         }
         if (Vector3.Distance(transform.position, _target) < 0.1f)
@@ -205,12 +229,12 @@ public class BouleMouvement : MonoBehaviour
             _destPoint--;
             _target = _contactPoints[_destPoint];
         }
-        
+
 
     }
     private void updateRotationBoule() // rotation de la boule
     {
-        if (_resetedBoul)
+        if (stateBoule == StateBoule.reseting)
             return;
 
         transform.RotateAround(_player.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _rotationSpeed * Time.deltaTime);
@@ -220,11 +244,14 @@ public class BouleMouvement : MonoBehaviour
 
     private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
-        _resetedBoul = true;
-        transform.LookAt(_player);
-        if (Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f )
+
+        if (Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) > 0.1f)
         {
-            if(_distance <= Vector3.Distance(_player.position, this.transform.position) )
+            stateBoule = StateBoule.reseting;
+            transform.LookAt(_player);
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+            if (_distance <= Vector3.Distance(_player.position, this.transform.position))
             {
                 _rb.AddForce(this.transform.forward * Time.deltaTime * _resetSpeed, ForceMode.VelocityChange);
             }
@@ -235,7 +262,7 @@ public class BouleMouvement : MonoBehaviour
 
             // Téléporte la boule à la nouvelle position
         }
-        
+
 
     }
     private void setUpBoule() // set up la boule Quand le joueur relache la touche
@@ -251,38 +278,73 @@ public class BouleMouvement : MonoBehaviour
         currentSpeed = 0;
         _isLerpSlowFinished = false;
         _lerpTime = 0;
-        _isReturning = true;
+        stateBoule = StateBoule.returning;
 
     }
-  
+    private Vector3 vec;
+    private void stayup()
+    {
+        RaycastHit hit;
+        if (_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f))
+        {
+            Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.yellow);
+
+            if ((this.transform.position.y < vec.y))
+            {
+                print("stayup");
+                transform.position = new Vector3(this.transform.position.x, vec.y, this.transform.position.z);
+            }
+
+        }
+        else if(_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.up, out hit, 0.5f))
+        {
+
+            if ((this.transform.position.y > vec.y))
+            {
+                print("staydown");
+                Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.yellow);
+
+                transform.position = new Vector3(this.transform.position.x, vec.y, this.transform.position.z);
+
+            }
+
+        }
+
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject == _player.gameObject)
+        {
+            print("this player");
+            return;
+        }
         //if(collision.gameObject.tag == "rebondi")
         _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
-        _canThrow = false;
-
-        if (_isThrowing)
+        _collidingObject.Add(collision.gameObject);
+        if (stateBoule == StateBoule.throwing)
             _contactPoints.Add(this.transform.position);
-
-        if(collision.gameObject.tag == "Player")
+        vec = collision.contacts[0].point;
+        if (collision.gameObject.tag == "Player")
         {
             print("player");
-            collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
-            _roundManager.playerDied(collision.gameObject.GetComponentInChildren<playerClass>());
-            if (_isThrowing)
+            //collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
+            //_roundManager.playerDied(collision.gameObject.GetComponentInChildren<playerClass>());
+            if (stateBoule == StateBoule.throwing)
                 setUpBoule();
             //Destroy(collision.gameObject);
 
         }
-        
-        
+
+
     }
     private void OnCollisionExit(Collision collision)
     {
-
-        if (!_isThrowing && !_isReturning)
+        _collidingObject.Remove(collision.gameObject);
+        if (stateBoule == StateBoule.idle && _collidingObject.Count == 0)
             resetBool();
-        _canThrow = true;
+        if (_collidingObject.Count > 0)
+            _clockwise = !_clockwise;
     }
 
 
