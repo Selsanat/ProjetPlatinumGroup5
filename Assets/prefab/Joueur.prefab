@@ -171,7 +171,7 @@ Transform:
   m_LocalRotation: {x: -0.04893694, y: 0, z: 0, w: 0.9988019}
   m_LocalPosition: {x: 0, y: -0.82, z: 2.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7536746513119400259}
   - {fileID: 5047118458150591035}
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8885932740852423821}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cb88bc5040a015439ec207e9ac62ce1, type: 3}
   m_Name: 
@@ -323,18 +323,33 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.36
+      value: 0.72
       objectReference: {fileID: 0}
     - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.15
+      value: 0.8298355
       objectReference: {fileID: 0}
     - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: -0.059953053
       objectReference: {fileID: 0}
     - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
@@ -371,6 +386,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _size
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: _player
@@ -379,7 +404,17 @@ PrefabInstance:
     - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: _speedBack
-      value: 12
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _resetSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _retourTimeMax
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
@@ -389,27 +424,107 @@ PrefabInstance:
     - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: _speedThrowing
-      value: 900
+      value: 1100
       objectReference: {fileID: 0}
     - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: _lerpDurationFast
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: _lerpDurationSlow
-      value: 0.1
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[1].time
+      value: 0.54444206
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[3].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[1].value
+      value: 0.16544102
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[3].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[1].inSlope
+      value: 1.0179461
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[2].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[3].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[1].inWeight
+      value: 0.17164077
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[1].outSlope
+      value: 1.0179461
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[2].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[2].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[3].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[1].outWeight
+      value: 0.15413752
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _lerpCurve.m_Curve.Array.data[2].outWeight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6389024400992320988, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: m_Name
       value: boule
-      objectReference: {fileID: 0}
-    - target: {fileID: 6389024400992320988, guid: 483f77a4afdab2944bbbeaa7913ef130,
-        type: 3}
-      propertyPath: m_Layer
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

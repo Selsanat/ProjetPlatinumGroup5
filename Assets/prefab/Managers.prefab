@@ -47,13 +47,15 @@ MonoBehaviour:
   _choiceState: []
   _choices:
   - MenuState
+  - RoundEnd
   - StateParam
   - StateRound
   - StateSelectionPerso
   - 
   - 
   - 
-  - Go to scene
+  - 
+  - 
   Menus: []
 --- !u!1 &4387364328597415381
 GameObject:
@@ -149,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11bd2f5ce24a6ed4e9e52bdbaf41c131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayersStateMachines: []
 --- !u!114 &6588468207800784611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0a4c75e91cf82409eddffcc170b544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefabs: {fileID: 8885932740852423821, guid: 46a54111bde654d478154b5c650628c4,
-    type: 3}
-  _pointsRound: 0
-  _pointsWin: 0
+  teamColors:
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
