@@ -1,11 +1,6 @@
 using DetectCollisionExtension;
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine.Utility;
-using Microsoft.Win32.SafeHandles;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
 
 public class AccelerateState : TemplateState
 {
@@ -25,6 +20,12 @@ public class AccelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            return;
+        }
+        #endregion
 
         _timer += Time.deltaTime;
         #region Jump

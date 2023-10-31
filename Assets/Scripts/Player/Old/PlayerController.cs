@@ -1,12 +1,7 @@
-using Cinemachine.Utility;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using DG.Tweening;
-using UnityEngine.Rendering;
-using TMPro;
 
 public class PlayerController : MonoBehaviour
 {

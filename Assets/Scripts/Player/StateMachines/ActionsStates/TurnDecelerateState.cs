@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine.Utility;
 using DetectCollisionExtension;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class TurnDecelerateState : TemplateState
@@ -26,6 +23,13 @@ public class TurnDecelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            return;
+        }
+        #endregion
+
         _timer += Time.deltaTime;
         #region Jump
         if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)

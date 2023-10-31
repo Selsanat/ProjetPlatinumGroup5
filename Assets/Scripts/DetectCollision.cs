@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
 
 namespace DetectCollisionExtension
 {
@@ -8,6 +6,7 @@ namespace DetectCollisionExtension
     {
         public static bool isColliding(Vector2 direction, Transform transform, Vector3 offset, bool centered = true, float margin = 0.01f, float NOofRays = 6)
         {
+            
             bool sideway = direction.x != 0;
             Ray ray;
             CharacterController characterController = transform.GetComponent<CharacterController>();
@@ -41,12 +40,12 @@ namespace DetectCollisionExtension
                 if (sideway)
                 {
                     Debug.DrawRay(origin, direction * (characterController.bounds.extents.x + characterController.skinWidth+margin), Color.yellow);
-                    if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.x + characterController.skinWidth + margin))
+                    if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.x + characterController.skinWidth + margin, ~LayerMask.GetMask("boule")))
                     {
                         return true;
                     }
                 }
-                if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.y + characterController.skinWidth + margin))
+                if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.y + characterController.skinWidth + margin, ~LayerMask.GetMask("boule")))
                 {
                     Debug.DrawRay(origin, direction * (characterController.bounds.extents.y + characterController.skinWidth + margin), Color.yellow);
                     return true;

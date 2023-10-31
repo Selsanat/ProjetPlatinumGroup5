@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine.Utility;
 using DetectCollisionExtension;
-using Unity.Mathematics;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class DecelerateState : TemplateState

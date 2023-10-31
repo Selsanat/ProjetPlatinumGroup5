@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using DetectCollisionExtension;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -24,6 +20,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public FallState fallState { get; } = new FallState();
     public JumpState jumpState { get; } = new JumpState();
+    public DeathState deathState { get; } = new DeathState();
 
     public TemplateState[] AllStates => new TemplateState[]
     {
@@ -34,7 +31,8 @@ public class PlayerStateMachine : MonoBehaviour
         stateTurnAccelerateState,
         turnDecelerateState,
         jumpState,
-        fallState
+        fallState,
+        deathState
     };
 
     public TemplateState StartState => stateIdle;
@@ -100,7 +98,7 @@ public class PlayerStateMachine : MonoBehaviour
         {
             CurrentState.StateExit(state);
         }
-        print("State was :" + CurrentState + " And now is : " + state);
+        //print("State was :" + CurrentState + " And now is : " + state);
         PreviousState = CurrentState;
         CurrentState = state;
         if (CurrentState != null)
@@ -108,4 +106,14 @@ public class PlayerStateMachine : MonoBehaviour
             CurrentState.StateEnter(state);
         }
     }
+
+    public void getHit()
+    {
+        if(CurrentState != deathState)
+        {
+            ChangeState(deathState);
+            
+        }
+    }
+    
 }

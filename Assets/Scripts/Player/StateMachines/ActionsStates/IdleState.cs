@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
 using DetectCollisionExtension;
 
 public class IdleState : TemplateState
@@ -22,6 +17,13 @@ public class IdleState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        #region Death
+        if (_iMouvementLockedReader.isMouvementLocked)
+        {
+            return;
+        }
+        #endregion
+
         if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform,Vector3.zero))
         {
             StateMachine.ChangeState(StateMachine.fallState);
