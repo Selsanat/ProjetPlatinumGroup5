@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c5db9ffdd65ce44a6b967527db00b3, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
-  NombreJoueurs: 2
+  NombreJoueurs: 3
   NombreRounds: 4
   PointsToWin: 4
   PointsPerRound: 1
   Scenes:
   - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
+  - {fileID: 102900000, guid: 9c5be9d66dc24034982aeeb04b9d6428, type: 3}
+  - {fileID: 102900000, guid: a7db4f8300ee3294a98c91daec3b9f35, type: 3}
   - {fileID: 102900000, guid: 98b5497873e227e429705b022de802fe, type: 3}
