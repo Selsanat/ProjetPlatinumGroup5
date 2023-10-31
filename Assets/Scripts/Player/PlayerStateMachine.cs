@@ -8,7 +8,8 @@ public class PlayerStateMachine : MonoBehaviour
 {
     [Header("Movements")]
     public MovementParams movementsParam;
-
+    public IMouvementLockedReader _iMouvementLockedReader => GetComponent<IMouvementLockedReader>();
+    public  IMouvementLockedWriter _iMouvementLockedWriter => GetComponent<IMouvementLockedWriter>();
     private PlayerInput _playerInputs;
 
     public IdleState stateIdle { get; } = new IdleState();
@@ -44,34 +45,36 @@ public class PlayerStateMachine : MonoBehaviour
     public bool activeHUD = false;
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         _InitAllStates();
         _playerInputs = InputsManager.Instance.AddComponent<PlayerInput>();
         _playerInputs._ipaPlayercontrols = this.GetComponent<UnityEngine.InputSystem.PlayerInput>().actions;
         _playerInputs.IOrient = this.GetComponent<IOrientWriter>();
         _playerInputs.jump = this.GetComponent<IWantsJumpWriter>();
+
+        InputsManager.PlayersInputs inputs = new InputsManager.PlayersInputs(_playerInputs, this);
+        InputsManager.Instance.playerInputs.Add(inputs);
+
+         RoundManager.Player player = new RoundManager.Player(inputs);
+        RoundManager.Instance.players.Add(player);
+        RoundManager.Instance.alivePlayers.Add(player);
+        
+
+
     }
     void Start()
     {
 
         ChangeState(StartState);
+
+
     }
 
     private void FixedUpdate()
     {
         Vector3 x = gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale;
         gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale = new Vector3(Mathf.Sign(velocity.x), x.y,x.z);
-
-        if ( 1== 1)
-        {
-           // GameObject.animator.SpriteRenderer.Flip = false;
-        }
-        else
-        {
-           // GameObject.animator.SpriteRenderer.Flip = true;
-        }
-        //Debug.Log(velocity);
-        //Debug.Log(GetComponent<IWantsJumpWriter>().wantsJump);
-        //Debug.Log(GetComponent<IWantsJumpWriter>().jumpBuffer);
         CurrentState.StateUpdate();
 
     }

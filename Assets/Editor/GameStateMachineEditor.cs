@@ -108,18 +108,20 @@ public class GameStateMachineEditor : Editor
                         if (bouton.onClick.GetPersistentEventCount()>0) UnityEventTools.RemovePersistentListener(bouton.onClick, 0);
                         if (bouton.onClick.GetPersistentEventCount() > 0) UnityEventTools.RemovePersistentListener(bouton.onClick, 0);
 
-
-                        var targetinfo = UnityEvent.GetValidMethodInfo(_gameStateMachine,
-                            "ChangeState", new Type[] { typeof(int) });
-                        UnityAction<int> action = Delegate.CreateDelegate(typeof(UnityAction<int>), _gameStateMachine, targetinfo, false) as UnityAction<int>;
-                        UnityEventTools.AddIntPersistentListener(bouton.onClick, action, _choiceIndex);
-
                         if (scenes.GetArrayElementAtIndex(j).objectReferenceValue != null)
                         {
                             var targetinfo2 = UnityEvent.GetValidMethodInfo(_gameStateMachine, "ChangeScene", new Type[] { typeof(string) });
                             UnityAction<string> action2 = Delegate.CreateDelegate(typeof(UnityAction<string>), _gameStateMachine, targetinfo2, false) as UnityAction<string>;
                             UnityEventTools.AddStringPersistentListener(bouton.onClick, action2, scenes.GetArrayElementAtIndex(j).objectReferenceValue.name);
                         }
+
+
+                        var targetinfo = UnityEvent.GetValidMethodInfo(_gameStateMachine,
+                            "ChangeState", new Type[] { typeof(int) });
+                        UnityAction<int> action = Delegate.CreateDelegate(typeof(UnityAction<int>), _gameStateMachine, targetinfo, false) as UnityAction<int>;
+                        UnityEventTools.AddIntPersistentListener(bouton.onClick, action, _choiceIndex);
+
+
 
                     }
                     var button = buttons.GetArrayElementAtIndex(j);

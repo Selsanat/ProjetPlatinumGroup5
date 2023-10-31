@@ -17,12 +17,7 @@ public class IdleState : TemplateState
 
     protected override void OnStateUpdate()
     {
-        #region Death
-        if (_iMouvementLockedReader.isMouvementLocked)
-        {
-            return;
-        }
-        #endregion
+
 
         if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform,Vector3.zero))
         {

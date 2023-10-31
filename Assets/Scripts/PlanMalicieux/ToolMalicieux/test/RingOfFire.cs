@@ -38,7 +38,7 @@ public class RingOfFire : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log(player.name + "t'es pas mort");
+                       // Debug.Log(player.name + "t'es pas mort");
                     }
                 }
             period = 0;
@@ -65,7 +65,7 @@ public class RingOfFire : MonoBehaviour
     }
     public void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(new Vector3(position.x, position.y, 4), diameter);
+      //  Gizmos.DrawWireSphere(new Vector3(position.x, position.y, 4), diameter);
     }
     void DrawCircle(int stepts, float radius, Vector3 center)
     {

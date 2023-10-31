@@ -23,7 +23,7 @@ public class WalkState : TemplateState
     protected override void OnStateUpdate()
     {
         #region Death
-        if (_iMouvementLockedReader.isMouvementLocked)
+        if (StateMachine._iMouvementLockedReader.isMouvementLocked)
         {
             return;
         }

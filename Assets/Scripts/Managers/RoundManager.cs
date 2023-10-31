@@ -1,19 +1,45 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 
 public class RoundManager : MonoBehaviour
 {
-    private int _nbPlayer = 0;
-    private GameObject[] _spawnPoints;
-    public GameObject _playerPrefabs;
-    public static RoundManager Instance;
-    private List<playerClass> _players;
-    private List<playerClass> _playersAlive;
-    [SerializeField]
-    private int _pointsRound;
-    [SerializeField]
-    private int _pointsWin;
 
+    public static RoundManager Instance;
+    public List<Player> players = new List<Player>();
+    public List<Player> alivePlayers = new List<Player>();
+    private GameParams _gameParams => ManagerManager.Instance.gameParams;
+    private ManagerManager managerManager => ManagerManager.Instance;
+    private InputsManager inputsManager => InputsManager.Instance;
+
+    public enum Team
+    {
+        blue,
+        red,
+        green,
+        yellow
+    }
+    public Color[] teamColors = new Color[4] { Color.blue, Color.red, Color.green, Color.yellow };
+    public class Player
+    {
+        public PlayerInput _playerInputs;
+        public PlayerStateMachine _playerStateMachine;
+        public Team _team;
+        public int _points = 0;
+
+        public Player(InputsManager.PlayersInputs playerStateMachine)
+        {
+            _playerInputs = playerStateMachine._playerInputs;
+            _playerStateMachine = playerStateMachine._playerStateMachine;
+            _team = (Team)Team.GetValues(typeof(Team)).GetValue(RoundManager.Instance.players.Count);
+            playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
+        }
+    }
     void Awake()
     {
         if (Instance == null)
@@ -22,72 +48,87 @@ public class RoundManager : MonoBehaviour
         }
         else Destroy(this.gameObject);
     }
-    public void roundOver()
+
+    public void StartRound()
     {
-        print("round over");
-        foreach (playerClass player in _playersAlive) 
+        #region GetPlayableDevices
+        List<InputDevice> devices = new List<InputDevice>();
+        foreach (var device in InputSystem.devices)
         {
-            player._points += _pointsRound;
-        }
-        foreach (playerClass player in _players)
-        {
-            if(player._points >= _pointsWin)
+            if (device is Gamepad || device is Keyboard)
             {
-                print("player win");
-                return;
+                devices.Add(device);
             }
         }
-        startRound();
-    }
-    public void playerDied(playerClass player)
-    {
-        _nbPlayer--;
-        _playersAlive.Remove(player);
+        #endregion
+        #region SpawnPlayersAndLinkThemTheirControls
 
-        if (_nbPlayer <= 1)
+
+        GameObject[] spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
+        if (InputsManager.Instance._playerInputManager.playerCount ==0)
         {
-            roundOver();
+            for (int i = 0; i < managerManager.gameParams.NombreJoueurs; i++)
+            {
+
+                var player = InputsManager.Instance._playerInputManager.JoinPlayer(-1, -1, null, devices[i]);
+                player.transform.position = spawnpoints[i].transform.position;
+                PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
+                playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
+
+
+            }
         }
-    }
-
-    private void Start()
-    {
-        startRound();
-    }
-    public void startRound()
-    {
-        if (_playersAlive.Count != 4)
-            return;
-
-        foreach (playerClass player in _players)
+        else
         {
-            player.GetComponent<PlayerStateMachine>().CurrentState.UnlockMouvement();
+            print("ChangeScene");
+            for (int i = 0; i < managerManager.gameParams.NombreJoueurs; i++)
+            {
+                players[i]._playerStateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
+            }
         }
 
+        #endregion        
     }
 
-    public void setUpRound()
+    bool ShouldEndRound()
     {
-        _spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
-        _playersAlive.Clear();
-        
-        foreach (playerClass player in _players)
+        foreach (var player in alivePlayers.Skip(1))
         {
-            player._isAlive = true;
-            _playersAlive.Add(player);
-            PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
-            playerStateMachine.ChangeState(playerStateMachine.stateIdle);
-            playerStateMachine.velocity = Vector2.zero;
-            playerStateMachine.transform.position = _spawnPoints[_nbPlayer - 1].transform.position;
-            playerStateMachine.CurrentState.LockMouvement();
+            if (player._team != alivePlayers[0]._team)
+            {
+                return false;
+            }
         }
-        
+        return true;
     }
 
-    public void addPlayer(playerClass player)
+    public void RoundEnd()
     {
-        _players.Add(player);
-        _nbPlayer++;
-        setUpRound();
+        alivePlayers.Clear();
+        var scenes = ManagerManager.Instance.gameParams.Scenes;
+        string sceneName = scenes[Random.Range(0, scenes.Length)].name;
+        StartCoroutine(NewRound(sceneName));
+    }
+
+    private static IEnumerator NewRound(string sceneName)
+    {
+        var asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        while (!asyncLoadLevel.isDone)
+        {
+            yield return null;
+        }
+        GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.roundState);
+    }
+    public void KillPlayer(PlayerStateMachine playerKilled)
+    {
+        Player player = players.Find(x => x._playerStateMachine == playerKilled);
+        alivePlayers.Remove(player);
+
+        if (ShouldEndRound())
+        {
+            RoundEnd();
+            GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
+        }
     }
 }
+

@@ -13,11 +13,11 @@ public class BouleMouvement : MonoBehaviour
     [Space(5)]
     public float _rotationSpeed = 100.0f; // Vitesse de rotation de la boule autour du joueur
     [Space(10)]
-    [Header("Sens de rotation initial (true va de gauche à droite)")]
+    [Header("Sens de rotation initial (true va de gauche ï¿½ droite)")]
     [Space(5)]
     public bool _clockwise = true; // Sens de rotation initial
     [Space(10)]
-    [Header("vitesse à laquelle la boule va revenir en place après un bug de déplacement")]
+    [Header("vitesse ï¿½ laquelle la boule va revenir en place aprï¿½s un bug de dï¿½placement")]
     [Space(5)]
     public float _resetSpeed = 400;
     [Space(10)]
@@ -48,18 +48,19 @@ public class BouleMouvement : MonoBehaviour
     [Space(5)]
     public AnimationCurve _lerpCurve;
     [Space(10)]
-    [Header("Le material de la boule ne pas touché")]
+    [Header("Le material de la boule ne pas touchï¿½")]
     [Space(5)]
     public PhysicMaterial _bounce;
     [Space(5)]
 
-    [Header("Le player ne pas touché")]
+    [Header("Le player ne pas touchï¿½")]
     public Transform _player;
 
     #endregion
 
     #region Private variables
 
+    private bool _isThrowing = false;
     private Vector3 _beforeThrow;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     private Rigidbody _rb;
@@ -184,7 +185,7 @@ public class BouleMouvement : MonoBehaviour
         resetBool();
         stateBoule = StateBoule.death;
     }
-    private void updateThrowing() //lancé de la boule
+    private void updateThrowing() //lancï¿½ de la boule
     {
         if (_beforeThrow == Vector3.zero)
         {
@@ -220,7 +221,7 @@ public class BouleMouvement : MonoBehaviour
                 }
 
             }
-            else if (_isLerpSlowFinished) //lorsque l'on accélère
+            else if (_isLerpSlowFinished) //lorsque l'on accï¿½lï¿½re
             {
                 _lerpTime += Time.deltaTime;
                 float pourcentageComplete = _lerpTime / _lerpDurationFast;
@@ -294,7 +295,7 @@ public class BouleMouvement : MonoBehaviour
                 _rb.AddForce(-this.transform.forward * Time.deltaTime * _resetSpeed, ForceMode.VelocityChange);
             }
 
-            // Téléporte la boule à la nouvelle position
+            // Tï¿½lï¿½porte la boule ï¿½ la nouvelle position
         }
         else
         {
@@ -366,8 +367,11 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.throwing)
             _contactPoints.Add(this.transform.position);
         _vecHit = collision.contacts[0].point;
-        if (collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player" && collision.gameObject != transform.parent.gameObject)
+        
         {
+            RoundManager.Instance.KillPlayer(collision.gameObject.GetComponent<PlayerStateMachine>());
+            collision.gameObject.GetComponentInChildren<PlayerStateMachine>()._iMouvementLockedWriter.isMouvementLocked = true;
             print("player");
             //collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
             //_roundManager.playerDied(collision.gameObject.GetComponentInChildren<playerClass>());
@@ -376,9 +380,9 @@ public class BouleMouvement : MonoBehaviour
             //Destroy(collision.gameObject);
 
         }
-
-
     }
+
+    
     private void OnCollisionExit(Collision collision)
     {
         _collidingObject.Remove(collision.gameObject);
