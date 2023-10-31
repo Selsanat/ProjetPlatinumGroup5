@@ -75,6 +75,7 @@ public class BouleMouvement : MonoBehaviour
     private List<GameObject> _collidingObject;
     private Vector3 _vecHit;
     private float _timeThrowing = 0;
+    private float _distancePoints = 0.25f;
     private RoundManager _roundManager => RoundManager.Instance;
 
     private enum StateBoule
@@ -234,7 +235,7 @@ public class BouleMouvement : MonoBehaviour
         {
             transform.Translate(dir * Time.deltaTime * _speedBack, Space.World);
         }
-        if (Vector3.Distance(transform.position, _target) < 0.5f && _target != _contactPoints[0])
+        if (Vector3.Distance(transform.position, _target) < _distancePoints && _target != _contactPoints[0])
         {
             print("next point");
             _destPoint--;
@@ -244,13 +245,13 @@ public class BouleMouvement : MonoBehaviour
         if (_target == _contactPoints[0]) //si on est sur le dernier
         {
 
-            if (Vector3.Distance(transform.position, _target) < 0.5f) // si on est assez proche du dernier point
+            if (Vector3.Distance(transform.position, _target) < _distancePoints) // si on est assez proche du dernier point
             {
                 _contactPoints.Clear();
 
                 stateBoule = StateBoule.idle;
                 _beforeThrow = Vector3.zero;
-                if (Vector3.Distance(transform.position, _player.position) > 0.6f) // si on est loin du joueur, alors on le fait revenir et l empechant de collide avec autres chose
+                if (Vector3.Distance(transform.position, _player.position) > _distancePoints) // si on est loin du joueur, alors on le fait revenir et l empechant de collide avec autres chose
                 {
                     _sphereCollider.isTrigger = true;
                     resetBool();
