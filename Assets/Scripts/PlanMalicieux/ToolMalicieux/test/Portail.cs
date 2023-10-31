@@ -27,7 +27,7 @@ public class Portail : MonoBehaviour
         }
         
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
