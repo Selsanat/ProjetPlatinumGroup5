@@ -9,6 +9,7 @@ public class Portail : MonoBehaviour
     public GameObject otherPortal;
     public bool activate;
     public Portail scriptPortail;
+    public bool isTeleporting = false;
     void Start()
     {
 
@@ -17,13 +18,22 @@ public class Portail : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-            if (other.CompareTag("Player"))
-            {
-                other.transform.position = new Vector3(otherPortal.transform.position.x + scriptPortail.x * scriptPortail.distanceAffichage, otherPortal.transform.position.y + scriptPortail.y * scriptPortail.distanceAffichage, other.transform.position.z);                
-            }
+        if (other.CompareTag("Player") && !isTeleporting)
+        {
+            other.transform.position = otherPortal.transform.position;
+            other.GetComponent<PlayerStateMachine>().transform.position = otherPortal.transform.position;
+            scriptPortail.isTeleporting = true;
+            print("tp"); 
+        }
         
     }
-
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            isTeleporting = false;
+        }
+    }
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

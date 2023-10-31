@@ -359,7 +359,6 @@ public class BouleMouvement : MonoBehaviour
     {
         if(collision.gameObject == _player.gameObject)
         {
-            print("this player");
             return;
         }
         //if(collision.gameObject.tag == "rebondi")
