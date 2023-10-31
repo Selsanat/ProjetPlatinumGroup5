@@ -51,12 +51,14 @@ public class RoundManager : MonoBehaviour
 
     public void StartRound()
     {
+
         #region GetPlayableDevices
         List<InputDevice> devices = new List<InputDevice>();
         foreach (var device in InputSystem.devices)
         {
             if (device is Gamepad || device is Keyboard)
             {
+                
                 devices.Add(device);
             }
         }
@@ -69,7 +71,7 @@ public class RoundManager : MonoBehaviour
         {
             for (int i = 0; i < managerManager.gameParams.NombreJoueurs; i++)
             {
-
+                print(devices.Count);
                 var player = InputsManager.Instance._playerInputManager.JoinPlayer(-1, -1, null, devices[i]);
                 player.transform.position = spawnpoints[i].transform.position;
                 PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
