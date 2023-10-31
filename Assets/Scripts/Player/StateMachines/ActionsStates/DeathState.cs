@@ -6,7 +6,7 @@ public class DeathState : TemplateState
     }
     protected override void OnStateEnter(TemplateState previousState)
     {
-
+        animator.Play("Death");
         if (previousState == StateMachine.jumpState || previousState == StateMachine.fallState)
         {
             StateMachine.velocity.x = 0;
