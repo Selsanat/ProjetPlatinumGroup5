@@ -311,6 +311,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 836caf15-c37f-49c5-8e8a-a8e99e5a9719
     m_ActionName: UI/Select[/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 618abc81-6861-45dc-9f4e-ad42b9bda195
+    m_ActionName: Movements/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movements
@@ -429,32 +433,32 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: d2cd064f1c6e970409fd135f82465d2e,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.3959556
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d2cd064f1c6e970409fd135f82465d2e,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.3959556
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d2cd064f1c6e970409fd135f82465d2e,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.3959556
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d2cd064f1c6e970409fd135f82465d2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.025000006
+      value: -0.025
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d2cd064f1c6e970409fd135f82465d2e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.17
+      value: -1.229
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d2cd064f1c6e970409fd135f82465d2e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.03
+      value: -0.036
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d2cd064f1c6e970409fd135f82465d2e,
         type: 3}
