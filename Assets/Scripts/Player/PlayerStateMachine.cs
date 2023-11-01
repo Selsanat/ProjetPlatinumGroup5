@@ -43,8 +43,11 @@ public class PlayerStateMachine : MonoBehaviour
     public Vector2 velocity;
     public float JumpBuffer;
     public bool activeHUD = false;
+
+    public BouleMouvement bouleMouvement;
     private void Awake()
     {
+        bouleMouvement = GetComponentInChildren<BouleMouvement>();
         DontDestroyOnLoad(gameObject);
 
         _InitAllStates();

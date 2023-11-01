@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class DeathState : TemplateState
 {
     
@@ -9,6 +11,7 @@ public class DeathState : TemplateState
         animator.Play("Death");
         StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
 
+        StateMachine.bouleMouvement.gameObject.SetActive(false);
     }
     protected override void OnStateUpdate()
     {
@@ -17,5 +20,4 @@ public class DeathState : TemplateState
             StateMachine.ChangeState(StateMachine.stateIdle);
         }
     }
-
 }
