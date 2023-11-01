@@ -62,6 +62,10 @@ public class BouleMouvement : MonoBehaviour
 
     #region Private variables
 
+    [HideInInspector]
+    public PlayerInput _playerInputs;
+    [HideInInspector]
+    public PlayerStateMachine ParentMachine;
     private bool _isThrowing = false;
     private Vector3 _beforeThrow;
     private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
@@ -103,10 +107,13 @@ public class BouleMouvement : MonoBehaviour
         _collidingObject = new List<GameObject>();
         _rb = GetComponent<Rigidbody>();
         _sphereCollider = GetComponentInChildren<SphereCollider>();
+        ParentMachine = GetComponentInParent<PlayerStateMachine>();
+
     }
 
     void Start()
     {
+
         _contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         _offset = (_playerPivot.position - this.transform.position) * _size;// Calcule le vecteur de d calage initial entre le joueur et la boule
@@ -115,14 +122,13 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && stateBoule == StateBoule.idle) // Quand le joueur appuie sur la touche
+        if (_playerInputs.triggers>0 && stateBoule == StateBoule.idle) // Quand le joueur appuie sur la touche
         {
             _sphereCollider.material = _bounce;
             stateBoule = StateBoule.throwing;
             updateThrowing();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) && stateBoule == StateBoule.throwing)
+        if (_playerInputs.triggers<1 && stateBoule == StateBoule.throwing)
         {
             setUpBoule();
             _timeThrowing = 0;
@@ -387,6 +393,18 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.throwing)
             _contactPoints.Add(this.transform.position);
         _vecHit = collision.contacts[0].point;
+
+        if(collision.gameObject.tag == "Player" && collision.gameObject != ParentMachine.gameObject)
+        {
+            PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
+            if (StateMachine.CurrentState != StateMachine.deathState)
+            {
+                RoundManager.Instance.KillPlayer(StateMachine);
+                StateMachine.ChangeState(StateMachine.deathState);
+            }
+            if (stateBoule == StateBoule.throwing)
+                setUpBoule();
+        }
     }
 
     

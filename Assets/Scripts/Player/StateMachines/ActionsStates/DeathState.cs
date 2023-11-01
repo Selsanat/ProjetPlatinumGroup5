@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class DeathState : TemplateState
 {
     
@@ -7,16 +9,9 @@ public class DeathState : TemplateState
     protected override void OnStateEnter(TemplateState previousState)
     {
         animator.Play("Death");
-        if (previousState == StateMachine.jumpState || previousState == StateMachine.fallState)
-        {
-            StateMachine.velocity.x = 0;
-            StateMachine.velocity.y = 0;
-        }
-        else
-            StateMachine.velocity.x = 0;
+        StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
 
-        //play death animation
-
+        StateMachine.bouleMouvement.gameObject.SetActive(false);
     }
     protected override void OnStateUpdate()
     {
@@ -25,5 +20,4 @@ public class DeathState : TemplateState
             StateMachine.ChangeState(StateMachine.stateIdle);
         }
     }
-
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using DG;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -16,6 +18,7 @@ public class RoundManager : MonoBehaviour
     private GameParams _gameParams => ManagerManager.Instance.gameParams;
     private ManagerManager managerManager => ManagerManager.Instance;
     private InputsManager inputsManager => InputsManager.Instance;
+    private TMP_Text[] scores;
 
     public enum Team
     {
@@ -47,6 +50,12 @@ public class RoundManager : MonoBehaviour
             Instance = this;
         }
         else Destroy(this.gameObject);
+
+        scores = transform.GetComponentsInChildren<TMP_Text>();
+        foreach (var score in scores)
+        {
+            score.text = "";
+        }
     }
 
     public void StartRound()
@@ -71,7 +80,6 @@ public class RoundManager : MonoBehaviour
         {
             for (int i = 0; i < managerManager.gameParams.NombreJoueurs; i++)
             {
-                print(devices.Count);
                 var player = InputsManager.Instance._playerInputManager.JoinPlayer(-1, -1, null, devices[i]);
                 player.transform.position = spawnpoints[i].transform.position;
                 PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
@@ -82,14 +90,18 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
-            print("ChangeScene");
             for (int i = 0; i < managerManager.gameParams.NombreJoueurs; i++)
             {
-                players[i]._playerStateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
+                var StateMachine = players[i]._playerStateMachine;
+                StateMachine.ChangeState(StateMachine.stateIdle);
+                StateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
+                StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
             }
         }
 
-        #endregion        
+        #endregion
+
+
     }
 
     bool ShouldEndRound()
@@ -106,14 +118,21 @@ public class RoundManager : MonoBehaviour
 
     public void RoundEnd()
     {
-        alivePlayers.Clear();
-        var scenes = ManagerManager.Instance.gameParams.Scenes;
-        string sceneName = scenes[Random.Range(0, scenes.Length)].name;
-        StartCoroutine(NewRound(sceneName));
+        foreach (Player player in alivePlayers)
+        {
+            player._points += ManagerManager.Instance.gameParams.PointsPerRound;
+        }
+        for (int i = 0; i < players.Count; i++)
+        {
+            scores[i].text = players[i]._points.ToString();
+        }
     }
 
-    private static IEnumerator NewRound(string sceneName)
+    public IEnumerator NewRound()
     {
+        alivePlayers = new List<Player>(players);
+        var scenes = ManagerManager.Instance.gameParams.Scenes;
+        string sceneName = scenes[Random.Range(0, scenes.Length)].name;
         var asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         while (!asyncLoadLevel.isDone)
         {
