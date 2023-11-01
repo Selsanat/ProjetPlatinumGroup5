@@ -338,7 +338,6 @@ public class BouleMouvement : MonoBehaviour
 
             if ((this.transform.position.y < _vecHit.y))
             {
-                print("stayup");
                 transform.position = new Vector3(this.transform.position.x, _vecHit.y, this.transform.position.z);
             }
 
@@ -348,7 +347,6 @@ public class BouleMouvement : MonoBehaviour
 
             if ((this.transform.position.y > _vecHit.y))
             {
-                print("staydown");
                 Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.yellow);
 
                 transform.position = new Vector3(this.transform.position.x, _vecHit.y, this.transform.position.z);
