@@ -115,8 +115,13 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-        
-        
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && stateBoule == StateBoule.idle) // Quand le joueur appuie sur la touche
+        {
+            _sphereCollider.material = _bounce;
+            stateBoule = StateBoule.throwing;
+            updateThrowing();
+        }
         if (Input.GetKeyUp(KeyCode.LeftShift) && stateBoule == StateBoule.throwing)
         {
             setUpBoule();
@@ -149,12 +154,7 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.returning)
             returnBoule();
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && stateBoule == StateBoule.idle) // Quand le joueur appuie sur la touche
-        {
-            _sphereCollider.material = _bounce;
-            stateBoule = StateBoule.throwing;
-            updateThrowing();
-        }
+        
 
         if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) <= 0.1f))
         {
