@@ -151,7 +151,7 @@ public class BouleMouvement : MonoBehaviour
             updateRotationBoule();
         if (stateBoule == StateBoule.returning)
             returnBoule();
-
+        
         if ((Mathf.Abs(_distance - Vector3.Distance(_player.position, this.transform.position)) <= 0.1f))
         {
             
@@ -208,11 +208,11 @@ public class BouleMouvement : MonoBehaviour
             {
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = Vector3.zero;
-                _lerpTime += Time.deltaTime;
+                _lerpTime += Time.fixedDeltaTime;
                 float pourcentageComplete = _lerpTime / _lerpDurationSlow;
 
                 currentSpeed = Mathf.Lerp(_speedBack, 0, _lerpCurve.Evaluate(pourcentageComplete));
-                transform.Translate(-dir * Time.deltaTime * currentSpeed / 2.4f, Space.World);
+                transform.Translate(-dir * Time.fixedDeltaTime * currentSpeed / 2.4f, Space.World);
                 if (currentSpeed == 0)
                 {
                     _isLerpSlowFinished = true;
@@ -224,16 +224,16 @@ public class BouleMouvement : MonoBehaviour
             }
             else if (_isLerpSlowFinished) //lorsque l'on acc�l�re
             {
-                _lerpTime += Time.deltaTime;
+                _lerpTime += Time.fixedDeltaTime;
                 float pourcentageComplete = _lerpTime / _lerpDurationFast;
                 currentSpeed = Mathf.Lerp(0.2f, _speedBack, _lerpCurve.Evaluate(pourcentageComplete));
-                transform.Translate(dir * Time.deltaTime * currentSpeed, Space.World);
+                transform.Translate(dir * Time.fixedDeltaTime * currentSpeed, Space.World);
             }
 
         }
         else 
         {
-            transform.Translate(dir * Time.deltaTime * _speedBack, Space.World);
+            transform.Translate(dir * Time.fixedDeltaTime * _speedBack, Space.World);
         }
         if (Vector3.Distance(transform.position, _target) < _distancePoints && _target != _contactPoints[0])
         {
@@ -273,7 +273,7 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.reseting)
             return;
 
-        transform.RotateAround(_player.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _rotationSpeed * Time.deltaTime);
+        transform.RotateAround(_player.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _rotationSpeed * Time.fixedDeltaTime);
         transform.LookAt(_player);
     }
 
