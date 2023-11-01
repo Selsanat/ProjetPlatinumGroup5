@@ -7,15 +7,7 @@ public class DeathState : TemplateState
     protected override void OnStateEnter(TemplateState previousState)
     {
         animator.Play("Death");
-        if (previousState == StateMachine.jumpState || previousState == StateMachine.fallState)
-        {
-            StateMachine.velocity.x = 0;
-            StateMachine.velocity.y = 0;
-        }
-        else
-            StateMachine.velocity.x = 0;
-
-        //play death animation
+        StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
 
     }
     protected override void OnStateUpdate()

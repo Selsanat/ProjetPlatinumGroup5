@@ -52,6 +52,7 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInputs._ipaPlayercontrols = this.GetComponent<UnityEngine.InputSystem.PlayerInput>().actions;
         _playerInputs.IOrient = this.GetComponent<IOrientWriter>();
         _playerInputs.jump = this.GetComponent<IWantsJumpWriter>();
+        GetComponentInChildren<BouleMouvement>()._playerInputs = _playerInputs;
 
         InputsManager.PlayersInputs inputs = new InputsManager.PlayersInputs(_playerInputs, this);
         InputsManager.Instance.playerInputs.Add(inputs);
@@ -110,13 +111,13 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
-    public void getHit()
+    /*public void getHit()
     {
         if(CurrentState != deathState)
         {
             ChangeState(deathState);
             
         }
-    }
+    }*/
     
 }

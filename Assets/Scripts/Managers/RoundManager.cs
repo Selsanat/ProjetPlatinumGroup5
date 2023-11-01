@@ -71,7 +71,6 @@ public class RoundManager : MonoBehaviour
         {
             for (int i = 0; i < managerManager.gameParams.NombreJoueurs; i++)
             {
-                print(devices.Count);
                 var player = InputsManager.Instance._playerInputManager.JoinPlayer(-1, -1, null, devices[i]);
                 player.transform.position = spawnpoints[i].transform.position;
                 PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
@@ -82,10 +81,12 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
-            print("ChangeScene");
             for (int i = 0; i < managerManager.gameParams.NombreJoueurs; i++)
             {
-                players[i]._playerStateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
+                var StateMachine = players[i]._playerStateMachine;
+                StateMachine.ChangeState(StateMachine.stateIdle);
+                StateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
+                StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
             }
         }
 
