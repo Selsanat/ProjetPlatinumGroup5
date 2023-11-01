@@ -20,24 +20,28 @@ public class Portail : MonoBehaviour
         
         if (other.CompareTag("Player") && !isTeleporting)
         {
-            other.transform.position = otherPortal.transform.position;
-            other.GetComponent<PlayerStateMachine>().transform.position = otherPortal.transform.position;
+            print(other.transform.position);
             scriptPortail.isTeleporting = true;
+            other.transform.position = new Vector3(otherPortal.transform.position.x, otherPortal.transform.position.y, other.transform.position.z);
+            other.GetComponent<PlayerStateMachine>().transform.position = new Vector3(otherPortal.transform.position.x, otherPortal.transform.position.y, other.transform.position.z);
+            print(other.transform.position);
             print("tp"); 
         }
         
     }
-    private void OnTriggerExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             isTeleporting = false;
+            print("exit");
         }
     }
+    
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + x * distanceAffichage, transform.position.y + y * distanceAffichage,0f));
     }
 
-    }
+}
