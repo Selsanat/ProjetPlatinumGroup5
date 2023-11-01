@@ -512,6 +512,134 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1052556175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1052556176}
+  - component: {fileID: 1052556179}
+  - component: {fileID: 1052556178}
+  - component: {fileID: 1052556177}
+  - component: {fileID: 1052556180}
+  m_Layer: 5
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1052556176
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052556175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1786538051}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1052556177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052556175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1052556178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052556175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1052556179
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052556175}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &1052556180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052556175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1321165960
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,6 +879,38 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1786538050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1786538051}
+  m_Layer: 0
+  m_Name: Selection Persos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1786538051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786538050}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1052556176}
+  m_Father: {fileID: 384119804910739080}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1829271998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,24 +1402,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691187978709810144}
         m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level 1
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1691187978709810144}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
         m_MethodName: ChangeState
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 3
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1278,6 +1426,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6945304440217083348}
+  - {fileID: 1786538051}
   - {fileID: 6545407858927376205}
   - {fileID: 3312669907466863716}
   m_Father: {fileID: 978535237169710646}
@@ -1377,24 +1526,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691187978709810144}
         m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level 2
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1691187978709810144}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
         m_MethodName: ChangeState
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 3
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1456,7 +1593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3312669907466863716}
   m_Layer: 0
-  m_Name: SelectPlayers
+  m_Name: MapSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1856,18 +1993,20 @@ MonoBehaviour:
   _choiceState:
   - choices:
     - StateSelectionPerso
-    - StateParam
+    - StateSelectionPerso
+  - choices: []
   - choices:
     - MenuState
     - MenuState
   - choices:
-    - StateRound
-    - StateRound
-    - StateRound
-    - StateRound
+    - MenuState
+    - MenuState
+    - MenuState
+    - MenuState
   _choices:
   - MenuState
   - RoundEnd
+  - StateMapSelection
   - StateParam
   - StateRound
   - StateSelectionPerso
@@ -1875,7 +2014,8 @@ MonoBehaviour:
   - 
   - 
   - 
-  - Go to scene
+  - 
+  - 
   Menus:
   - menuObject: {fileID: 6891497991746096609}
     thisMenu: MenuState
@@ -1885,6 +2025,10 @@ MonoBehaviour:
     scenes:
     - {fileID: 0}
     - {fileID: 0}
+  - menuObject: {fileID: 1786538050}
+    thisMenu: StateSelectionPerso
+    buttons: []
+    scenes: []
   - menuObject: {fileID: 8326718399730937238}
     thisMenu: StateParam
     buttons:
@@ -1894,17 +2038,17 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
   - menuObject: {fileID: 606101616375552303}
-    thisMenu: StateSelectionPerso
+    thisMenu: StateMapSelection
     buttons:
     - {fileID: 550383642121414318}
     - {fileID: 379197390192171377}
     - {fileID: 1894477495284802903}
     - {fileID: 1730187858617128932}
     scenes:
-    - {fileID: 102900000, guid: 9c5be9d66dc24034982aeeb04b9d6428, type: 3}
-    - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
-    - {fileID: 102900000, guid: a7db4f8300ee3294a98c91daec3b9f35, type: 3}
-    - {fileID: 102900000, guid: 98b5497873e227e429705b022de802fe, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
 --- !u!224 &1704576936817992563
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1971,24 +2115,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691187978709810144}
         m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Map Test Tim Teliau
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1691187978709810144}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
         m_MethodName: ChangeState
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 3
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2067,24 +2199,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691187978709810144}
         m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level Tuto
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1691187978709810144}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
         m_MethodName: ChangeState
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 3
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2547,6 +2667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameParams: {fileID: 11400000, guid: ed15d69c8f1ed58499fdec9a0415f89c, type: 2}
+  selectionPersoCanvas: {fileID: 1052556179}
 --- !u!1 &3739143433940191647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2666,7 +2787,7 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: -1
   m_AllowJoining: 1
-  m_JoinBehavior: 2
+  m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2685,7 +2806,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 8885932740852423821, guid: 46a54111bde654d478154b5c650628c4,
+  m_PlayerPrefab: {fileID: 6575847103844583453, guid: 7e2c71fa46254ee4ab09233deb25e16d,
     type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
@@ -3164,7 +3285,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 2
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3981,7 +4102,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 4
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

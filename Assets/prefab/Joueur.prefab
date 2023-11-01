@@ -249,8 +249,8 @@ MonoBehaviour:
     m_ActionName: UI/Select[/DualShock4GamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 618abc81-6861-45dc-9f4e-ad42b9bda195
-    m_ActionName: Movements/New action
+    m_ActionId: 46ba976b-7382-4d95-a24b-2460ee6295c6
+    m_ActionName: Movements/Triggers[/DualShock4GamepadHID/rightTrigger,/Keyboard/alt,/DualShock4GamepadHID/leftTrigger,/Keyboard/shift,/DualShock4GamepadHID/leftShoulder,/Keyboard/1,/DualShock4GamepadHID/rightShoulder,/Keyboard/3]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movements
@@ -272,6 +272,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   JumpBuffer: 0
   activeHUD: 0
+  bouleMouvement: {fileID: 0}
 --- !u!114 &2545758844294942097
 MonoBehaviour:
   m_ObjectHideFlags: 0
