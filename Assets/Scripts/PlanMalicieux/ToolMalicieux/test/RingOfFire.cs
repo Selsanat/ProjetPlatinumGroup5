@@ -33,8 +33,8 @@ public class RingOfFire : MonoBehaviour
                     float distance = Vector3.Distance(player.transform.position, position);
                     if (distance > diameter)
                     {
-                        Destroy(player);
-                        //Debug.Log(player.name + "t'es mort");
+                        //Destroy(player);
+                        Debug.Log(player.name + "t'es mort");
                     }
                     else
                     {
