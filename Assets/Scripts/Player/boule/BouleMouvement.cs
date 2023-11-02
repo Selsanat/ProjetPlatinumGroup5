@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using DG.Tweening;
-using Unity.VisualScripting;
+
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -26,9 +23,7 @@ public class BouleMouvement : MonoBehaviour
     public PlayerInput _playerInputs;
     [HideInInspector]
     public PlayerStateMachine ParentMachine;
-    private bool _isThrowing = false;
     private Vector3 _beforeThrow;
-    private Vector3 _offset; // Vecteur de d calage initial entre le joueur et la boule
     private Rigidbody _rb;
     private List<Vector3> _contactPoints;
     private Vector3 _target;
@@ -44,7 +39,7 @@ public class BouleMouvement : MonoBehaviour
     private float _distancePoints = 0.25f;
     private RoundManager _roundManager => RoundManager.Instance;
     private ManagerManager _manager => ManagerManager.Instance;
-    private BouleParams _bouleParams => _manager.bouleParams;
+    public BouleParams _bouleParams;// => _manager.bouleParams;
 
     private enum StateBoule
     {
@@ -64,6 +59,14 @@ public class BouleMouvement : MonoBehaviour
     }
     #endregion
 
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 vec = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
+        Gizmos.DrawWireSphere(_playerPivot.position, Vector3.Distance(_playerPivot.position, vec));
+    }
+#endif
     private void Awake()
     {
         _collidingObject = new List<GameObject>();
@@ -78,7 +81,6 @@ public class BouleMouvement : MonoBehaviour
 
         _contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
-        _offset = (_playerPivot.position - this.transform.position) * _bouleParams._size;// Calcule le vecteur de d calage initial entre le joueur et la boule
         _distance = Vector3.Distance(_playerPivot.position, this.transform.position);
     }
 
@@ -335,17 +337,16 @@ public class BouleMouvement : MonoBehaviour
         
         if(collision.gameObject.tag == "Player" )
         {
-            if(collision.gameObject != transform.parent.gameObject)
+            if(collision.gameObject != ParentMachine.gameObject)
             {
-                RoundManager.Instance.KillPlayer(collision.gameObject.GetComponent<PlayerStateMachine>());
-                collision.gameObject.GetComponentInChildren<PlayerStateMachine>()._iMouvementLockedWriter.isMouvementLocked = true;
-                print("player");
-                //collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
-                //_roundManager.playerDied(collision.gameObject.GetComponentInChildren<playerClass>());
+                PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
+                if (StateMachine.CurrentState != StateMachine.deathState)
+                {
+                    RoundManager.Instance.KillPlayer(StateMachine);
+                    StateMachine.ChangeState(StateMachine.deathState);
+                }
                 if (stateBoule == StateBoule.throwing)
                     setUpBoule();
-                //Destroy(collision.gameObject);
-
             }
             else
                 return;
@@ -356,17 +357,7 @@ public class BouleMouvement : MonoBehaviour
             _contactPoints.Add(this.transform.position);
         _vecHit = collision.contacts[0].point;
 
-        if(collision.gameObject.tag == "Player" && collision.gameObject != ParentMachine.gameObject)
-        {
-            PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
-            if (StateMachine.CurrentState != StateMachine.deathState)
-            {
-                RoundManager.Instance.KillPlayer(StateMachine);
-                StateMachine.ChangeState(StateMachine.deathState);
-            }
-            if (stateBoule == StateBoule.throwing)
-                setUpBoule();
-        }
+        
     }
 
     

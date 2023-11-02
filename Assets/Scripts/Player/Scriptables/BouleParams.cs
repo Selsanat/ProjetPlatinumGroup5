@@ -53,9 +53,9 @@ public class BouleParams : ScriptableObject
     public AnimationCurve _lerpCurve;
     [Space(15)]
 
-    [Header("Distance entre la boule et le player (c'est une multiplication donc ca va vite)")]
+    [Header("Distance entre la boule et le player ")]
     [Space(5)]
-    public float _size = 1.0f;
+    public float _size = 0;
      
 }
 
