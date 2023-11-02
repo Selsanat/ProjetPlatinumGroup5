@@ -16,5 +16,8 @@ public class GameParams : ScriptableObject
     public int PointsPerRound = 1;
 
     [SerializeField]
+    public float TransiTimeAfterRound = 1;
+
+    [SerializeField]
     public SceneAsset[] Scenes;
 }
