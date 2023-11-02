@@ -278,6 +278,7 @@ public class BouleMouvement : MonoBehaviour
             stateBoule = StateBoule.idle;
             _sphereCollider.isTrigger = false;
             this.transform.SetParent(_playerPivot);
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
 
 
         }
