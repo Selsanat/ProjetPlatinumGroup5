@@ -61,13 +61,13 @@ public class PlayerStateMachine : MonoBehaviour
         InputsManager.Instance.playerInputs.Add(inputs);
 
 
-        var device = _playerInputs._ipaPlayercontrols.devices.Value;
-        RoundManager.Player player = new RoundManager.Player(inputs, ManagerManager.Instance.Players[device[0]]);
-        RoundManager.Instance.players.Add(player);
-        RoundManager.Instance.alivePlayers.Add(player);
-        
-
-
+        if (ManagerManager.Instance.Players.Count > 0)
+        {
+            var device = _playerInputs._ipaPlayercontrols.devices.Value;
+            RoundManager.Player player = new RoundManager.Player(inputs, ManagerManager.Instance.Players[device[0]]);
+            RoundManager.Instance.players.Add(player);
+            RoundManager.Instance.alivePlayers.Add(player);
+        }
     }
     void Start()
     {

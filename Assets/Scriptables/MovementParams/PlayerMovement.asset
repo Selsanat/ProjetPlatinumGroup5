@@ -28,4 +28,5 @@ MonoBehaviour:
   decelerationTime: 0.03
   turnAccelerationTime: 0.03
   turnDecelerationTime: 0.03
-  slideSlopeThresHold: 2
+  slideSlopeThresHold: 0.999
+  SpeedBoostOnSlope: 2.23

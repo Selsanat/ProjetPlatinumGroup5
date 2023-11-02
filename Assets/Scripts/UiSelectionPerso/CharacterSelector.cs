@@ -10,7 +10,6 @@ using PlayerInput = UnityEngine.InputSystem.PlayerInput;
 public class CharacterSelector : MonoBehaviour
 {
     UnityEngine.InputSystem.PlayerInput playerInputs;
-    private Vector2 input;
     public int index = 0;
     private float PaddingLeft = 0;
     private HorizontalLayoutGroup horizontalLayoutGroup;
@@ -31,7 +30,6 @@ public class CharacterSelector : MonoBehaviour
     {
         ManagerManager manager = ManagerManager.Instance;
         manager.characterSelector.Add(this);
-        transform.GetComponentInChildren<Button>().Select();
         playerInputs.actions.actionMaps[1].actions[2].started += ctx => SwipeRight();
         playerInputs.actions.actionMaps[1].actions[3].started += ctx => SwipeLeft();
         toggle.onValueChanged.AddListener((value) =>
@@ -60,11 +58,11 @@ public class CharacterSelector : MonoBehaviour
 
     void Update()
     {
-        input = playerInputs.actions.actionMaps[0].actions[0].ReadValue<Vector2>();
         playerInputs.actions.actionMaps[1].actions[4].performed += ctx =>
         {
             if (ManagerManager.Instance.ReadyToFight.isOn)
             {
+                ManagerManager.Instance.ReadyToFight.isOn = false;
                 GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.MapSelectionState);
             }
         };
@@ -77,7 +75,6 @@ public class CharacterSelector : MonoBehaviour
     }
     void SwipeRight()
     {
-        buttonsImages.Select();
         if (index < horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
         {
             index++;
@@ -86,7 +83,6 @@ public class CharacterSelector : MonoBehaviour
     }
     void SwipeLeft()
     {
-        buttonsImages.Select();
         if (index > 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
         {
             index--;
