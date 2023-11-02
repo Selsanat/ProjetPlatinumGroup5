@@ -10,6 +10,7 @@ public class ManagerManager : MonoBehaviour
 {
     public static ManagerManager Instance;
     public GameParams gameParams;
+    public BouleParams bouleParams;
     public Canvas selectionPersoCanvas;
     public Dictionary<InputDevice, RoundManager.Team> Players = new Dictionary<InputDevice, RoundManager.Team>();
     public List<CharacterSelector> characterSelector = new List<CharacterSelector>() ;
