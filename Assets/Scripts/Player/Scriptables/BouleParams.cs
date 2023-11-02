@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/BouleParams", order = 1)]
 
 public class BouleParams : ScriptableObject
-{
+{ 
     [Header("rotation de la boule")]
     [Space(10)]
     [Header("Vitesse de rotation de la boule autour du joueur")]
@@ -56,6 +56,6 @@ public class BouleParams : ScriptableObject
     [Header("Distance entre la boule et le player (c'est une multiplication donc ca va vite)")]
     [Space(5)]
     public float _size = 1.0f;
-    [Space(10)]
-
+     
 }
+
