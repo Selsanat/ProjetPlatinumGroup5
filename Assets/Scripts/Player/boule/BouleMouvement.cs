@@ -87,7 +87,7 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInputs.triggers>0 && stateBoule == StateBoule.idle) // Quand le joueur appuie sur la touche
+        if (_playerInputs.triggers>0 && stateBoule == StateBoule.idle && ParentMachine._iMouvementLockedReader.isMouvementLocked == false) // Quand le joueur appuie sur la touche
         {
             _sphereCollider.material = _bounce;
             stateBoule = StateBoule.throwing;
@@ -148,7 +148,7 @@ public class BouleMouvement : MonoBehaviour
             }
 
         }
-        else if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.1f) && (stateBoule == StateBoule.idle || stateBoule == StateBoule.reseting))
+        else if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.25f) && (stateBoule == StateBoule.idle || stateBoule == StateBoule.reseting))
         {
             resetBool();
         }
