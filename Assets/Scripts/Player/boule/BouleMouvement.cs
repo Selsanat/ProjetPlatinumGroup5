@@ -329,6 +329,10 @@ public class BouleMouvement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.GetComponent<CapsuleCollider>()?.isTrigger == true)
+        {
+            return;
+        }
         if(collision.gameObject == _playerTransform.gameObject)
         {
             return;
