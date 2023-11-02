@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using DG.Tweening;
-using Unity.VisualScripting;
-using Cinemachine.Utility;
+
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -63,13 +59,14 @@ public class BouleMouvement : MonoBehaviour
     }
     #endregion
 
-
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Vector3 vec = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         Gizmos.DrawWireSphere(_playerPivot.position, Vector3.Distance(_playerPivot.position, vec));
     }
+#endif
     private void Awake()
     {
         _collidingObject = new List<GameObject>();
@@ -340,19 +337,7 @@ public class BouleMouvement : MonoBehaviour
         
         if(collision.gameObject.tag == "Player" )
         {
-            if(collision.gameObject != transform.parent.gameObject)
-            {
-                RoundManager.Instance.KillPlayer(collision.gameObject.GetComponent<PlayerStateMachine>());
-                collision.gameObject.GetComponentInChildren<PlayerStateMachine>()._iMouvementLockedWriter.isMouvementLocked = true;
-                print("player");
-                //collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
-                //_roundManager.playerDied(collision.gameObject.GetComponentInChildren<playerClass>());
-                if (stateBoule == StateBoule.throwing)
-                    setUpBoule();
-                //Destroy(collision.gameObject);
-
-            }
-            else if(collision.gameObject != ParentMachine.gameObject)
+            if(collision.gameObject != ParentMachine.gameObject)
             {
                 PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
                 if (StateMachine.CurrentState != StateMachine.deathState)
