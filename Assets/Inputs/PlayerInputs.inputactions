@@ -262,18 +262,18 @@
                     "name": "SwipeRight",
                     "type": "Value",
                     "id": "1c0a9ba6-c19d-4ef1-85d1-95431d355d96",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
+                    "expectedControlType": "Analog",
+                    "processors": "AxisDeadzone",
+                    "interactions": "Hold",
                     "initialStateCheck": true
                 },
                 {
                     "name": "SwipeLeft",
                     "type": "Value",
                     "id": "797ac2f3-833e-40d3-a08b-dd91cd8f166b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
+                    "expectedControlType": "Analog",
+                    "processors": "AxisDeadzone",
+                    "interactions": "Hold",
                     "initialStateCheck": true
                 },
                 {
