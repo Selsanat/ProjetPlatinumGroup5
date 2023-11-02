@@ -14,6 +14,7 @@ public class BouleMouvement : MonoBehaviour
     public Transform _playerPivot;
     [Header("Le player ne pas touch�")]
     public Transform _playerTransform;
+    public bool _clockwise = true;
 
     #endregion
 
@@ -78,7 +79,7 @@ public class BouleMouvement : MonoBehaviour
 
     void Start()
     {
-
+        _clockwise = _bouleParams._clockwise;
         _contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         _distance = Vector3.Distance(_playerPivot.position, this.transform.position);
@@ -102,7 +103,7 @@ public class BouleMouvement : MonoBehaviour
         
         if (stateBoule == StateBoule.reseting && _collidingObject.Count != 0)
         {
-            _bouleParams._clockwise = !_bouleParams._clockwise;
+            _clockwise = !_clockwise;
         }
         if(stateBoule == StateBoule.throwing)
         {
@@ -247,7 +248,7 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.reseting)
             return;
 
-        transform.RotateAround(_playerPivot.transform.position, (_bouleParams._clockwise ? Vector3.forward : -Vector3.forward) * 2, _bouleParams._rotationSpeed * Time.fixedDeltaTime);
+        transform.RotateAround(_playerPivot.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _bouleParams._rotationSpeed * Time.fixedDeltaTime);
         transform.LookAt(_playerPivot);
     }
 
@@ -255,7 +256,7 @@ public class BouleMouvement : MonoBehaviour
     private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
 
-        if (Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.1f)
+        if (Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.25f)
         {
             stateBoule = StateBoule.reseting;
             transform.LookAt(_playerPivot);
@@ -329,10 +330,7 @@ public class BouleMouvement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.GetComponent<CapsuleCollider>()?.isTrigger == true)
-        {
-            return;
-        }
+        
         if(collision.gameObject == _playerTransform.gameObject)
         {
             return;
@@ -355,7 +353,7 @@ public class BouleMouvement : MonoBehaviour
             else
                 return;
         }
-        _bouleParams._clockwise = !_bouleParams._clockwise; // Change le sens de rotation lorsque la collision se produit
+        _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
         _collidingObject.Add(collision.gameObject);
         if (stateBoule == StateBoule.throwing)
             _contactPoints.Add(this.transform.position);
@@ -371,7 +369,7 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.idle && _collidingObject.Count == 0)
             resetBool();
         if (_collidingObject.Count > 0)
-            _bouleParams._clockwise = !_bouleParams._clockwise;
+            _clockwise = !_clockwise;
     }
 
 
