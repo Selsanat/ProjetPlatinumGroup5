@@ -23,11 +23,11 @@ public class RoundManager : MonoBehaviour
     public enum Team
     {
         blue,
-        red,
-        green,
-        yellow
+        yellow,
+        red,    
+        green
     }
-    public Color[] teamColors = new Color[4] { Color.blue, Color.red, Color.green, Color.yellow };
+    public Color[] teamColors = new Color[4] { Color.blue, Color.yellow , Color.red, Color.green };
     public class Player
     {
         public PlayerInput _playerInputs;
@@ -35,11 +35,11 @@ public class RoundManager : MonoBehaviour
         public Team _team;
         public int _points = 0;
 
-        public Player(InputsManager.PlayersInputs playerStateMachine)
+        public Player(InputsManager.PlayersInputs playerStateMachine, Team team)
         {
             _playerInputs = playerStateMachine._playerInputs;
             _playerStateMachine = playerStateMachine._playerStateMachine;
-            _team = (Team)Team.GetValues(typeof(Team)).GetValue(RoundManager.Instance.players.Count);
+            _team = team;
             playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
         }
     }
@@ -67,7 +67,6 @@ public class RoundManager : MonoBehaviour
         {
             if (device is Gamepad || device is Keyboard)
             {
-                
                 devices.Add(device);
             }
         }
@@ -78,9 +77,9 @@ public class RoundManager : MonoBehaviour
         GameObject[] spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         if (InputsManager.Instance._playerInputManager.playerCount ==0)
         {
-            for (int i = 0; i < managerManager.gameParams.NombreJoueurs; i++)
+            for (int i = 0; i < managerManager.Players.Count; i++)
             {
-                var player = InputsManager.Instance._playerInputManager.JoinPlayer(-1, -1, null, devices[i]);
+                var player = InputsManager.Instance._playerInputManager.JoinPlayer(-1, -1, null, managerManager.Players.Keys.ToList()[i]);
                 player.transform.position = spawnpoints[i].transform.position;
                 PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
                 playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
@@ -90,7 +89,7 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < managerManager.gameParams.NombreJoueurs; i++)
+            for (int i = 0; i < managerManager.Players.Count; i++)
             {
                 var StateMachine = players[i]._playerStateMachine;
                 StateMachine.ChangeState(StateMachine.stateIdle);
@@ -98,12 +97,8 @@ public class RoundManager : MonoBehaviour
                 StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
             }
         }
-
         #endregion
-
-
     }
-
     bool ShouldEndRound()
     {
         foreach (var player in alivePlayers.Skip(1))
@@ -115,7 +110,6 @@ public class RoundManager : MonoBehaviour
         }
         return true;
     }
-
     public void RoundEnd()
     {
         foreach (Player player in alivePlayers)
@@ -127,7 +121,6 @@ public class RoundManager : MonoBehaviour
             scores[i].text = players[i]._points.ToString();
         }
     }
-
     public IEnumerator NewRound()
     {
         alivePlayers = new List<Player>(players);
