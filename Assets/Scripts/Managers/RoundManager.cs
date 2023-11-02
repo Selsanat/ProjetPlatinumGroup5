@@ -27,7 +27,8 @@ public class RoundManager : MonoBehaviour
         red,    
         green
     }
-    public Color[] teamColors = new Color[4] { Color.blue, Color.yellow , Color.red, Color.green };
+
+    public List<Color> teamColors;
     public class Player
     {
         public PlayerInput _playerInputs;
@@ -37,9 +38,19 @@ public class RoundManager : MonoBehaviour
 
         public Player(InputsManager.PlayersInputs playerStateMachine, Team team)
         {
+            RoundManager.Instance.teamColors = new List<Color>()
+            {
+                Color.blue,
+                Color.yellow,
+                Color.red,
+                Color.green
+            };
             _playerInputs = playerStateMachine._playerInputs;
             _playerStateMachine = playerStateMachine._playerStateMachine;
             _team = team;
+            print((int)_team);
+            print(_team);
+            print(RoundManager.Instance.teamColors[(int)_team]);
             playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
         }
     }

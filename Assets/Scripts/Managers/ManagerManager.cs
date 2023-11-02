@@ -24,4 +24,6 @@ public class ManagerManager : MonoBehaviour
         else Destroy(this.gameObject);
         DontDestroyOnLoad(gameObject);
     }
+
+
 }

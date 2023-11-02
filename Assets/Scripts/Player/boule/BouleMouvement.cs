@@ -373,16 +373,16 @@ public class BouleMouvement : MonoBehaviour
         
         if(collision.gameObject.tag == "Player" )
         {
-            if(collision.gameObject != transform.parent.gameObject)
+            if(collision.gameObject != ParentMachine.gameObject)
             {
-                RoundManager.Instance.KillPlayer(collision.gameObject.GetComponent<PlayerStateMachine>());
-                collision.gameObject.GetComponentInChildren<PlayerStateMachine>()._iMouvementLockedWriter.isMouvementLocked = true;
-                print("player");
-                //collision.gameObject.GetComponentInChildren<PlayerStateMachine>().ChangeState(GetComponentInChildren<PlayerStateMachine>().deathState);
-                //_roundManager.playerDied(collision.gameObject.GetComponentInChildren<playerClass>());
+                PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
+                if (StateMachine.CurrentState != StateMachine.deathState)
+                {
+                    RoundManager.Instance.KillPlayer(StateMachine);
+                    StateMachine.ChangeState(StateMachine.deathState);
+                }
                 if (stateBoule == StateBoule.throwing)
                     setUpBoule();
-                //Destroy(collision.gameObject);
 
             }
             else
@@ -393,18 +393,6 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.throwing)
             _contactPoints.Add(this.transform.position);
         _vecHit = collision.contacts[0].point;
-
-        if(collision.gameObject.tag == "Player" && collision.gameObject != ParentMachine.gameObject)
-        {
-            PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
-            if (StateMachine.CurrentState != StateMachine.deathState)
-            {
-                RoundManager.Instance.KillPlayer(StateMachine);
-                StateMachine.ChangeState(StateMachine.deathState);
-            }
-            if (stateBoule == StateBoule.throwing)
-                setUpBoule();
-        }
     }
 
     
