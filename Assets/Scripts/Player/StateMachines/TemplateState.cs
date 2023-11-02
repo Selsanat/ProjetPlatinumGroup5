@@ -31,7 +31,10 @@ public abstract class TemplateState
     protected virtual void OnStateUpdate()
     {
         if(StateMachine._iMouvementLockedReader.isMouvementLocked)
-            StateMachine.ChangeState(StateMachine.fallState);
+        {
+            StateMachine.velocity.x = 0;
+            StateMachine.velocity.y = 0;
+        }
     }
 
 
