@@ -44,6 +44,7 @@ public class GameStateMachine : MonoBehaviour
     public StateSelectionPerso selectionPersoState { get; } = new StateSelectionPerso();
     public StateRound roundState { get; } = new StateRound();
     public RoundEnd endRound { get; } = new RoundEnd();
+    public StateMapSelection MapSelectionState { get; } = new StateMapSelection();
 
     public GameStateTemplate[] AllStates => new GameStateTemplate[]
     {
@@ -51,7 +52,8 @@ public class GameStateMachine : MonoBehaviour
         paramState,
         selectionPersoState,
         roundState,
-        endRound
+        endRound,
+        MapSelectionState
     };
     public GameStateTemplate StartState => menuState;
     public GameStateTemplate CurrentState { get; private set; }
@@ -179,6 +181,7 @@ public class GameStateMachine : MonoBehaviour
         if (ui != null)
         {
             ui.SetActive(true);
+            if(ui.GetComponentInChildren<Button>() != null)
             ui.GetComponentInChildren<Button>().Select();
         }
     }

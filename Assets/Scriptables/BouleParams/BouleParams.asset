@@ -15,11 +15,11 @@ MonoBehaviour:
   _rotationSpeed: 300
   _clockwise: 1
   _resetSpeed: 600
-  _speedThrowing: 2000
-  _speedBack: 2
-  _lerpDurationFast: 2
+  _speedThrowing: 1200
+  _speedBack: 10
+  _lerpDurationFast: 0.5
   _lerpDurationSlow: 0.5
-  _retourTimeMax: 1
+  _retourTimeMax: 20
   _lerpCurve:
     serializedVersion: 2
     m_Curve:
