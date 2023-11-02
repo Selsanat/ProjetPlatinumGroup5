@@ -6,6 +6,7 @@ public class ManagerManager : MonoBehaviour
 {
     public static ManagerManager Instance;
     public GameParams gameParams;
+    public BouleParams bouleParams;
     void Awake()
     {
         if (Instance == null)

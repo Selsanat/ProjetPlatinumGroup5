@@ -200,7 +200,7 @@ Transform:
   m_GameObject: {fileID: 8885932740852423821}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.82, z: 2.98}
+  m_LocalPosition: {x: 0.01, y: -0.82, z: 2.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -249,8 +249,8 @@ MonoBehaviour:
     m_ActionName: UI/Select[/DualShock4GamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 618abc81-6861-45dc-9f4e-ad42b9bda195
-    m_ActionName: Movements/New action
+    m_ActionId: 46ba976b-7382-4d95-a24b-2460ee6295c6
+    m_ActionName: Movements/Triggers[/Keyboard/alt,/Keyboard/shift,/Keyboard/1,/Keyboard/3]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movements
@@ -272,6 +272,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   JumpBuffer: 0
   activeHUD: 0
+  bouleMouvement: {fileID: 0}
 --- !u!114 &2545758844294942097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,7 +298,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -413,6 +414,12 @@ PrefabInstance:
       propertyPath: _speedBack
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: _bouleParams
+      value: 
+      objectReference: {fileID: 11400000, guid: 098f8e25194efd4489a646984462cb28,
+        type: 2}
     - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: _playerPivot
