@@ -37,7 +37,7 @@ public class BouleMouvement : MonoBehaviour
     private List<GameObject> _collidingObject;
     private Vector3 _vecHit;
     private float _timeThrowing = 0;
-    private float _distancePoints = 0.25f;
+    private float _distancePoints = 0.5f;
     private RoundManager _roundManager => RoundManager.Instance;
     private ManagerManager _manager => ManagerManager.Instance;
     public BouleParams _bouleParams;// => _manager.bouleParams;
@@ -53,8 +53,9 @@ public class BouleMouvement : MonoBehaviour
     StateBoule stateBoule = StateBoule.idle;
     private void OnGUI()
     {
-        GUILayout.Label("state idle: " + stateBoule);
         GUILayout.Label("distance base : " + _distance);
+        GUILayout.Label("state idle: " + stateBoule);
+
         GUILayout.Label("timer : " + _timeThrowing);
         GUILayout.Label("distance : " + Vector3.Distance(_playerPivot.position, this.transform.position));
     }
@@ -127,7 +128,7 @@ public class BouleMouvement : MonoBehaviour
 
         
 
-        if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) <= 0.1f))
+        if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) <= 0.25f))
         {
             
             if (stateBoule == StateBoule.reseting)
@@ -148,7 +149,7 @@ public class BouleMouvement : MonoBehaviour
             }
 
         }
-        else if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.25f) && (stateBoule == StateBoule.idle || stateBoule == StateBoule.reseting))
+        else if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.5f) && (stateBoule == StateBoule.idle || stateBoule == StateBoule.reseting))
         {
             resetBool();
         }
@@ -256,7 +257,7 @@ public class BouleMouvement : MonoBehaviour
     private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
 
-        if (Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.25f)
+        if (Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.5f)
         {
             stateBoule = StateBoule.reseting;
             transform.LookAt(_playerPivot);

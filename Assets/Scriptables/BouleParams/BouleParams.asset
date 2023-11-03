@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13817e852133854ba0adcbdc5f0f5a4, type: 3}
   m_Name: BouleParams
   m_EditorClassIdentifier: 
-  _rotationSpeed: 300
+  _rotationSpeed: 330
   _clockwise: 1
-  _resetSpeed: 600
-  _speedThrowing: 1200
-  _speedBack: 10
-  _lerpDurationFast: 0.5
-  _lerpDurationSlow: 0.5
-  _retourTimeMax: 2
+  _resetSpeed: 800
+  _speedThrowing: 900
+  _speedBack: 20
+  _lerpDurationFast: 0.25
+  _lerpDurationSlow: 0.05
+  _retourTimeMax: 1
   _lerpCurve:
     serializedVersion: 2
     m_Curve:
@@ -44,4 +44,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _size: 1
+  _size: 0.6

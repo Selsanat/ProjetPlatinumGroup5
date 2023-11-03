@@ -119,39 +119,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92009c9f4246ebe4aa27bedc863595be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: 100
-  _clockwise: 1
-  _resetSpeed: 400
-  _size: 1
-  _speedThrowing: 700
-  _speedBack: 2
-  _lerpDurationFast: 2
-  _lerpDurationSlow: 0.5
-  _lerpCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   _bounce: {fileID: 13400000, guid: caeeb704470a5f24ea763d68ef881759, type: 2}
+  _playerPivot: {fileID: 0}
+  _playerTransform: {fileID: 0}
+  _clockwise: 1
+  _playerInputs: {fileID: 0}
+  ParentMachine: {fileID: 0}
+  _bouleParams: {fileID: 0}
 --- !u!54 &3963803855671988263
 Rigidbody:
   m_ObjectHideFlags: 0
