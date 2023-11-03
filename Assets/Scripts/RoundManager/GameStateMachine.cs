@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -158,6 +159,7 @@ public class GameStateMachine : MonoBehaviour
 
     public void ChangeScene(string scene)
     {
+        EventSystem.current.SetSelectedGameObject(null);
         asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
     }
 
