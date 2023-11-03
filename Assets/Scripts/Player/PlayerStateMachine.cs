@@ -60,7 +60,9 @@ public class PlayerStateMachine : MonoBehaviour
         InputsManager.PlayersInputs inputs = new InputsManager.PlayersInputs(_playerInputs, this);
         InputsManager.Instance.playerInputs.Add(inputs);
 
-         RoundManager.Player player = new RoundManager.Player(inputs);
+
+        var device = _playerInputs._ipaPlayercontrols.devices.Value;
+        RoundManager.Player player = new RoundManager.Player(inputs, ManagerManager.Instance.Players[device[0]]);
         RoundManager.Instance.players.Add(player);
         RoundManager.Instance.alivePlayers.Add(player);
         
