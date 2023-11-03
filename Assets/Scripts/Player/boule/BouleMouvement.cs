@@ -19,7 +19,7 @@ public class BouleMouvement : MonoBehaviour
     #endregion
 
     #region Private variables
-
+    public bool _needColor = true;
     [HideInInspector]
     public PlayerInput _playerInputs;
     [HideInInspector]
@@ -37,7 +37,7 @@ public class BouleMouvement : MonoBehaviour
     private List<GameObject> _collidingObject;
     private Vector3 _vecHit;
     private float _timeThrowing = 0;
-    private float _distancePoints = 0.25f;
+    //return boule
     private RoundManager _roundManager => RoundManager.Instance;
     private ManagerManager _manager => ManagerManager.Instance;
     public BouleParams _bouleParams;// => _manager.bouleParams;
@@ -53,8 +53,9 @@ public class BouleMouvement : MonoBehaviour
     StateBoule stateBoule = StateBoule.idle;
     private void OnGUI()
     {
-        GUILayout.Label("state idle: " + stateBoule);
         GUILayout.Label("distance base : " + _distance);
+        GUILayout.Label("state idle: " + stateBoule);
+
         GUILayout.Label("timer : " + _timeThrowing);
         GUILayout.Label("distance : " + Vector3.Distance(_playerPivot.position, this.transform.position));
     }
@@ -115,6 +116,27 @@ public class BouleMouvement : MonoBehaviour
             }
         }
 
+        switch (stateBoule)
+        {
+            case StateBoule.idle:
+                this.GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
+                break;
+            case StateBoule.throwing:
+                this.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+                break;
+            case StateBoule.returning:
+                this.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+                break;
+            case StateBoule.reseting:
+                this.GetComponentInChildren<MeshRenderer>().material.color = Color.yellow;
+                break;
+            case StateBoule.death:
+                break;
+            default:
+                break;
+
+        }
+
     }
 
 
@@ -127,7 +149,7 @@ public class BouleMouvement : MonoBehaviour
 
         
 
-        if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) <= 0.1f))
+        if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) <= _bouleParams._distanceCloseEneaughtUpdate))
         {
             
             if (stateBoule == StateBoule.reseting)
@@ -148,7 +170,7 @@ public class BouleMouvement : MonoBehaviour
             }
 
         }
-        else if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.25f) && (stateBoule == StateBoule.idle || stateBoule == StateBoule.reseting))
+        else if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > _bouleParams._distanceTooFarUpdate) && (stateBoule == StateBoule.idle || stateBoule == StateBoule.reseting))
         {
             resetBool();
         }
@@ -210,7 +232,7 @@ public class BouleMouvement : MonoBehaviour
         {
             transform.Translate(dir * Time.fixedDeltaTime * _bouleParams._speedBack, Space.World);
         }
-        if (Vector3.Distance(transform.position, _target) < _distancePoints && _target != _contactPoints[0])
+        if (Vector3.Distance(transform.position, _target) < _bouleParams._distancePoints && _target != _contactPoints[0])
         {
             print("next point");
             _destPoint--;
@@ -220,13 +242,13 @@ public class BouleMouvement : MonoBehaviour
         if (_target == _contactPoints[0]) //si on est sur le dernier
         {
 
-            if (Vector3.Distance(transform.position, _target) < _distancePoints) // si on est assez proche du dernier point
+            if (Vector3.Distance(transform.position, _target) < _bouleParams._distancePoints) // si on est assez proche du dernier point
             {
                 _contactPoints.Clear();
 
                 stateBoule = StateBoule.idle;
                 _beforeThrow = Vector3.zero;
-                if (Vector3.Distance(transform.position, _playerPivot.position) > _distancePoints) // si on est loin du joueur, alors on le fait revenir et l empechant de collide avec autres chose
+                if (Vector3.Distance(transform.position, _playerPivot.position) > _bouleParams._distancePoints) // si on est loin du joueur, alors on le fait revenir et l empechant de collide avec autres chose
                 {
                     _sphereCollider.isTrigger = true;
                     resetBool();
@@ -256,10 +278,12 @@ public class BouleMouvement : MonoBehaviour
     private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
 
-        if (Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > 0.25f)
+        if (Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) > _bouleParams._distanceTooFarUpdate)
         {
             stateBoule = StateBoule.reseting;
             transform.LookAt(_playerPivot);
+            _sphereCollider.isTrigger = true;
+
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
             if (_distance <= Vector3.Distance(_playerPivot.position, this.transform.position))
