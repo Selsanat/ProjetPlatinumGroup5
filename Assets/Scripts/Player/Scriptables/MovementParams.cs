@@ -26,6 +26,9 @@ public class MovementParams : ScriptableObject
     [Range(0, 2)]
     [Tooltip("Air max Speed X")] public float airMaxSpeedX = 1;
 
+    [Range(0, 1)]
+    [Tooltip("Jump Buffer")] public float JumpBuffer = 0.2f;
+
     #endregion
 
     #region Fall

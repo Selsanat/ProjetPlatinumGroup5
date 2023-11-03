@@ -72,10 +72,7 @@ public class PlayerStateMachine : MonoBehaviour
     }
     void Start()
     {
-
         ChangeState(StartState);
-
-
     }
 
     private void FixedUpdate()
@@ -93,6 +90,7 @@ public class PlayerStateMachine : MonoBehaviour
         GUILayout.Label(DetectCollision.isColliding(Mathf.Sign(velocity.x) * Vector2.right,transform, Vector2.zero) ? "OnGround" : "InAir");
         GUILayout.Label(velocity+"");
         GUILayout.Label(Time.time + "");
+        GUILayout.Label("Jump Buffer :" + JumpBuffer);
         GUILayout.EndVertical();
     }
     private void _InitAllStates()
