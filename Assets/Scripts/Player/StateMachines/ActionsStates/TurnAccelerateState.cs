@@ -24,7 +24,7 @@ public class TurnAccelerateState : TemplateState
     protected override void OnStateUpdate()
     {
         #region Jump
-        if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
+        if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
         {
             StateMachine.ChangeState(StateMachine.jumpState);
             return;

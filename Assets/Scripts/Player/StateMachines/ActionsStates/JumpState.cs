@@ -20,6 +20,8 @@ public class JumpState : TemplateState
         StateMachine.velocity.x *= _movementParams.inertieLoss;
         StateMachine.velocity.y = 2 * h / th;
         StateMachine.JumpBuffer = 0;
+        StateMachine.CoyoteWindow = 0;
+
     }
 
     protected override void OnStateUpdate()

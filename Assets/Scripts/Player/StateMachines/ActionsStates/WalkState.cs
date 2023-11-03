@@ -32,7 +32,7 @@ public class WalkState : TemplateState
 
         #region Jump
 
-        if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
+        if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
         {
             StateMachine.ChangeState(StateMachine.jumpState);
             return;

@@ -2593,6 +2593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c107b111cd45a4dab9ced68d22ee32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeHUD: 0
   _choiceState:
   - choices:
     - StateSelectionPerso
@@ -2618,7 +2619,7 @@ MonoBehaviour:
   - 
   - 
   - 
-  - Go to scene
+  - 
   Menus:
   - menuObject: {fileID: 6891497991746096609}
     thisMenu: MenuState
