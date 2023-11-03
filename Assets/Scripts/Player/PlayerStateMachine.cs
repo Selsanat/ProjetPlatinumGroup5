@@ -55,6 +55,7 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInputs._ipaPlayercontrols = this.GetComponent<UnityEngine.InputSystem.PlayerInput>().actions;
         _playerInputs.IOrient = this.GetComponent<IOrientWriter>();
         _playerInputs.jump = this.GetComponent<IWantsJumpWriter>();
+        if(GetComponentInChildren<BouleMouvement>()!= null)
         GetComponentInChildren<BouleMouvement>()._playerInputs = _playerInputs;
 
         InputsManager.PlayersInputs inputs = new InputsManager.PlayersInputs(_playerInputs, this);
