@@ -282,6 +282,8 @@ public class BouleMouvement : MonoBehaviour
         {
             stateBoule = StateBoule.reseting;
             transform.LookAt(_playerPivot);
+            _sphereCollider.isTrigger = true;
+
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
             if (_distance <= Vector3.Distance(_playerPivot.position, this.transform.position))

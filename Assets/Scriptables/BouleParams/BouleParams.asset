@@ -15,28 +15,46 @@ MonoBehaviour:
   _rotationSpeed: 330
   _clockwise: 1
   _resetSpeed: 800
-  _speedThrowing: 900
-  _speedBack: 20
+  _speedThrowing: 1400
+  _speedBack: 30
   _lerpDurationFast: 0.25
   _lerpDurationSlow: 0.05
-  _retourTimeMax: 1
+  _retourTimeMax: 0.75
   _lerpCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 0.03466946
+      value: 0.7766425
+      inSlope: 1.3056611
+      outSlope: 1.3056611
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.37784478
+      value: 0.96851414
+      inSlope: 0.27988955
+      outSlope: 0.27988955
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -45,3 +63,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _size: 0.6
+  _distancePoints: 0.5
+  _distanceCloseEneaughtUpdate: 0.25
+  _distanceTooFarUpdate: 0.5
