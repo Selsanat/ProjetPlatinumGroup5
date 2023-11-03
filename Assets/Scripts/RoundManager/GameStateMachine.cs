@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class GameStateMachine : MonoBehaviour
 {
+    public bool activeHUD;
     [System.Serializable]
     public class Menu
     {
@@ -99,6 +100,7 @@ public class GameStateMachine : MonoBehaviour
     }
     private void OnGUI()
     {
+        if (!activeHUD) return;
         GUILayout.BeginVertical(GUI.skin.box);
         GUILayout.Label("Menu State :");
         GUILayout.TextField("" + CurrentState);
