@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 public class ToolHierarchy : MonoBehaviour
 {
 
-    public List<string> categorie;
+    private List<string> categorie;
     public bool _setUp = false;
     public bool _reset = false;
     // Start is called before the first frame update
