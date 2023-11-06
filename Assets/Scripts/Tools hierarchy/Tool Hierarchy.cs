@@ -3,25 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unity.Properties;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-[ExecuteInEditMode]
+
+[ExecuteAlways]
 public class ToolHierarchy : MonoBehaviour
 {
-
+    //hierarchy highliter pour les colrotds
+    //attribute initialaze on load editor scene manager scene si load scene
     private List<string> categorie;
     public bool _setUp = false;
     public bool _reset = false;
     // Start is called before the first frame update
 
-
+    void Start()
+    {
+        categorie = new List<string>();
+        
+    }
     // Update is called once per frame
     void Update()
     {
         
-        if(_setUp)
+        if (_setUp)
         {
             changeCategorie();
             addCategorie();
@@ -38,41 +46,23 @@ public class ToolHierarchy : MonoBehaviour
 
     private void changeCategorie()
     {
-        SerializedObject tagManager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
-        SerializedProperty tagsProp = tagManager.FindProperty("tags");
-
-        for (int i = 0; i < tagsProp.arraySize; i++)
+        foreach (string str in UnityEditorInternal.InternalEditorUtility.tags)
         {
-            SerializedProperty t = tagsProp.GetArrayElementAtIndex(i);
-            string str = t.stringValue;
-            str = "------" + str + "------";
-            if (GameObject.Find(str) == null)
+            string str3 = str;
+            str3 = "------" + str3 + "------";
+            if (GameObject.Find(str3) == null)
             {
-                categorie.Add(str);
+                categorie.Add(str3);
 
             }
-
         }
-
-        string str2 = "------Player------";
+        string str2;
+        str2 = "------UI------";
         if (GameObject.Find(str2) == null)
         {
             categorie.Add(str2);
 
         }
-        str2 = "------Untagged------";
-        if (GameObject.Find(str2) == null)
-        {
-            categorie.Add(str2);
-
-        }
-        
-
-
-
-
-
-
     }
 
     private void addCategorie()
@@ -97,7 +87,7 @@ public class ToolHierarchy : MonoBehaviour
             {
                 ob.transform.DetachChildren();
                 if(ob.transform.childCount == 0)
-                    DestroyImmediate(ob);
+                    UnityEngine.Object.DestroyImmediate(ob);
             }
 
         }
@@ -105,10 +95,15 @@ public class ToolHierarchy : MonoBehaviour
     }
     private void organiseCategorie()
     {
-        foreach (GameObject go in FindObjectsOfType<GameObject>())
+        foreach (GameObject go in SceneManager.GetActiveScene().GetRootGameObjects())
         {
             if(go.transform.parent == null)
             {
+                if (go.layer == 5)
+                {
+                    go.transform.parent = GameObject.Find("------UI------").transform;
+                    break;
+                }
                 switch (go.tag)
                 {
                     case "Player":
@@ -118,7 +113,7 @@ public class ToolHierarchy : MonoBehaviour
                         go.transform.parent = GameObject.Find("------Manager------").transform;
                         break;
                     case "MainCamera":
-                        go.transform.parent = GameObject.Find("------Camera------").transform;
+                        go.transform.parent = GameObject.Find("------MainCamera------").transform;
                         break;
                     case "SpawnPoints":
                         go.transform.parent = GameObject.Find("------SpawnPoints------").transform;
@@ -146,9 +141,19 @@ public class ToolHierarchy : MonoBehaviour
                     default:
                         break;
                 }
+                
             }
             
         }
-        
+        foreach (string str in categorie)
+        {
+            GameObject ob = GameObject.Find(str);
+            if (ob.transform.childCount == 0)
+            {
+                UnityEngine.Object.DestroyImmediate(ob);
+            }
+
+        }
+
     }
 }
