@@ -38,8 +38,6 @@ public class BouleMouvement : MonoBehaviour
     private Vector3 _vecHit;
     private float _timeThrowing = 0;
     //return boule
-    private RoundManager _roundManager => RoundManager.Instance;
-    private ManagerManager _manager => ManagerManager.Instance;
     public BouleParams _bouleParams;// => _manager.bouleParams;
 
     private enum StateBoule
@@ -55,7 +53,6 @@ public class BouleMouvement : MonoBehaviour
     {
         GUILayout.Label("distance base : " + _distance);
         GUILayout.Label("state idle: " + stateBoule);
-
         GUILayout.Label("timer : " + _timeThrowing);
         GUILayout.Label("distance : " + Vector3.Distance(_playerPivot.position, this.transform.position));
     }
