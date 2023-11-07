@@ -75,21 +75,6 @@ public class GameStateMachine : MonoBehaviour
     }
     void Start()
     {
-        
-        var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
-        var fileInfo = info.GetFiles();
-        foreach (GameStateTemplate State in AllStates)
-        {
-            foreach (FileInfo file in fileInfo)
-            {
-                if (State.GetType().ToString() == file.Name.Replace(".cs", string.Empty))
-                {
-                    GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
-                    if(thatState.ui != null && Menus.Length >= AllStates.ToList().IndexOf(State))
-                    thatState.ui = Menus[AllStates.ToList().IndexOf(State)].menuObject;
-                }
-            }
-        }
         ChangeState(StartState);
     }
 
@@ -136,27 +121,16 @@ public class GameStateMachine : MonoBehaviour
         }
     }
     
-    public void ChangeState(int state)
+    public void ChangeState(string state)
     {
         StartCoroutine(ChangeStateCoroutine(state));
     }
-    private IEnumerator ChangeStateCoroutine(int state)
+    private IEnumerator ChangeStateCoroutine(string state)
     {
         if (asyncLoadLevel != null)
             yield return new WaitUntil(() => asyncLoadLevel.isDone);
-        var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
-        var fileInfo = info.GetFiles();
-        foreach (GameStateTemplate State in AllStates)
-        {
-            if (state * 2 < fileInfo.Length)
-            {
-                if (State.GetType().ToString() == fileInfo[state * 2].Name.Replace(".cs", string.Empty))
-                {
-                    GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
-                    ChangeState(thatState);
-                }
-            }
-        }
+        GameStateTemplate thatState = _GetStateByName(state);
+        ChangeState(thatState);
     }
 
     public void ChangeScene(string scene)
@@ -195,6 +169,16 @@ public class GameStateMachine : MonoBehaviour
         {
             menu.menuObject.SetActive(false);
         }
+    }
+
+    private GameStateTemplate _GetStateByName(string name)
+    {
+        foreach(GameStateTemplate state in AllStates)
+        {
+            if (state.GetType().Name == name) return state;
+        }
+
+        return null;
     }
 
 

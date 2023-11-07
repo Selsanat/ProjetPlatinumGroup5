@@ -136,7 +136,7 @@ public class RoundManager : MonoBehaviour
     {
         alivePlayers = new List<Player>(players);
         var scenes = ManagerManager.Instance.gameParams.Scenes;
-        string sceneName = scenes[Random.Range(0, scenes.Length)].name;
+        string sceneName = scenes[Random.Range(0, scenes.Length)];
         var asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         while (!asyncLoadLevel.isDone)
         {

@@ -14,6 +14,7 @@ public class GameStateMachineEditor : Editor
 {
 
     private GameStateMachine _gameStateMachine = null;
+    [SerializeField]
     private SerializedProperty _menus;
 
     private void OnEnable()
@@ -117,19 +118,15 @@ public class GameStateMachineEditor : Editor
 
 
                         var targetinfo = UnityEvent.GetValidMethodInfo(_gameStateMachine,
-                            "ChangeState", new Type[] { typeof(int) });
-                        UnityAction<int> action = Delegate.CreateDelegate(typeof(UnityAction<int>), _gameStateMachine, targetinfo, false) as UnityAction<int>;
-                        UnityEventTools.AddIntPersistentListener(bouton.onClick, action, _choiceIndex);
-
-
-
+                            "ChangeState", new Type[] { typeof(string) });
+                        UnityAction<string> action = Delegate.CreateDelegate(typeof(UnityAction<string>), _gameStateMachine, targetinfo, false) as UnityAction<string>;
+                        UnityEventTools.AddStringPersistentListener(bouton.onClick, action, _gameStateMachine._choiceState[i].choices[j]);
                     }
                     var button = buttons.GetArrayElementAtIndex(j);
                     button.objectReferenceValue = listeButton[j];
                     _choiceIndex = EditorGUILayout.Popup(listeButton[j].name, _choiceIndex, _gameStateMachine._choices);
                     _choiceIndex = Mathf.Clamp(_choiceIndex, 0, _choiceIndex);
                     _gameStateMachine._choiceState[i].choices[j] = _gameStateMachine._choices[_choiceIndex];
-
                 }
             }
             EditorGUILayout.Space();
