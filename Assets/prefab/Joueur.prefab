@@ -283,7 +283,7 @@ MonoBehaviour:
   movementsParam: {fileID: 11400000, guid: 4b32cca2a285f544299136e4a536e538, type: 2}
   velocity: {x: 0, y: 0}
   JumpBuffer: 0
-  activeHUD: 1
+  activeHUD: 0
   bouleMouvement: {fileID: 0}
 --- !u!114 &2545758844294942097
 MonoBehaviour:
@@ -310,7 +310,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -333,12 +333,12 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

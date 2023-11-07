@@ -42,6 +42,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public Vector2 velocity;
     public float JumpBuffer;
+    public float CoyoteWindow;
     public bool activeHUD = false;
 
     public BouleMouvement bouleMouvement;
@@ -55,6 +56,7 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInputs._ipaPlayercontrols = this.GetComponent<UnityEngine.InputSystem.PlayerInput>().actions;
         _playerInputs.IOrient = this.GetComponent<IOrientWriter>();
         _playerInputs.jump = this.GetComponent<IWantsJumpWriter>();
+        if(GetComponentInChildren<BouleMouvement>()!= null)
         GetComponentInChildren<BouleMouvement>()._playerInputs = _playerInputs;
 
         InputsManager.PlayersInputs inputs = new InputsManager.PlayersInputs(_playerInputs, this);
@@ -71,10 +73,7 @@ public class PlayerStateMachine : MonoBehaviour
     }
     void Start()
     {
-
         ChangeState(StartState);
-
-
     }
 
     private void FixedUpdate()
@@ -92,6 +91,8 @@ public class PlayerStateMachine : MonoBehaviour
         GUILayout.Label(DetectCollision.isColliding(Mathf.Sign(velocity.x) * Vector2.right,transform, Vector2.zero) ? "OnGround" : "InAir");
         GUILayout.Label(velocity+"");
         GUILayout.Label(Time.time + "");
+        GUILayout.Label("Jump Buffer :" + JumpBuffer);
+        GUILayout.Label("Coyote Window :" + CoyoteWindow);
         GUILayout.EndVertical();
     }
     private void _InitAllStates()
@@ -107,7 +108,6 @@ public class PlayerStateMachine : MonoBehaviour
         {
             CurrentState.StateExit(state);
         }
-        //print("State was :" + CurrentState + " And now is : " + state);
         PreviousState = CurrentState;
         CurrentState = state;
         if (CurrentState != null)
@@ -115,14 +115,4 @@ public class PlayerStateMachine : MonoBehaviour
             CurrentState.StateEnter(state);
         }
     }
-
-    /*public void getHit()
-    {
-        if(CurrentState != deathState)
-        {
-            ChangeState(deathState);
-            
-        }
-    }*/
-    
 }
