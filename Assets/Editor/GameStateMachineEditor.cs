@@ -47,16 +47,15 @@ public class GameStateMachineEditor : Editor
     }
     public override void OnInspectorGUI()
     {
+        
         SerializedProperty _choiceStates = serializedObject.FindProperty("_choiceStates");
         
-        //Debug.Log(_choiceStates.arraySize);
         serializedObject.Update();
         _menus.arraySize = EditorGUILayout.IntField("Size", _menus.arraySize);
 
         _gameStateMachine._choiceState ??= new GameStateMachine._choiceStates[_menus.arraySize];
         if (_gameStateMachine._choiceState.Length != _menus.arraySize) _gameStateMachine._choiceState = new GameStateMachine._choiceStates[_menus.arraySize];
 
-        //t1.arraySize = _menus.arraySize;
         for (int i = 0; i < _menus.arraySize; i++)
         {
             var menu = _menus.GetArrayElementAtIndex(i);

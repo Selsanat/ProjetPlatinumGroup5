@@ -28,24 +28,39 @@ public class StateRound : GameStateTemplate
     #region Animation Debut De round
     void AnimationDebutDeRound()
     {
-        cam = Camera.main;
-        float initOrthoSize = cam.orthographicSize;
-        DOTween.Init();
-        Vector3 StartPos = cam.transform.position;
-        Sequence mySequence = DOTween.Sequence();
+        CameraTransition camTrans = CameraTransition.Instance;
+        cam =  camTrans.MainCam;
+        float initOrthoSize = camTrans.initOrtho;
+
+        Vector3 StartPos = camTrans.initPos;
+        Sequence mySequence = CameraTransition.Instance.UnfreezeIt();
         foreach (var player in inputsManager.playerInputs)
         {
             Vector3 pos = player._playerStateMachine.transform.position;
-            pos.z = cam.transform.position.z;
+            pos.z = StartPos.z;
             mySequence.Append(cam.transform.DOMove(pos, 1, false)).SetEase(Ease.InQuad);
-            mySequence.Join(cam.DOOrthoSize(5, 1)).SetEase(Ease.OutSine);
+            mySequence.Join(cam.DOOrthoSize(5, 1).SetEase(Ease.OutSine));
             mySequence.AppendInterval(1);
         }
         mySequence.Append(cam.transform.DOMove(StartPos, 1, false));
         mySequence.Join(cam.DOOrthoSize(initOrthoSize, 1));
-        mySequence.OnComplete(unlockMovements);
-        mySequence.Play();
+        mySequence.OnComplete(() =>
+        {
+            makeMainCameraSameAsTransi();
+            unlockMovements();
+            CameraTransition.Instance.ResetCams();
+
+        });
+        CameraTransition.Instance.mySequence.Play();
        
+    }
+    void makeMainCameraSameAsTransi()
+    {
+        CameraTransition camTrans = CameraTransition.Instance;
+        cam = camTrans.MainCam;
+        Camera.main.transform.position = cam.transform.position;
+        Camera.main.orthographicSize = cam.orthographicSize;
+
     }
     void unlockMovements()
     {

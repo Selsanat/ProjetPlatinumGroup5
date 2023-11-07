@@ -85,7 +85,7 @@ public class GameStateMachine : MonoBehaviour
     }
     private void OnGUI()
     {
-        if (!activeHUD) return;
+        if (false) return;
         GUILayout.BeginVertical(GUI.skin.box);
         GUILayout.Label("Menu State :");
         GUILayout.TextField("" + CurrentState);
@@ -96,6 +96,11 @@ public class GameStateMachine : MonoBehaviour
                 GUILayout.Label("Ma scene = ");
                 GUILayout.TextField(""+ menu.menuObject);
             }
+        }
+        foreach(string map in ManagerManager.Instance.gameParams.Scenes)
+        {
+            GUILayout.Label("Map = ");
+            GUILayout.TextField("" + map);
         }
 
         GUILayout.EndVertical();
@@ -128,13 +133,18 @@ public class GameStateMachine : MonoBehaviour
     private IEnumerator ChangeStateCoroutine(string state)
     {
         if (asyncLoadLevel != null)
+        {
             yield return new WaitUntil(() => asyncLoadLevel.isDone);
+
+        }
+
         GameStateTemplate thatState = _GetStateByName(state);
         ChangeState(thatState);
     }
 
     public void ChangeScene(string scene)
     {
+        CameraTransition.Instance.FreezeIt();
         EventSystem.current.SetSelectedGameObject(null);
         asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
     }

@@ -34,7 +34,6 @@ public class GameParamsEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-        //if (objects.GetArrayElementAtIndex(0).objectReferenceValue != null) Debug.Log(objects.GetArrayElementAtIndex(0).objectReferenceValue);
         Array.Resize(ref scene, objects.arraySize);
         for (int i = 0; i < scene.Length; i++)
         {
@@ -44,18 +43,21 @@ public class GameParamsEditor : Editor
         PointsPerRound.intValue = EditorGUILayout.IntField("Points win per Rounds", PointsPerRound.intValue);
         TransiTimeAfterRound.floatValue = EditorGUILayout.FloatField("Transition time in between rounds", TransiTimeAfterRound.floatValue);
 
-
+        if (scene[0] == null) Scenes.GetArrayElementAtIndex(0).stringValue = null;
         if (scene!=null) scene = scene.Where(x => x != null).ToArray();
         if ( scene == null || scene.Length < 1 ) scene = new SceneAsset[1];
         for (int i = 0; i < scene.Length; i++)
-        { 
-            if (scene[^1] != null) Array.Resize(ref scene, scene.Length + 1);
+        {
+            if (scene[^1] != null)
+            {
+                Array.Resize(ref scene, scene.Length + 1);
+            }
         }
         Scenes.arraySize = scene.Length;
         for (int i = 0; i < scene.Length; i++)
         {
             scene[i] = EditorGUILayout.ObjectField("Scene " + i, scene[i], typeof(SceneAsset), false) as SceneAsset;
-            if (scene[i]!=null) Scenes.GetArrayElementAtIndex(i).stringValue = scene[i].name;
+            if (scene[i]!=null && i!= scene.Length-1) Scenes.GetArrayElementAtIndex(i).stringValue = scene[i].name;
         }
         objects.arraySize = scene.Length;
         for (int i = 0; i < scene.Length; i++)
