@@ -30,4 +30,6 @@ public class CameraParams : ScriptableObject
     public float cameraXmax = 1f;
     public float cameraYmax = 1f;
     public float ZpourSeReperer = 1f;
+    [Range(0f, 5f)]
+    public float CameraFollowSmoothness = 1f;
 }

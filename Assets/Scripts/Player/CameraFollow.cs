@@ -1,3 +1,5 @@
+using Cinemachine.Utility;
+using DG.Tweening;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
@@ -17,11 +19,21 @@ public class CameraFollow : MonoBehaviour
             {
                 center += player._playerStateMachine.transform.position;
             }
+
+            Camera Maincam = CameraTransition.Instance.MainCam;
+            Camera cam = CameraTransition.Instance.TransitionCam;
+            CameraParams Params = CameraTransition.Instance.cameraParams;
+            Vector3 CamPos = cam.transform.position;
+
+            Vector3 dir = (cam.transform.forward + cam.transform.rotation.eulerAngles).normalized;
+            Vector3 toADD = (dir * Vector3.Distance(center, CamPos)).Abs();
+
             center /= RoundManager.Instance.alivePlayers.Count;
-            center.z = transform.position.z;
-            center.x= Mathf.Clamp(center.x, -CameraTransition.Instance.cameraParams.cameraXmax/2, CameraTransition.Instance.cameraParams.cameraXmax/2);
-            center.y =Mathf.Clamp(center.y, -CameraTransition.Instance.cameraParams.cameraYmax / 2, CameraTransition.Instance.cameraParams.cameraYmax/2);
-            transform.position = center;
+            center.z = CamPos.z;
+            center.x = Mathf.Clamp(center.x, Maincam.transform.position.x-Params.cameraXmax/ 2, Maincam.transform.position.x + Params.cameraXmax/2);
+            center.y =Mathf.Clamp(center.y, Maincam.transform.position.y -Params.cameraYmax/2, Maincam.transform.position.y +Params.cameraYmax/2);
+
+            cam.transform.DOMove(center, CameraTransition.Instance.cameraParams.CameraFollowSmoothness);
         }
     }
 }

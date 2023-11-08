@@ -12,6 +12,7 @@ public class RoundEnd : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
+        CameraTransition.Instance.cameraFollow.FollowPlayers = false;
         StateMachine.HideAllMenusExceptThis(ui);
         cam = CameraTransition.Instance.TransitionCam;
         cam.DOOrthoSize(5,1);

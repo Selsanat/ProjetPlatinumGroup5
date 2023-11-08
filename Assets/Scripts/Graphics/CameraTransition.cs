@@ -29,7 +29,9 @@ public class CameraTransition : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Camera cam = Camera.main;
+        Camera cam;
+        cam = TransitionCam;
+
         Vector3 matrixpos = cam.transform.position;
         matrixpos += cam.transform.rotation.normalized * Vector3.forward * cameraParams.ZpourSeReperer;
         matrixpos.y -=cam.transform.position.y;
@@ -46,7 +48,7 @@ public class CameraTransition : MonoBehaviour
         float camHalfWidth = screenAspect * camHalfHeight;
         float camWidth = 2.0f * camHalfWidth;
         float camHeight = camHalfHeight * 2;
-        Vector2 range = new Vector2(camWidth+ cameraParams.cameraXmax, camHeight + cameraParams.cameraYmax);
+        Vector2 range = new Vector2(camWidth*2+ cameraParams.cameraXmax, camHeight + cameraParams.cameraYmax);
         Gizmos.DrawWireCube(Camera.main.ScreenToWorldPoint(center), dimmensions+ range);    
     }
     private void Awake()

@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 479543719}
   m_Layer: 0
   m_Name: CameraTransi
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -945,6 +945,7 @@ MonoBehaviour:
   Mat: {fileID: 2100000, guid: 90be5e6f71b462e41bf15057fc00cbb3, type: 2}
   renderTex: {fileID: 8400000, guid: 2f2548ddafa2c2b4ba227aaf2b547beb, type: 2}
   Target: {fileID: 469341015}
+  cameraFollow: {fileID: 0}
   initPos: {x: 0, y: 0, z: 0}
   origin: {x: 0, y: 0, z: 0}
   initOrtho: 0
