@@ -234,7 +234,6 @@ public class BouleMouvement : MonoBehaviour
         }
         if (Vector3.Distance(transform.position, _target) < _bouleParams._distancePoints && _target != _contactPoints[0])
         {
-            print("next point");
             _destPoint--;
             _target = _contactPoints[_destPoint];
         }

@@ -110,7 +110,6 @@ public class PlayerStateMachine : MonoBehaviour
         }
         PreviousState = CurrentState;
         CurrentState = state;
-        print(state + "entered");
         if (CurrentState != null)
         {
             CurrentState.StateEnter(state);
