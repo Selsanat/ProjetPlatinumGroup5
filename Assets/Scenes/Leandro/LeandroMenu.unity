@@ -889,7 +889,7 @@ GameObject:
   - component: {fileID: 716291093}
   - component: {fileID: 716291094}
   m_Layer: 4
-  m_Name: TransitionManager
+  m_Name: CameraManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -925,6 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55095b6d9fc092d4fbabb06d12dcb7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraParams: {fileID: 11400000, guid: a13de3765fa4dad41aa7037c8e64533b, type: 2}
   MainCam: {fileID: 166893048}
   TransitionCam: {fileID: 479543717}
   Mat: {fileID: 2100000, guid: 90be5e6f71b462e41bf15057fc00cbb3, type: 2}

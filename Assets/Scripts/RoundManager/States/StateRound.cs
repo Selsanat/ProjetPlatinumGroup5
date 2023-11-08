@@ -9,12 +9,14 @@ using UnityEngine.InputSystem.Interactions;
 public class StateRound : GameStateTemplate
 {
     private Camera cam;
+    private CameraParams cameraParams;
     protected override void OnStateInit()
     {
     }
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
+        cameraParams = CameraTransition.Instance.cameraParams;
         StateMachine.HideAllMenusExceptThis();
         RoundManager.Instance.StartRound();
         AnimationDebutDeRound();
@@ -38,12 +40,13 @@ public class StateRound : GameStateTemplate
         {
             Vector3 pos = player._playerStateMachine.transform.position;
             pos.z = StartPos.z;
-            mySequence.Append(cam.transform.DOMove(pos, 1, false)).SetEase(Ease.InQuad);
-            mySequence.Join(cam.DOOrthoSize(5, 1).SetEase(Ease.OutSine));
-            mySequence.AppendInterval(1);
+            mySequence.Append(cam.transform.DOMove(pos, cameraParams.timeToMoveFromPlayerToPlayer, false)).SetEase(Ease.InQuad);
+            mySequence.Join(cam.DOOrthoSize(cameraParams.Zoom, cameraParams.TimeToZoom).SetEase(Ease.OutSine));
+            mySequence.AppendInterval(cameraParams.intervalBetweenPlayers);
         }
-        mySequence.Append(cam.transform.DOMove(StartPos, 1, false));
-        mySequence.Join(cam.DOOrthoSize(initOrthoSize, 1));
+        mySequence.Append(cam.transform.DOMove(StartPos, cameraParams.timeToMoveFromPlayerToPlayer, false));
+        mySequence.Join(cam.DOOrthoSize(initOrthoSize, cameraParams.TimeToZoom));
+        mySequence.AppendInterval(cameraParams.timeAfterZoomsBeforeRoundStart);
         mySequence.OnComplete(() =>
         {
             makeMainCameraSameAsTransi();

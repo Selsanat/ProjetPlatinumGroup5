@@ -8,15 +8,20 @@ using DG.Tweening;
 
 public class CameraTransition : MonoBehaviour
 {
+    public CameraParams cameraParams;
     public Camera MainCam;
     public Camera TransitionCam;
-
     public Material Mat;
     public RenderTexture renderTex;
     public Image Target;
-    public Vector3 initPos;
-    public Vector3 origin;
+
+
+
+    [HideInInspector]
+    public Vector3 initPos , origin;
+    [HideInInspector]
     public float initOrtho;
+    [HideInInspector]
     public Sequence mySequence;
 
     public static CameraTransition Instance { get; private set; }
@@ -42,12 +47,11 @@ public class CameraTransition : MonoBehaviour
     {
         origin = Target.rectTransform.anchoredPosition;
         Vector3 pos = Target.rectTransform.anchoredPosition;
-        pos.y -= 500;
+        pos.y -= cameraParams.heighOfFall;
         mySequence = DOTween.Sequence();
-        mySequence.Append(Target.rectTransform.DOJumpAnchorPos(pos, 500, 1, 0.1f));
+        mySequence.Append(Target.rectTransform.DOJumpAnchorPos(pos, cameraParams.jumpForce, cameraParams.numberOfJumps, cameraParams.jumpDuration));
         return (mySequence);
     }
-
     public void ResetCams()
     {
         Target.rectTransform.anchoredPosition = origin;
