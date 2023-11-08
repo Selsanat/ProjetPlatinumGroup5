@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
 
     public InputActionAsset _ipaPlayercontrols;
     private List<InputAction> _iaActions;
+    private Pause pause;
     public IOrientWriter IOrient;
     public IWantsJumpWriter jump;
     public float triggers;
@@ -32,7 +33,8 @@ public class PlayerInput : MonoBehaviour
     public void SetupInputs()
     {
         //Setup Liste des inputs
-        
+        pause = FindAnyObjectByType<Pause>();   
+
         _iaActions = new List<InputAction>();
         foreach (var action in _ipaPlayercontrols.actionMaps[0].actions)
         {
@@ -61,7 +63,10 @@ public class PlayerInput : MonoBehaviour
             jump.wantsJump = true;
         }
         else jump.wantsJump = false;
-
+        if (_iaActions[2].ReadValue<float>() > 0)
+        {
+            pause.onPause();
+        }
         Vector2 gachettes = _iaActions[1].ReadValue<Vector2>();
         triggers = gachettes.y;
         shoulders = gachettes.x;
