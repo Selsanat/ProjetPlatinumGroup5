@@ -3,27 +3,25 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     private Vector3 center;
-    private float dist;
+    public bool FollowPlayers;
+
+    void Start()
+    {
+        CameraTransition.Instance.cameraFollow = this;
+    }
     void Update()
     {
-
-        if (FindObjectOfType<PlayerStateMachine>() != null)
+        if (FollowPlayers)
         {
-            dist = 0;
-            GetComponent<Camera>().orthographicSize = 0;
-            center = Vector3.zero;  
-            PlayerStateMachine[] players = FindObjectsOfType<PlayerStateMachine>();
-            foreach (PlayerStateMachine player in players)
+            foreach(var player in RoundManager.Instance.alivePlayers)
             {
-                center += player.transform.position;
-                dist += Vector3.Distance(player.transform.position, players[0].transform.position);
+                center += player._playerStateMachine.transform.position;
             }
-
-            dist = dist / players.Length;
-            dist = Mathf.Clamp(dist, 3, dist);
-            transform.position = new Vector3(center.x/ players.Length, center.y/ players.Length);
-            GetComponent<Camera>().orthographicSize = dist;
+            center /= RoundManager.Instance.alivePlayers.Count;
+            center.z = transform.position.z;
+            center.x= Mathf.Clamp(center.x, -CameraTransition.Instance.cameraParams.cameraXmax/2, CameraTransition.Instance.cameraParams.cameraXmax/2);
+            center.y =Mathf.Clamp(center.y, -CameraTransition.Instance.cameraParams.cameraYmax / 2, CameraTransition.Instance.cameraParams.cameraYmax/2);
+            transform.position = center;
         }
-
     }
 }

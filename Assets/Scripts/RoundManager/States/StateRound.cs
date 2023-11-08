@@ -52,6 +52,7 @@ public class StateRound : GameStateTemplate
             makeMainCameraSameAsTransi();
             unlockMovements();
             CameraTransition.Instance.ResetCams();
+            CameraTransition.Instance.cameraFollow.FollowPlayers = true;
 
         });
         CameraTransition.Instance.mySequence.Play();

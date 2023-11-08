@@ -25,4 +25,9 @@ public class CameraParams : ScriptableObject
     public float intervalBetweenPlayers = 1f;
     [Range(0.5f, 5f)]
     public float timeAfterZoomsBeforeRoundStart = 1f;
+
+    [Header("Camera")]
+    public float cameraXmax = 1f;
+    public float cameraYmax = 1f;
+    public float ZpourSeReperer = 1f;
 }

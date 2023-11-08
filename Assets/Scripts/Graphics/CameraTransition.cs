@@ -14,7 +14,7 @@ public class CameraTransition : MonoBehaviour
     public Material Mat;
     public RenderTexture renderTex;
     public Image Target;
-
+    public CameraFollow cameraFollow;
 
 
     [HideInInspector]
@@ -26,6 +26,29 @@ public class CameraTransition : MonoBehaviour
 
     public static CameraTransition Instance { get; private set; }
 
+
+    void OnDrawGizmos()
+    {
+        Camera cam = Camera.main;
+        Vector3 matrixpos = cam.transform.position;
+        matrixpos += cam.transform.rotation.normalized * Vector3.forward * cameraParams.ZpourSeReperer;
+        matrixpos.y -=cam.transform.position.y;
+        Matrix4x4 rotationMatrix = Matrix4x4.TRS(matrixpos, cam.transform.rotation, cam.transform.lossyScale) ;
+        Gizmos.matrix = rotationMatrix;
+        // Green
+        Gizmos.color = new UnityEngine.Color(0.0f, 1.0f, 0.0f);
+        Vector2 center = new Vector3(cam.pixelWidth/2, cam.pixelHeight / 2);
+        Vector2 dimmensions = new Vector3(cameraParams.cameraXmax, cameraParams.cameraYmax);
+        Gizmos.DrawWireCube(Camera.main.ScreenToWorldPoint(center), dimmensions);
+
+        float screenAspect = (float)Screen.width / (float)Screen.height;
+        float camHalfHeight = cam.orthographicSize;
+        float camHalfWidth = screenAspect * camHalfHeight;
+        float camWidth = 2.0f * camHalfWidth;
+        float camHeight = camHalfHeight * 2;
+        Vector2 range = new Vector2(camWidth+ cameraParams.cameraXmax, camHeight + cameraParams.cameraYmax);
+        Gizmos.DrawWireCube(Camera.main.ScreenToWorldPoint(center), dimmensions+ range);    
+    }
     private void Awake()
     {
         if (Instance == null)

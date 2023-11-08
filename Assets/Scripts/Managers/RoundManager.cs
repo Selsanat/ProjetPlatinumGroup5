@@ -131,6 +131,7 @@ public class RoundManager : MonoBehaviour
     }
     public IEnumerator NewRound()
     {
+        CameraTransition.Instance.cameraFollow.FollowPlayers = false;
         CameraTransition.Instance.FreezeIt();
         alivePlayers = new List<Player>(players);
         var scenes = ManagerManager.Instance.gameParams.Scenes;
