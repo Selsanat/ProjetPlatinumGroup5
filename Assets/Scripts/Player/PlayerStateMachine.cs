@@ -10,6 +10,7 @@ public class PlayerStateMachine : MonoBehaviour
     public MovementParams movementsParam;
     public IMouvementLockedReader _iMouvementLockedReader => GetComponent<IMouvementLockedReader>();
     public  IMouvementLockedWriter _iMouvementLockedWriter => GetComponent<IMouvementLockedWriter>();
+
     private PlayerInput _playerInputs;
 
     public IdleState stateIdle { get; } = new IdleState();

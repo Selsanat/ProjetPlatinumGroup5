@@ -31,8 +31,8 @@ public class ToolHierarchy : MonoBehaviour
         
         if (_setUp)
         {
-            changeCategorie();
-            addCategorie();
+            addCategories();
+            createGameObjectCategories();
             organiseCategorie();
             _setUp = false;
         }
@@ -44,28 +44,25 @@ public class ToolHierarchy : MonoBehaviour
         
     }
 
-    private void changeCategorie()
+    private void addCategories()
     {
+        categorie.Clear();
         foreach (string str in UnityEditorInternal.InternalEditorUtility.tags)
         {
             string str3 = str;
             str3 = "------" + str3 + "------";
-            if (GameObject.Find(str3) == null)
-            {
-                categorie.Add(str3);
+            categorie.Add(str3);
 
-            }
+            
         }
         string str2;
         str2 = "------UI------";
-        if (GameObject.Find(str2) == null)
-        {
-            categorie.Add(str2);
+        categorie.Add(str2);
 
-        }
+        
     }
 
-    private void addCategorie()
+    private void createGameObjectCategories()
     {
         foreach (string str in categorie) 
         {
@@ -80,8 +77,12 @@ public class ToolHierarchy : MonoBehaviour
 
     private void resetCategorie()
     {
+        categorie.Clear();
+        addCategories();
+        print(categorie.Count);
         foreach(string str in categorie)
         {
+            print(str);
             GameObject ob = GameObject.Find(str);
             if (ob != null)
             {
@@ -148,6 +149,8 @@ public class ToolHierarchy : MonoBehaviour
         foreach (string str in categorie)
         {
             GameObject ob = GameObject.Find(str);
+            if (ob == null)
+                return;
             if (ob.transform.childCount == 0)
             {
                 UnityEngine.Object.DestroyImmediate(ob);

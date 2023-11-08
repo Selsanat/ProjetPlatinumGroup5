@@ -48,8 +48,6 @@ public class RoundManager : MonoBehaviour
             _playerInputs = playerStateMachine._playerInputs;
             _playerStateMachine = playerStateMachine._playerStateMachine;
             _team = team;
-            print((int)_team);
-            print(_team);
             print(RoundManager.Instance.teamColors[(int)_team]);
             playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
         }
