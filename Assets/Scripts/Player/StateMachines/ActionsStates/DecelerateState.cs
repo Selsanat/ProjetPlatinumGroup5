@@ -41,7 +41,7 @@ public class DecelerateState : TemplateState
             Ray ray = new Ray(origin, Vector2.down);
             Vector3 dir = Vector3.Cross(StateMachine.transform.position, HitInfo.normal);
 
-            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold)))
+            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold), ~LayerMask.GetMask("boule") + LayerMask.GetMask("Player")))
             {
                 dir.z = 0;
                 dir *= -_IOrientWriter.orient.x;

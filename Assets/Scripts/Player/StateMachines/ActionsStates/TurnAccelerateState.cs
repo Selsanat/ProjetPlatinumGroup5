@@ -39,7 +39,7 @@ public class TurnAccelerateState : TemplateState
             Ray ray = new Ray(origin, Vector2.down);
             Vector3 dir = Vector3.Cross(StateMachine.transform.position, HitInfo.normal);
 
-            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold)))
+            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold), ~LayerMask.GetMask("boule") + LayerMask.GetMask("Player")))
             {
                 dir.z = 0;
                 dir *= -_IOrientWriter.orient.x;
@@ -90,6 +90,7 @@ public class TurnAccelerateState : TemplateState
         if (Mathf.Abs(StateMachine.velocity.x) >= _movementParams.maxSpeed)
         {
             StateMachine.transform.Translate(StateMachine.velocity);
+            StateMachine.velocity.x = Mathf.Abs(StateMachine.velocity.x) * _IOrientWriter.orient.x;
             StateMachine.ChangeState(StateMachine.stateWalk);
             return;
         }
