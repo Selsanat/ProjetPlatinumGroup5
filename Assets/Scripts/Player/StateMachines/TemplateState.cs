@@ -35,8 +35,14 @@ public abstract class TemplateState
             StateMachine.velocity.x = 0;
             StateMachine.velocity.y = 0;
         }
+
+        if (_iWantsJumpWriter.wantsJump)
+        {
+            StateMachine.JumpBuffer = movementParams.JumpBuffer;
+        }
+        else
+        {
+            StateMachine.JumpBuffer -= Time.deltaTime;
+        }
     }
-
-
-
 }

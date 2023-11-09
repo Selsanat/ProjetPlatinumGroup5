@@ -29,6 +29,7 @@ public class StateRound : GameStateTemplate
     void AnimationDebutDeRound()
     {
         cam = Camera.main;
+        float initOrthoSize = cam.orthographicSize;
         DOTween.Init();
         Vector3 StartPos = cam.transform.position;
         Sequence mySequence = DOTween.Sequence();
@@ -41,7 +42,7 @@ public class StateRound : GameStateTemplate
             mySequence.AppendInterval(1);
         }
         mySequence.Append(cam.transform.DOMove(StartPos, 1, false));
-        mySequence.Join(cam.DOOrthoSize(15, 1));
+        mySequence.Join(cam.DOOrthoSize(initOrthoSize, 1));
         mySequence.OnComplete(unlockMovements);
         mySequence.Play();
        
