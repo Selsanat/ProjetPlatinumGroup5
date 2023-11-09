@@ -32,7 +32,7 @@ public class WalkState : TemplateState
 
         #region Jump
 
-        if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
+        if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
         {
             StateMachine.ChangeState(StateMachine.jumpState);
             return;
@@ -52,7 +52,7 @@ public class WalkState : TemplateState
             Vector3 dir = Vector3.Cross(StateMachine.transform.position, HitInfo.normal);
 
             Debug.DrawRay(origin, Vector2.down * (distance + _movementParams.slideSlopeThresHold), Color.cyan);
-            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold)))
+            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold),~LayerMask.GetMask("boule") + LayerMask.GetMask("Player")))
             {
                 if (distanceGround == 0)
                 {

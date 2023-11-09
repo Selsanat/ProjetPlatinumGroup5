@@ -10,6 +10,7 @@ public class IdleState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
+        if(StateMachine.bouleMouvement!= null)
         StateMachine.bouleMouvement.gameObject.SetActive(true);
         animator.Play("Idle");
         if(_IOrientWriter.orient.x==0)
@@ -25,10 +26,9 @@ public class IdleState : TemplateState
             StateMachine.ChangeState(StateMachine.fallState);
             return;
         }
-
         else
         {
-            if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
+            if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
             {
                 StateMachine.ChangeState(StateMachine.jumpState);
                 return;

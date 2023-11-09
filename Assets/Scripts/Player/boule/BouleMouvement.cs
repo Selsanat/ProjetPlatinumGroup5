@@ -231,7 +231,6 @@ public class BouleMouvement : MonoBehaviour
         }
         if (Vector3.Distance(transform.position, _target) < _bouleParams._distancePoints && _target != _contactPoints[0])
         {
-            print("next point");
             _destPoint--;
             _target = _contactPoints[_destPoint];
         }
@@ -279,7 +278,7 @@ public class BouleMouvement : MonoBehaviour
         {
             stateBoule = StateBoule.reseting;
             transform.LookAt(_playerPivot);
-            _sphereCollider.isTrigger = true;
+            //_sphereCollider.isTrigger = true;
 
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;

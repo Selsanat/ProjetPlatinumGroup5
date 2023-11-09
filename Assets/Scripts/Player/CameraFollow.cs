@@ -1,29 +1,39 @@
+using Cinemachine.Utility;
+using DG.Tweening;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     private Vector3 center;
-    private float dist;
+    public bool FollowPlayers;
+
+    void Start()
+    {
+        CameraTransition.Instance.cameraFollow = this;
+    }
     void Update()
     {
-
-        if (FindObjectOfType<PlayerStateMachine>() != null)
+        if (FollowPlayers)
         {
-            dist = 0;
-            GetComponent<Camera>().orthographicSize = 0;
-            center = Vector3.zero;  
-            PlayerStateMachine[] players = FindObjectsOfType<PlayerStateMachine>();
-            foreach (PlayerStateMachine player in players)
+            foreach(var player in RoundManager.Instance.alivePlayers)
             {
-                center += player.transform.position;
-                dist += Vector3.Distance(player.transform.position, players[0].transform.position);
+                center += player._playerStateMachine.transform.position;
             }
 
-            dist = dist / players.Length;
-            dist = Mathf.Clamp(dist, 3, dist);
-            transform.position = new Vector3(center.x/ players.Length, center.y/ players.Length);
-            GetComponent<Camera>().orthographicSize = dist;
-        }
+            Camera Maincam = CameraTransition.Instance.MainCam;
+            Camera cam = CameraTransition.Instance.TransitionCam;
+            CameraParams Params = CameraTransition.Instance.cameraParams;
+            Vector3 CamPos = cam.transform.position;
 
+            Vector3 dir = (cam.transform.forward + cam.transform.rotation.eulerAngles).normalized;
+            Vector3 toADD = (dir * Vector3.Distance(center, CamPos)).Abs();
+
+            center /= RoundManager.Instance.alivePlayers.Count;
+            center.z = CamPos.z;
+            center.x = Mathf.Clamp(center.x, Maincam.transform.position.x-Params.cameraXmax/ 2, Maincam.transform.position.x + Params.cameraXmax/2);
+            center.y =Mathf.Clamp(center.y, Maincam.transform.position.y -Params.cameraYmax/2, Maincam.transform.position.y +Params.cameraYmax/2);
+
+            cam.transform.DOMove(center, CameraTransition.Instance.cameraParams.CameraFollowSmoothness);
+        }
     }
 }
