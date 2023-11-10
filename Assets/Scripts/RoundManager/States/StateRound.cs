@@ -39,6 +39,8 @@ public class StateRound : GameStateTemplate
         foreach (var player in inputsManager.playerInputs)
         {
             Vector3 pos = player._playerStateMachine.transform.position;
+            //A cause de la rotation de la camera
+            pos.y -= (Camera.main.transform.rotation * Camera.main.transform.forward).y * Mathf.Abs(pos.x - Camera.main.transform.position.x);
             pos.z = StartPos.z;
             mySequence.Append(cam.transform.DOMove(pos, cameraParams.timeToMoveFromPlayerToPlayer, false)).SetEase(Ease.InQuad);
             mySequence.Join(cam.DOOrthoSize(cameraParams.Zoom, cameraParams.TimeToZoom).SetEase(Ease.OutSine));

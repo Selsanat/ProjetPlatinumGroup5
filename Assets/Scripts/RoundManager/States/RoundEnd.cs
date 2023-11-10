@@ -6,16 +6,18 @@ using UnityEngine.SceneManagement;
 public class RoundEnd : GameStateTemplate
 {
     private Camera cam;
+    CameraParams camparam;
     protected override void OnStateInit()
     {
     }
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
+        camparam = CameraTransition.Instance.cameraParams;
         CameraTransition.Instance.cameraFollow.FollowPlayers = false;
         StateMachine.HideAllMenusExceptThis(ui);
         cam = CameraTransition.Instance.TransitionCam;
-        cam.DOOrthoSize(5,1);
+        cam.DOOrthoSize(camparam.OrthoSizeRoundEnd,camparam.TimeToZoomEndRound);
         StateMachine.StartCoroutine(NextRound());
     }
 
@@ -24,8 +26,8 @@ public class RoundEnd : GameStateTemplate
         if (cam != null)
         {
             Vector3 playerPos = RoundManager.Instance.alivePlayers[0]._playerStateMachine.gameObject.transform.position;
-            playerPos.z = -10;
-            CameraTransition.Instance.TransitionCam.transform.DOMove(playerPos, 0.1f);
+            playerPos.z = -camparam.distanceZAlaCam;
+            CameraTransition.Instance.TransitionCam.transform.DOMove(playerPos, camparam.SmoothnessZoomRoundEnd);
         }
     }
 
