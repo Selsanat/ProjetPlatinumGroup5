@@ -26,8 +26,7 @@ public class JumpState : TemplateState
 
     protected override void OnStateUpdate()
     {
-
-        if (StateMachine.velocity.y < 0 || DetectCollision.isColliding(Vector2.up, StateMachine.transform, Vector3.zero, false))
+        if ((StateMachine.velocity.y < 0 || DetectCollision.isColliding(Vector2.up, StateMachine.transform, Vector3.zero, false)) ||StateMachine._iMouvementLockedReader.isMouvementLocked)
         {
             StateMachine.ChangeState(StateMachine.fallState);
             return;

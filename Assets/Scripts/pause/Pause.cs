@@ -34,6 +34,10 @@ public class Pause : MonoBehaviour
         }
         else
         {
+            foreach (var player in InputsManager.Instance.playerInputs)
+            {
+                player._playerStateMachine._iMouvementLockedWriter.isMouvementLocked = false;
+            }
             Time.timeScale = 1;
             GameObject.Find("Continue").GetComponent<Button>().onClick.RemoveAllListeners();
             GameObject.Find("quit").GetComponent<Button>().onClick.RemoveAllListeners();
