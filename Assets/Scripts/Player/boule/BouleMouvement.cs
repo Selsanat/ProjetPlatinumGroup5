@@ -15,6 +15,7 @@ public class BouleMouvement : MonoBehaviour
     [Header("Le player ne pas touch�")]
     public Transform _playerTransform;
     public bool _clockwise = true;
+    public ParticleSystem particleSystem;
 
     #endregion
 
@@ -23,20 +24,20 @@ public class BouleMouvement : MonoBehaviour
     [HideInInspector]
     public PlayerInput _playerInputs;
     [HideInInspector]
-    private PlayerStateMachine ParentMachine;
-    private Vector3 _beforeThrow;
-    private Rigidbody _rb;
-    private List<Vector3> _contactPoints;
-    private Vector3 _target;
-    private int _destPoint;
-    private float _distance;
-    private SphereCollider _sphereCollider;
-    private float currentSpeed = 0;
-    private float _lerpTime = 0;
-    private bool _isLerpSlowFinished = false;
-    private List<GameObject> _collidingObject;
-    private Vector3 _vecHit;
-    private float _timeThrowing = 0;
+    public PlayerStateMachine ParentMachine;
+    public Vector3 _beforeThrow;
+    public Rigidbody _rb;
+    public List<Vector3> _contactPoints;
+    public Vector3 _target;
+    public int _destPoint;
+    public float _distance;
+    public SphereCollider _sphereCollider;
+    public float currentSpeed = 0;
+    public float _lerpTime = 0;
+    public bool _isLerpSlowFinished = false;
+    public List<GameObject> _collidingObject;
+    public Vector3 _vecHit;
+    public float _timeThrowing = 0;
     //return boule
     public BouleParams _bouleParams;// => _manager.bouleParams;
 
@@ -85,13 +86,13 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInputs.triggers>0 && stateBoule == StateBoule.idle && ParentMachine._iMouvementLockedReader.isMouvementLocked == false) // Quand le joueur appuie sur la touche
+        if (_playerInputs.triggers > 0 && stateBoule == StateBoule.idle && !ParentMachine._iMouvementLockedReader.isMouvementLocked) // Quand le joueur appuie sur la touche
         {
             _sphereCollider.material = _bounce;
             stateBoule = StateBoule.throwing;
             updateThrowing();
         }
-        if (_playerInputs.triggers<1 && stateBoule == StateBoule.throwing)
+        if (_playerInputs.triggers < 1 && stateBoule == StateBoule.throwing)
         {
             setUpBoule();
             _timeThrowing = 0;
@@ -136,7 +137,12 @@ public class BouleMouvement : MonoBehaviour
 
     }
 
-
+    public void resetChangeScene()
+    {
+        _contactPoints.Clear();
+        _collidingObject.Clear();
+        print("change sceen");
+    }
     private void FixedUpdate()
     {
         if (stateBoule == StateBoule.idle)
@@ -377,6 +383,7 @@ public class BouleMouvement : MonoBehaviour
             else
                 return;
         }
+        particleSystem.Play();
         _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
         _collidingObject.Add(collision.gameObject);
         if (stateBoule == StateBoule.throwing)
