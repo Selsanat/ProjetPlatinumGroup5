@@ -10,6 +10,7 @@ public class StateRound : GameStateTemplate
 {
     private Camera cam;
     private CameraParams cameraParams;
+    public bool _isPaused = false;
     protected override void OnStateInit()
     {
     }
@@ -25,6 +26,15 @@ public class StateRound : GameStateTemplate
 
     protected override void OnStateUpdate()
     {
+        if(_isPaused)
+        {
+            lockMouvements();
+            GameObject.FindObjectOfType<Pause>().onPause();
+        }
+        else
+        {
+            unlockMovements();
+        }
     }
 
     #region Animation Debut De round
@@ -73,6 +83,14 @@ public class StateRound : GameStateTemplate
         foreach (var player in inputsManager.playerInputs)
         {
             player._playerStateMachine._iMouvementLockedWriter.isMouvementLocked = false;
+        }
+    }
+
+    void lockMouvements()
+    {
+        foreach (var player in inputsManager.playerInputs)
+        {
+            player._playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
         }
     }
     #endregion

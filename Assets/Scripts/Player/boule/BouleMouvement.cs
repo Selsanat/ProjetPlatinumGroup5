@@ -23,7 +23,7 @@ public class BouleMouvement : MonoBehaviour
     [HideInInspector]
     public PlayerInput _playerInputs;
     [HideInInspector]
-    public PlayerStateMachine ParentMachine;
+    private PlayerStateMachine ParentMachine;
     private Vector3 _beforeThrow;
     private Rigidbody _rb;
     private List<Vector3> _contactPoints;
@@ -38,8 +38,6 @@ public class BouleMouvement : MonoBehaviour
     private Vector3 _vecHit;
     private float _timeThrowing = 0;
     //return boule
-    private RoundManager _roundManager => RoundManager.Instance;
-    private ManagerManager _manager => ManagerManager.Instance;
     public BouleParams _bouleParams;// => _manager.bouleParams;
 
     private enum StateBoule
@@ -55,7 +53,6 @@ public class BouleMouvement : MonoBehaviour
     {
         GUILayout.Label("distance base : " + _distance);
         GUILayout.Label("state idle: " + stateBoule);
-
         GUILayout.Label("timer : " + _timeThrowing);
         GUILayout.Label("distance : " + Vector3.Distance(_playerPivot.position, this.transform.position));
     }
@@ -143,11 +140,14 @@ public class BouleMouvement : MonoBehaviour
     private void FixedUpdate()
     {
         if (stateBoule == StateBoule.idle)
+        {
             updateRotationBoule();
+            _contactPoints.Clear();
+        }
         if (stateBoule == StateBoule.returning)
             returnBoule();
 
-        
+
 
         if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) <= _bouleParams._distanceCloseEneaughtUpdate))
         {

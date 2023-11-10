@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DG;
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+
 
 
 public class RoundManager : MonoBehaviour
@@ -48,6 +50,7 @@ public class RoundManager : MonoBehaviour
             _playerInputs = playerStateMachine._playerInputs;
             _playerStateMachine = playerStateMachine._playerStateMachine;
             _team = team;
+            
             playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
         }
     }
@@ -152,6 +155,12 @@ public class RoundManager : MonoBehaviour
             RoundEnd();
             GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
         }
+    }
+    [Button]
+    public void EndRoundTest()
+    {
+        RoundEnd();
+        GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
     }
 }
 
