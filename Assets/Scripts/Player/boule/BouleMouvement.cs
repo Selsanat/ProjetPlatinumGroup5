@@ -23,7 +23,7 @@ public class BouleMouvement : MonoBehaviour
     [HideInInspector]
     public PlayerInput _playerInputs;
     [HideInInspector]
-    public PlayerStateMachine ParentMachine;
+    private PlayerStateMachine ParentMachine;
     private Vector3 _beforeThrow;
     private Rigidbody _rb;
     private List<Vector3> _contactPoints;
@@ -140,11 +140,14 @@ public class BouleMouvement : MonoBehaviour
     private void FixedUpdate()
     {
         if (stateBoule == StateBoule.idle)
+        {
             updateRotationBoule();
+            _contactPoints.Clear();
+        }
         if (stateBoule == StateBoule.returning)
             returnBoule();
 
-        
+
 
         if ((Mathf.Abs(_distance - Vector3.Distance(_playerPivot.position, this.transform.position)) <= _bouleParams._distanceCloseEneaughtUpdate))
         {
