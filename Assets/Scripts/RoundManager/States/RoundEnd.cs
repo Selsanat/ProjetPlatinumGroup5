@@ -12,8 +12,9 @@ public class RoundEnd : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
+        CameraTransition.Instance.cameraFollow.FollowPlayers = false;
         StateMachine.HideAllMenusExceptThis(ui);
-        cam = Camera.main;
+        cam = CameraTransition.Instance.TransitionCam;
         cam.DOOrthoSize(5,1);
         StateMachine.StartCoroutine(NextRound());
     }
@@ -24,7 +25,7 @@ public class RoundEnd : GameStateTemplate
         {
             Vector3 playerPos = RoundManager.Instance.alivePlayers[0]._playerStateMachine.gameObject.transform.position;
             playerPos.z = -10;
-            cam.transform.DOMove(playerPos, 0.1f);
+            CameraTransition.Instance.TransitionCam.transform.DOMove(playerPos, 0.1f);
         }
     }
 

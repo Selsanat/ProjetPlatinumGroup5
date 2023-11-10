@@ -1,4 +1,5 @@
-using UnityEditor;
+
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -15,5 +16,8 @@ public class GameParams : ScriptableObject
     public float TransiTimeAfterRound = 1;
 
     [SerializeField]
-    public SceneAsset[] Scenes;
+    public string[] Scenes;
+
+    [HideInInspector]
+    public Object[] objects = new Object[1];
 }
