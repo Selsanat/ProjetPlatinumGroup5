@@ -10,6 +10,7 @@ public class PlayerStateMachine : MonoBehaviour
     public MovementParams movementsParam;
     public IMouvementLockedReader _iMouvementLockedReader => GetComponent<IMouvementLockedReader>();
     public  IMouvementLockedWriter _iMouvementLockedWriter => GetComponent<IMouvementLockedWriter>();
+
     private PlayerInput _playerInputs;
 
     public IdleState stateIdle { get; } = new IdleState();
@@ -78,6 +79,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         Vector3 x = gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale;
         gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale = new Vector3(Mathf.Sign(velocity.x), x.y,x.z);
         CurrentState.StateUpdate();

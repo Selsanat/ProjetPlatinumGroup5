@@ -28,11 +28,6 @@ public abstract class TemplateState
         OnStateUpdate();
 
         if(StateMachine.CoyoteWindow>0) StateMachine.CoyoteWindow -= Time.deltaTime;
-        if (StateMachine._iMouvementLockedReader.isMouvementLocked)
-        {
-            StateMachine.velocity.x = 0;
-            StateMachine.velocity.y = 0;
-        }
 
         if (_iWantsJumpWriter.wantsJump && StateMachine.CurrentState != StateMachine.jumpState)
         {

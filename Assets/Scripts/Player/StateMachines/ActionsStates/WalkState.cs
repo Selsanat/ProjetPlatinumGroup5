@@ -22,6 +22,7 @@ public class WalkState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        if (StateMachine._iMouvementLockedReader.isMouvementLocked) return;
         #region Death
         if (StateMachine._iMouvementLockedReader.isMouvementLocked)
         {
@@ -52,7 +53,7 @@ public class WalkState : TemplateState
             Vector3 dir = Vector3.Cross(StateMachine.transform.position, HitInfo.normal);
 
             Debug.DrawRay(origin, Vector2.down * (distance + _movementParams.slideSlopeThresHold), Color.cyan);
-            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold)))
+            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold),~LayerMask.GetMask("boule") + LayerMask.GetMask("Player")))
             {
                 if (distanceGround == 0)
                 {
