@@ -20,12 +20,13 @@ public class JumpState : TemplateState
         StateMachine.velocity.x *= _movementParams.inertieLoss;
         StateMachine.velocity.y = 2 * h / th;
         StateMachine.JumpBuffer = 0;
+        StateMachine.CoyoteWindow = 0;
+
     }
 
     protected override void OnStateUpdate()
     {
-
-        if (StateMachine.velocity.y < 0 || DetectCollision.isColliding(Vector2.up, StateMachine.transform, Vector3.zero, false))
+        if ((StateMachine.velocity.y < 0 || DetectCollision.isColliding(Vector2.up, StateMachine.transform, Vector3.zero, false)) ||StateMachine._iMouvementLockedReader.isMouvementLocked)
         {
             StateMachine.ChangeState(StateMachine.fallState);
             return;

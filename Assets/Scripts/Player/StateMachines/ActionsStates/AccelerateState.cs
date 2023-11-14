@@ -20,11 +20,11 @@ public class AccelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
-
+        if (StateMachine._iMouvementLockedReader.isMouvementLocked) return;
 
         _timer += Time.deltaTime;
         #region Jump
-        if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
+        if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
         {
             StateMachine.ChangeState(StateMachine.jumpState);
             return;
@@ -39,7 +39,7 @@ public class AccelerateState : TemplateState
             Ray ray = new Ray(origin, Vector2.down);
             Vector3 dir = Vector3.Cross(StateMachine.transform.position, HitInfo.normal);
 
-            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold)))
+            if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold), ~LayerMask.GetMask("boule") + LayerMask.GetMask("Player")))
             {
                 dir.z = 0;
                 dir *= -_IOrientWriter.orient.x;
