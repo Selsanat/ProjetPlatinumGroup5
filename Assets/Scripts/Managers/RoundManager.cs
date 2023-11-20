@@ -136,6 +136,11 @@ public class RoundManager : MonoBehaviour
     {
         CameraTransition.Instance.FreezeIt();
         alivePlayers = new List<Player>(players);
+        var allboules = FindObjectsOfType<BouleMouvement>();
+        for(int i = 0; i < players.Count; i++)
+        {
+            allboules[i].resetChangeScene();
+        }
         var scenes = ManagerManager.Instance.gameParams.Scenes;
         string sceneName = scenes[Random.Range(0, scenes.Length-1)];
         var asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
