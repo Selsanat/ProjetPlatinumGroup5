@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("Main Mixer")]
     [SerializeField] private AudioMixerGroup audioMixerGroup;
+    [SerializeField] private AudioMixer audioMixer;
 
     [Header("All the clips")]
     [SerializeField] private Sounds[] sounds;
