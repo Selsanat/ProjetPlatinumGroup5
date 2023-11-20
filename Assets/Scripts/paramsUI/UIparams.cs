@@ -13,4 +13,9 @@ public class UIparams : MonoBehaviour
         _audioMixer.SetFloat("Volume", _slider.value);
         
     }
+    private void OnEnable()
+    {
+        _slider.Select();
+    }
+    
 }
