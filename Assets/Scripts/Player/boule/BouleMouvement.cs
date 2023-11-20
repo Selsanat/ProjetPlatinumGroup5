@@ -98,7 +98,7 @@ public class BouleMouvement : MonoBehaviour
             _timeThrowing = 0;
         }
 
-        stayup();
+        //stayup();
         
         if (stateBoule == StateBoule.reseting && _collidingObject.Count != 0)
         {
@@ -330,7 +330,7 @@ public class BouleMouvement : MonoBehaviour
         stateBoule = StateBoule.returning;
 
     }
-    private void stayup()
+   /* private void stayup()
     {
         RaycastHit hit;
         if (_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f) && stateBoule == StateBoule.idle)
@@ -356,7 +356,7 @@ public class BouleMouvement : MonoBehaviour
 
         }
 
-    }
+    }*/
 
     private void OnCollisionEnter(Collision collision)
     {
