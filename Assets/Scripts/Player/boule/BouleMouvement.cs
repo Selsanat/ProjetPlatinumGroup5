@@ -314,18 +314,7 @@ public class BouleMouvement : MonoBehaviour
                     break;
                 }
                 print("continue " + hit.gameObject.name);
-                if (hit.gameObject.tag == "Player")
-                {
-                    PlayerStateMachine StateMachine = hit.gameObject.GetComponentInChildren<PlayerStateMachine>();
-                    if (StateMachine.CurrentState != StateMachine.deathState)
-                    {
-                        RoundManager.Instance.KillPlayer(StateMachine);
-                        StateMachine.ChangeState(StateMachine.deathState);
-                    }
-                    if (stateBoule == StateBoule.throwing)
-                        setUpBoule();
-
-                }
+                
                 print("hit");
                 particleSystem.Play();
                 _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
@@ -384,14 +373,28 @@ public class BouleMouvement : MonoBehaviour
         stateBoule = StateBoule.returning;
 
     }
-   
-
-    
-
-    
 
 
-    
+
+
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
+            if (StateMachine.CurrentState != StateMachine.deathState)
+            {
+                RoundManager.Instance.KillPlayer(StateMachine);
+                StateMachine.ChangeState(StateMachine.deathState);
+            }
+            if (stateBoule == StateBoule.throwing)
+                setUpBoule();
+
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
