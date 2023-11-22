@@ -105,7 +105,7 @@ public class BouleMouvement : MonoBehaviour
             _timeThrowing = 0;
         }
 
-        hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius);
+        
         
         //stayup();
 
@@ -382,9 +382,10 @@ public class BouleMouvement : MonoBehaviour
         {
             return;
         }
+        hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius);
         //if(collision.gameObject.tag == "rebondi")
-        
-        if(collision.gameObject.tag == "Player" )
+
+        if (collision.gameObject.tag == "Player" )
         {
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
             if (StateMachine.CurrentState != StateMachine.deathState)
@@ -413,8 +414,8 @@ public class BouleMouvement : MonoBehaviour
     {
         _collidingObject.Remove(collision.gameObject);
 
-        
 
+        hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius);
         if (_collidingObject.Count > 0)
             _clockwise = !_clockwise;
     }
