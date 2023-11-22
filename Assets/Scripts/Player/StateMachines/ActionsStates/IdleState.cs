@@ -26,10 +26,9 @@ public class IdleState : TemplateState
             StateMachine.ChangeState(StateMachine.fallState);
             return;
         }
-
         else
         {
-            if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
+            if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
             {
                 StateMachine.ChangeState(StateMachine.jumpState);
                 return;

@@ -23,26 +23,33 @@ public abstract class TemplateState
 
     public void StateEnter(TemplateState previousState) => OnStateEnter(previousState);
     public void StateExit(TemplateState nextState) => OnStateExit(nextState);
-    public void StateUpdate() => OnStateUpdate();
-    protected virtual void OnStateInit() { }
-    protected virtual void OnStateEnter(TemplateState previousState) { }
-    protected virtual void OnStateExit(TemplateState nextState) { }
-
-    protected virtual void OnStateUpdate()
+    public void StateUpdate()
     {
-        if(StateMachine._iMouvementLockedReader.isMouvementLocked)
+        OnStateUpdate();
+
+        if(StateMachine.CoyoteWindow>0) StateMachine.CoyoteWindow -= Time.deltaTime;
+        if (StateMachine._iMouvementLockedReader.isMouvementLocked)
         {
             StateMachine.velocity.x = 0;
             StateMachine.velocity.y = 0;
         }
 
-        if (_iWantsJumpWriter.wantsJump)
+        if (_iWantsJumpWriter.wantsJump && StateMachine.CurrentState != StateMachine.jumpState)
         {
             StateMachine.JumpBuffer = movementParams.JumpBuffer;
         }
         else
         {
-            StateMachine.JumpBuffer -= Time.deltaTime;
+            if (StateMachine.JumpBuffer > 0)
+            {
+                StateMachine.JumpBuffer -= Time.deltaTime;
+                StateMachine.JumpBuffer = Mathf.Clamp(StateMachine.JumpBuffer, 0, movementParams.JumpBuffer);
+            }
         }
     }
+
+    protected virtual void OnStateInit() { }
+    protected virtual void OnStateEnter(TemplateState previousState) { }
+    protected virtual void OnStateExit(TemplateState nextState) { }
+    protected virtual void OnStateUpdate() { }
 }

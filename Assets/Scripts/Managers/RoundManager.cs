@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DG;
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+
 
 
 public class RoundManager : MonoBehaviour
@@ -48,9 +50,7 @@ public class RoundManager : MonoBehaviour
             _playerInputs = playerStateMachine._playerInputs;
             _playerStateMachine = playerStateMachine._playerStateMachine;
             _team = team;
-            print((int)_team);
-            print(_team);
-            print(RoundManager.Instance.teamColors[(int)_team]);
+            
             playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
         }
     }
@@ -134,9 +134,15 @@ public class RoundManager : MonoBehaviour
     }
     public IEnumerator NewRound()
     {
+        CameraTransition.Instance.FreezeIt();
         alivePlayers = new List<Player>(players);
+        var allboules = FindObjectsOfType<BouleMouvement>();
+        for(int i = 0; i < players.Count; i++)
+        {
+            allboules[i].resetChangeScene();
+        }
         var scenes = ManagerManager.Instance.gameParams.Scenes;
-        string sceneName = scenes[Random.Range(0, scenes.Length)].name;
+        string sceneName = scenes[Random.Range(0, scenes.Length-1)];
         var asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         while (!asyncLoadLevel.isDone)
         {
@@ -154,6 +160,12 @@ public class RoundManager : MonoBehaviour
             RoundEnd();
             GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
         }
+    }
+    [Button]
+    public void EndRoundTest()
+    {
+        RoundEnd();
+        GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
     }
 }
 

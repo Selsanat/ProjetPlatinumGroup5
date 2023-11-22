@@ -16,8 +16,6 @@ public class MovementParams : ScriptableObject
     [Tooltip("Time to reach jumpheight")] public float jumpDuration = 1;
     [Range(0, 0.3f)]
     [Tooltip("Saut Min")] public float minJump = 0;
-    [Range(0, 2)]
-    [Tooltip("Temps alloué au joueur pour sauter alors qu'il n'est plus sur la plateforme")] public float coyoteWindow = 0;
     [Range(0, 1)]
     [Tooltip("% of jumpforce subtracted to run speed")] public float inertieLoss = 0.15f;
 
@@ -28,6 +26,9 @@ public class MovementParams : ScriptableObject
 
     [Range(0, 1)]
     [Tooltip("Jump Buffer")] public float JumpBuffer = 0.2f;
+
+    [Range(0, 1)]
+    [Tooltip("Temps alloué au joueur pour sauter alors qu'il n'est plus sur la plateforme")] public float CoyoteWindow = 0.2f;
 
     #endregion
 

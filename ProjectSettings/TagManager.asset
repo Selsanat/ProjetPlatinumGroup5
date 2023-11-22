@@ -4,11 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Team1
-  - Team2
   - SpawnPoints
-  - Teleporter
   - Cube
+  - Manager
+  - Organisation
+  - Tool
+  - Grid
+  - pause
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - boule
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - ResetCollision
   - 
   - 
   - 
@@ -45,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Transi
+    uniqueID: 3178520159
     locked: 0

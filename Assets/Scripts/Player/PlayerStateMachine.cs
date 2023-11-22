@@ -10,6 +10,7 @@ public class PlayerStateMachine : MonoBehaviour
     public MovementParams movementsParam;
     public IMouvementLockedReader _iMouvementLockedReader => GetComponent<IMouvementLockedReader>();
     public  IMouvementLockedWriter _iMouvementLockedWriter => GetComponent<IMouvementLockedWriter>();
+
     private PlayerInput _playerInputs;
 
     public IdleState stateIdle { get; } = new IdleState();
@@ -42,6 +43,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public Vector2 velocity;
     public float JumpBuffer;
+    public float CoyoteWindow;
     public bool activeHUD = false;
 
     public BouleMouvement bouleMouvement;
@@ -91,6 +93,7 @@ public class PlayerStateMachine : MonoBehaviour
         GUILayout.Label(velocity+"");
         GUILayout.Label(Time.time + "");
         GUILayout.Label("Jump Buffer :" + JumpBuffer);
+        GUILayout.Label("Coyote Window :" + CoyoteWindow);
         GUILayout.EndVertical();
     }
     private void _InitAllStates()
@@ -106,7 +109,6 @@ public class PlayerStateMachine : MonoBehaviour
         {
             CurrentState.StateExit(state);
         }
-        //print("State was :" + CurrentState + " And now is : " + state);
         PreviousState = CurrentState;
         CurrentState = state;
         if (CurrentState != null)
@@ -114,14 +116,4 @@ public class PlayerStateMachine : MonoBehaviour
             CurrentState.StateEnter(state);
         }
     }
-
-    /*public void getHit()
-    {
-        if(CurrentState != deathState)
-        {
-            ChangeState(deathState);
-            
-        }
-    }*/
-    
 }
