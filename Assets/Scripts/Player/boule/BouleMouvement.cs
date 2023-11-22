@@ -89,12 +89,12 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInputs.triggers > 0 && stateBoule == StateBoule.idle && !ParentMachine._iMouvementLockedReader.isMouvementLocked && hits.Length == 1) // Quand le joueur appuie sur la touche
+        if (_playerInputs.triggers > 0 && stateBoule == StateBoule.idle && !ParentMachine._iMouvementLockedReader.isMouvementLocked) // Quand le joueur appuie sur la touche && hits.Length == 1
         {
-            if (hits[0] != _sphereCollider)
+/*            if (hits[0] != _sphereCollider)
             {
                 return;
-            }
+            }*/
             _sphereCollider.material = _bounce;
             stateBoule = StateBoule.throwing;
             updateThrowing();
