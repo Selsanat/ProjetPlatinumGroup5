@@ -23,6 +23,7 @@ public class TurnAccelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        if (StateMachine._iMouvementLockedReader.isMouvementLocked) return;
         #region Jump
         if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
         {

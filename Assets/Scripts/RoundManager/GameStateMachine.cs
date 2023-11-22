@@ -129,6 +129,7 @@ public class GameStateMachine : MonoBehaviour
     
     public void ChangeState(string state)
     {
+        if(state == CurrentState.GetType().ToString()) return;
         StartCoroutine(ChangeStateCoroutine(state));
     }
     private IEnumerator ChangeStateCoroutine(string state)
@@ -145,6 +146,7 @@ public class GameStateMachine : MonoBehaviour
 
     public void ChangeScene(string scene)
     {
+        if(scene == SceneManager.GetActiveScene().name) return;
         CameraTransition.Instance.FreezeIt();
         EventSystem.current.SetSelectedGameObject(null);
         asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);

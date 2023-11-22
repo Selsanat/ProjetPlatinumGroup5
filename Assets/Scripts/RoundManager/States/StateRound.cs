@@ -31,15 +31,12 @@ public class StateRound : GameStateTemplate
             lockMouvements();
             GameObject.FindObjectOfType<Pause>().onPause();
         }
-        else
-        {
-            unlockMovements();
-        }
     }
 
     #region Animation Debut De round
     void AnimationDebutDeRound()
     {
+        lockMouvements();
         CameraTransition camTrans = CameraTransition.Instance;
         cam =  camTrans.MainCam;
         float initOrthoSize = camTrans.initOrtho;
