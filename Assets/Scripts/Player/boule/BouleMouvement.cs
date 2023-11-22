@@ -381,6 +381,7 @@ public class BouleMouvement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject == ParentMachine.gameObject) return;
         if (collision.gameObject.tag == "Player")
         {
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
