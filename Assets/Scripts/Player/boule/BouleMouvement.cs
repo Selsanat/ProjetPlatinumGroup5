@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -36,6 +37,7 @@ public class BouleMouvement : MonoBehaviour
     public float _lerpTime = 0;
     public bool _isLerpSlowFinished = false;
     public List<GameObject> _collidingObject;
+    public Collider[] hits;
     public Vector3 _vecHit;
     public float _timeThrowing = 0;
     //return boule
@@ -87,8 +89,12 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInputs.triggers > 0 && stateBoule == StateBoule.idle && !ParentMachine._iMouvementLockedReader.isMouvementLocked) // Quand le joueur appuie sur la touche
+        if (_playerInputs.triggers > 0 && stateBoule == StateBoule.idle && !ParentMachine._iMouvementLockedReader.isMouvementLocked && hits.Length == 1) // Quand le joueur appuie sur la touche
         {
+            if (hits[0] != _sphereCollider)
+            {
+                return;
+            }
             _sphereCollider.material = _bounce;
             stateBoule = StateBoule.throwing;
             updateThrowing();
@@ -99,8 +105,10 @@ public class BouleMouvement : MonoBehaviour
             _timeThrowing = 0;
         }
 
-        //stayup();
         
+        
+        //stayup();
+
         if (stateBoule == StateBoule.reseting && _collidingObject.Count != 0)
         {
             _clockwise = !_clockwise;
@@ -363,14 +371,21 @@ public class BouleMouvement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
+        foreach(var hit in hits)
+        {
+            if (collision.gameObject == hit.gameObject)
+            {
+                return;
+            }
+        }
         if (collision.gameObject == ParentMachine.gameObject)
         {
             return;
         }
+        hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius);
         //if(collision.gameObject.tag == "rebondi")
-        
-        if(collision.gameObject.tag == "Player" )
+
+        if (collision.gameObject.tag == "Player" )
         {
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
             if (StateMachine.CurrentState != StateMachine.deathState)
@@ -393,14 +408,14 @@ public class BouleMouvement : MonoBehaviour
     }
 
 
-
+    
 
     private void OnCollisionExit(Collision collision)
     {
         _collidingObject.Remove(collision.gameObject);
 
-        
 
+        hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius);
         if (_collidingObject.Count > 0)
             _clockwise = !_clockwise;
     }
@@ -416,18 +431,28 @@ public class BouleMouvement : MonoBehaviour
     {
         if (other.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
         {
-            _rb.AddForce(-this.transform.forward * Time.deltaTime * _bouleParams._resetSpeed / 50, ForceMode.VelocityChange);
-            print("incrementation");
+            _rb.AddForce(-this.transform.forward * Time.deltaTime * _bouleParams._resetSpeed / 20, ForceMode.VelocityChange);
+            _sphereCollider.isTrigger = true;
             _incrementation = 2;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
+        if (other.gameObject.layer == 7)
         {
-            _rb.velocity = Vector3.zero;
-            _rb.angularVelocity = Vector3.zero;
-            _incrementation = 1;
+            if(stateBoule != StateBoule.throwing)
+            {
+                _sphereCollider.isTrigger = false;
+                _rb.velocity = Vector3.zero;
+                _rb.angularVelocity = Vector3.zero;
+                _incrementation = 1;
+            }
+            else if(stateBoule == StateBoule.throwing)
+            {
+                _sphereCollider.isTrigger = false;
+                _incrementation = 1;
+            }
+            
 
         }
     }
