@@ -10683,7 +10683,6 @@ GameObject:
   m_Component:
   - component: {fileID: 330585546}
   - component: {fileID: 330585545}
-  - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
   m_Layer: 0
@@ -10693,14 +10692,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &330585544
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
 --- !u!20 &330585545
 Camera:
   m_ObjectHideFlags: 0
@@ -21908,11 +21899,11 @@ Transform:
   m_GameObject: {fileID: 651702807}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: -6.6, y: 1.16, z: 3.4299998}
-  m_LocalScale: {x: 1.0000005, y: 1.0000002, z: 1.0000002}
+  m_LocalPosition: {x: -6.4718447, y: -4.9168653, z: 10.218646}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1046887136}
+  m_Father: {fileID: 2068738155}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &653337261 stripped
 Transform:
@@ -32956,6 +32947,37 @@ PrefabInstance:
       addedObject: {fileID: 1147425746}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9819fb9ddb170140917774a8e9cf4f8, type: 3}
+--- !u!1 &976151767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 976151768}
+  m_Layer: 0
+  m_Name: Tool
+  m_TagString: Organisation
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &976151768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976151767}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &976339392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4537396122816542669, guid: b9819fb9ddb170140917774a8e9cf4f8,
@@ -35253,7 +35275,6 @@ Transform:
   - {fileID: 2068738155}
   - {fileID: 1903081997}
   - {fileID: 1635757484}
-  - {fileID: 651702813}
   - {fileID: 596697271}
   - {fileID: 716443546}
   - {fileID: 2024684751}
@@ -56606,7 +56627,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1792913261}
   - component: {fileID: 1792913264}
-  - component: {fileID: 1792913263}
   - component: {fileID: 1792913262}
   m_Layer: 0
   m_Name: Camera
@@ -56674,14 +56694,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &1792913263
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792913260}
-  m_Enabled: 1
 --- !u!20 &1792913264
 Camera:
   m_ObjectHideFlags: 0
@@ -62193,6 +62205,7 @@ Transform:
   - {fileID: 1113355374}
   - {fileID: 557626810}
   - {fileID: 563741348}
+  - {fileID: 651702813}
   m_Father: {fileID: 1046887136}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &2077211334
@@ -63281,3 +63294,4 @@ SceneRoots:
   - {fileID: 1046887136}
   - {fileID: 1257507058}
   - {fileID: 1386099550}
+  - {fileID: 976151768}
