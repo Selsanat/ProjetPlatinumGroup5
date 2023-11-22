@@ -9,7 +9,7 @@ using UnityEngine.InputSystem.UI;
 using PlayerInput = UnityEngine.InputSystem.PlayerInput;
 public class CharacterSelector : MonoBehaviour
 {
-    UnityEngine.InputSystem.PlayerInput playerInputs;
+    public UnityEngine.InputSystem.PlayerInput playerInputs;
     public int index = 0;
     private float PaddingLeft = 0;
     private HorizontalLayoutGroup horizontalLayoutGroup;

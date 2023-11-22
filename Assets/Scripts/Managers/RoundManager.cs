@@ -133,10 +133,6 @@ public class RoundManager : MonoBehaviour
         {
             int eValue = (int)players[i]._team;
             cadrants[eValue].SetActive(true);
-            print(eValue);
-            print(i);
-            print(scores.Length);
-            print(players.Count);
             scores[eValue].text = players[i]._points.ToString();
         }
     }
