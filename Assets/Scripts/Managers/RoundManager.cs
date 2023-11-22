@@ -5,6 +5,7 @@ using System.Linq;
 using DG;
 using NaughtyAttributes;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,7 @@ public class RoundManager : MonoBehaviour
     private ManagerManager managerManager => ManagerManager.Instance;
     private InputsManager inputsManager => InputsManager.Instance;
     private TMP_Text[] scores;
+    public GameObject[] cadrants;
 
     public enum Team
     {
@@ -129,7 +131,13 @@ public class RoundManager : MonoBehaviour
         }
         for (int i = 0; i < players.Count; i++)
         {
-            scores[i].text = players[i]._points.ToString();
+            int eValue = (int)players[i]._team;
+            cadrants[eValue].SetActive(true);
+            print(eValue);
+            print(i);
+            print(scores.Length);
+            print(players.Count);
+            scores[eValue].text = players[i]._points.ToString();
         }
     }
     public IEnumerator NewRound()
@@ -139,7 +147,7 @@ public class RoundManager : MonoBehaviour
         var allboules = FindObjectsOfType<BouleMouvement>();
         for(int i = 0; i < players.Count; i++)
         {
-            allboules[i].resetChangeScene();
+            allboules[0].resetChangeScene();
         }
         var scenes = ManagerManager.Instance.gameParams.Scenes;
         string sceneName = scenes[Random.Range(0, scenes.Length-1)];
