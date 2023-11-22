@@ -23,6 +23,7 @@ public class DecelerateState : TemplateState
 
     protected override void OnStateUpdate()
     {
+        if (StateMachine._iMouvementLockedReader.isMouvementLocked) return;
         _timer += Time.deltaTime;
         #region Jump
         if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
