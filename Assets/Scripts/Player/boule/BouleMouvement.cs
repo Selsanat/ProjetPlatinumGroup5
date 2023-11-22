@@ -37,9 +37,11 @@ public class BouleMouvement : MonoBehaviour
     public float _lerpTime = 0;
     public bool _isLerpSlowFinished = false;
     public List<GameObject> _collidingObject;
-    public Collider[] hits;
+    public Collider[] _hits;
+    public int _nbHits;
     public Vector3 _vecHit;
     public float _timeThrowing = 0;
+    public LayerMask _layer;
     //return boule
     public BouleParams _bouleParams;// => _manager.bouleParams;
     private float _incrementation = 1;
@@ -89,6 +91,7 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
+
         if (_playerInputs.triggers > 0 && stateBoule == StateBoule.idle && !ParentMachine._iMouvementLockedReader.isMouvementLocked) // Quand le joueur appuie sur la touche && hits.Length == 1
         {
 /*            if (hits[0] != _sphereCollider)
@@ -105,8 +108,7 @@ public class BouleMouvement : MonoBehaviour
             _timeThrowing = 0;
         }
 
-        
-        
+       
         //stayup();
 
         if (stateBoule == StateBoule.reseting && _collidingObject.Count != 0)
@@ -122,7 +124,7 @@ public class BouleMouvement : MonoBehaviour
                 _timeThrowing = 0;
             }
         }
-
+        onCollision();
         switch (stateBoule)
         {
             case StateBoule.idle:
@@ -144,13 +146,13 @@ public class BouleMouvement : MonoBehaviour
 
         }
 
+
     }
 
     public void resetChangeScene()
     {
         _contactPoints.Clear();
         _collidingObject.Clear();
-        print("change sceen");
     }
     private void FixedUpdate()
     {
@@ -298,6 +300,47 @@ public class BouleMouvement : MonoBehaviour
 
 
     }
+    private void onCollision()
+    {
+        _hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius, _layer);
+        if(_hits.Length > _nbHits)
+        {
+            _nbHits = _hits.Length;
+            foreach(var hit in _hits)
+            {
+                if (hit.gameObject.layer != 0)
+                {
+                    print("break " + hit.gameObject.name );
+                    break;
+                }
+                print("continue " + hit.gameObject.name);
+                if (hit.gameObject.tag == "Player")
+                {
+                    PlayerStateMachine StateMachine = hit.gameObject.GetComponentInChildren<PlayerStateMachine>();
+                    if (StateMachine.CurrentState != StateMachine.deathState)
+                    {
+                        RoundManager.Instance.KillPlayer(StateMachine);
+                        StateMachine.ChangeState(StateMachine.deathState);
+                    }
+                    if (stateBoule == StateBoule.throwing)
+                        setUpBoule();
+
+                }
+                print("hit");
+                particleSystem.Play();
+                _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
+                //_collidingObject.Add(hit.gameObject);
+                if (stateBoule == StateBoule.throwing)
+                    _contactPoints.Add(this.transform.position);
+                
+            }
+            
+        }
+        else if(_hits.Length < _nbHits)
+        {
+            _nbHits = _hits.Length;
+        }
+    }
     private void updateRotationBoule() // rotation de la boule
     {
         if (stateBoule == StateBoule.reseting)
@@ -341,84 +384,14 @@ public class BouleMouvement : MonoBehaviour
         stateBoule = StateBoule.returning;
 
     }
-   /* private void stayup()
-    {
-        RaycastHit hit;
-        if (_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f) && stateBoule == StateBoule.idle)
-        {
-            Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.yellow);
-
-            if ((this.transform.position.y < _vecHit.y))
-            {
-                transform.position = new Vector3(this.transform.position.x, _vecHit.y, this.transform.position.z);
-            }
-
-        }
-        else if(_collidingObject.Count != 0 && Physics.Raycast(transform.position, Vector3.up, out hit, 0.5f) && stateBoule == StateBoule.idle)
-        {
-
-            if ((this.transform.position.y > _vecHit.y))
-            {
-                Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.yellow);
-
-                transform.position = new Vector3(this.transform.position.x, _vecHit.y, this.transform.position.z);
-
-            }
-
-        }
-
-    }*/
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        foreach(var hit in hits)
-        {
-            if (collision.gameObject == hit.gameObject)
-            {
-                return;
-            }
-        }
-        if (collision.gameObject == ParentMachine.gameObject)
-        {
-            return;
-        }
-        hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius);
-        //if(collision.gameObject.tag == "rebondi")
-
-        if (collision.gameObject.tag == "Player" )
-        {
-            PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
-            if (StateMachine.CurrentState != StateMachine.deathState)
-            {
-                RoundManager.Instance.KillPlayer(StateMachine);
-                StateMachine.ChangeState(StateMachine.deathState);
-            }
-            if (stateBoule == StateBoule.throwing)
-                setUpBoule();
-            
-        }
-        particleSystem.Play();
-        _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
-        _collidingObject.Add(collision.gameObject);
-        if (stateBoule == StateBoule.throwing)
-            _contactPoints.Add(this.transform.position);
-        _vecHit = collision.contacts[0].point;
-
-        
-    }
-
+   
 
     
 
-    private void OnCollisionExit(Collision collision)
-    {
-        _collidingObject.Remove(collision.gameObject);
+    
 
 
-        hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius);
-        if (_collidingObject.Count > 0)
-            _clockwise = !_clockwise;
-    }
+    
 
     private void OnTriggerEnter(Collider other)
     {
