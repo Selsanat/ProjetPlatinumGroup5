@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 using Toggle = UnityEngine.UI.Toggle;
 
 public class ManagerManager : MonoBehaviour
@@ -16,6 +17,8 @@ public class ManagerManager : MonoBehaviour
     public List<CharacterSelector> characterSelector = new List<CharacterSelector>() ;
     public Button StartGame;
     public Toggle ReadyToFight;
+    public HorizontalLayoutGroup horizontalLayoutGroup;
+    public Volume Volume => FindObjectOfType<Volume>();
     void Awake()
     {
         if (Instance == null)
