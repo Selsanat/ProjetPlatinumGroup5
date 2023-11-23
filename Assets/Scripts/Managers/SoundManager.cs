@@ -42,6 +42,7 @@ public class SoundManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.outputAudioMixerGroup = audioMixerGroup;
             s.source.loop = s.loop;
+            s.source.playOnAwake = s.playeOnAwake;
         }
     }
 
@@ -78,6 +79,7 @@ public class Sounds
     public float pitch;
     public bool loop;
     public bool Oneshot;
+    public bool playeOnAwake;
 
     [HideInInspector]
     public AudioSource source;

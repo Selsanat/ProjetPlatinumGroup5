@@ -267,18 +267,6 @@ MonoBehaviour:
           m_StringArgument: MenuState
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 135131204}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: PlayClip
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: start game
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &19262548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,10 +354,11 @@ MonoBehaviour:
   sounds:
   - name: Drill
     clip: {fileID: 8300000, guid: 8590ec5f3d8ba0341bbe6d00133bffc9, type: 3}
-    volume: 1
+    volume: 0.25
     pitch: 1
     loop: 1
     Oneshot: 0
+    playeOnAwake: 0
     source: {fileID: 0}
   - name: Click
     clip: {fileID: 8300000, guid: cc0921a0c9eb04d4597e0d588122f12c, type: 3}
@@ -377,6 +366,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Oneshot: 1
+    playeOnAwake: 0
     source: {fileID: 0}
   - name: click Menu 1
     clip: {fileID: 8300000, guid: 903e43fedb74e2b4ea529524cf868cfd, type: 3}
@@ -384,6 +374,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Oneshot: 1
+    playeOnAwake: 0
     source: {fileID: 0}
   - name: click Menu 2
     clip: {fileID: 8300000, guid: ed491047d52d6174599a3648c100ec83, type: 3}
@@ -391,6 +382,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Oneshot: 1
+    playeOnAwake: 0
     source: {fileID: 0}
   - name: click Menu 3
     clip: {fileID: 8300000, guid: 913f6ee302a1e8345887772a5de0bc72, type: 3}
@@ -398,6 +390,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Oneshot: 1
+    playeOnAwake: 0
     source: {fileID: 0}
   - name: click Menu 4
     clip: {fileID: 8300000, guid: 5168cb1ad018126498360445380c342d, type: 3}
@@ -405,27 +398,39 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Oneshot: 1
+    playeOnAwake: 0
     source: {fileID: 0}
   - name: start game
     clip: {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
-    volume: 0.25
+    volume: 0.5
     pitch: 1
     loop: 0
     Oneshot: 1
+    playeOnAwake: 0
     source: {fileID: 0}
   - name: death
-    clip: {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
-    volume: 0.25
+    clip: {fileID: 8300000, guid: bd77022185ffb9546b2d3f050493ca20, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 0
     Oneshot: 1
+    playeOnAwake: 0
     source: {fileID: 0}
   - name: bounce
     clip: {fileID: 8300000, guid: 6e7a760107ba1964593721eed657ee3a, type: 3}
-    volume: 0.25
+    volume: 0.5
     pitch: 1
     loop: 0
     Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: land
+    clip: {fileID: 8300000, guid: e9a898138996e7f479bae135216c684e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
     source: {fileID: 0}
 --- !u!1 &166893046
 GameObject:
@@ -937,7 +942,6 @@ GameObject:
   - component: {fileID: 479543717}
   - component: {fileID: 479543715}
   - component: {fileID: 479543719}
-  - component: {fileID: 479543720}
   m_Layer: 0
   m_Name: CameraTransi
   m_TagString: Untagged
@@ -1068,14 +1072,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPlayers: 0
---- !u!81 &479543720
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479543714}
-  m_Enabled: 1
 --- !u!1 &483127847
 GameObject:
   m_ObjectHideFlags: 0
@@ -5149,6 +5145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3312669907466863716}
   - component: {fileID: 3312669907466863717}
+  - component: {fileID: 3312669907466863718}
   m_Layer: 0
   m_Name: MapSelection
   m_TagString: Untagged
@@ -5613,6 +5610,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droit: {fileID: 2112930723}
   gauche: {fileID: 1957091234}
+--- !u!114 &3312669907466863718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606101616375552303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61458e5d92164a4458046a039f1cf427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSelected: {fileID: 0}
 --- !u!114 &3486109027285484215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6010,6 +6020,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6945304440217083348}
+  - component: {fileID: 6945304440217083349}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -6033,6 +6044,19 @@ Transform:
   - {fileID: 8707171479442500665}
   m_Father: {fileID: 1693578350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6945304440217083349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6891497991746096609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61458e5d92164a4458046a039f1cf427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSelected: {fileID: 0}
 --- !u!1 &7188217674930320672
 GameObject:
   m_ObjectHideFlags: 0
@@ -6070,7 +6094,6 @@ GameObject:
   m_Component:
   - component: {fileID: 978535237169710646}
   - component: {fileID: 3486109027285484215}
-  - component: {fileID: 7463734973297396847}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -6078,19 +6101,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7463734973297396847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7463734973297396846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61458e5d92164a4458046a039f1cf427, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentSelected: {fileID: 0}
 --- !u!1 &7741388863487919726
 GameObject:
   m_ObjectHideFlags: 0
@@ -6204,6 +6214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6545407858927376205}
   - component: {fileID: 8326718399730937239}
+  - component: {fileID: 8326718399730937240}
   m_Layer: 0
   m_Name: Params
   m_TagString: Untagged
@@ -6225,6 +6236,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 852898785}
   _audioMixer: {fileID: 24100000, guid: e7de63300607ff244b8b5be9742a73b8, type: 2}
+--- !u!114 &8326718399730937240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8326718399730937238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61458e5d92164a4458046a039f1cf427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSelected: {fileID: 0}
 --- !u!224 &8707171479442500665
 RectTransform:
   m_ObjectHideFlags: 0
