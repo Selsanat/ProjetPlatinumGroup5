@@ -86,7 +86,7 @@ public class GameStateMachine : MonoBehaviour
     }
     private void OnGUI()
     {
-        if (false) return;
+        if (true) return;
         GUILayout.BeginVertical(GUI.skin.box);
         GUILayout.Label("Menu State :");
         GUILayout.TextField("" + CurrentState);
