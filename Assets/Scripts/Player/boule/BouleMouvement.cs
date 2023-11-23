@@ -91,7 +91,10 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-
+        if(this.transform.position.z != _playerPivot.position.z)
+        {
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
+        }
         if (_playerInputs.triggers > 0 && stateBoule == StateBoule.idle && !ParentMachine._iMouvementLockedReader.isMouvementLocked) // Quand le joueur appuie sur la touche && hits.Length == 1
         {
 /*            if (hits[0] != _sphereCollider)
@@ -153,6 +156,7 @@ public class BouleMouvement : MonoBehaviour
     {
         _contactPoints.Clear();
         _collidingObject.Clear();
+        
     }
     private void FixedUpdate()
     {
