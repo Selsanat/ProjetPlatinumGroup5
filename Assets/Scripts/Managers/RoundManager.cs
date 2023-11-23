@@ -129,12 +129,6 @@ public class RoundManager : MonoBehaviour
         {
             player._points += ManagerManager.Instance.gameParams.PointsPerRound;
         }
-        for (int i = 0; i < players.Count; i++)
-        {
-            int eValue = (int)players[i]._team;
-            cadrants[eValue].SetActive(true);
-            scores[eValue].text = players[i]._points.ToString();
-        }
     }
     public IEnumerator NewRound()
     {
@@ -165,6 +159,29 @@ public class RoundManager : MonoBehaviour
             GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
         }
     }
+    public void UpdateScores()
+    {
+        print("updated");
+        for (int i = 0; i < players.Count; i++)
+        {
+            int eValue = (int)players[i]._team;
+            scores[eValue].text = players[i]._points.ToString();
+        }
+    }
+    public void ShowCadrants()
+    {
+        print("Shown");
+        for (int i = 0; i < players.Count; i++)
+        {
+            int eValue = (int)players[i]._team;
+            cadrants[eValue].SetActive(true);
+            if(scores[eValue].text == "")
+            {
+                scores[eValue].text = players[i]._points.ToString();
+            }
+        }
+    }
+
     [Button]
     public void EndRoundTest()
     {
