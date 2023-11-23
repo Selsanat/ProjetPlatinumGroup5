@@ -294,7 +294,6 @@ public class BouleMouvement : MonoBehaviour
 
                 }
 
-                print("last");
                 return;
             }
 
@@ -309,17 +308,16 @@ public class BouleMouvement : MonoBehaviour
         _hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius, _layer);
         if(_hits.Length > _nbHits)
         {
+            SoundManager.instance.PlayClip("bounce");
+
             _nbHits = _hits.Length;
             foreach(var hit in _hits)
             {
                 if (hit.gameObject.layer != 0)
                 {
-                    print("break " + hit.gameObject.name );
                     break;
                 }
-                print("continue " + hit.gameObject.name);
                 
-                print("hit");
                 particleSystem.Play();
                 _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
                 //_collidingObject.Add(hit.gameObject);

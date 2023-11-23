@@ -218,6 +218,18 @@ MonoBehaviour:
           m_StringArgument: MenuState
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: start game
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &19262548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +324,55 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Click
     clip: {fileID: 8300000, guid: cc0921a0c9eb04d4597e0d588122f12c, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    source: {fileID: 0}
+  - name: click Menu 1
+    clip: {fileID: 8300000, guid: 903e43fedb74e2b4ea529524cf868cfd, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    source: {fileID: 0}
+  - name: click Menu 2
+    clip: {fileID: 8300000, guid: ed491047d52d6174599a3648c100ec83, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    source: {fileID: 0}
+  - name: click Menu 3
+    clip: {fileID: 8300000, guid: 913f6ee302a1e8345887772a5de0bc72, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    source: {fileID: 0}
+  - name: click Menu 4
+    clip: {fileID: 8300000, guid: 5168cb1ad018126498360445380c342d, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    source: {fileID: 0}
+  - name: start game
+    clip: {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    source: {fileID: 0}
+  - name: death
+    clip: {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    source: {fileID: 0}
+  - name: bounce
+    clip: {fileID: 8300000, guid: 6e7a760107ba1964593721eed657ee3a, type: 3}
     volume: 0.25
     pitch: 1
     loop: 0
@@ -818,6 +879,7 @@ GameObject:
   - component: {fileID: 479543717}
   - component: {fileID: 479543715}
   - component: {fileID: 479543719}
+  - component: {fileID: 479543720}
   m_Layer: 0
   m_Name: CameraTransi
   m_TagString: Untagged
@@ -948,6 +1010,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPlayers: 0
+--- !u!81 &479543720
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479543714}
+  m_Enabled: 1
 --- !u!1 &483127847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,7 +1482,8 @@ MonoBehaviour:
   m_MiddleClickAction: {fileID: 1120369429361536294, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
   m_RightClickAction: {fileID: 0}
-  m_ScrollWheelAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
   m_DeselectOnBackgroundClick: 0
@@ -1932,7 +2003,7 @@ MonoBehaviour:
   m_MinValue: -80
   m_MaxValue: 20
   m_WholeNumbers: 0
-  m_Value: -80
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1946,6 +2017,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: click Menu 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1010983274
@@ -5911,6 +5994,7 @@ GameObject:
   m_Component:
   - component: {fileID: 978535237169710646}
   - component: {fileID: 3486109027285484215}
+  - component: {fileID: 7463734973297396847}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -5918,6 +6002,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7463734973297396847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7463734973297396846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61458e5d92164a4458046a039f1cf427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSelected: {fileID: 0}
 --- !u!1 &7741388863487919726
 GameObject:
   m_ObjectHideFlags: 0
