@@ -161,7 +161,6 @@ public class RoundManager : MonoBehaviour
     }
     public void UpdateScores()
     {
-        print("updated");
         for (int i = 0; i < players.Count; i++)
         {
             int eValue = (int)players[i]._team;
@@ -170,7 +169,6 @@ public class RoundManager : MonoBehaviour
     }
     public void ShowCadrants()
     {
-        print("Shown");
         for (int i = 0; i < players.Count; i++)
         {
             int eValue = (int)players[i]._team;
@@ -180,6 +178,15 @@ public class RoundManager : MonoBehaviour
                 scores[eValue].text = players[i]._points.ToString();
             }
         }
+    }
+
+    public void DestroyAllPlayers()
+    {
+        foreach(Player player in players)
+        {
+            Destroy(player._playerStateMachine.gameObject);
+        }
+        players.Clear();
     }
 
     [Button]
