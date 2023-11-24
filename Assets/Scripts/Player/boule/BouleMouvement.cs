@@ -320,6 +320,7 @@ public class BouleMouvement : MonoBehaviour
                 
                 particleSystem.Play();
                 _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
+                print(hit.gameObject.name);
                 //_collidingObject.Add(hit.gameObject);
                 if (stateBoule == StateBoule.throwing)
                     _contactPoints.Add(this.transform.position);
