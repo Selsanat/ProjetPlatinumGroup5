@@ -7,23 +7,25 @@ using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 using PlayerInput = UnityEngine.InputSystem.PlayerInput;
+using UnityEditor.Animations;
+using UnityEditorInternal;
+using UnityEngine.Animations;
+
 public class CharacterSelector : MonoBehaviour
 {
-    UnityEngine.InputSystem.PlayerInput playerInputs;
+    public UnityEngine.InputSystem.PlayerInput playerInputs => GetComponent<UnityEngine.InputSystem.PlayerInput>();
     public int index = 0;
     private float PaddingLeft = 0;
-    private HorizontalLayoutGroup horizontalLayoutGroup;
-    private Toggle toggle;
-    private MultiplayerEventSystem multiplayerEventSystem;
+    private HorizontalLayoutGroup horizontalLayoutGroup => GetComponentInChildren<HorizontalLayoutGroup>();
+    private Toggle toggle => GetComponentInChildren<Toggle>();
+    private MultiplayerEventSystem multiplayerEventSystem => GetComponent<MultiplayerEventSystem>();
+    private Animator animatorCadrant => GetComponentInChildren<Animator>();
     [SerializeField] private Button buttonsImages;
     void Awake()
     {
         Canvas canvas = ManagerManager.Instance.selectionPersoCanvas;
         transform.SetParent(canvas.transform);
-        playerInputs = GetComponent<UnityEngine.InputSystem.PlayerInput>();
-        horizontalLayoutGroup = GetComponentInChildren<HorizontalLayoutGroup>();
-        toggle = GetComponentInChildren<Toggle>();
-        multiplayerEventSystem = GetComponent<MultiplayerEventSystem>();
+
     }
 
     void Start()
@@ -68,6 +70,7 @@ public class CharacterSelector : MonoBehaviour
         };
         horizontalLayoutGroup.padding.left = (int)PaddingLeft;
         LayoutRebuilder.ForceRebuildLayoutImmediate(horizontalLayoutGroup.GetComponent<RectTransform>());
+        animatorCadrant.SetBool("ShouldPlay", toggle.isOn);
         if (!toggle.isOn)
         {
             toggle.interactable = !ManagerManager.Instance.Players.ContainsValue((RoundManager.Team)index);
@@ -78,6 +81,7 @@ public class CharacterSelector : MonoBehaviour
         if (index < horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
         {
             index++;
+            animatorCadrant.SetFloat("Blend", index);
             DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
         }
     }
@@ -86,6 +90,7 @@ public class CharacterSelector : MonoBehaviour
         if (index > 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
         {
             index--;
+            animatorCadrant.SetFloat("Blend", index);
             DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
         }
     }

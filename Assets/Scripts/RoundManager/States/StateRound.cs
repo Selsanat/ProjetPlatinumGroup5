@@ -5,21 +5,28 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class StateRound : GameStateTemplate
 {
     private Camera cam;
     private CameraParams cameraParams;
     public bool _isPaused = false;
+    DepthOfField dof;
+    HorizontalLayoutGroup horizontalLayoutGroup => ManagerManager.Instance.horizontalLayoutGroup;
     protected override void OnStateInit()
     {
     }
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
+
         cameraParams = CameraTransition.Instance.cameraParams;
         StateMachine.HideAllMenusExceptThis();
         RoundManager.Instance.StartRound();
+        RoundManager.Instance.ShowCadrants();
         AnimationDebutDeRound();
     }
 
@@ -36,6 +43,8 @@ public class StateRound : GameStateTemplate
     #region Animation Debut De round
     void AnimationDebutDeRound()
     {
+        Volume vol = ManagerManager.Instance.Volume;
+        vol.profile.TryGet<DepthOfField>(out dof);
         lockMouvements();
         CameraTransition camTrans = CameraTransition.Instance;
         cam =  camTrans.MainCam;
@@ -43,6 +52,15 @@ public class StateRound : GameStateTemplate
 
         Vector3 StartPos = camTrans.initPos;
         Sequence mySequence = CameraTransition.Instance.UnfreezeIt();
+        mySequence.Append(DOTween.To(() => dof.focalLength.value, x => dof.focalLength.value = x, 50, 0.5f));
+        mySequence.Join(DOTween.To(() => horizontalLayoutGroup.padding.top, x => horizontalLayoutGroup.padding.top = x, 0, 0.5f));
+        mySequence.Join(DOTween.To(() => horizontalLayoutGroup.spacing, x => horizontalLayoutGroup.spacing = x, -360, 0.5f));
+        mySequence.AppendInterval(0.5f);
+        mySequence.AppendCallback(() => RoundManager.Instance.UpdateScores());
+        mySequence.AppendInterval(0.5f);
+        mySequence.Append(DOTween.To(() => horizontalLayoutGroup.padding.top, x => horizontalLayoutGroup.padding.top = x, -300, 0.5f));
+        mySequence.Join(DOTween.To(() => horizontalLayoutGroup.spacing, x => horizontalLayoutGroup.spacing = x, 0, 1));
+        mySequence.Join(DOTween.To(() => dof.focalLength.value, x => dof.focalLength.value = x, 0, 0.5f));
         foreach (var player in inputsManager.playerInputs)
         {
             Vector3 pos = player._playerStateMachine.transform.position;
@@ -62,7 +80,6 @@ public class StateRound : GameStateTemplate
             unlockMovements();
             CameraTransition.Instance.ResetCams();
             CameraTransition.Instance.cameraFollow.FollowPlayers = true;
-
         });
         CameraTransition.Instance.mySequence.Play();
        

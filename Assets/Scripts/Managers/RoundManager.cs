@@ -5,6 +5,7 @@ using System.Linq;
 using DG;
 using NaughtyAttributes;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,7 @@ public class RoundManager : MonoBehaviour
     private ManagerManager managerManager => ManagerManager.Instance;
     private InputsManager inputsManager => InputsManager.Instance;
     private TMP_Text[] scores;
+    public GameObject[] cadrants;
 
     public enum Team
     {
@@ -127,10 +129,6 @@ public class RoundManager : MonoBehaviour
         {
             player._points += ManagerManager.Instance.gameParams.PointsPerRound;
         }
-        for (int i = 0; i < players.Count; i++)
-        {
-            scores[i].text = players[i]._points.ToString();
-        }
     }
     public IEnumerator NewRound()
     {
@@ -139,7 +137,7 @@ public class RoundManager : MonoBehaviour
         var allboules = FindObjectsOfType<BouleMouvement>();
         for(int i = 0; i < players.Count; i++)
         {
-            allboules[i].resetChangeScene();
+            allboules[0].resetChangeScene();
         }
         var scenes = ManagerManager.Instance.gameParams.Scenes;
         string sceneName = scenes[Random.Range(0, scenes.Length-1)];
@@ -161,6 +159,29 @@ public class RoundManager : MonoBehaviour
             GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
         }
     }
+    public void UpdateScores()
+    {
+        print("updated");
+        for (int i = 0; i < players.Count; i++)
+        {
+            int eValue = (int)players[i]._team;
+            scores[eValue].text = players[i]._points.ToString();
+        }
+    }
+    public void ShowCadrants()
+    {
+        print("Shown");
+        for (int i = 0; i < players.Count; i++)
+        {
+            int eValue = (int)players[i]._team;
+            cadrants[eValue].SetActive(true);
+            if(scores[eValue].text == "")
+            {
+                scores[eValue].text = players[i]._points.ToString();
+            }
+        }
+    }
+
     [Button]
     public void EndRoundTest()
     {

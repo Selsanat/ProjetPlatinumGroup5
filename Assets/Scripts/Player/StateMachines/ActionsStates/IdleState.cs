@@ -19,8 +19,6 @@ public class IdleState : TemplateState
 
     protected override void OnStateUpdate()
     {
-
-        if (StateMachine._iMouvementLockedReader.isMouvementLocked) return;
         if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform,Vector3.zero))
         {
             StateMachine.ChangeState(StateMachine.fallState);
@@ -28,6 +26,7 @@ public class IdleState : TemplateState
         }
         else
         {
+            if (StateMachine._iMouvementLockedReader.isMouvementLocked) return;
             if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
             {
                 StateMachine.ChangeState(StateMachine.jumpState);
