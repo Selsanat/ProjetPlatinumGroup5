@@ -239,7 +239,10 @@ public class BouleMouvement : MonoBehaviour
     private void returnBoule() // retour de la boule
     {
         if (_target == null || _contactPoints.Count == 0)
+        {
+            stateBoule = StateBoule.reseting;
             return;
+        }
 
         Vector3 dir = (_target - this.transform.position).normalized;
         if (_target == _contactPoints[_contactPoints.Count - 1]) //si on est sur le premier point
