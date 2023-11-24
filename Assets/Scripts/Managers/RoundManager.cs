@@ -1,19 +1,61 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using DG;
+using NaughtyAttributes;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+
 
 public class RoundManager : MonoBehaviour
 {
-    private int _nbPlayer = 0;
-    private GameObject[] _spawnPoints;
-    public GameObject _playerPrefabs;
-    public static RoundManager Instance;
-    private List<playerClass> _players;
-    private List<playerClass> _playersAlive;
-    [SerializeField]
-    private int _pointsRound;
-    [SerializeField]
-    private int _pointsWin;
 
+    public static RoundManager Instance;
+    public List<Player> players = new List<Player>();
+    public List<Player> alivePlayers = new List<Player>();
+    private GameParams _gameParams => ManagerManager.Instance.gameParams;
+    private ManagerManager managerManager => ManagerManager.Instance;
+    private InputsManager inputsManager => InputsManager.Instance;
+    private TMP_Text[] scores;
+    public GameObject[] cadrants;
+
+    public enum Team
+    {
+        blue,
+        yellow,
+        red,    
+        green
+    }
+
+    public List<Color> teamColors;
+    public class Player
+    {
+        public PlayerInput _playerInputs;
+        public PlayerStateMachine _playerStateMachine;
+        public Team _team;
+        public int _points = 0;
+
+        public Player(InputsManager.PlayersInputs playerStateMachine, Team team)
+        {
+            RoundManager.Instance.teamColors = new List<Color>()
+            {
+                Color.blue,
+                Color.yellow,
+                Color.red,
+                Color.green
+            };
+            _playerInputs = playerStateMachine._playerInputs;
+            _playerStateMachine = playerStateMachine._playerStateMachine;
+            _team = team;
+            
+            playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
+        }
+    }
     void Awake()
     {
         if (Instance == null)
@@ -21,73 +63,113 @@ public class RoundManager : MonoBehaviour
             Instance = this;
         }
         else Destroy(this.gameObject);
-    }
-    public void roundOver()
-    {
-        print("round over");
-        foreach (playerClass player in _playersAlive) 
+
+        scores = transform.GetComponentsInChildren<TMP_Text>();
+        foreach (var score in scores)
         {
-            player._points += _pointsRound;
+            score.text = "";
         }
-        foreach (playerClass player in _players)
+    }
+
+    public void StartRound()
+    {
+
+        #region GetPlayableDevices
+        List<InputDevice> devices = new List<InputDevice>();
+        foreach (var device in InputSystem.devices)
         {
-            if(player._points >= _pointsWin)
+            if (device is Gamepad || device is Keyboard)
             {
-                print("player win");
-                return;
+                devices.Add(device);
             }
         }
-        startRound();
-    }
-    public void playerDied(playerClass player)
-    {
-        _nbPlayer--;
-        _playersAlive.Remove(player);
+        #endregion
+        #region SpawnPlayersAndLinkThemTheirControls
 
-        if (_nbPlayer <= 1)
+
+        GameObject[] spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
+        if (InputsManager.Instance._playerInputManager.playerCount ==0)
         {
-            roundOver();
+            for (int i = 0; i < managerManager.Players.Count; i++)
+            {
+                var player = InputsManager.Instance._playerInputManager.JoinPlayer(-1, -1, null, managerManager.Players.Keys.ToList()[i]);
+                player.transform.position = spawnpoints[i].transform.position;
+                PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
+                playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
+
+
+            }
+        }
+        else
+        {
+            for (int i = 0; i < managerManager.Players.Count; i++)
+            {
+                var StateMachine = players[i]._playerStateMachine;
+                StateMachine.ChangeState(StateMachine.stateIdle);
+                StateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
+                StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
+            }
+        }
+        #endregion
+    }
+    bool ShouldEndRound()
+    {
+        foreach (var player in alivePlayers.Skip(1))
+        {
+            if (player._team != alivePlayers[0]._team)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public void RoundEnd()
+    {
+        foreach (Player player in alivePlayers)
+        {
+            player._points += ManagerManager.Instance.gameParams.PointsPerRound;
+        }
+        for (int i = 0; i < players.Count; i++)
+        {
+            int eValue = (int)players[i]._team;
+            cadrants[eValue].SetActive(true);
+            scores[eValue].text = players[i]._points.ToString();
         }
     }
-
-    private void Start()
+    public IEnumerator NewRound()
     {
-        startRound();
-    }
-    public void startRound()
-    {
-        if (_playersAlive.Count != 4)
-            return;
-
-        foreach (playerClass player in _players)
+        CameraTransition.Instance.FreezeIt();
+        alivePlayers = new List<Player>(players);
+        var allboules = FindObjectsOfType<BouleMouvement>();
+        for(int i = 0; i < players.Count; i++)
         {
-            player.GetComponent<PlayerStateMachine>().CurrentState.UnlockMouvement();
+            allboules[0].resetChangeScene();
         }
-
-    }
-
-    public void setUpRound()
-    {
-        _spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
-        _playersAlive.Clear();
-        
-        foreach (playerClass player in _players)
+        var scenes = ManagerManager.Instance.gameParams.Scenes;
+        string sceneName = scenes[Random.Range(0, scenes.Length-1)];
+        var asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        while (!asyncLoadLevel.isDone)
         {
-            player._isAlive = true;
-            _playersAlive.Add(player);
-            PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
-            playerStateMachine.ChangeState(playerStateMachine.stateIdle);
-            playerStateMachine.velocity = Vector2.zero;
-            playerStateMachine.transform.position = _spawnPoints[_nbPlayer - 1].transform.position;
-            playerStateMachine.CurrentState.LockMouvement();
+            yield return null;
         }
-        
+        GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.roundState);
     }
-
-    public void addPlayer(playerClass player)
+    public void KillPlayer(PlayerStateMachine playerKilled)
     {
-        _players.Add(player);
-        _nbPlayer++;
-        setUpRound();
+        Player player = players.Find(x => x._playerStateMachine == playerKilled);
+        alivePlayers.Remove(player);
+
+        if (ShouldEndRound())
+        {
+            RoundEnd();
+            GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
+        }
+    }
+    [Button]
+    public void EndRoundTest()
+    {
+        RoundEnd();
+        GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
     }
 }
+

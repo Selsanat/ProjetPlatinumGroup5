@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Vector2 = UnityEngine.Vector2;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -10,8 +12,11 @@ public class PlayerInput : MonoBehaviour
 
     public InputActionAsset _ipaPlayercontrols;
     private List<InputAction> _iaActions;
+    private Pause pause;
     public IOrientWriter IOrient;
     public IWantsJumpWriter jump;
+    public float triggers;
+    public float shoulders;
      
     #endregion
 
@@ -28,7 +33,8 @@ public class PlayerInput : MonoBehaviour
     public void SetupInputs()
     {
         //Setup Liste des inputs
-        
+        pause = FindAnyObjectByType<Pause>();   
+
         _iaActions = new List<InputAction>();
         foreach (var action in _ipaPlayercontrols.actionMaps[0].actions)
         {
@@ -57,8 +63,14 @@ public class PlayerInput : MonoBehaviour
             jump.wantsJump = true;
         }
         else jump.wantsJump = false;
-
-        _iaActions[1].performed += ctx => SceneManager.LoadScene("LeandroMenu");
+        if (_iaActions[2].ReadValue<float>() > 0)
+        {
+            pause.onPause();
+        }
+        Vector2 gachettes = _iaActions[1].ReadValue<Vector2>();
+        triggers = gachettes.y;
+        shoulders = gachettes.x;
+        //_iaActions[1].performed += ctx => SceneManager.LoadScene("LeandroMenu");
 
     }
 

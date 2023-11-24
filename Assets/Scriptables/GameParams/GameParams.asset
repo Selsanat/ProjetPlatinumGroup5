@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c5db9ffdd65ce44a6b967527db00b3, type: 3}
+  m_Name: GameParams
+  m_EditorClassIdentifier: 
+  PointsToWin: 4
+  PointsPerRound: 1
+  TransiTimeAfterRound: 5
+  Scenes:
+  - Level 1
+  - Level 2 Rework
+  - Level 3
+  - Level 4
+  - "Level 5  (pi\xE9ce)"
+  - Level 2 Rework
+  objects:
+  - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
+  - {fileID: 102900000, guid: 7164394ba6b55b14ba6dd12264864cf2, type: 3}
+  - {fileID: 102900000, guid: f0473fe022270634ebcadb1103214ee3, type: 3}
+  - {fileID: 102900000, guid: 44fb96b3448aaf94fa355e11c7b2f628, type: 3}
+  - {fileID: 102900000, guid: ec733ee34b4350149961c11f51e33e97, type: 3}
+  - {fileID: 0}

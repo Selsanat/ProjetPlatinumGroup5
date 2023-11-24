@@ -15,12 +15,13 @@ MonoBehaviour:
   jumpMaxHeight: 0.085
   jumpDuration: 1
   minJump: 0.02
-  coyoteWindow: 2
   inertieLoss: 1
   JumpAccelerationTime: 0.11
   airMaxSpeedX: 0.14
-  fallDuration: 0.995
-  maxFallSpeed: 1.474
+  JumpBuffer: 0.155
+  CoyoteWindow: 0.118
+  fallDuration: 0.75
+  maxFallSpeed: 0.31
   fallAccelerationTime: 0.11
   fallMaxSpeedX: 0.14
   maxSpeed: 0.16
@@ -28,4 +29,5 @@ MonoBehaviour:
   decelerationTime: 0.03
   turnAccelerationTime: 0.03
   turnDecelerationTime: 0.03
-  slideSlopeThresHold: 2
+  slideSlopeThresHold: 0.99
+  SpeedBoostOnSlope: 1.35

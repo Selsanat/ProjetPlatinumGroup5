@@ -1,7 +1,9 @@
+using System.Collections;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -9,6 +11,7 @@ using UnityEngine.UI;
 
 public class GameStateMachine : MonoBehaviour
 {
+    public bool activeHUD;
     [System.Serializable]
     public class Menu
     {
@@ -41,51 +44,66 @@ public class GameStateMachine : MonoBehaviour
     public StateParam paramState { get; } = new StateParam();
 
     public StateSelectionPerso selectionPersoState { get; } = new StateSelectionPerso();
+    public StateRound roundState { get; } = new StateRound();
+    public RoundEnd endRound { get; } = new RoundEnd();
+    public StateMapSelection MapSelectionState { get; } = new StateMapSelection();
 
     public GameStateTemplate[] AllStates => new GameStateTemplate[]
     {
         menuState,
         paramState,
-        selectionPersoState
+        selectionPersoState,
+        roundState,
+        endRound,
+        MapSelectionState
     };
     public GameStateTemplate StartState => menuState;
     public GameStateTemplate CurrentState { get; private set; }
     public GameStateTemplate PreviousState { get; private set; }
 
+    private AsyncOperation asyncLoadLevel = null;
+
+    public static GameStateMachine Instance;
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else Destroy(this.gameObject);
         _InitAllStates();
     }
     void Start()
     {
-        
-        var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
-        var fileInfo = info.GetFiles();
-        foreach (GameStateTemplate State in AllStates)
-        {
-            foreach (FileInfo file in fileInfo)
-            {
-                if (State.GetType().ToString() == file.Name.Replace(".cs", string.Empty))
-                {
-                    GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
-                    thatState.ui = Menus[AllStates.ToList().IndexOf(State)].menuObject;
-                }
-            }
-        }
-        ChangeState(menuState);
+        SoundManager.instance.PlayClip("Drill");
         ChangeState(StartState);
     }
 
     private void FixedUpdate()
     {
-        
+        if(CurrentState == null) CurrentState = menuState;
         CurrentState.StateUpdate();
     }
     private void OnGUI()
     {
+        if (true) return;
         GUILayout.BeginVertical(GUI.skin.box);
         GUILayout.Label("Menu State :");
         GUILayout.TextField("" + CurrentState);
+        foreach (Menu menu in Menus)
+        {
+            if (menu.thisMenu == CurrentState.ToString())
+            {
+                GUILayout.Label("Ma scene = ");
+                GUILayout.TextField(""+ menu.menuObject);
+            }
+        }
+        foreach(string map in ManagerManager.Instance.gameParams.Scenes)
+        {
+            GUILayout.Label("Map = ");
+            GUILayout.TextField("" + map);
+        }
+
         GUILayout.EndVertical();
     }
     private void _InitAllStates()
@@ -97,8 +115,6 @@ public class GameStateMachine : MonoBehaviour
     }
     public void ChangeState(GameStateTemplate state)
     {
-
-
         if (CurrentState != null)
         {
             CurrentState.StateExit(state);
@@ -111,35 +127,74 @@ public class GameStateMachine : MonoBehaviour
         }
     }
     
-    public void ChangeState(int state)
+    public void ChangeState(string state)
     {
-        var info = new DirectoryInfo("Assets/Scripts/RoundManager/States");
-        var fileInfo = info.GetFiles();
-        foreach (GameStateTemplate State in AllStates)
+        if(state == CurrentState.GetType().ToString()) return;
+        StartCoroutine(ChangeStateCoroutine(state));
+    }
+    private IEnumerator ChangeStateCoroutine(string state)
+    {
+        if (asyncLoadLevel != null)
         {
-            if (state * 2 < fileInfo.Length)
-            {
-                if (State.GetType().ToString() == fileInfo[state * 2].Name.Replace(".cs", string.Empty))
-                {
-                    GameStateTemplate thatState = AllStates[AllStates.ToList().IndexOf(State)];
-                    ChangeState(thatState);
-                }
-            }
+            yield return new WaitUntil(() => asyncLoadLevel.isDone);
+
         }
+
+        GameStateTemplate thatState = _GetStateByName(state);
+        ChangeState(thatState);
     }
 
     public void ChangeScene(string scene)
     {
-        SceneManager.LoadScene(scene);
+        if(scene == SceneManager.GetActiveScene().name) return;
+        CameraTransition.Instance.FreezeIt();
+        EventSystem.current.SetSelectedGameObject(null);
+        asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
     }
+
     public void HideAllMenusExceptThis(GameObject ui)
     {
         foreach (Menu menu in Menus)
         {
-                menu.menuObject.SetActive(false);
+            if (menu.thisMenu == CurrentState.ToString())
+            {
+                foreach (GameStateTemplate State in AllStates)
+                {
+                    if (State.GetType().ToString() == menu.thisMenu)
+                    {
+                        ui = menu.menuObject;
+                    }
+                }
+            }
+            menu.menuObject.SetActive(false);
         }
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
-        ui.SetActive(true);
-        ui.GetComponentInChildren<Button>().Select();
+        if (ui != null)
+        {
+            ui.SetActive(true);
+            if(ui.GetComponentInChildren<Slider>() != null)
+                ui.GetComponentInChildren<Slider>().Select();
+            else if(ui.GetComponentInChildren<Button>() != null)
+                    ui.GetComponentInChildren<Button>().Select();
+        }
     }
+    public void HideAllMenusExceptThis()
+    {
+        foreach (Menu menu in Menus)
+        {
+            menu.menuObject.SetActive(false);
+        }
+    }
+
+    private GameStateTemplate _GetStateByName(string name)
+    {
+        foreach(GameStateTemplate state in AllStates)
+        {
+            if (state.GetType().Name == name) return state;
+        }
+
+        return null;
+    }
+
+
 }

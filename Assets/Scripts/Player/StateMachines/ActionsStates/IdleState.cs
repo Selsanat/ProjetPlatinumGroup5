@@ -10,6 +10,8 @@ public class IdleState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
+        if(StateMachine.bouleMouvement!= null)
+        StateMachine.bouleMouvement.gameObject.SetActive(true);
         animator.Play("Idle");
         if(_IOrientWriter.orient.x==0)
         StateMachine.velocity = Vector2.zero;
@@ -17,22 +19,15 @@ public class IdleState : TemplateState
 
     protected override void OnStateUpdate()
     {
-        #region Death
-        if (_iMouvementLockedReader.isMouvementLocked)
-        {
-            return;
-        }
-        #endregion
-
         if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform,Vector3.zero))
         {
             StateMachine.ChangeState(StateMachine.fallState);
             return;
         }
-
         else
         {
-            if (_iWantsJumpWriter.wantsJump || _iWantsJumpWriter.jumpBuffer > 0)
+            if (StateMachine._iMouvementLockedReader.isMouvementLocked) return;
+            if (_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0)
             {
                 StateMachine.ChangeState(StateMachine.jumpState);
                 return;

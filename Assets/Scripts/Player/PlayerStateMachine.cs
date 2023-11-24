@@ -8,6 +8,8 @@ public class PlayerStateMachine : MonoBehaviour
 {
     [Header("Movements")]
     public MovementParams movementsParam;
+    public IMouvementLockedReader _iMouvementLockedReader => GetComponent<IMouvementLockedReader>();
+    public  IMouvementLockedWriter _iMouvementLockedWriter => GetComponent<IMouvementLockedWriter>();
 
     private PlayerInput _playerInputs;
 
@@ -41,37 +43,45 @@ public class PlayerStateMachine : MonoBehaviour
 
     public Vector2 velocity;
     public float JumpBuffer;
+    public float CoyoteWindow;
     public bool activeHUD = false;
+
+    public BouleMouvement bouleMouvement;
     private void Awake()
     {
+        bouleMouvement = GetComponentInChildren<BouleMouvement>();
+        DontDestroyOnLoad(gameObject);
+
         _InitAllStates();
         _playerInputs = InputsManager.Instance.AddComponent<PlayerInput>();
         _playerInputs._ipaPlayercontrols = this.GetComponent<UnityEngine.InputSystem.PlayerInput>().actions;
         _playerInputs.IOrient = this.GetComponent<IOrientWriter>();
         _playerInputs.jump = this.GetComponent<IWantsJumpWriter>();
+        if(GetComponentInChildren<BouleMouvement>()!= null)
+        GetComponentInChildren<BouleMouvement>()._playerInputs = _playerInputs;
+
+        InputsManager.PlayersInputs inputs = new InputsManager.PlayersInputs(_playerInputs, this);
+        InputsManager.Instance.playerInputs.Add(inputs);
+
+
+        if (ManagerManager.Instance.Players.Count > 0)
+        {
+            var device = _playerInputs._ipaPlayercontrols.devices.Value;
+            RoundManager.Player player = new RoundManager.Player(inputs, ManagerManager.Instance.Players[device[0]]);
+            RoundManager.Instance.players.Add(player);
+            RoundManager.Instance.alivePlayers.Add(player);
+        }
     }
     void Start()
     {
-
         ChangeState(StartState);
     }
 
     private void FixedUpdate()
     {
+
         Vector3 x = gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale;
         gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale = new Vector3(Mathf.Sign(velocity.x), x.y,x.z);
-
-        if ( 1== 1)
-        {
-           // GameObject.animator.SpriteRenderer.Flip = false;
-        }
-        else
-        {
-           // GameObject.animator.SpriteRenderer.Flip = true;
-        }
-        //Debug.Log(velocity);
-        //Debug.Log(GetComponent<IWantsJumpWriter>().wantsJump);
-        //Debug.Log(GetComponent<IWantsJumpWriter>().jumpBuffer);
         CurrentState.StateUpdate();
 
     }
@@ -83,6 +93,8 @@ public class PlayerStateMachine : MonoBehaviour
         GUILayout.Label(DetectCollision.isColliding(Mathf.Sign(velocity.x) * Vector2.right,transform, Vector2.zero) ? "OnGround" : "InAir");
         GUILayout.Label(velocity+"");
         GUILayout.Label(Time.time + "");
+        GUILayout.Label("Jump Buffer :" + JumpBuffer);
+        GUILayout.Label("Coyote Window :" + CoyoteWindow);
         GUILayout.EndVertical();
     }
     private void _InitAllStates()
@@ -98,7 +110,6 @@ public class PlayerStateMachine : MonoBehaviour
         {
             CurrentState.StateExit(state);
         }
-        //print("State was :" + CurrentState + " And now is : " + state);
         PreviousState = CurrentState;
         CurrentState = state;
         if (CurrentState != null)
@@ -106,14 +117,4 @@ public class PlayerStateMachine : MonoBehaviour
             CurrentState.StateEnter(state);
         }
     }
-
-    public void getHit()
-    {
-        if(CurrentState != deathState)
-        {
-            ChangeState(deathState);
-            
-        }
-    }
-    
 }

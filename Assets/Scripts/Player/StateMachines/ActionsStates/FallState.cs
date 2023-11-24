@@ -5,7 +5,6 @@ using Vector2 = UnityEngine.Vector2;
 public class FallState : TemplateState
 {
     private float _timer;
-    private float _coyote;
     protected override void OnStateInit()
     {
     }
@@ -14,21 +13,22 @@ public class FallState : TemplateState
     {
         animator.Play("Fall");
         StateMachine.velocity.y = 0;
+        if(StateMachine.PreviousState != StateMachine.jumpState)
+        StateMachine.CoyoteWindow = _movementParams.CoyoteWindow;
         _timer = StateMachine.velocity.x / _movementParams.fallMaxSpeedX * _movementParams.fallAccelerationTime;
     }
 
     protected override void OnStateUpdate()
     {
-        #region Death
-        if (_iMouvementLockedReader.isMouvementLocked)
+        if ((_iWantsJumpWriter.wantsJump || StateMachine.JumpBuffer > 0) && StateMachine.CoyoteWindow>0)
         {
+            StateMachine.ChangeState(StateMachine.jumpState);
             return;
         }
-        #endregion
+
         if (DetectCollision.isColliding(Mathf.Abs(StateMachine.velocity.y) * Vector2.down, StateMachine.transform, Vector2.zero))
         {
             StateMachine.velocity.y = 0;
-
             if (_IOrientWriter.orient.x != 0 &&
                 !DetectCollision.isColliding(Mathf.Sign(_IOrientWriter.orient.x) * Vector2.right, StateMachine.transform, Vector2.zero))
             {

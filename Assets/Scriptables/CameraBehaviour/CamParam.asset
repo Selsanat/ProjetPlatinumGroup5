@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dae2a1f33195b46a9e025218656262, type: 3}
+  m_Name: CamParam
+  m_EditorClassIdentifier: 
+  numberOfJumps: 1
+  jumpForce: 500
+  heighOfFall: 1493
+  jumpDuration: 0.1
+  timeToMoveFromPlayerToPlayer: 1
+  Zoom: 5
+  TimeToZoom: 1
+  intervalBetweenPlayers: 1
+  timeAfterZoomsBeforeRoundStart: 1
+  cameraXmax: 1.08
+  cameraYmax: 1.62
+  ZpourSeReperer: 41.73
+  CameraFollowSmoothness: 1
+  distanceZAlaCam: 10
+  SmoothnessZoomRoundEnd: 0.1
+  OrthoSizeRoundEnd: 5
+  TimeToZoomEndRound: 1
