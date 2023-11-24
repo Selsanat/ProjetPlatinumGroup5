@@ -108,6 +108,13 @@ public class CharacterSelector : MonoBehaviour
             index++;
             animatorCadrant.SetFloat("Blend", index);
             DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
+            playSound("Click");
+            playSound("click Menu 1");
+
+        }
+        else if (index >= horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        {
+            playSound("Click");
         }
     }
     void SwipeLeft()
@@ -117,9 +124,18 @@ public class CharacterSelector : MonoBehaviour
             index--;
             animatorCadrant.SetFloat("Blend", index);
             DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
+            playSound("Click");
+            playSound("click Menu 1");
+        }
+        else if(index <= 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        {
+            playSound("Click");
         }
     }
-
+    public void playSound(string str)
+    {
+        SoundManager.instance.PlayClip(str);
+    }
     void UpdateCard()
     {
         ManagerManager manager = ManagerManager.Instance;

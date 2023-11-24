@@ -37,7 +37,7 @@ public class SoundManager : MonoBehaviour
         foreach (Sounds s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
+            s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length - 1)];
             s.source.pitch = s.pitch;
             s.source.volume = s.volume;
             s.source.outputAudioMixerGroup = audioMixerGroup;
@@ -71,6 +71,7 @@ public class SoundManager : MonoBehaviour
 public class Sounds
 {
     public string name;
+    public AudioClip[] clips;
     public AudioClip clip;
 
     [Range(0f, 1f)]

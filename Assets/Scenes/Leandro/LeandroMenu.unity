@@ -200,7 +200,7 @@ RectTransform:
   m_GameObject: {fileID: 19262545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.7251, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 553038842}
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19262545}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 43611711bc5e9b84b89c5bd2f2986891, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -428,6 +428,8 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: e7de63300607ff244b8b5be9742a73b8, type: 2}
   sounds:
   - name: Drill
+    clips:
+    - {fileID: 8300000, guid: 8590ec5f3d8ba0341bbe6d00133bffc9, type: 3}
     clip: {fileID: 8300000, guid: 8590ec5f3d8ba0341bbe6d00133bffc9, type: 3}
     volume: 0.25
     pitch: 1
@@ -436,6 +438,8 @@ MonoBehaviour:
     playeOnAwake: 0
     source: {fileID: 0}
   - name: Click
+    clips:
+    - {fileID: 8300000, guid: cc0921a0c9eb04d4597e0d588122f12c, type: 3}
     clip: {fileID: 8300000, guid: cc0921a0c9eb04d4597e0d588122f12c, type: 3}
     volume: 0.25
     pitch: 1
@@ -444,6 +448,12 @@ MonoBehaviour:
     playeOnAwake: 0
     source: {fileID: 0}
   - name: click Menu 1
+    clips:
+    - {fileID: 8300000, guid: 903e43fedb74e2b4ea529524cf868cfd, type: 3}
+    - {fileID: 8300000, guid: ed491047d52d6174599a3648c100ec83, type: 3}
+    - {fileID: 8300000, guid: 913f6ee302a1e8345887772a5de0bc72, type: 3}
+    - {fileID: 8300000, guid: 5168cb1ad018126498360445380c342d, type: 3}
+    - {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
     clip: {fileID: 8300000, guid: 903e43fedb74e2b4ea529524cf868cfd, type: 3}
     volume: 0.25
     pitch: 1
@@ -451,31 +461,9 @@ MonoBehaviour:
     Oneshot: 1
     playeOnAwake: 0
     source: {fileID: 0}
-  - name: click Menu 2
-    clip: {fileID: 8300000, guid: ed491047d52d6174599a3648c100ec83, type: 3}
-    volume: 0.25
-    pitch: 1
-    loop: 0
-    Oneshot: 1
-    playeOnAwake: 0
-    source: {fileID: 0}
-  - name: click Menu 3
-    clip: {fileID: 8300000, guid: 913f6ee302a1e8345887772a5de0bc72, type: 3}
-    volume: 0.25
-    pitch: 1
-    loop: 0
-    Oneshot: 1
-    playeOnAwake: 0
-    source: {fileID: 0}
-  - name: click Menu 4
-    clip: {fileID: 8300000, guid: 5168cb1ad018126498360445380c342d, type: 3}
-    volume: 0.25
-    pitch: 1
-    loop: 0
-    Oneshot: 1
-    playeOnAwake: 0
-    source: {fileID: 0}
   - name: start game
+    clips:
+    - {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
     clip: {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
     volume: 0.5
     pitch: 1
@@ -484,6 +472,11 @@ MonoBehaviour:
     playeOnAwake: 0
     source: {fileID: 0}
   - name: death
+    clips:
+    - {fileID: 8300000, guid: bd77022185ffb9546b2d3f050493ca20, type: 3}
+    - {fileID: 8300000, guid: dfcc04b16a0459b41862f6454758ccf9, type: 3}
+    - {fileID: 8300000, guid: 2416bb011465e8445a2ca8f688bcfe54, type: 3}
+    - {fileID: 8300000, guid: cd734d08ee364754c86a1e1cc164ad3e, type: 3}
     clip: {fileID: 8300000, guid: bd77022185ffb9546b2d3f050493ca20, type: 3}
     volume: 0.5
     pitch: 1
@@ -492,6 +485,14 @@ MonoBehaviour:
     playeOnAwake: 0
     source: {fileID: 0}
   - name: bounce
+    clips:
+    - {fileID: 8300000, guid: 6e7a760107ba1964593721eed657ee3a, type: 3}
+    - {fileID: 8300000, guid: f9b6af9063cb5ff46b4dff1d202661ef, type: 3}
+    - {fileID: 8300000, guid: 4c0955d190d24ce4b8bb780dc3d0f1fc, type: 3}
+    - {fileID: 8300000, guid: e55c81d793665664ba3f58e1b2ebaca5, type: 3}
+    - {fileID: 8300000, guid: 43a05fc351df18449be05498bf52886e, type: 3}
+    - {fileID: 8300000, guid: 6599e9faf56879f4ba168f35d3318557, type: 3}
+    - {fileID: 8300000, guid: 535a6826a84e8ad4fa568df3186dd79f, type: 3}
     clip: {fileID: 8300000, guid: 6e7a760107ba1964593721eed657ee3a, type: 3}
     volume: 0.5
     pitch: 1
@@ -500,6 +501,21 @@ MonoBehaviour:
     playeOnAwake: 0
     source: {fileID: 0}
   - name: land
+    clips:
+    - {fileID: 8300000, guid: e9a898138996e7f479bae135216c684e, type: 3}
+    - {fileID: 8300000, guid: b8df75003dce6484eb0034586b70b1b7, type: 3}
+    - {fileID: 8300000, guid: ce2e344aa5c6fd8498646964dd9a77f7, type: 3}
+    - {fileID: 8300000, guid: 72323c0609107924097a789a9a8dbcdf, type: 3}
+    - {fileID: 8300000, guid: 66837939bbb0d7c4db453071aabcc75f, type: 3}
+    clip: {fileID: 8300000, guid: e9a898138996e7f479bae135216c684e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: annonceur
+    clips: []
     clip: {fileID: 8300000, guid: e9a898138996e7f479bae135216c684e, type: 3}
     volume: 0.5
     pitch: 1
@@ -1643,9 +1659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'QUIT
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 57b6ca888f7c1a448acd10001332f6d8, type: 2}
   m_sharedMaterial: {fileID: -2319641778483795665, guid: 57b6ca888f7c1a448acd10001332f6d8,
@@ -2351,7 +2365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: -1
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 19262547}
@@ -6860,7 +6874,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slider: {fileID: 852898785}
+  _quit: {fileID: 19262547}
   _audioMixer: {fileID: 24100000, guid: e7de63300607ff244b8b5be9742a73b8, type: 2}
+  _inputSystemUIInputModule: {fileID: 672695316}
 --- !u!114 &8326718399730937240
 MonoBehaviour:
   m_ObjectHideFlags: 0
