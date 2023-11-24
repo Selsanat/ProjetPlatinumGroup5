@@ -171,6 +171,5 @@ public class CharacterSelector : MonoBehaviour
             yield return new WaitForSeconds(time);
             gamepad.ResetHaptics();
         }
-
     }
 }

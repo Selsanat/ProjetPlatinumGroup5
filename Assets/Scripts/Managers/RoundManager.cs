@@ -184,6 +184,7 @@ public class RoundManager : MonoBehaviour
     {
         foreach(Player player in players)
         {
+            
             Destroy(player._playerStateMachine.gameObject);
         }
         players.Clear();

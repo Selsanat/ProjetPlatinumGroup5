@@ -23,7 +23,7 @@ public class RoundEnd : GameStateTemplate
     {
         camparam = CameraTransition.Instance.cameraParams;
         CameraTransition.Instance.cameraFollow.FollowPlayers = false;
-        StateMachine.HideAllMenusExceptThis(ui);
+        //StateMachine.HideAllMenusExceptThis(ui);
         cam = CameraTransition.Instance.TransitionCam;
         cam.DOOrthoSize(camparam.OrthoSizeRoundEnd,camparam.TimeToZoomEndRound);
         StateMachine.StartCoroutine(NextRound());
@@ -31,11 +31,14 @@ public class RoundEnd : GameStateTemplate
 
     protected override void OnStateUpdate()
     {
-        if (cam != null)
+        if (cam != null && RoundManager.Instance.alivePlayers.Count>0)
         {
-            Vector3 playerPos = RoundManager.Instance.alivePlayers[0]._playerStateMachine.gameObject.transform.position;
-            playerPos.z = -camparam.distanceZAlaCam;
-            CameraTransition.Instance.TransitionCam.transform.DOMove(playerPos, camparam.SmoothnessZoomRoundEnd);
+            if (RoundManager.Instance.alivePlayers[0]._playerStateMachine != null)
+            {
+                Vector3 playerPos = RoundManager.Instance.alivePlayers[0]._playerStateMachine.gameObject.transform.position;
+                playerPos.z = -camparam.distanceZAlaCam;
+                CameraTransition.Instance.TransitionCam.transform.DOMove(playerPos, camparam.SmoothnessZoomRoundEnd);
+            }
         }
     }
 
@@ -64,6 +67,20 @@ public class RoundEnd : GameStateTemplate
 
                 mySequence.Play().OnComplete(() => {
                     RoundManager.Instance.DestroyAllPlayers();
+                    StateMachine.HideAllMenusExceptThis(ui);
+
+
+                    foreach(Image image in ui.GetComponentsInChildren<Image>())
+                    {
+                        image.DOFade(1, 2f);
+                    }
+
+                    RoundManager.Instance.alivePlayers.Clear();
+                    ManagerManager.Instance.characterSelector.Clear();
+                    foreach(GameObject gm in RoundManager.Instance.cadrants)
+                    {
+                        gm.SetActive(false);
+                    }
                 });
                 yield break;
             }

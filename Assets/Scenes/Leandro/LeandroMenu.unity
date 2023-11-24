@@ -784,7 +784,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: StateParam
+          m_StringArgument: StateRound
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &209940511
@@ -937,7 +937,6 @@ RectTransform:
   - {fileID: 1370617943}
   - {fileID: 209940509}
   - {fileID: 483127848}
-  - {fileID: 83217429}
   m_Father: {fileID: 6473105987613001914}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1098,7 +1097,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level 1
+          m_StringArgument: Level 1 Reworked
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1691187978709810144}
@@ -6040,7 +6039,6 @@ MonoBehaviour:
     - StateRound
     - StateRound
     - StateRound
-    - StateParam
     - StateRound
     - StateRound
   - choices:
@@ -6058,7 +6056,7 @@ MonoBehaviour:
   - 
   - 
   - 
-  - 
+  - Go to scene
   Menus:
   - menuObject: {fileID: 6891497991746096609}
     thisMenu: MenuState
@@ -6086,7 +6084,6 @@ MonoBehaviour:
     - {fileID: 1370617944}
     - {fileID: 209940510}
     - {fileID: 483127849}
-    - {fileID: 83217426}
     scenes:
     - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
     - {fileID: 102900000, guid: 7164394ba6b55b14ba6dd12264864cf2, type: 3}
