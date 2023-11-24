@@ -172,10 +172,10 @@ public class GameStateMachine : MonoBehaviour
         if (ui != null)
         {
             ui.SetActive(true);
-            if(ui.GetComponentInChildren<Slider>() != null)
-                ui.GetComponentInChildren<Slider>().Select();
-            else if(ui.GetComponentInChildren<Button>() != null)
-                    ui.GetComponentInChildren<Button>().Select();
+            /*if (ui.GetComponentInChildren<Slider>() != null)
+                ui.GetComponentInChildren<Slider>().Select();*/
+            if (ui.GetComponentInChildren<Button>() != null)
+                    ui.GetComponentInChildren<Button>().Select(); 
         }
     }
     public void HideAllMenusExceptThis()
