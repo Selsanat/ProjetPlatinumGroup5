@@ -40,7 +40,7 @@ public class CharacterSelector : MonoBehaviour
         {
 
             gamepad = (Gamepad)playerInputs.devices[0];
-            StartCoroutine(Vibrations(10f, 1f));
+            StartCoroutine(Vibrations(10f, 0.25f));
             
         }
         playerInputs.actions.actionMaps[1].actions[2].started += ctx => SwipeRight();
@@ -159,8 +159,18 @@ public class CharacterSelector : MonoBehaviour
 
     IEnumerator Vibrations(float force, float time)
     {
-        gamepad.SetMotorSpeeds(force, force);
-        yield return new WaitForSeconds(time);
-        gamepad.ResetHaptics();
+        if(gamepad is DualShockGamepad)
+        {
+            ((DualShockGamepad)gamepad).SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            ((DualShockGamepad)gamepad).ResetHaptics();
+        }
+        else
+        {
+            gamepad.SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            gamepad.ResetHaptics();
+        }
+
     }
 }
