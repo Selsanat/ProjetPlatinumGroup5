@@ -930,18 +930,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691187978709810144}
         m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeState
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: StateRound
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1691187978709810144}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
         m_Arguments:
@@ -962,6 +950,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &209940511
@@ -1628,18 +1628,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691187978709810144}
         m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeState
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: StateRound
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1691187978709810144}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
         m_Arguments:
@@ -1660,6 +1648,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &483127850
@@ -2394,18 +2394,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691187978709810144}
         m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeState
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: StateRound
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1691187978709810144}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
         m_Arguments:
@@ -2426,6 +2414,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &776119886
@@ -3658,18 +3658,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691187978709810144}
         m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeState
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: StateRound
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1691187978709810144}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
         m_Arguments:
@@ -3690,6 +3678,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1370617945
@@ -4936,18 +4936,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691187978709810144}
         m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
-        m_MethodName: ChangeState
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: StateRound
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1691187978709810144}
-        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
         m_Arguments:
@@ -4968,6 +4956,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1813741559
@@ -6279,7 +6279,7 @@ MonoBehaviour:
   - 
   - 
   - 
-  - 
+  - Go to scene
   Menus:
   - menuObject: {fileID: 6891497991746096609}
     thisMenu: MenuState

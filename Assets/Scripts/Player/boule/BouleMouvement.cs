@@ -132,7 +132,7 @@ public class BouleMouvement : MonoBehaviour
             }
         }
         onCollision();
-        switch (stateBoule)
+/*        switch (stateBoule)
         {
             case StateBoule.idle:
                 this.GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
@@ -151,7 +151,7 @@ public class BouleMouvement : MonoBehaviour
             default:
                 break;
 
-        }
+        }*/
 
 
     }
