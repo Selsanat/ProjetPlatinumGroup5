@@ -18930,6 +18930,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1669449144}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4537396122816542669, guid: b9819fb9ddb170140917774a8e9cf4f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -33568,6 +33583,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1575944557}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4537396122816542669, guid: b9819fb9ddb170140917774a8e9cf4f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -37499,37 +37529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &955603247
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 955603248}
-  m_Layer: 0
-  m_Name: Sprite_Etalon_Saut_6
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &955603248
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 955603247}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.122, y: -1.517, z: 0.64}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &955764757
 Mesh:
   m_ObjectHideFlags: 0
@@ -41521,6 +41520,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1813453264}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4537396122816542669, guid: b9819fb9ddb170140917774a8e9cf4f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -47982,6 +47996,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 135844459}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4537396122816542669, guid: b9819fb9ddb170140917774a8e9cf4f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -52825,37 +52854,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1409879415}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1414239322
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1414239323}
-  m_Layer: 0
-  m_Name: Sprite_Etalon _Saut_
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1414239323
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414239322}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.52, y: 0.6, z: 0.64}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1414593388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70973,6 +70971,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 899693240}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764846604010336751, guid: b9819fb9ddb170140917774a8e9cf4f8,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4537396122816542669, guid: b9819fb9ddb170140917774a8e9cf4f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -78272,8 +78285,6 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 1518697910}
   - {fileID: 518444971}
-  - {fileID: 955603248}
-  - {fileID: 1414239323}
   - {fileID: 1774766467}
   - {fileID: 536198134}
   - {fileID: 1458863841}
