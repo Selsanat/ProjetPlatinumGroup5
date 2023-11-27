@@ -15,7 +15,6 @@ public class WalkState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
-        animator.Play("Walk");
         StateMachine.velocity.x = _movementParams.maxSpeed* Mathf.Sign(StateMachine.velocity.x);
          characterController = StateMachine.GetComponent<CharacterController>();
     }

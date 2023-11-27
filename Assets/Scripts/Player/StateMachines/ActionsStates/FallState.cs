@@ -11,7 +11,7 @@ public class FallState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
-        animator.Play("Fall");
+        charAnimator.SetBool("Grounded", false);
         StateMachine.velocity.y = 0;
         if(StateMachine.PreviousState != StateMachine.jumpState)
         StateMachine.CoyoteWindow = _movementParams.CoyoteWindow;
@@ -29,7 +29,7 @@ public class FallState : TemplateState
         if (DetectCollision.isColliding(Mathf.Abs(StateMachine.velocity.y) * Vector2.down, StateMachine.transform, Vector2.zero))
         {
             SoundManager.instance.PlayClip("land");
-
+            charAnimator.SetBool("Grounded", true);
             StateMachine.velocity.y = 0;
             if (_IOrientWriter.orient.x != 0 &&
                 !DetectCollision.isColliding(Mathf.Sign(_IOrientWriter.orient.x) * Vector2.right, StateMachine.transform, Vector2.zero))

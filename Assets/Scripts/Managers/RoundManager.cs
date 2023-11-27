@@ -53,7 +53,7 @@ public class RoundManager : MonoBehaviour
             _playerStateMachine = playerStateMachine._playerStateMachine;
             _team = team;
             
-            playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
+            //playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
         }
     }
     void Awake()
@@ -96,8 +96,7 @@ public class RoundManager : MonoBehaviour
                 player.transform.position = spawnpoints[i].transform.position;
                 PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
                 playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
-
-
+                playerStateMachine.AnimatorPerso.SetFloat("Blend", (int)managerManager.Players.Values.ToList()[i]);
             }
         }
         else
