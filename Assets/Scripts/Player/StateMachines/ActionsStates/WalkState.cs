@@ -15,6 +15,7 @@ public class WalkState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
+        SoundManager.instance.PlayClip("Step");
         StateMachine.velocity.x = _movementParams.maxSpeed* Mathf.Sign(StateMachine.velocity.x);
          characterController = StateMachine.GetComponent<CharacterController>();
     }
@@ -103,7 +104,7 @@ public class WalkState : TemplateState
         }
         else
         {
-            //Debug.Log(Mathf.Sign(_IOrientWriter.orient.x) + " Mon input, et voila ma velocité : " + Mathf.Sign(StateMachine.velocity.x));
+            //Debug.Log(Mathf.Sign(_IOrientWriter.orient.x) + " Mon input, et voila ma velocitï¿½ : " + Mathf.Sign(StateMachine.velocity.x));
             if (Mathf.Sign(_IOrientWriter.orient.x) != Mathf.Sign(StateMachine.velocity.x))
             {
 
@@ -112,7 +113,6 @@ public class WalkState : TemplateState
             }
         }
         #endregion
-
         _characterController.Move(StateMachine.velocity);
 
 
