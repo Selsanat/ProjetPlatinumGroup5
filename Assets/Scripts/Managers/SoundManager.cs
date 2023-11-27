@@ -34,16 +34,43 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     void InitializeAllClips()
     {
-        foreach (Sounds s in sounds)
+        if(sounds.Length == 0)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length - 1)];
-            s.source.pitch = s.pitch;
-            s.source.volume = s.volume;
-            s.source.outputAudioMixerGroup = audioMixerGroup;
-            s.source.loop = s.loop;
-            s.source.playOnAwake = s.playeOnAwake;
+            Debug.LogWarning("No sounds in the sound manager !");
+            return;
         }
+        else if(sounds.Length == 1)
+        {
+            foreach (Sounds s in sounds)
+            {
+                s.source = gameObject.AddComponent<AudioSource>();
+                s.source.clip = s.clips[0];
+                s.source.pitch = s.pitch;
+                s.source.volume = s.volume;
+                s.source.outputAudioMixerGroup = audioMixerGroup;
+                s.source.loop = s.loop;
+                s.source.playOnAwake = s.playeOnAwake;
+                print("Sound " + s.name + " initialized");
+            }
+        }
+        else
+        {
+            foreach (Sounds s in sounds)
+            {
+                s.source = gameObject.AddComponent<AudioSource>();
+                s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length - 1)];
+                s.source.pitch = s.pitch;
+                s.source.volume = s.volume;
+                s.source.outputAudioMixerGroup = audioMixerGroup;
+                s.source.loop = s.loop;
+                s.source.playOnAwake = s.playeOnAwake;
+                print("Sound " + s.name + " initialized");
+
+            }
+
+
+        }
+        
     }
 
     /// <summary>

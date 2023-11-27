@@ -374,12 +374,8 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: click Menu 1
     clips:
-    - {fileID: 8300000, guid: 903e43fedb74e2b4ea529524cf868cfd, type: 3}
-    - {fileID: 8300000, guid: ed491047d52d6174599a3648c100ec83, type: 3}
-    - {fileID: 8300000, guid: 913f6ee302a1e8345887772a5de0bc72, type: 3}
-    - {fileID: 8300000, guid: 5168cb1ad018126498360445380c342d, type: 3}
-    - {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
-    clip: {fileID: 8300000, guid: 903e43fedb74e2b4ea529524cf868cfd, type: 3}
+    - {fileID: 8300000, guid: 802254c170fe72f4db30825ba7c2ce23, type: 3}
+    clip: {fileID: 8300000, guid: 802254c170fe72f4db30825ba7c2ce23, type: 3}
     volume: 0.25
     pitch: 1
     loop: 0
@@ -388,8 +384,8 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: start game
     clips:
-    - {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
-    clip: {fileID: 8300000, guid: bb479493a3cf5414c91d10ff67ac2003, type: 3}
+    - {fileID: 8300000, guid: 9bd17a3265b9da0428b09fccce556d30, type: 3}
+    clip: {fileID: 8300000, guid: 9bd17a3265b9da0428b09fccce556d30, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
@@ -440,8 +436,59 @@ MonoBehaviour:
     playeOnAwake: 0
     source: {fileID: 0}
   - name: annonceur
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 4854fe44706838c48b3738b37341882d, type: 3}
     clip: {fileID: 8300000, guid: e9a898138996e7f479bae135216c684e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Round Win
+    clips:
+    - {fileID: 8300000, guid: acb2b1e41c4d7c0479e3ad2eb6f3609b, type: 3}
+    clip: {fileID: 8300000, guid: e9a898138996e7f479bae135216c684e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Switch Menu
+    clips:
+    - {fileID: 8300000, guid: cff5a24ba49d7464f9405bc82679dc9d, type: 3}
+    clip: {fileID: 8300000, guid: e9a898138996e7f479bae135216c684e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Win
+    clips:
+    - {fileID: 8300000, guid: 3cfb7974318d53b4a91c4e4323bc8101, type: 3}
+    clip: {fileID: 8300000, guid: e9a898138996e7f479bae135216c684e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Nope
+    clips:
+    - {fileID: 8300000, guid: 4854fe44706838c48b3738b37341882d, type: 3}
+    clip: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Valid
+    clips:
+    - {fileID: 8300000, guid: 522a84a93bc0fcf49bf5c8cea26988d3, type: 3}
+    clip: {fileID: 0}
     volume: 0.5
     pitch: 1
     loop: 0
@@ -726,6 +773,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: start game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &209940511
@@ -1192,6 +1251,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: start game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &483127850
@@ -1946,6 +2017,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: start game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &776119886
@@ -2984,6 +3067,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: start game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1370617945
@@ -4249,6 +4344,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: start game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1813741559
@@ -6025,6 +6132,18 @@ MonoBehaviour:
           m_StringArgument: StateParam
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: click Menu 1
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6891497991746096609
 GameObject:
   m_ObjectHideFlags: 0
@@ -6340,6 +6459,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: StateSelectionPerso
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 135131204}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: start game
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &8974386607198863962

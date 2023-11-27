@@ -125,6 +125,7 @@ public class RoundManager : MonoBehaviour
     }
     public void RoundEnd()
     {
+        SoundManager.instance.PlayClip("Round Win");
         foreach (Player player in alivePlayers)
         {
             player._points += ManagerManager.Instance.gameParams.PointsPerRound;
@@ -186,6 +187,7 @@ public class RoundManager : MonoBehaviour
     public void EndRoundTest()
     {
         RoundEnd();
+        SoundManager.instance.PlayClip("Win");
         GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
     }
 }
