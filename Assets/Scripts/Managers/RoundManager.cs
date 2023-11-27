@@ -136,9 +136,9 @@ public class RoundManager : MonoBehaviour
         CameraTransition.Instance.FreezeIt();
         alivePlayers = new List<Player>(players);
         var allboules = FindObjectsOfType<BouleMouvement>();
-        for(int i = 0; i < players.Count; i++)
+        for(int i = 0; i < allboules.Length; i++)
         {
-            allboules[0].resetChangeScene();
+            allboules[i].resetChangeScene();
         }
         var scenes = ManagerManager.Instance.gameParams.Scenes;
         string sceneName = scenes[Random.Range(0, scenes.Length-1)];
