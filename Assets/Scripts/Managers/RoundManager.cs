@@ -108,6 +108,7 @@ public class RoundManager : MonoBehaviour
                 StateMachine.ChangeState(StateMachine.stateIdle);
                 StateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
                 StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
+                SoundManager.instance.PlayClip("Spawn");
             }
         }
         #endregion
@@ -153,9 +154,10 @@ public class RoundManager : MonoBehaviour
     {
         Player player = players.Find(x => x._playerStateMachine == playerKilled);
         alivePlayers.Remove(player);
-
+        SoundManager.instance.PlayClip("death");
         if (ShouldEndRound())
         {
+
             RoundEnd();
             GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
         }
