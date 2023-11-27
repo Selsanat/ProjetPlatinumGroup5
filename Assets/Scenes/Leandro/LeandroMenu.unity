@@ -6398,7 +6398,7 @@ MonoBehaviour:
   activeHUD: 0
   _choiceState:
   - choices:
-    - StateMapSelection
+    - StateSelectionPerso
     - StateParam
   - choices:
     - MenuState
@@ -6428,7 +6428,7 @@ MonoBehaviour:
   - 
   - 
   - 
-  - 
+  - Go to scene
   Menus:
   - menuObject: {fileID: 6891497991746096609}
     thisMenu: MenuState
@@ -7332,7 +7332,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: StateMapSelection
+          m_StringArgument: StateSelectionPerso
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &8974386607198863962
