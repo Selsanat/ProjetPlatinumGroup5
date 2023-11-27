@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 using TMPro;
 using Unity.VisualScripting;
@@ -14,10 +15,8 @@ using MoreMountains;
 
 public class CharacterSelector : MonoBehaviour
 {
-    private Gamepad gamepad;
     public UnityEngine.InputSystem.PlayerInput playerInputs => GetComponent<UnityEngine.InputSystem.PlayerInput>();
     public int index = 0;
-    private TMP_Text nom => GetComponentInChildren<TMP_Text>();
     private float PaddingLeft = 0;
     private HorizontalLayoutGroup horizontalLayoutGroup => GetComponentInChildren<HorizontalLayoutGroup>();
     private Toggle toggle => GetComponentInChildren<Toggle>();
@@ -35,14 +34,6 @@ public class CharacterSelector : MonoBehaviour
     {
         ManagerManager manager = ManagerManager.Instance;
         manager.characterSelector.Add(this);
-        nom.text = "Joueur " + manager.characterSelector.Count + " (" + playerInputs.devices[0].displayName + ")";
-        if (Gamepad.all.Contains(playerInputs.devices[0]))
-        {
-
-            gamepad = (Gamepad)playerInputs.devices[0];
-            StartCoroutine(Vibrations(10f, 0.25f));
-            
-        }
         playerInputs.actions.actionMaps[1].actions[2].started += ctx => SwipeRight();
         playerInputs.actions.actionMaps[1].actions[3].started += ctx => SwipeLeft();
         toggle.onValueChanged.AddListener((value) =>
@@ -86,20 +77,6 @@ public class CharacterSelector : MonoBehaviour
         if (!toggle.isOn)
         {
             toggle.interactable = !ManagerManager.Instance.Players.ContainsValue((RoundManager.Team)index);
-        }
-        
-        if (gamepad is DualShockGamepad)
-        {
-            RoundManager.Instance.teamColors = new List<Color>()
-            {
-                Color.blue,
-                Color.yellow,
-                Color.red,
-                Color.green
-            };
-
-
-            ((DualShockGamepad)gamepad).SetLightBarColor(RoundManager.Instance.teamColors[index]);
         }
     }
     void SwipeRight()
