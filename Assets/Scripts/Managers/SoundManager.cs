@@ -34,36 +34,81 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     void InitializeAllClips()
     {
-        foreach (Sounds s in sounds)
+        if(sounds.Length == 0)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length - 1)];
-            s.source.pitch = s.pitch;
-            s.source.volume = s.volume;
-            s.source.outputAudioMixerGroup = audioMixerGroup;
-            s.source.loop = s.loop;
-            s.source.playOnAwake = s.playeOnAwake;
+            Debug.LogWarning("No sounds in the sound manager !");
+            return;
         }
+        else if(sounds.Length == 1)
+        {
+            foreach (Sounds s in sounds)
+            {
+                s.source = gameObject.AddComponent<AudioSource>();
+                s.source.clip = s.clips[0];
+                s.source.pitch = s.pitch;
+                s.source.volume = s.volume;
+                s.source.outputAudioMixerGroup = audioMixerGroup;
+                s.source.loop = s.loop;
+                s.source.playOnAwake = s.playeOnAwake;
+                print("Sound " + s.name + " initialized");
+            }
+        }
+        else
+        {
+            foreach (Sounds s in sounds)
+            {
+                s.source = gameObject.AddComponent<AudioSource>();
+                s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length - 1)];
+                s.source.pitch = s.pitch;
+                s.source.volume = s.volume;
+                s.source.outputAudioMixerGroup = audioMixerGroup;
+                s.source.loop = s.loop;
+                s.source.playOnAwake = s.playeOnAwake;
+                print("Sound " + s.name + " initialized");
+
+            }
+
+
+        }
+        
     }
 
     /// <summary>
     /// Play a clip
     /// </summary>
+    /// 
     /// <param name="name">The name of the clip</param>
     public void PlayClip(string name)
     {
+        
         if (name == "")
         {
             return;
         }
         Sounds s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        if (s == null || s.clip == null)
         {
             Debug.LogWarning("The clip " + name + " doesn't exist !");
             return;
         }
         if (s.Oneshot) s.source.PlayOneShot(s.clip);
         else s.source.Play();
+    }
+
+
+    public void Pauseclip(string name)
+    {
+        if (name == "")
+        {
+            return;
+        }
+        Sounds s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null || s.clip == null)
+        {
+            Debug.LogWarning("The clip " + name + " doesn't exist !");
+            return;
+        }
+        s.source.Stop();
     }
 }
 

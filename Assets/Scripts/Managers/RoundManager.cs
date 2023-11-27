@@ -108,6 +108,7 @@ public class RoundManager : MonoBehaviour
                 StateMachine.ChangeState(StateMachine.stateIdle);
                 StateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
                 StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
+                SoundManager.instance.PlayClip("Spawn");
             }
         }
         #endregion
@@ -125,6 +126,7 @@ public class RoundManager : MonoBehaviour
     }
     public void RoundEnd()
     {
+        SoundManager.instance.PlayClip("Round Win");
         foreach (Player player in alivePlayers)
         {
             player._points += ManagerManager.Instance.gameParams.PointsPerRound;
@@ -152,9 +154,10 @@ public class RoundManager : MonoBehaviour
     {
         Player player = players.Find(x => x._playerStateMachine == playerKilled);
         alivePlayers.Remove(player);
-
+        SoundManager.instance.PlayClip("death");
         if (ShouldEndRound())
         {
+
             RoundEnd();
             GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
         }
@@ -193,6 +196,7 @@ public class RoundManager : MonoBehaviour
     public void EndRoundTest()
     {
         RoundEnd();
+        SoundManager.instance.PlayClip("Win");
         GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
     }
 }
