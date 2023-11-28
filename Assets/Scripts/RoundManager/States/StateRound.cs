@@ -13,6 +13,7 @@ public class StateRound : GameStateTemplate
 {
     private Camera cam;
     private CameraParams cameraParams;
+
     public bool _isPaused = false;
     DepthOfField dof;
     HorizontalLayoutGroup horizontalLayoutGroup => ManagerManager.Instance.horizontalLayoutGroup;
@@ -37,6 +38,10 @@ public class StateRound : GameStateTemplate
         {
             lockMouvements();
             GameObject.FindObjectOfType<Pause>().onPause();
+        }
+        else
+        {
+            unlockMovements();
         }
     }
 

@@ -34,6 +34,7 @@ public class Pause : MonoBehaviour
         {
             foreach (var player in InputsManager.Instance.playerInputs)
             {
+                //if(player._playerStateMachine. != null) 
                 player._playerStateMachine._iMouvementLockedWriter.isMouvementLocked = false;
             }
             Time.timeScale = 1;
