@@ -45,7 +45,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float JumpBuffer;
     public float CoyoteWindow;
     public bool activeHUD = false;
-
+    public Animator AnimatorPerso => GetComponentInChildren<Animator>();
     public BouleMouvement bouleMouvement;
     private void Awake()
     {
@@ -79,9 +79,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        Vector3 x = gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale;
-        gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale = new Vector3(Mathf.Sign(velocity.x), x.y,x.z);
         CurrentState.StateUpdate();
 
     }

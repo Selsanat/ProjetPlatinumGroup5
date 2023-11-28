@@ -53,7 +53,7 @@ public class RoundManager : MonoBehaviour
             _playerStateMachine = playerStateMachine._playerStateMachine;
             _team = team;
             
-            playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
+            //playerStateMachine._playerStateMachine.GetComponentInChildren<SpriteRenderer>().color = RoundManager.Instance.teamColors[(int)_team];
         }
     }
     void Awake()
@@ -96,8 +96,7 @@ public class RoundManager : MonoBehaviour
                 player.transform.position = spawnpoints[i].transform.position;
                 PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
                 playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
-
-
+                playerStateMachine.AnimatorPerso.SetFloat("Blend", (int)managerManager.Players.Values.ToList()[i]);
             }
         }
         else
@@ -108,6 +107,7 @@ public class RoundManager : MonoBehaviour
                 StateMachine.ChangeState(StateMachine.stateIdle);
                 StateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
                 StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
+                SoundManager.instance.PlayClip("Spawn");
             }
         }
         #endregion
@@ -125,6 +125,7 @@ public class RoundManager : MonoBehaviour
     }
     public void RoundEnd()
     {
+        SoundManager.instance.PlayClip("Round Win");
         foreach (Player player in alivePlayers)
         {
             player._points += ManagerManager.Instance.gameParams.PointsPerRound;
@@ -152,9 +153,10 @@ public class RoundManager : MonoBehaviour
     {
         Player player = players.Find(x => x._playerStateMachine == playerKilled);
         alivePlayers.Remove(player);
-
+        SoundManager.instance.PlayClip("death");
         if (ShouldEndRound())
         {
+
             RoundEnd();
             GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
         }
@@ -184,6 +186,7 @@ public class RoundManager : MonoBehaviour
     {
         foreach(Player player in players)
         {
+            
             Destroy(player._playerStateMachine.gameObject);
         }
         players.Clear();
@@ -193,6 +196,7 @@ public class RoundManager : MonoBehaviour
     public void EndRoundTest()
     {
         RoundEnd();
+        SoundManager.instance.PlayClip("Win");
         GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
     }
 }

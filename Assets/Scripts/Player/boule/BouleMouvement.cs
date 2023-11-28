@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class BouleMouvement : MonoBehaviour
@@ -55,6 +56,7 @@ public class BouleMouvement : MonoBehaviour
         death
     }
     StateBoule stateBoule = StateBoule.idle;
+    StateBoule lastState = StateBoule.idle;
     private void OnGUI()
     {
         GUILayout.Label("distance base : " + _distance);
@@ -91,13 +93,14 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
-        if(this.transform.position.z != _playerPivot.position.z)
+        changeState();
+        if (this.transform.position.z != _playerPivot.position.z)
         {
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         }
         if (_playerInputs.triggers > 0 && stateBoule == StateBoule.idle && !ParentMachine._iMouvementLockedReader.isMouvementLocked) // Quand le joueur appuie sur la touche && hits.Length == 1
         {
-/*            if (hits[0] != _sphereCollider)
+            /* if (hits[0] != _sphereCollider)
             {
                 return;
             }*/
@@ -108,6 +111,7 @@ public class BouleMouvement : MonoBehaviour
         if (_playerInputs.triggers < 1 && stateBoule == StateBoule.throwing)
         {
             setUpBoule();
+            
             _timeThrowing = 0;
         }
 
@@ -128,7 +132,7 @@ public class BouleMouvement : MonoBehaviour
             }
         }
         onCollision();
-        switch (stateBoule)
+/*        switch (stateBoule)
         {
             case StateBoule.idle:
                 this.GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
@@ -147,7 +151,7 @@ public class BouleMouvement : MonoBehaviour
             default:
                 break;
 
-        }
+        }*/
 
 
     }
@@ -170,6 +174,7 @@ public class BouleMouvement : MonoBehaviour
             case StateBoule.returning:
                 returnBoule();
                 break;
+
             case StateBoule.reseting:
                 resetBool();
                 break;
@@ -226,7 +231,40 @@ public class BouleMouvement : MonoBehaviour
         _rb.AddForce(-this.transform.forward * Time.fixedDeltaTime * _bouleParams._speedThrowing, ForceMode.VelocityChange);
 
     }
+    private void changeState()
+    {
+        if (lastState == stateBoule)
+            return;
+        else
+        {
+            switch (stateBoule)
+            {
+                case StateBoule.idle:
+                    SoundManager.instance.Pauseclip("Pet Return");
+                    SoundManager.instance.Pauseclip("Pet Cast");
+                    break;
+                case StateBoule.returning:
+                    SoundManager.instance.Pauseclip("Pet Cast");
+                    SoundManager.instance.PlayClip("Pet Return");
+                    break;
+                case StateBoule.reseting:
+                    SoundManager.instance.Pauseclip("Pet Cast");
+                    break;
+                case StateBoule.throwing:
+                    SoundManager.instance.PlayClip("Pet Cast");
+                    SoundManager.instance.Pauseclip("Pet Return");
+                    break;
+                case StateBoule.death:
+                    SoundManager.instance.Pauseclip("Pet Return");
+                    SoundManager.instance.Pauseclip("Pet Cast");
+                    break;
+                default:
+                    break;
 
+            }
+            lastState = stateBoule;
+        }
+    }
     private void endResetboule()
     {
         stateBoule = StateBoule.idle;
@@ -238,6 +276,12 @@ public class BouleMouvement : MonoBehaviour
     }
     private void returnBoule() // retour de la boule
     {
+        if (_target == null || _contactPoints.Count == 0)
+        {
+            stateBoule = StateBoule.reseting;
+            return;
+        }
+
         Vector3 dir = (_target - this.transform.position).normalized;
         if (_target == _contactPoints[_contactPoints.Count - 1]) //si on est sur le premier point
         {
@@ -308,6 +352,7 @@ public class BouleMouvement : MonoBehaviour
         _hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius, _layer);
         if(_hits.Length > _nbHits)
         {
+            
             SoundManager.instance.PlayClip("bounce");
 
             _nbHits = _hits.Length;
@@ -385,6 +430,9 @@ public class BouleMouvement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == ParentMachine.gameObject) return;
+        if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
+            SoundManager.instance.PlayClip("Pet Kiss");
+
         if (collision.gameObject.tag == "Player")
         {
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();

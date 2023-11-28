@@ -10,7 +10,6 @@ public class DeathState : TemplateState
     {
         SoundManager.instance.PlayClip("death");
 
-        animator.Play("Death");
         StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
 
         StateMachine.bouleMouvement.gameObject.SetActive(false);
