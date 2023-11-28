@@ -86,7 +86,7 @@ public class GameStateMachine : MonoBehaviour
     }
     private void OnGUI()
     {
-        if (true) return;
+        if (CurrentState != menuState) return;
         GUILayout.BeginVertical(GUI.skin.box);
         GUILayout.Label("Menu State :");
         GUILayout.TextField("" + CurrentState);
@@ -172,10 +172,10 @@ public class GameStateMachine : MonoBehaviour
         if (ui != null)
         {
             ui.SetActive(true);
-            if(ui.GetComponentInChildren<Slider>() != null)
-                ui.GetComponentInChildren<Slider>().Select();
-            else if(ui.GetComponentInChildren<Button>() != null)
-                    ui.GetComponentInChildren<Button>().Select();
+            /*if (ui.GetComponentInChildren<Slider>() != null)
+                ui.GetComponentInChildren<Slider>().Select();*/
+            if (ui.GetComponentInChildren<Button>() != null)
+                    ui.GetComponentInChildren<Button>().Select(); 
         }
     }
     public void HideAllMenusExceptThis()

@@ -36,27 +36,40 @@ public class SoundManager : MonoBehaviour
     {
         foreach (Sounds s in sounds)
         {
+            if (s.clips.Length == 0 && s.clip == null)
+            {
+                Debug.LogWarning("No sounds in the sound manager !");
+                return;
+            }
             s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
+            if(s.clips.Length > 1)
+                s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length - 1)];
+            else
+                s.source.clip = s.clip;
             s.source.pitch = s.pitch;
             s.source.volume = s.volume;
             s.source.outputAudioMixerGroup = audioMixerGroup;
             s.source.loop = s.loop;
+            s.source.playOnAwake = s.playeOnAwake;
+            print("Sound " + s.name + " initialized");
         }
+
     }
 
     /// <summary>
     /// Play a clip
     /// </summary>
+    /// 
     /// <param name="name">The name of the clip</param>
     public void PlayClip(string name)
     {
+        
         if (name == "")
         {
             return;
         }
         Sounds s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        if (s == null || s.clip == null)
         {
             Debug.LogWarning("The clip " + name + " doesn't exist !");
             return;
@@ -64,12 +77,29 @@ public class SoundManager : MonoBehaviour
         if (s.Oneshot) s.source.PlayOneShot(s.clip);
         else s.source.Play();
     }
+
+
+    public void Pauseclip(string name)
+    {
+        if (name == "")
+        {
+            return;
+        }
+        Sounds s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null || s.clip == null)
+        {
+            Debug.LogWarning("The clip " + name + " doesn't exist !");
+            return;
+        }
+        s.source.Stop();
+    }
 }
 
 [System.Serializable]
 public class Sounds
 {
     public string name;
+    public AudioClip[] clips;
     public AudioClip clip;
 
     [Range(0f, 1f)]
@@ -78,6 +108,7 @@ public class Sounds
     public float pitch;
     public bool loop;
     public bool Oneshot;
+    public bool playeOnAwake;
 
     [HideInInspector]
     public AudioSource source;

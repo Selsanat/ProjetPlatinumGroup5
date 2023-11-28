@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: CamParam
   m_EditorClassIdentifier: 
   numberOfJumps: 1
-  jumpForce: 500
+  jumpForce: 700
   heighOfFall: 1493
   jumpDuration: 0.1
-  timeToMoveFromPlayerToPlayer: 1
+  timeToMoveFromPlayerToPlayer: 0.5
   Zoom: 5
-  TimeToZoom: 1
-  intervalBetweenPlayers: 1
-  timeAfterZoomsBeforeRoundStart: 1
+  TimeToZoom: 0.5
+  intervalBetweenPlayers: 0.5
+  timeAfterZoomsBeforeRoundStart: 0.5
   cameraXmax: 1.08
   cameraYmax: 1.62
   ZpourSeReperer: 41.73
@@ -28,4 +28,4 @@ MonoBehaviour:
   distanceZAlaCam: 10
   SmoothnessZoomRoundEnd: 0.1
   OrthoSizeRoundEnd: 5
-  TimeToZoomEndRound: 1
+  TimeToZoomEndRound: 0

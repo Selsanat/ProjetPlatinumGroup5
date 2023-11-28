@@ -6,13 +6,17 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
-using PlayerInput = UnityEngine.InputSystem.PlayerInput;
-using UnityEditor.Animations;
-using UnityEditorInternal;
-using UnityEngine.Animations;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using Unity.Collections.LowLevel.Unsafe;
+using MoreMountains;
 
 public class CharacterSelector : MonoBehaviour
 {
+    private Gamepad gamepad;
+    private TMP_Text nom => GetComponentInChildren<TMP_Text>();
     public UnityEngine.InputSystem.PlayerInput playerInputs => GetComponent<UnityEngine.InputSystem.PlayerInput>();
     public int index = 0;
     private float PaddingLeft = 0;
@@ -32,6 +36,14 @@ public class CharacterSelector : MonoBehaviour
     {
         ManagerManager manager = ManagerManager.Instance;
         manager.characterSelector.Add(this);
+        nom.text = "Joueur " + manager.characterSelector.Count + " (" + playerInputs.devices[0].displayName + ")";
+        if (Gamepad.all.Contains(playerInputs.devices[0]))
+        {
+
+            gamepad = (Gamepad)playerInputs.devices[0];
+            StartCoroutine(Vibrations(10f, 0.25f));
+
+        }
         playerInputs.actions.actionMaps[1].actions[2].started += ctx => SwipeRight();
         playerInputs.actions.actionMaps[1].actions[3].started += ctx => SwipeLeft();
         toggle.onValueChanged.AddListener((value) =>
@@ -60,11 +72,13 @@ public class CharacterSelector : MonoBehaviour
 
     void Update()
     {
+
         playerInputs.actions.actionMaps[1].actions[4].performed += ctx =>
         {
             if (ManagerManager.Instance.ReadyToFight.isOn)
             {
                 ManagerManager.Instance.ReadyToFight.isOn = false;
+                playSound("start game");
                 GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.MapSelectionState);
             }
         };
@@ -83,6 +97,13 @@ public class CharacterSelector : MonoBehaviour
             index++;
             animatorCadrant.SetFloat("Blend", index);
             DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
+            playSound("Click");
+            playSound("click Menu 1");
+
+        }
+        else if (index >= horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        {
+            playSound("Click");
         }
     }
     void SwipeLeft()
@@ -92,9 +113,18 @@ public class CharacterSelector : MonoBehaviour
             index--;
             animatorCadrant.SetFloat("Blend", index);
             DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
+            playSound("Click");
+            playSound("click Menu 1");
+        }
+        else if(index <= 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        {
+            playSound("Click");
         }
     }
-
+    public void playSound(string str)
+    {
+        SoundManager.instance.PlayClip(str);
+    }
     void UpdateCard()
     {
         ManagerManager manager = ManagerManager.Instance;
@@ -130,5 +160,21 @@ public class CharacterSelector : MonoBehaviour
             }
         }
         return true;
+    }
+
+    IEnumerator Vibrations(float force, float time)
+    {
+        if(gamepad is DualShockGamepad)
+        {
+            ((DualShockGamepad)gamepad).SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            ((DualShockGamepad)gamepad).ResetHaptics();
+        }
+        else
+        {
+            gamepad.SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            gamepad.ResetHaptics();
+        }
     }
 }

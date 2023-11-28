@@ -12,7 +12,6 @@ public class IdleState : TemplateState
     {
         if(StateMachine.bouleMouvement!= null)
         StateMachine.bouleMouvement.gameObject.SetActive(true);
-        animator.Play("Idle");
         if(_IOrientWriter.orient.x==0)
         StateMachine.velocity = Vector2.zero;
     }

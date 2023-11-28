@@ -8,7 +8,8 @@ public class DeathState : TemplateState
     }
     protected override void OnStateEnter(TemplateState previousState)
     {
-        animator.Play("Death");
+        SoundManager.instance.PlayClip("death");
+
         StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
 
         StateMachine.bouleMouvement.gameObject.SetActive(false);
