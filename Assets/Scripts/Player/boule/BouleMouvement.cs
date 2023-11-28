@@ -462,7 +462,7 @@ public class BouleMouvement : MonoBehaviour
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
             if (StateMachine.CurrentState != StateMachine.deathState)
             {
-                StartCoroutine(Vibrations(0.25f, 1, StateMachine.GetComponent<PlayerInput>().gameObject.GetComponent<Gamepad>()));
+                //StartCoroutine(Vibrations(0.25f, 1, StateMachine.GetComponent<PlayerInput>().gameObject.GetComponent<Gamepad>()));
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
             }
