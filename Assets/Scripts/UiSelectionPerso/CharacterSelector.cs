@@ -15,6 +15,8 @@ using MoreMountains;
 
 public class CharacterSelector : MonoBehaviour
 {
+    private Gamepad gamepad;
+    private TMP_Text nom => GetComponentInChildren<TMP_Text>();
     public UnityEngine.InputSystem.PlayerInput playerInputs => GetComponent<UnityEngine.InputSystem.PlayerInput>();
     public int index = 0;
     private float PaddingLeft = 0;
@@ -34,6 +36,14 @@ public class CharacterSelector : MonoBehaviour
     {
         ManagerManager manager = ManagerManager.Instance;
         manager.characterSelector.Add(this);
+        nom.text = "Joueur " + manager.characterSelector.Count + " (" + playerInputs.devices[0].displayName + ")";
+        if (Gamepad.all.Contains(playerInputs.devices[0]))
+        {
+
+            gamepad = (Gamepad)playerInputs.devices[0];
+            StartCoroutine(Vibrations(10f, 0.25f));
+
+        }
         playerInputs.actions.actionMaps[1].actions[2].started += ctx => SwipeRight();
         playerInputs.actions.actionMaps[1].actions[3].started += ctx => SwipeLeft();
         toggle.onValueChanged.AddListener((value) =>
@@ -62,6 +72,7 @@ public class CharacterSelector : MonoBehaviour
 
     void Update()
     {
+
         playerInputs.actions.actionMaps[1].actions[4].performed += ctx =>
         {
             if (ManagerManager.Instance.ReadyToFight.isOn)
