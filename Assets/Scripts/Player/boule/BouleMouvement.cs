@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using static InputsManager;
 using UnityEngine.InputSystem.DualShock;
 
@@ -260,7 +261,9 @@ public class BouleMouvement : MonoBehaviour
                 case StateBoule.throwing:
                     SoundManager.instance.PlayClip("Pet Cast");
                     SoundManager.instance.Pauseclip("Pet Return");
-                    //StartCoroutine(Vibrations(0.25f, 1, ParentMachine.GetComponent<PlayerInput>().gameObject.GetComponent<Gamepad>()));
+                    if(ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                        StartCoroutine(Vibrations(0.25f, 1, (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
+
                     break;
                 case StateBoule.death:
                     SoundManager.instance.Pauseclip("Pet Return");
@@ -437,7 +440,6 @@ public class BouleMouvement : MonoBehaviour
     {
 
         
-
         if (gamepad is DualShockGamepad)
         {
             ((DualShockGamepad)gamepad).SetMotorSpeeds(force, force);
@@ -462,7 +464,7 @@ public class BouleMouvement : MonoBehaviour
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
             if (StateMachine.CurrentState != StateMachine.deathState)
             {
-                //StartCoroutine(Vibrations(0.25f, 1, StateMachine.GetComponent<PlayerInput>().gameObject.GetComponent<Gamepad>()));
+                StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
             }
