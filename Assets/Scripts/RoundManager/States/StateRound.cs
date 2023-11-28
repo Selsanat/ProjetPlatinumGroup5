@@ -34,15 +34,7 @@ public class StateRound : GameStateTemplate
 
     protected override void OnStateUpdate()
     {
-        if(_isPaused)
-        {
-            lockMouvements();
-            GameObject.FindObjectOfType<Pause>().onPause();
-        }
-        else
-        {
-            unlockMovements();
-        }
+        
     }
 
     #region Animation Debut De round

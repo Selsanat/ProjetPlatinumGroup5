@@ -38,7 +38,7 @@ public class Pause : MonoBehaviour
                 player._playerStateMachine._iMouvementLockedWriter.isMouvementLocked = false;
             }
             Time.timeScale = 1;
-            _continue.onClick.RemoveAllListeners();
+            _continue.onClick.RemoveAllListeners(); 
             _quit.onClick.RemoveAllListeners();
             _pauseMenu.SetActive(false);
         }
