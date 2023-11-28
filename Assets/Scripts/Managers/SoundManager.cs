@@ -34,43 +34,26 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     void InitializeAllClips()
     {
-        if(sounds.Length == 0)
+        foreach (Sounds s in sounds)
         {
-            Debug.LogWarning("No sounds in the sound manager !");
-            return;
-        }
-        else if(sounds.Length == 1)
-        {
-            foreach (Sounds s in sounds)
+            if (s.clips.Length == 0 && s.clip == null)
             {
-                s.source = gameObject.AddComponent<AudioSource>();
-                s.source.clip = s.clips[0];
-                s.source.pitch = s.pitch;
-                s.source.volume = s.volume;
-                s.source.outputAudioMixerGroup = audioMixerGroup;
-                s.source.loop = s.loop;
-                s.source.playOnAwake = s.playeOnAwake;
-                print("Sound " + s.name + " initialized");
+                Debug.LogWarning("No sounds in the sound manager !");
+                return;
             }
-        }
-        else
-        {
-            foreach (Sounds s in sounds)
-            {
-                s.source = gameObject.AddComponent<AudioSource>();
+            s.source = gameObject.AddComponent<AudioSource>();
+            if(s.clips.Length > 1)
                 s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length - 1)];
-                s.source.pitch = s.pitch;
-                s.source.volume = s.volume;
-                s.source.outputAudioMixerGroup = audioMixerGroup;
-                s.source.loop = s.loop;
-                s.source.playOnAwake = s.playeOnAwake;
-                print("Sound " + s.name + " initialized");
-
-            }
-
-
+            else
+                s.source.clip = s.clip;
+            s.source.pitch = s.pitch;
+            s.source.volume = s.volume;
+            s.source.outputAudioMixerGroup = audioMixerGroup;
+            s.source.loop = s.loop;
+            s.source.playOnAwake = s.playeOnAwake;
+            print("Sound " + s.name + " initialized");
         }
-        
+
     }
 
     /// <summary>

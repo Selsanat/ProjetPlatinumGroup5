@@ -1,7 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static InputsManager;
+using UnityEngine.InputSystem.DualShock;
+
 
 
 public class BouleMouvement : MonoBehaviour
@@ -104,6 +108,7 @@ public class BouleMouvement : MonoBehaviour
             {
                 return;
             }*/
+
             _sphereCollider.material = _bounce;
             stateBoule = StateBoule.throwing;
             updateThrowing();
@@ -253,6 +258,7 @@ public class BouleMouvement : MonoBehaviour
                 case StateBoule.throwing:
                     SoundManager.instance.PlayClip("Pet Cast");
                     SoundManager.instance.Pauseclip("Pet Return");
+                    StartCoroutine(Vibrations(0.25f, 1, ParentMachine.GetComponent<PlayerInput>().gameObject.GetComponent<Gamepad>()));
                     break;
                 case StateBoule.death:
                     SoundManager.instance.Pauseclip("Pet Return");
@@ -365,7 +371,6 @@ public class BouleMouvement : MonoBehaviour
                 
                 particleSystem.Play();
                 _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
-                print(hit.gameObject.name);
                 //_collidingObject.Add(hit.gameObject);
                 if (stateBoule == StateBoule.throwing)
                     _contactPoints.Add(this.transform.position);
@@ -426,7 +431,24 @@ public class BouleMouvement : MonoBehaviour
 
 
 
+    IEnumerator Vibrations(float force, float time, Gamepad gamepad)
+    {
 
+        
+
+        if (gamepad is DualShockGamepad)
+        {
+            ((DualShockGamepad)gamepad).SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            ((DualShockGamepad)gamepad).ResetHaptics();
+        }
+        else
+        {
+            gamepad.SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            gamepad.ResetHaptics();
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == ParentMachine.gameObject) return;
@@ -438,6 +460,7 @@ public class BouleMouvement : MonoBehaviour
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
             if (StateMachine.CurrentState != StateMachine.deathState)
             {
+                StartCoroutine(Vibrations(0.25f, 1, StateMachine.GetComponent<PlayerInput>().gameObject.GetComponent<Gamepad>()));
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
             }
