@@ -96,7 +96,12 @@ public class RoundManager : MonoBehaviour
                 player.transform.position = spawnpoints[i].transform.position;
                 PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
                 playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
-                playerStateMachine.AnimatorPerso.SetFloat("Blend", (int)managerManager.Players.Values.ToList()[i]);
+
+                foreach(Animator animator in playerStateMachine.GetComponentsInChildren<Animator>())
+                {
+                    animator.SetFloat("Blend", (int)managerManager.Players.Values.ToList()[i]);
+                }
+                
             }
         }
         else
