@@ -242,8 +242,10 @@ public class BouleMouvement : MonoBehaviour
             return;
         else
         {
+            print("Last : "+ lastState + " Actual state" + stateBoule);
             switch (stateBoule)
             {
+                
                 case StateBoule.idle:
                     SoundManager.instance.Pauseclip("Pet Return");
                     SoundManager.instance.Pauseclip("Pet Cast");
@@ -258,7 +260,7 @@ public class BouleMouvement : MonoBehaviour
                 case StateBoule.throwing:
                     SoundManager.instance.PlayClip("Pet Cast");
                     SoundManager.instance.Pauseclip("Pet Return");
-                    StartCoroutine(Vibrations(0.25f, 1, ParentMachine.GetComponent<PlayerInput>().gameObject.GetComponent<Gamepad>()));
+                    //StartCoroutine(Vibrations(0.25f, 1, ParentMachine.GetComponent<PlayerInput>().gameObject.GetComponent<Gamepad>()));
                     break;
                 case StateBoule.death:
                     SoundManager.instance.Pauseclip("Pet Return");
