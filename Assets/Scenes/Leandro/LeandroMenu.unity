@@ -581,8 +581,12 @@ MonoBehaviour:
     playeOnAwake: 0
     source: {fileID: 0}
   - name: Pet Cast
-    clips: []
-    clip: {fileID: 8300000, guid: 1475a18662df8434ba298a60d0db7bcb, type: 3}
+    clips:
+    - {fileID: 8300000, guid: e467c8dd8d81a6644b452bc2e2bce284, type: 3}
+    - {fileID: 8300000, guid: 05c5a62a4475e0e4bbc30e18438433fd, type: 3}
+    - {fileID: 8300000, guid: 9d02b6c6cc37dfc449e5d8c6efe19027, type: 3}
+    - {fileID: 8300000, guid: 12c466aeb53f74740baed65f8ff7c15b, type: 3}
+    clip: {fileID: 8300000, guid: e467c8dd8d81a6644b452bc2e2bce284, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
