@@ -25,7 +25,10 @@ public class RoundEnd : GameStateTemplate
         CameraTransition.Instance.cameraFollow.FollowPlayers = false;
         //StateMachine.HideAllMenusExceptThis(ui);
         cam = CameraTransition.Instance.TransitionCam;
-        cam.DOOrthoSize(camparam.OrthoSizeRoundEnd,camparam.TimeToZoomEndRound);
+        cam.DOOrthoSize(camparam.OrthoSizeRoundEnd,camparam.TimeToZoomEndRound).OnComplete(() =>
+        {
+            CameraTransition.Instance.CameraRotation();
+        });
         StateMachine.StartCoroutine(NextRound());
     }
 
@@ -44,9 +47,11 @@ public class RoundEnd : GameStateTemplate
 
     IEnumerator NextRound()
     {
+        int[] points = new int[4];
         foreach (RoundManager.Player player in RoundManager.Instance.players)
         {
-            if (player._points >= ManagerManager.Instance.gameParams.PointsToWin)
+            points[player._playerStateMachine.team] += player._points;
+            if (points[player._playerStateMachine.team] >= ManagerManager.Instance.gameParams.PointsToWin)
             {
                 #region SequenceSetter
                 mySequence = DOTween.Sequence();

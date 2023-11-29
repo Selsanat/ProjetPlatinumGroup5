@@ -136,7 +136,7 @@ public class CharacterSelector : MonoBehaviour
                 {
                     if (manager.Players.ContainsValue((RoundManager.Team)i) && (selec.index!=i || selec.index == i && !selec.toggle.isOn))
                     {
-                        selec.buttonsImages.interactable = false;
+                        //selec.buttonsImages.interactable = false;
                         selec.buttonsImages.transform.GetChild(i).GetComponent<Image>().color =
                         new Color(0.5f, 0.5f, 0.5f);
                     }
@@ -148,6 +148,7 @@ public class CharacterSelector : MonoBehaviour
                 }
             }
         }
+       
     }
 
     bool CanStart()
