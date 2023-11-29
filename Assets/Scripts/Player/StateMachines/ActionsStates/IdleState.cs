@@ -11,9 +11,9 @@ public class IdleState : TemplateState
     protected override void OnStateEnter(TemplateState previousState)
     {
         if(StateMachine.bouleMouvement!= null)
-        StateMachine.bouleMouvement.gameObject.SetActive(true);
-        if(_IOrientWriter.orient.x==0)
+        if (_IOrientWriter.orient.x==0)
         StateMachine.velocity = Vector2.zero;
+        StateMachine.GetComponentInChildren<CapsuleCollider>().enabled = true;
     }
 
     protected override void OnStateUpdate()

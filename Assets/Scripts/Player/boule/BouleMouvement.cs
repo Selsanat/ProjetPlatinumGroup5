@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using static InputsManager;
 using UnityEngine.InputSystem.DualShock;
-
-
+using UnityEngine.InputSystem.Processors;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -51,7 +50,7 @@ public class BouleMouvement : MonoBehaviour
     //return boule
     public BouleParams _bouleParams;// => _manager.bouleParams;
     private float _incrementation = 1;
-
+    public SpriteRenderer SpriteRenderer => GetComponentInChildren<SpriteRenderer>();
     private enum StateBoule
     {
         idle,
@@ -98,6 +97,11 @@ public class BouleMouvement : MonoBehaviour
 
     private void Update()
     {
+        Debug.DrawRay(this.transform.position, _rb.velocity * 10 , Color.blue);
+        if (stateBoule == StateBoule.throwing)
+        {
+            MakeSpriteLookAtWhereYouGo(_rb.velocity);
+        }
         changeState();
         if (this.transform.position.z != _playerPivot.position.z)
         {
@@ -162,15 +166,18 @@ public class BouleMouvement : MonoBehaviour
 
     }
 
+    private void ChangeAlpha(float alpha)
+    {
+        SpriteRenderer.color = new Color(SpriteRenderer.color.r, SpriteRenderer.color.g, SpriteRenderer.color.b, alpha/100);
+    }
     public void resetChangeScene()
     {
         _contactPoints.Clear();
         _collidingObject.Clear();
-        
+        stateBoule = StateBoule.reseting;
     }
     private void FixedUpdate()
     {
-        
         switch (stateBoule)
         {
             case StateBoule.idle:
@@ -227,6 +234,7 @@ public class BouleMouvement : MonoBehaviour
     }
     private void updateThrowing() //lanc� de la boule
     {
+        SpriteRenderer.flipX = false;
         if (_beforeThrow == Vector3.zero)
         {
             _beforeThrow = this.transform.position;
@@ -235,15 +243,24 @@ public class BouleMouvement : MonoBehaviour
         this.transform.SetParent(null);
 
         _rb.AddForce(-this.transform.forward * Time.fixedDeltaTime * _bouleParams._speedThrowing, ForceMode.VelocityChange);
-
+    }
+    public void MakeSpriteLookAtWhereYouGo(Vector3 dir)
+    {
+        SpriteRenderer.transform.LookAt(SpriteRenderer.transform.position + dir * 10);;
+        float angle = Mathf.Abs(SpriteRenderer.transform.localRotation.eulerAngles.y + SpriteRenderer.transform.localRotation.eulerAngles.x);
+        Debug.Log(angle);
+        SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90,angle % 270 <90 ? angle*-1:angle);
     }
     private void changeState()
     {
         if (lastState == stateBoule)
             return;
+        if(stateBoule != StateBoule.reseting)
+        {
+            ChangeAlpha(100);
+        }
         else
         {
-            print("Last : "+ lastState + " Actual state" + stateBoule);
             switch (stateBoule)
             {
                 
@@ -252,6 +269,7 @@ public class BouleMouvement : MonoBehaviour
                     SoundManager.instance.Pauseclip("Pet Cast");
                     break;
                 case StateBoule.returning:
+
                     SoundManager.instance.Pauseclip("Pet Cast");
                     SoundManager.instance.PlayClip("Pet Return");
                     break;
@@ -293,7 +311,10 @@ public class BouleMouvement : MonoBehaviour
             return;
         }
 
+        
         Vector3 dir = (_target - this.transform.position).normalized;
+        Debug.DrawRay(transform.position, dir*10, Color.red);
+        MakeSpriteLookAtWhereYouGo(dir);
         if (_target == _contactPoints[_contactPoints.Count - 1]) //si on est sur le premier point
         {
             if (!_isLerpSlowFinished) //lorsque l'on ralentie
@@ -360,10 +381,10 @@ public class BouleMouvement : MonoBehaviour
     }
     private void onCollision()
     {
+
         _hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius, _layer);
         if(_hits.Length > _nbHits)
         {
-            
             SoundManager.instance.PlayClip("bounce");
 
             _nbHits = _hits.Length;
@@ -381,7 +402,7 @@ public class BouleMouvement : MonoBehaviour
                     _contactPoints.Add(this.transform.position);
                 
             }
-            
+
         }
         else if(_hits.Length < _nbHits)
         {
@@ -393,7 +414,8 @@ public class BouleMouvement : MonoBehaviour
         if (stateBoule == StateBoule.reseting)
             return;
 
-        
+        SpriteRenderer.flipX = !(_clockwise && transform.rotation.y > 0 || !_clockwise && transform.rotation.y < 0);
+        SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90, -90);
         transform.RotateAround(_playerPivot.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _bouleParams._rotationSpeed * _incrementation * Time.fixedDeltaTime);
         transform.LookAt(_playerPivot);
     }
@@ -401,6 +423,7 @@ public class BouleMouvement : MonoBehaviour
 
     private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
+        ChangeAlpha(33);
         transform.LookAt(_playerPivot);
         _sphereCollider.isTrigger = true;
         //_sphereCollider.isTrigger = true;
@@ -411,7 +434,7 @@ public class BouleMouvement : MonoBehaviour
         {
             _rb.AddForce(this.transform.forward * Time.deltaTime * _bouleParams._resetSpeed , ForceMode.VelocityChange);
         }
-        
+        MakeSpriteLookAtWhereYouGo(ParentMachine.transform.position-transform.position);
         // T�l�porte la boule � la nouvelle position
 
     }
@@ -456,6 +479,8 @@ public class BouleMouvement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == ParentMachine.gameObject) return;
+        PlayerStateMachine pst = collision.gameObject.GetComponent<PlayerStateMachine>();
+        if (pst != null) if (pst.team == ParentMachine.team) return;
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
             SoundManager.instance.PlayClip("Pet Kiss");
 

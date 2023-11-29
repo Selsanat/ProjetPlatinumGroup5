@@ -95,7 +95,6 @@ public class CameraTransition : MonoBehaviour
 
     void ChangedActiveScene(Scene PreviousScene, Scene NextScene)
     {
-        print("changedScene");
         Camera[] cams = FindObjectsOfType<Camera>();
         foreach(Camera cam in cams)
         {

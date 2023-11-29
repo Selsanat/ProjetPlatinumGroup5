@@ -44,9 +44,11 @@ public class RoundEnd : GameStateTemplate
 
     IEnumerator NextRound()
     {
+        int[] points = new int[4];
         foreach (RoundManager.Player player in RoundManager.Instance.players)
         {
-            if (player._points >= ManagerManager.Instance.gameParams.PointsToWin)
+            points[player._playerStateMachine.team] += player._points;
+            if (points[player._playerStateMachine.team] >= ManagerManager.Instance.gameParams.PointsToWin)
             {
                 #region SequenceSetter
                 mySequence = DOTween.Sequence();
