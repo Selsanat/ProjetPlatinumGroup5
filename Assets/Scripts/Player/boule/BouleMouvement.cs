@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.UI;
 using static InputsManager;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Processors;
+using UnityEditor.ShaderGraph;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class BouleMouvement : MonoBehaviour
     public Transform _playerTransform;
     public bool _clockwise = true;
     public ParticleSystem particleSystem;
+    public ParticleSystem particleSystemDeath;
     public Material[] _trailRendererMaterials;
 
     #endregion
@@ -49,6 +51,7 @@ public class BouleMouvement : MonoBehaviour
     public float _timeThrowing = 0;
     public LayerMask _layer;
     //return boule
+    
     public BouleParams _bouleParams;// => _manager.bouleParams;
     private float _incrementation = 1;
     public SpriteRenderer SpriteRenderer => GetComponentInChildren<SpriteRenderer>();
@@ -507,6 +510,7 @@ public class BouleMouvement : MonoBehaviour
                 if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
                 SoundManager.instance.PlayRandomClip("Narrator death");
+                collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
             }
@@ -516,7 +520,27 @@ public class BouleMouvement : MonoBehaviour
         }
     }
 
-
+    private void PlayDeathParticules()
+    {
+       /* var part = particleSystemDeath.main;
+        if(ParentMachine.team == 0)
+        {
+            part.startColor = Color.blue;
+        }
+        else if(ParentMachine.team == 1)
+        {
+            part.startColor = Color.yellow;
+        }
+        else if(ParentMachine.team == 2)
+        {
+            part.startColor = Color.red;
+        }
+        else
+        {
+            part.startColor = Color.green;
+        }*/
+        particleSystemDeath.Play();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
