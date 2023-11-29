@@ -47,6 +47,7 @@ public class BouleMouvement : MonoBehaviour
     public Vector3 _vecHit;
     public float _timeThrowing = 0;
     public LayerMask _layer;
+    public LineRenderer _lineRenderer;
     //return boule
     public BouleParams _bouleParams;// => _manager.bouleParams;
     private float _incrementation = 1;
@@ -90,6 +91,7 @@ public class BouleMouvement : MonoBehaviour
     void Start()
     {
         _clockwise = _bouleParams._clockwise;
+        _lineRenderer = this.gameObject.GetComponent<LineRenderer>(); 
         _contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         _distance = Vector3.Distance(_playerPivot.position, this.transform.position);
@@ -394,9 +396,11 @@ public class BouleMouvement : MonoBehaviour
                 {
                     break;
                 }
-                
-                particleSystem.Play();
-                _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
+                if (stateBoule != StateBoule.reseting)
+                    particleSystem.Play();
+                if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                    StartCoroutine(Vibrations(0.2f, 0.1f, (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
+                   _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
                 //_collidingObject.Add(hit.gameObject);
                 if (stateBoule == StateBoule.throwing)
                     _contactPoints.Add(this.transform.position);
@@ -483,7 +487,10 @@ public class BouleMouvement : MonoBehaviour
         if (pst != null) if (pst.team == ParentMachine.team) return;
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
             SoundManager.instance.PlayClip("Pet Kiss");
-
+        if(collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
+        {
+            endResetboule();
+        }
         if (collision.gameObject.tag == "Player")
         {
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();

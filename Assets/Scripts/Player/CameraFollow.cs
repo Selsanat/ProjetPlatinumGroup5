@@ -1,6 +1,7 @@
 using Cinemachine.Utility;
 using DG.Tweening;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraFollow : MonoBehaviour
 {

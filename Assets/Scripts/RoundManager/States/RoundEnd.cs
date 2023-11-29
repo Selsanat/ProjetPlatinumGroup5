@@ -25,7 +25,10 @@ public class RoundEnd : GameStateTemplate
         CameraTransition.Instance.cameraFollow.FollowPlayers = false;
         //StateMachine.HideAllMenusExceptThis(ui);
         cam = CameraTransition.Instance.TransitionCam;
-        cam.DOOrthoSize(camparam.OrthoSizeRoundEnd,camparam.TimeToZoomEndRound);
+        cam.DOOrthoSize(camparam.OrthoSizeRoundEnd,camparam.TimeToZoomEndRound).OnComplete(() =>
+        {
+            CameraTransition.Instance.CameraRotation();
+        });
         StateMachine.StartCoroutine(NextRound());
     }
 
