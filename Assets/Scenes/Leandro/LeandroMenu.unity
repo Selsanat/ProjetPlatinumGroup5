@@ -490,15 +490,6 @@ MonoBehaviour:
     Oneshot: 1
     playeOnAwake: 0
     source: {fileID: 0}
-  - name: annonceur
-    clips: []
-    clip: {fileID: 8300000, guid: 9df5e3e9875dc534b80b7a595d3788e2, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    Oneshot: 1
-    playeOnAwake: 0
-    source: {fileID: 0}
   - name: Round Win
     clips: []
     clip: {fileID: 8300000, guid: acb2b1e41c4d7c0479e3ad2eb6f3609b, type: 3}
@@ -621,6 +612,33 @@ MonoBehaviour:
     playeOnAwake: 0
     source: {fileID: 0}
   - name: Pet Return
+    clips: []
+    clip: {fileID: 8300000, guid: c93be251d4b4e8f4cb218caad30a4ee2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Narrator post
+    clips: []
+    clip: {fileID: 8300000, guid: c93be251d4b4e8f4cb218caad30a4ee2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Narrator pre
+    clips: []
+    clip: {fileID: 8300000, guid: c93be251d4b4e8f4cb218caad30a4ee2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Narrator death
     clips: []
     clip: {fileID: 8300000, guid: c93be251d4b4e8f4cb218caad30a4ee2, type: 3}
     volume: 0.5

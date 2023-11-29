@@ -486,10 +486,15 @@ public class BouleMouvement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == ParentMachine.gameObject) return;
-        PlayerStateMachine pst = collision.gameObject.GetComponent<PlayerStateMachine>();
-        if (pst != null) if (pst.team == ParentMachine.team) return;
+            PlayerStateMachine pst = collision.gameObject.GetComponent<PlayerStateMachine>();
+
+        if (pst != null) 
+            if (pst.team == ParentMachine.team) 
+                return;
+
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
             SoundManager.instance.PlayClip("Pet Kiss");
+
         if(collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
         {
             endResetboule();
@@ -501,6 +506,7 @@ public class BouleMouvement : MonoBehaviour
             {
                 if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
+                SoundManager.instance.PlayRandomClip("Narrator death");
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
             }
