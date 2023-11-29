@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static InputsManager;
 using UnityEngine.InputSystem.DualShock;
-
-
+using UnityEngine.InputSystem.Processors;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -98,9 +97,9 @@ public class BouleMouvement : MonoBehaviour
     private void Update()
     {
         Debug.DrawRay(this.transform.position, _rb.velocity * 10 , Color.blue);
-        if (StateBoule.throwing == stateBoule)
+        if (stateBoule == StateBoule.throwing)
         {
-            MakeSpriteLookAtWhereYouGo(_rb.velocity, false);
+            MakeSpriteLookAtWhereYouGo(_rb.velocity);
         }
         changeState();
         if (this.transform.position.z != _playerPivot.position.z)
@@ -166,11 +165,15 @@ public class BouleMouvement : MonoBehaviour
 
     }
 
+    private void ChangeAlpha(float alpha)
+    {
+        SpriteRenderer.color = new Color(SpriteRenderer.color.r, SpriteRenderer.color.g, SpriteRenderer.color.b, alpha/100);
+    }
     public void resetChangeScene()
     {
         _contactPoints.Clear();
         _collidingObject.Clear();
-        
+        stateBoule = StateBoule.reseting;
     }
     private void FixedUpdate()
     {
@@ -240,26 +243,32 @@ public class BouleMouvement : MonoBehaviour
 
         _rb.AddForce(-this.transform.forward * Time.fixedDeltaTime * _bouleParams._speedThrowing, ForceMode.VelocityChange);
     }
-    public void MakeSpriteLookAtWhereYouGo(Vector3 dir, bool positive)
+    public void MakeSpriteLookAtWhereYouGo(Vector3 dir)
     {
         SpriteRenderer.transform.LookAt(SpriteRenderer.transform.position + dir * 10);;
-        SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90, (positive ? 1: -1) * (Mathf.Abs(SpriteRenderer.transform.localRotation.eulerAngles.y + SpriteRenderer.transform.localRotation.eulerAngles.x)));
+        float angle = Mathf.Abs(SpriteRenderer.transform.localRotation.eulerAngles.y + SpriteRenderer.transform.localRotation.eulerAngles.x);
+        Debug.Log(angle);
+        SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90,angle % 270 <90 ? angle*-1:angle);
     }
     private void changeState()
     {
         if (lastState == stateBoule)
             return;
+        if(stateBoule != StateBoule.reseting)
+        {
+            ChangeAlpha(100);
+        }
         else
         {
             switch (stateBoule)
             {
                 
                 case StateBoule.idle:
-                    SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90, -90);
                     SoundManager.instance.Pauseclip("Pet Return");
                     SoundManager.instance.Pauseclip("Pet Cast");
                     break;
                 case StateBoule.returning:
+
                     SoundManager.instance.Pauseclip("Pet Cast");
                     SoundManager.instance.PlayClip("Pet Return");
                     break;
@@ -302,7 +311,7 @@ public class BouleMouvement : MonoBehaviour
         
         Vector3 dir = (_target - this.transform.position).normalized;
         Debug.DrawRay(transform.position, dir*10, Color.red);
-        MakeSpriteLookAtWhereYouGo(dir, true);
+        MakeSpriteLookAtWhereYouGo(dir);
         if (_target == _contactPoints[_contactPoints.Count - 1]) //si on est sur le premier point
         {
             if (!_isLerpSlowFinished) //lorsque l'on ralentie
@@ -403,7 +412,7 @@ public class BouleMouvement : MonoBehaviour
             return;
 
         SpriteRenderer.flipX = !(_clockwise && transform.rotation.y > 0 || !_clockwise && transform.rotation.y < 0);
-
+        SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90, -90);
         transform.RotateAround(_playerPivot.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _bouleParams._rotationSpeed * _incrementation * Time.fixedDeltaTime);
         transform.LookAt(_playerPivot);
     }
@@ -411,6 +420,7 @@ public class BouleMouvement : MonoBehaviour
 
     private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
+        ChangeAlpha(33);
         transform.LookAt(_playerPivot);
         _sphereCollider.isTrigger = true;
         //_sphereCollider.isTrigger = true;
@@ -421,7 +431,7 @@ public class BouleMouvement : MonoBehaviour
         {
             _rb.AddForce(this.transform.forward * Time.deltaTime * _bouleParams._resetSpeed , ForceMode.VelocityChange);
         }
-        MakeSpriteLookAtWhereYouGo(ParentMachine.transform.position-transform.position, true);
+        MakeSpriteLookAtWhereYouGo(ParentMachine.transform.position-transform.position);
         // T�l�porte la boule � la nouvelle position
 
     }
@@ -467,6 +477,8 @@ public class BouleMouvement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == ParentMachine.gameObject) return;
+        PlayerStateMachine pst = collision.gameObject.GetComponent<PlayerStateMachine>();
+        if (pst != null) if (pst.team == ParentMachine.team) return;
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
             SoundManager.instance.PlayClip("Pet Kiss");
 

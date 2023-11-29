@@ -63,7 +63,7 @@ public class WalkState : TemplateState
                 if (distanceGround < HitInfo.distance)
                 {
                     dir.z = 0;
-                    dir *= -_IOrientWriter.orient.x;
+                    dir *= _IOrientWriter.orient.x;
                     dir = dir.normalized;
 
                     StateMachine.velocity = dir * _movementParams.maxSpeed*_movementParams.SpeedBoostOnSlope;

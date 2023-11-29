@@ -13,6 +13,7 @@ public class DeathState : TemplateState
         StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
 
         StateMachine.bouleMouvement.gameObject.SetActive(false);
+        StateMachine.GetComponentInChildren<CapsuleCollider>().enabled = false;
     }
     protected override void OnStateUpdate()
     {

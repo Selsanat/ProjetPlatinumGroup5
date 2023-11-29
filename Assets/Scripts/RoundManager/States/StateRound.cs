@@ -61,9 +61,13 @@ public class StateRound : GameStateTemplate
             mySequence.Join(child.DOScale(Vector3.one, 0.5f));
         }
         mySequence.AppendInterval(0.5f);
-        mySequence.AppendCallback(() => RoundManager.Instance.UpdateScores());
+        mySequence.AppendCallback(() =>
+        {
+            RoundManager.Instance.UpdateScores();
+            SoundManager.instance.PlayClip("Round Win");
+        });
         mySequence.AppendInterval(0.5f);
-        mySequence.Append(DOTween.To(() => horizontalLayoutGroup.padding.top, x => horizontalLayoutGroup.padding.top = x, -300, 0.5f));
+        mySequence.Append(DOTween.To(() => horizontalLayoutGroup.padding.top, x => horizontalLayoutGroup.padding.top = x, -400, 0.5f));
         mySequence.Join(DOTween.To(() => horizontalLayoutGroup.spacing, x => horizontalLayoutGroup.spacing = x, 0, 1));
         mySequence.Join(DOTween.To(() => dof.focalLength.value, x => dof.focalLength.value = x, 0, 0.5f));
         foreach (Transform child in horizontalLayoutGroup.transform)

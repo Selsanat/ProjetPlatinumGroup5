@@ -452,6 +452,7 @@ MonoBehaviour:
   JumpBuffer: 0
   CoyoteWindow: 0
   activeHUD: 0
+  team: 0
   bouleMouvement: {fileID: 0}
 --- !u!114 &2545758844294942097
 MonoBehaviour:
@@ -542,6 +543,26 @@ PrefabInstance:
     - target: {fileID: 332341134978752705, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: m_FlipY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 332341134978752705, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 332341134978752705, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 332341134978752705, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 332341134978752705, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2273513476190023874, guid: 483f77a4afdab2944bbbeaa7913ef130,

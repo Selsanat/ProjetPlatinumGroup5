@@ -70,7 +70,6 @@ public class RoundManager : MonoBehaviour
             score.text = "";
         }
     }
-
     public void StartRound()
     {
 
@@ -90,6 +89,7 @@ public class RoundManager : MonoBehaviour
         GameObject[] spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         if (InputsManager.Instance._playerInputManager.playerCount ==0)
         {
+            int[] teams = new int[4];
             for (int i = 0; i < managerManager.Players.Count; i++)
             {
                 var player = InputsManager.Instance._playerInputManager.JoinPlayer(-1, -1, null, managerManager.Players.Keys.ToList()[i]);
@@ -97,9 +97,19 @@ public class RoundManager : MonoBehaviour
                 PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
                 playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
 
-                foreach(Animator animator in playerStateMachine.GetComponentsInChildren<Animator>())
+                foreach (SpriteRenderer spriteRenderer in player.GetComponentsInChildren<SpriteRenderer>())
                 {
-                    animator.SetFloat("Blend", (int)managerManager.Players.Values.ToList()[i]);
+                    
+                    spriteRenderer.color *= 1 - 0.35f * teams[playerStateMachine.team];
+                    Color c = spriteRenderer.color;
+                    spriteRenderer.color = new Color(c.r, c.g, c.b, 1);
+                }
+                teams[playerStateMachine.team] += 1;
+                foreach (Animator animator in playerStateMachine.GetComponentsInChildren<Animator>())
+                {
+                    int team = (int)managerManager.Players.Values.ToList()[i];
+                    animator.SetFloat("Blend", team);
+                    playerStateMachine.team = team;
                 }
                 
             }
@@ -113,6 +123,12 @@ public class RoundManager : MonoBehaviour
                 StateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
                 StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
                 SoundManager.instance.PlayClip("Spawn");
+                StateMachine.bouleMouvement.gameObject.SetActive(true);
+                Animator animator = StateMachine.bouleMouvement.GetComponentInChildren<Animator>();
+                int team = (int)managerManager.Players.Values.ToList()[i];
+                animator.SetFloat("Blend", team);
+                StateMachine.team = team;
+                StateMachine.bouleMouvement.resetChangeScene();
             }
         }
         #endregion
@@ -161,17 +177,18 @@ public class RoundManager : MonoBehaviour
         SoundManager.instance.PlayClip("death");
         if (ShouldEndRound())
         {
-
             RoundEnd();
             GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
         }
     }
     public void UpdateScores()
     {
+        int[] scorelist = new int[4];
         for (int i = 0; i < players.Count; i++)
         {
             int eValue = (int)players[i]._team;
-            scores[eValue].text = players[i]._points.ToString();
+            scorelist[eValue]+= players[i]._points;
+            scores[eValue].text =""+scorelist[eValue];
         }
     }
     public void ShowCadrants()
