@@ -22,6 +22,7 @@ public class BouleMouvement : MonoBehaviour
     public Transform _playerTransform;
     public bool _clockwise = true;
     public ParticleSystem particleSystem;
+    public Material[] _trailRendererMaterials;
 
     #endregion
 
@@ -47,7 +48,6 @@ public class BouleMouvement : MonoBehaviour
     public Vector3 _vecHit;
     public float _timeThrowing = 0;
     public LayerMask _layer;
-    public LineRenderer _lineRenderer;
     //return boule
     public BouleParams _bouleParams;// => _manager.bouleParams;
     private float _incrementation = 1;
@@ -91,10 +91,10 @@ public class BouleMouvement : MonoBehaviour
     void Start()
     {
         _clockwise = _bouleParams._clockwise;
-        _lineRenderer = this.gameObject.GetComponent<LineRenderer>(); 
         _contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         _distance = Vector3.Distance(_playerPivot.position, this.transform.position);
+        setUpTrail();
     }
 
     private void Update()
@@ -167,7 +167,11 @@ public class BouleMouvement : MonoBehaviour
 
 
     }
-
+    private void setUpTrail()
+    {
+        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+        trailRenderer.material = _trailRendererMaterials[this.ParentMachine.team];
+    }
     private void ChangeAlpha(float alpha)
     {
         SpriteRenderer.color = new Color(SpriteRenderer.color.r, SpriteRenderer.color.g, SpriteRenderer.color.b, alpha/100);
@@ -250,7 +254,6 @@ public class BouleMouvement : MonoBehaviour
     {
         SpriteRenderer.transform.LookAt(SpriteRenderer.transform.position + dir * 10);;
         float angle = Mathf.Abs(SpriteRenderer.transform.localRotation.eulerAngles.y + SpriteRenderer.transform.localRotation.eulerAngles.x);
-        Debug.Log(angle);
         SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90,angle % 270 <90 ? angle*-1:angle);
     }
     private void changeState()

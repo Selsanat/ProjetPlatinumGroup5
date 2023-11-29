@@ -45,6 +45,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float JumpBuffer;
     public float CoyoteWindow;
     public bool activeHUD = false;
+
     public int team = 0;
     public Animator AnimatorPerso => GetComponentInChildren<Animator>();
     public BouleMouvement bouleMouvement;
