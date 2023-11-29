@@ -363,8 +363,6 @@ public class BouleMouvement : MonoBehaviour
         _hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius, _layer);
         if(_hits.Length > _nbHits)
         {
-            
-            SoundManager.instance.PlayClip("bounce");
 
             _nbHits = _hits.Length;
             foreach(var hit in _hits)
@@ -373,8 +371,10 @@ public class BouleMouvement : MonoBehaviour
                 {
                     break;
                 }
-                
-                particleSystem.Play();
+                if (stateBoule != StateBoule.reseting)
+                    particleSystem.Play();
+                if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                    StartCoroutine(Vibrations(0.25f, 1, (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
                 _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
                 //_collidingObject.Add(hit.gameObject);
                 if (stateBoule == StateBoule.throwing)
