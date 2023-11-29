@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 6007509169469810024}
   - component: {fileID: 9015173072555113495}
   - component: {fileID: 8682684317871151545}
+  - component: {fileID: 7882791003062768513}
   m_Layer: 6
   m_Name: Joueur
   m_TagString: Player
@@ -527,6 +528,111 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb88bc5040a015439ec207e9ac62ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7882791003062768513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885932740852423821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0970a923eff145744a66a980e20b235c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlighterSettings:
+    depthMask: 3
+    infoRenderScale: 1
+    useOuterGlow: 0
+    useSingleOuterGlow: 1
+    outerGlowColorFront: {r: 0, g: 0, b: 0, a: 1}
+    outerGlowColorBack: {r: 0, g: 0, b: 0, a: 1}
+    outlineVisibleBeforeObject: 1
+    blurType: 1
+    blendType: 1
+    boxBlurSize: 0.1439
+    blurIterations: 50
+    blurRenderScale: 1
+    blurIntensity: 6
+    blurIntensityMultiplier: 1
+    blurAdaptiveThickness: 1
+    cameraDistanceMultiplier: 20
+    useMeshOutline: 1
+    useSingleMeshOutline: 1
+    meshOutlineFront:
+      color: {r: 1, g: 1, b: 1, a: 1}
+    meshOutlineBack:
+      color: {r: 1, g: 1, b: 1, a: 1}
+    meshOutlineThickness: 0
+    meshOutlineAdaptiveThickness: 0.115
+    useInnerGlow: 0
+    useSingleInnerGlow: 1
+    innerGlowFront:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      power: 4
+    innerGlowBack:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      power: 4
+    useOverlay: 0
+    useSingleOverlay: 1
+    overlayFront:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      useTexture: 0
+      texture: {fileID: 0}
+      background: 0
+      tilling: 60
+      rotation: 0
+    overlayBack:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      useTexture: 0
+      texture: {fileID: 0}
+      background: 0
+      tilling: 60
+      rotation: 0
+    RenderingBoundsSizeIncrease: 0.2
+    RenderingBoundsDistanceFix: 0
+    RenderingBoundsMaxDistanceFix: 1
+    RenderingBoundsMinDistanceFix: 0
+  findRenderers: 0
+  renderers:
+  - renderer: {fileID: 3625480252328376045}
+    useCutout: 1
+    clippingThreshold: 0
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 2
+  - renderer: {fileID: 1197318535163768454}
+    useCutout: 1
+    clippingThreshold: 0
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 2
+  - renderer: {fileID: 8651963277653050038}
+    useCutout: 1
+    clippingThreshold: 0
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 2
+  - renderer: {fileID: 6157744463467622616}
+    useCutout: 1
+    clippingThreshold: 0
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 2
+  - renderer: {fileID: 7133807588705702581}
+    useCutout: 1
+    clippingThreshold: 0
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 2
+  id: 1
+  showRenderBounds: 0
+  showScreenAdjustedRenderBounds: 0
 --- !u!1001 &7466078354251362932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -913,3 +1019,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!96 &6157744463467622616 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
+    type: 3}
+  m_PrefabInstance: {fileID: 7466078354251362932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7133807588705702581 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 332341134978752705, guid: 483f77a4afdab2944bbbeaa7913ef130,
+    type: 3}
+  m_PrefabInstance: {fileID: 7466078354251362932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!199 &8651963277653050038 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 2273513476190023874, guid: 483f77a4afdab2944bbbeaa7913ef130,
+    type: 3}
+  m_PrefabInstance: {fileID: 7466078354251362932}
+  m_PrefabAsset: {fileID: 0}

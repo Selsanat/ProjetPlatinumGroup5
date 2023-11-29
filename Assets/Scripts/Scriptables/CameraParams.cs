@@ -42,4 +42,29 @@ public class CameraParams : ScriptableObject
     public float OrthoSizeRoundEnd = 5f;
     [Range(0f, 5f)]
     public float TimeToZoomEndRound = 1f;
+
+    [Header("Feedback")]
+    [Header("OnKill")]
+    [Range(0f, 2f)]
+    public float TimeToShakePlayerDeath = 1f;
+    [Range(0f, 25f)]
+    public float ShakeForcePlayerDeath = 3;
+    [Range(0f, 30f)]
+    public int vibratoShakeDeath = 10;
+    [Range(0f, 180)]
+    public float RandomnessShakeDeath = 90;
+    public bool ShouldFadeShakeDeath = true;
+
+    [Header("OnRoundWin")]
+    [Range(0f, 2f)]
+    public float RotatePlayerWinTime = 1f;
+    [Range(0f, 25f)]
+    public float ForceRotateWin = 3;
+    [Range(0f, 30f)]
+    public int VibratoRotateWin = 10;
+    [Range(0f, 180)]
+    public float RandomnesRotateDeath = 90;
+    public bool ShouldFadeRotateWin = true;
+
+
 }

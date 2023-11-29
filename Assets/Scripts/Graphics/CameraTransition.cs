@@ -27,6 +27,15 @@ public class CameraTransition : MonoBehaviour
     public static CameraTransition Instance { get; private set; }
 
 
+    public void CameraShake()
+    {
+        Camera.main.DOShakePosition(cameraParams.TimeToShakePlayerDeath, cameraParams.ShakeForcePlayerDeath, cameraParams.vibratoShakeDeath, cameraParams.RandomnessShakeDeath, cameraParams.ShouldFadeShakeDeath);
+    }
+    public void CameraRotation()
+    {
+        TransitionCam.DOShakeRotation(cameraParams.RotatePlayerWinTime, cameraParams.ForceRotateWin, cameraParams.VibratoRotateWin, cameraParams.RandomnesRotateDeath, cameraParams.ShouldFadeRotateWin);
+    }
+    
     void OnDrawGizmos()
     {
         Camera cam;

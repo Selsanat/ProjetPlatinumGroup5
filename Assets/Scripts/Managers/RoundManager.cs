@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 
 
@@ -172,6 +173,7 @@ public class RoundManager : MonoBehaviour
     }
     public void KillPlayer(PlayerStateMachine playerKilled)
     {
+        CameraTransition.Instance.CameraShake();
         Player player = players.Find(x => x._playerStateMachine == playerKilled);
         alivePlayers.Remove(player);
         SoundManager.instance.PlayClip("death");
