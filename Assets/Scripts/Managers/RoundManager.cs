@@ -97,21 +97,21 @@ public class RoundManager : MonoBehaviour
                 PlayerStateMachine playerStateMachine = player.GetComponent<PlayerStateMachine>();
                 playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
 
-                foreach (SpriteRenderer spriteRenderer in player.GetComponentsInChildren<SpriteRenderer>())
-                {
-                    
-                    spriteRenderer.color *= 1 - 0.35f * teams[playerStateMachine.team];
-                    Color c = spriteRenderer.color;
-                    spriteRenderer.color = new Color(c.r, c.g, c.b, 1);
-                }
-                teams[playerStateMachine.team] += 1;
                 foreach (Animator animator in playerStateMachine.GetComponentsInChildren<Animator>())
                 {
                     int team = (int)managerManager.Players.Values.ToList()[i];
                     animator.SetFloat("Blend", team);
                     playerStateMachine.team = team;
                 }
-                
+
+                foreach (SpriteRenderer spriteRenderer in player.GetComponentsInChildren<SpriteRenderer>())
+                {
+
+                    spriteRenderer.color *= 1 - 0.35f * teams[playerStateMachine.team];
+                    Color c = spriteRenderer.color;
+                    spriteRenderer.color = new Color(c.r, c.g, c.b, 1);
+                }
+                teams[playerStateMachine.team] += 1;
             }
         }
         else
