@@ -23,6 +23,12 @@ public class StateRound : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
+        Camera[] cameras = new Camera[10];
+        if (Camera.GetAllCameras(cameras) > 3)
+        {
+            int rand = Random.Range(0, cameras.Length);
+            //Camera.main = cameras[rand];
+        }
         SoundManager.instance.PlayRandomClip("Narrator pre");
         cameraParams = CameraTransition.Instance.cameraParams;
         StateMachine.HideAllMenusExceptThis();
