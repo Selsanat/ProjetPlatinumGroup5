@@ -8,6 +8,7 @@ using static InputsManager;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Processors;
 using UnityEditor.ShaderGraph;
+using UnityEngine.UI;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class BouleMouvement : MonoBehaviour
     public ParticleSystem particleSystem;
     public ParticleSystem particleSystemDeath;
     public Material[] _trailRendererMaterials;
+    private Image fleche => GetComponentsInChildren<Image>()[^1];
 
     #endregion
 
@@ -105,6 +107,7 @@ public class BouleMouvement : MonoBehaviour
         Debug.DrawRay(this.transform.position, _rb.velocity * 10 , Color.blue);
         if (stateBoule == StateBoule.throwing)
         {
+            fleche.enabled = false;
             MakeSpriteLookAtWhereYouGo(_rb.velocity);
         }
         changeState();
@@ -423,7 +426,7 @@ public class BouleMouvement : MonoBehaviour
     {
         if (stateBoule == StateBoule.reseting)
             return;
-
+        fleche.enabled = true;
         SpriteRenderer.flipX = !(_clockwise && transform.rotation.y > 0 || !_clockwise && transform.rotation.y < 0);
         SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90, -90);
         transform.RotateAround(_playerPivot.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _bouleParams._rotationSpeed * _incrementation * Time.fixedDeltaTime);
