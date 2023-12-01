@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.007938897, g: 0.01768436, b: 0.0525107, a: 1}
+  m_IndirectSpecularColor: {r: 0.007974221, g: 0.017751552, b: 0.052644145, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5121,6 +5121,7 @@ Transform:
   - {fileID: 6945304440217083348}
   - {fileID: 3312669907466863716}
   - {fileID: 838767627}
+  - {fileID: 6545407858927376205}
   m_Father: {fileID: 384119804910739080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1710391516
@@ -6532,7 +6533,6 @@ Transform:
   m_Children:
   - {fileID: 1786538051}
   - {fileID: 1693578350}
-  - {fileID: 6545407858927376205}
   m_Father: {fileID: 978535237169710646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &495164390873082869
@@ -6993,6 +6993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0a4c75e91cf82409eddffcc170b544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scores: []
   cadrants:
   - {fileID: 2043483262}
   - {fileID: 1456839041}
@@ -7383,12 +7384,12 @@ Transform:
   m_GameObject: {fileID: 8326718399730937238}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 267, y: 98, z: 0}
+  m_LocalPosition: {x: 371.9381, y: 96.865425, z: 1.0073009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8162948133180525713}
-  m_Father: {fileID: 384119804910739080}
+  m_Father: {fileID: 1693578350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!223 &6645095502763501505
 Canvas:

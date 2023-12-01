@@ -22,7 +22,7 @@ public class RoundManager : MonoBehaviour
     private GameParams _gameParams => ManagerManager.Instance.gameParams;
     private ManagerManager managerManager => ManagerManager.Instance;
     private InputsManager inputsManager => InputsManager.Instance;
-    private TMP_Text[] scores;
+    public TMP_Text[] scores;
     public GameObject[] cadrants;
 
     public enum Team
@@ -66,14 +66,13 @@ public class RoundManager : MonoBehaviour
         else Destroy(this.gameObject);
 
         scores = transform.GetComponentsInChildren<TMP_Text>();
+    }
+    public void StartRound()
+    {
         foreach (var score in scores)
         {
             score.text = "";
         }
-    }
-    public void StartRound()
-    {
-
         #region GetPlayableDevices
         List<InputDevice> devices = new List<InputDevice>();
         foreach (var device in InputSystem.devices)

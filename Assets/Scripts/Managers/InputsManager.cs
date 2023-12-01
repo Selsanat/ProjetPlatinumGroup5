@@ -38,4 +38,16 @@ public class InputsManager : MonoBehaviour
     {
         _playerInputManager.playerPrefab = playerPrefab;
     }
+
+    public void Update()
+    {
+        print(Instance.playerInputs.Count);
+    }
+    public void resetPlayers()
+    {
+        foreach(PlayerInput pi in GetComponents<PlayerInput>())
+        {
+            Destroy(pi);
+        }
+    }
 }

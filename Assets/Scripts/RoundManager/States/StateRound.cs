@@ -115,6 +115,7 @@ public class StateRound : GameStateTemplate
     {
         foreach (var player in inputsManager.playerInputs)
         {
+            if(player._playerStateMachine != null)
             player._playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
         }
     }
