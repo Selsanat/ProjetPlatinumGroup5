@@ -11,7 +11,9 @@ public class JumpState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
-        animator.Play("Jump");
+        charAnimator.SetTrigger("Jump");
+        charAnimator.SetBool("Grounded", false);
+        SoundManager.instance.PlayClip("Jump");
         _timer = StateMachine.velocity.x / _movementParams.airMaxSpeedX * _movementParams.JumpAccelerationTime;
 
         float h = _movementParams.jumpMaxHeight;
