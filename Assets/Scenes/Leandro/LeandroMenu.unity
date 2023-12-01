@@ -490,15 +490,6 @@ MonoBehaviour:
     Oneshot: 1
     playeOnAwake: 0
     source: {fileID: 0}
-  - name: annonceur
-    clips: []
-    clip: {fileID: 8300000, guid: 9df5e3e9875dc534b80b7a595d3788e2, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    Oneshot: 1
-    playeOnAwake: 0
-    source: {fileID: 0}
   - name: Round Win
     clips: []
     clip: {fileID: 8300000, guid: acb2b1e41c4d7c0479e3ad2eb6f3609b, type: 3}
@@ -623,6 +614,69 @@ MonoBehaviour:
   - name: Pet Return
     clips: []
     clip: {fileID: 8300000, guid: c93be251d4b4e8f4cb218caad30a4ee2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Narrator post
+    clips:
+    - {fileID: 8300000, guid: b872ae851be3b154facfb5ffa4798c5b, type: 3}
+    - {fileID: 8300000, guid: f953453927970ad4097db9032c702205, type: 3}
+    - {fileID: 8300000, guid: 50cdd303c532ca3408e25d38a1a2ad08, type: 3}
+    - {fileID: 8300000, guid: 262568099cdfeda46a16ff8d55dac91e, type: 3}
+    - {fileID: 8300000, guid: a061b53b39d73cc4b9b47fcaf731c39d, type: 3}
+    - {fileID: 8300000, guid: 06759f097414f3e4b861ca9d9d0744b2, type: 3}
+    - {fileID: 8300000, guid: e01d3bfdea1b4ba4e8f49d8d01c6a108, type: 3}
+    - {fileID: 8300000, guid: 9ab3bf8dd00aa7747ab0875e0c325d47, type: 3}
+    - {fileID: 8300000, guid: 6dcd03a9653dad244b409e616e254009, type: 3}
+    - {fileID: 8300000, guid: 093351b9d97d3d94dae347ecce4dc66b, type: 3}
+    - {fileID: 8300000, guid: 5f143a70b7f332044a1796566480795b, type: 3}
+    - {fileID: 8300000, guid: 5a3c26d6aa10aaf41893c915dc83da61, type: 3}
+    clip: {fileID: 8300000, guid: b872ae851be3b154facfb5ffa4798c5b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Narrator pre
+    clips:
+    - {fileID: 8300000, guid: ed82195785d528541aa605c087e396ed, type: 3}
+    - {fileID: 8300000, guid: d2d2ef2b2c8760d499a0c59618d364d0, type: 3}
+    - {fileID: 8300000, guid: 90aff213c5dd3d44db71e3dff8adb148, type: 3}
+    - {fileID: 8300000, guid: 54b6a7a6c0fbd9b468ba4976fba19120, type: 3}
+    - {fileID: 8300000, guid: c81ddd14c7b64c44f8115bbb156c148f, type: 3}
+    - {fileID: 8300000, guid: 08865dc7e43f3994f977de5345cdf44a, type: 3}
+    - {fileID: 8300000, guid: 90a8b8e399c1c66488093f34cc047974, type: 3}
+    - {fileID: 8300000, guid: 9748f471b67ea3d4b968cca95dbea0ad, type: 3}
+    clip: {fileID: 8300000, guid: ed82195785d528541aa605c087e396ed, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Narrator death
+    clips:
+    - {fileID: 8300000, guid: 1d0dba38e3874844698f7011fe3178a4, type: 3}
+    - {fileID: 8300000, guid: 6123c489621778c429aefdd81f085f43, type: 3}
+    - {fileID: 8300000, guid: 561b58729f50c584297484712b464f24, type: 3}
+    - {fileID: 8300000, guid: 3cc4dac766eeb1d4e85ae67e6062df69, type: 3}
+    - {fileID: 8300000, guid: 7c18bc54ec393d64f972b9b717beae08, type: 3}
+    - {fileID: 8300000, guid: 6b0b03c2d9eb7404096246307aaa4540, type: 3}
+    - {fileID: 8300000, guid: ab140a045d2c1124a9bc111102e284a5, type: 3}
+    - {fileID: 8300000, guid: 23485d432003d024aa58a14029c5ff37, type: 3}
+    - {fileID: 8300000, guid: 1c0769eb16dddb845b9517c13996e4c9, type: 3}
+    - {fileID: 8300000, guid: fdac512149fdacc428143adfbc99939c, type: 3}
+    - {fileID: 8300000, guid: 18a484d9de23be442a57ed93db884c0e, type: 3}
+    - {fileID: 8300000, guid: e89f6ea8c8ae522458088c03f9d8cc7b, type: 3}
+    - {fileID: 8300000, guid: d4411e255686df74caaf8643a2ad6777, type: 3}
+    - {fileID: 8300000, guid: 9a8fc86a2987f9e4395d99724ccd5e06, type: 3}
+    - {fileID: 8300000, guid: a45f9ba928d475a4c8334d0c061ec789, type: 3}
+    - {fileID: 8300000, guid: 2dd87f551e27e8a4aa54f6dd4ab5b610, type: 3}
+    clip: {fileID: 8300000, guid: 1d0dba38e3874844698f7011fe3178a4, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
