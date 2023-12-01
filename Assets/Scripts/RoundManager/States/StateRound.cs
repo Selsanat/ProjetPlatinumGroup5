@@ -23,7 +23,7 @@ public class StateRound : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
-
+        SoundManager.instance.PlayRandomClip("Narrator pre");
         cameraParams = CameraTransition.Instance.cameraParams;
         StateMachine.HideAllMenusExceptThis();
         RoundManager.Instance.StartRound();

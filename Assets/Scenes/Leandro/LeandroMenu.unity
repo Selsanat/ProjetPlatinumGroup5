@@ -490,15 +490,6 @@ MonoBehaviour:
     Oneshot: 1
     playeOnAwake: 0
     source: {fileID: 0}
-  - name: annonceur
-    clips: []
-    clip: {fileID: 8300000, guid: 9df5e3e9875dc534b80b7a595d3788e2, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    Oneshot: 1
-    playeOnAwake: 0
-    source: {fileID: 0}
   - name: Round Win
     clips: []
     clip: {fileID: 8300000, guid: acb2b1e41c4d7c0479e3ad2eb6f3609b, type: 3}
@@ -581,8 +572,12 @@ MonoBehaviour:
     playeOnAwake: 0
     source: {fileID: 0}
   - name: Pet Cast
-    clips: []
-    clip: {fileID: 8300000, guid: 1475a18662df8434ba298a60d0db7bcb, type: 3}
+    clips:
+    - {fileID: 8300000, guid: e467c8dd8d81a6644b452bc2e2bce284, type: 3}
+    - {fileID: 8300000, guid: 05c5a62a4475e0e4bbc30e18438433fd, type: 3}
+    - {fileID: 8300000, guid: 9d02b6c6cc37dfc449e5d8c6efe19027, type: 3}
+    - {fileID: 8300000, guid: 12c466aeb53f74740baed65f8ff7c15b, type: 3}
+    clip: {fileID: 8300000, guid: e467c8dd8d81a6644b452bc2e2bce284, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
@@ -619,6 +614,69 @@ MonoBehaviour:
   - name: Pet Return
     clips: []
     clip: {fileID: 8300000, guid: c93be251d4b4e8f4cb218caad30a4ee2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Narrator post
+    clips:
+    - {fileID: 8300000, guid: b872ae851be3b154facfb5ffa4798c5b, type: 3}
+    - {fileID: 8300000, guid: f953453927970ad4097db9032c702205, type: 3}
+    - {fileID: 8300000, guid: 50cdd303c532ca3408e25d38a1a2ad08, type: 3}
+    - {fileID: 8300000, guid: 262568099cdfeda46a16ff8d55dac91e, type: 3}
+    - {fileID: 8300000, guid: a061b53b39d73cc4b9b47fcaf731c39d, type: 3}
+    - {fileID: 8300000, guid: 06759f097414f3e4b861ca9d9d0744b2, type: 3}
+    - {fileID: 8300000, guid: e01d3bfdea1b4ba4e8f49d8d01c6a108, type: 3}
+    - {fileID: 8300000, guid: 9ab3bf8dd00aa7747ab0875e0c325d47, type: 3}
+    - {fileID: 8300000, guid: 6dcd03a9653dad244b409e616e254009, type: 3}
+    - {fileID: 8300000, guid: 093351b9d97d3d94dae347ecce4dc66b, type: 3}
+    - {fileID: 8300000, guid: 5f143a70b7f332044a1796566480795b, type: 3}
+    - {fileID: 8300000, guid: 5a3c26d6aa10aaf41893c915dc83da61, type: 3}
+    clip: {fileID: 8300000, guid: b872ae851be3b154facfb5ffa4798c5b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Narrator pre
+    clips:
+    - {fileID: 8300000, guid: ed82195785d528541aa605c087e396ed, type: 3}
+    - {fileID: 8300000, guid: d2d2ef2b2c8760d499a0c59618d364d0, type: 3}
+    - {fileID: 8300000, guid: 90aff213c5dd3d44db71e3dff8adb148, type: 3}
+    - {fileID: 8300000, guid: 54b6a7a6c0fbd9b468ba4976fba19120, type: 3}
+    - {fileID: 8300000, guid: c81ddd14c7b64c44f8115bbb156c148f, type: 3}
+    - {fileID: 8300000, guid: 08865dc7e43f3994f977de5345cdf44a, type: 3}
+    - {fileID: 8300000, guid: 90a8b8e399c1c66488093f34cc047974, type: 3}
+    - {fileID: 8300000, guid: 9748f471b67ea3d4b968cca95dbea0ad, type: 3}
+    clip: {fileID: 8300000, guid: ed82195785d528541aa605c087e396ed, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Oneshot: 1
+    playeOnAwake: 0
+    source: {fileID: 0}
+  - name: Narrator death
+    clips:
+    - {fileID: 8300000, guid: 1d0dba38e3874844698f7011fe3178a4, type: 3}
+    - {fileID: 8300000, guid: 6123c489621778c429aefdd81f085f43, type: 3}
+    - {fileID: 8300000, guid: 561b58729f50c584297484712b464f24, type: 3}
+    - {fileID: 8300000, guid: 3cc4dac766eeb1d4e85ae67e6062df69, type: 3}
+    - {fileID: 8300000, guid: 7c18bc54ec393d64f972b9b717beae08, type: 3}
+    - {fileID: 8300000, guid: 6b0b03c2d9eb7404096246307aaa4540, type: 3}
+    - {fileID: 8300000, guid: ab140a045d2c1124a9bc111102e284a5, type: 3}
+    - {fileID: 8300000, guid: 23485d432003d024aa58a14029c5ff37, type: 3}
+    - {fileID: 8300000, guid: 1c0769eb16dddb845b9517c13996e4c9, type: 3}
+    - {fileID: 8300000, guid: fdac512149fdacc428143adfbc99939c, type: 3}
+    - {fileID: 8300000, guid: 18a484d9de23be442a57ed93db884c0e, type: 3}
+    - {fileID: 8300000, guid: e89f6ea8c8ae522458088c03f9d8cc7b, type: 3}
+    - {fileID: 8300000, guid: d4411e255686df74caaf8643a2ad6777, type: 3}
+    - {fileID: 8300000, guid: 9a8fc86a2987f9e4395d99724ccd5e06, type: 3}
+    - {fileID: 8300000, guid: a45f9ba928d475a4c8334d0c061ec789, type: 3}
+    - {fileID: 8300000, guid: 2dd87f551e27e8a4aa54f6dd4ab5b610, type: 3}
+    clip: {fileID: 8300000, guid: 1d0dba38e3874844698f7011fe3178a4, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
@@ -1057,6 +1115,7 @@ RectTransform:
   - {fileID: 483127848}
   - {fileID: 660678443}
   - {fileID: 1679448340}
+  - {fileID: 459393124}
   m_Father: {fileID: 6473105987613001914}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1217,7 +1276,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level 6
+          m_StringArgument: LeandroMenu
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1691187978709810144}
@@ -1270,6 +1329,150 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425199225}
   m_CullTransparentMesh: 1
+--- !u!1 &459393120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459393124}
+  - component: {fileID: 459393123}
+  - component: {fileID: 459393122}
+  - component: {fileID: 459393121}
+  m_Layer: 5
+  m_Name: Button (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &459393121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459393120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 459393122}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1691187978709810144}
+        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level 8
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1691187978709810144}
+        m_TargetAssemblyTypeName: GameStateMachine, Assembly-CSharp
+        m_MethodName: ChangeState
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: StateRound
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &459393122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459393120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 886e8a52ea7843a4780b7bcedbadd932, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &459393123
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459393120}
+  m_CullTransparentMesh: 1
+--- !u!224 &459393124
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459393120}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 395133982}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &469341013
 GameObject:
   m_ObjectHideFlags: 0
@@ -3373,7 +3576,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level 2 Rework
+          m_StringArgument: LeandroMenu
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1691187978709810144}
@@ -4254,7 +4457,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level 7
+          m_StringArgument: Level 7 (Rework)
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1691187978709810144}
@@ -6344,6 +6547,7 @@ MonoBehaviour:
     - StateRound
     - StateRound
     - StateRound
+    - StateRound
   - choices:
     - MenuState
     - MenuState
@@ -6392,6 +6596,7 @@ MonoBehaviour:
     - {fileID: 483127849}
     - {fileID: 660678440}
     - {fileID: 1679448337}
+    - {fileID: 459393121}
     scenes:
     - {fileID: 102900000, guid: 155df950b3db7444a918b16f9033f4db, type: 3}
     - {fileID: 102900000, guid: 7164394ba6b55b14ba6dd12264864cf2, type: 3}
@@ -6399,23 +6604,24 @@ MonoBehaviour:
     - {fileID: 102900000, guid: 44fb96b3448aaf94fa355e11c7b2f628, type: 3}
     - {fileID: 102900000, guid: ec733ee34b4350149961c11f51e33e97, type: 3}
     - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
-    - {fileID: 102900000, guid: 33bf0dfcf6618ea4a9a3a9428a0ad631, type: 3}
+    - {fileID: 102900000, guid: 6e4cf1ca9fb090840a01bed30eff00f6, type: 3}
+    - {fileID: 102900000, guid: 0574bdcad5778494e8f879804a9fea30, type: 3}
   - menuObject: {fileID: 838767626}
     thisMenu: RoundEnd
     buttons:
     - {fileID: 425199227}
     - {fileID: 1307005663}
     scenes:
-    - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
-    - {fileID: 102900000, guid: 7164394ba6b55b14ba6dd12264864cf2, type: 3}
+    - {fileID: 102900000, guid: 149de5c2f7826344484cc2803d4328d7, type: 3}
+    - {fileID: 102900000, guid: 149de5c2f7826344484cc2803d4328d7, type: 3}
   - menuObject: {fileID: 838767626}
     thisMenu: RoundEnd
     buttons:
     - {fileID: 425199227}
     - {fileID: 1307005663}
     scenes:
-    - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
-    - {fileID: 102900000, guid: 7164394ba6b55b14ba6dd12264864cf2, type: 3}
+    - {fileID: 102900000, guid: 149de5c2f7826344484cc2803d4328d7, type: 3}
+    - {fileID: 102900000, guid: 149de5c2f7826344484cc2803d4328d7, type: 3}
 --- !u!1 &2002755627771000101
 GameObject:
   m_ObjectHideFlags: 0
