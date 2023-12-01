@@ -742,7 +742,7 @@ MonoBehaviour:
       color: {r: 1, g: 1, b: 1, a: 1}
     meshOutlineBack:
       color: {r: 1, g: 1, b: 1, a: 1}
-    meshOutlineThickness: 0
+    meshOutlineThickness: 0.0189
     meshOutlineAdaptiveThickness: 0.115
     useInnerGlow: 0
     useSingleInnerGlow: 1
@@ -5796,7 +5796,7 @@ PrefabInstance:
     - target: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
