@@ -6,6 +6,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
+using UnityEngine.InputSystem;
 
 public class RoundEnd : GameStateTemplate
 {
@@ -75,18 +76,23 @@ public class RoundEnd : GameStateTemplate
                     RoundManager.Instance.DestroyAllPlayers();
                     StateMachine.HideAllMenusExceptThis(ui);
 
-
-                    foreach(Image image in ui.GetComponentsInChildren<Image>())
+                    InputsManager.Instance.resetPlayers();
+                    foreach (Image image in ui.GetComponentsInChildren<Image>())
                     {
                         image.DOFade(1, 2f);
                     }
 
                     RoundManager.Instance.alivePlayers.Clear();
                     ManagerManager.Instance.characterSelector.Clear();
-                    foreach(GameObject gm in RoundManager.Instance.cadrants)
+                    foreach(BouleMouvement boule in GameObject.FindObjectsOfType<BouleMouvement>())
+                    {
+                        GameObject.Destroy(boule.gameObject);
+                    }
+                    foreach (GameObject gm in RoundManager.Instance.cadrants)
                     {
                         gm.SetActive(false);
                     }
+
                 });
                 yield break;
             }
