@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.UI;
 using static InputsManager;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Processors;
+using UnityEditor.ShaderGraph;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class BouleMouvement : MonoBehaviour
     public Transform _playerTransform;
     public bool _clockwise = true;
     public ParticleSystem particleSystem;
+    public ParticleSystem particleSystemDeath;
+    public Material[] _trailRendererMaterials;
 
     #endregion
 
@@ -47,8 +50,8 @@ public class BouleMouvement : MonoBehaviour
     public Vector3 _vecHit;
     public float _timeThrowing = 0;
     public LayerMask _layer;
-    public LineRenderer _lineRenderer;
     //return boule
+    
     public BouleParams _bouleParams;// => _manager.bouleParams;
     private float _incrementation = 1;
     public SpriteRenderer SpriteRenderer => GetComponentInChildren<SpriteRenderer>();
@@ -91,10 +94,10 @@ public class BouleMouvement : MonoBehaviour
     void Start()
     {
         _clockwise = _bouleParams._clockwise;
-        _lineRenderer = this.gameObject.GetComponent<LineRenderer>(); 
         _contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         _distance = Vector3.Distance(_playerPivot.position, this.transform.position);
+        setUpTrail();
     }
 
     private void Update()
@@ -167,7 +170,11 @@ public class BouleMouvement : MonoBehaviour
 
 
     }
-
+    private void setUpTrail()
+    {
+        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+        trailRenderer.material = _trailRendererMaterials[this.ParentMachine.team];
+    }
     private void ChangeAlpha(float alpha)
     {
         SpriteRenderer.color = new Color(SpriteRenderer.color.r, SpriteRenderer.color.g, SpriteRenderer.color.b, alpha/100);
@@ -250,7 +257,6 @@ public class BouleMouvement : MonoBehaviour
     {
         SpriteRenderer.transform.LookAt(SpriteRenderer.transform.position + dir * 10);;
         float angle = Mathf.Abs(SpriteRenderer.transform.localRotation.eulerAngles.y + SpriteRenderer.transform.localRotation.eulerAngles.x);
-        Debug.Log(angle);
         SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90,angle % 270 <90 ? angle*-1:angle);
     }
     private void changeState()
@@ -483,10 +489,15 @@ public class BouleMouvement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == ParentMachine.gameObject) return;
-        PlayerStateMachine pst = collision.gameObject.GetComponent<PlayerStateMachine>();
-        if (pst != null) if (pst.team == ParentMachine.team) return;
+            PlayerStateMachine pst = collision.gameObject.GetComponent<PlayerStateMachine>();
+
+        if (pst != null) 
+            if (pst.team == ParentMachine.team) 
+                return;
+
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
             SoundManager.instance.PlayClip("Pet Kiss");
+
         if(collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
         {
             endResetboule();
@@ -498,6 +509,8 @@ public class BouleMouvement : MonoBehaviour
             {
                 if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
+                SoundManager.instance.PlayRandomClip("Narrator death");
+                collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
             }
@@ -507,7 +520,27 @@ public class BouleMouvement : MonoBehaviour
         }
     }
 
-
+    private void PlayDeathParticules()
+    {
+       /* var part = particleSystemDeath.main;
+        if(ParentMachine.team == 0)
+        {
+            part.startColor = Color.blue;
+        }
+        else if(ParentMachine.team == 1)
+        {
+            part.startColor = Color.yellow;
+        }
+        else if(ParentMachine.team == 2)
+        {
+            part.startColor = Color.red;
+        }
+        else
+        {
+            part.startColor = Color.green;
+        }*/
+        particleSystemDeath.Play();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
