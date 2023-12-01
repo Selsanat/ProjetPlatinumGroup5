@@ -27,6 +27,15 @@ public class CameraTransition : MonoBehaviour
     public static CameraTransition Instance { get; private set; }
 
 
+    public void CameraShake()
+    {
+        Camera.main.DOShakePosition(cameraParams.TimeToShakePlayerDeath, cameraParams.ShakeForcePlayerDeath, cameraParams.vibratoShakeDeath, cameraParams.RandomnessShakeDeath, cameraParams.ShouldFadeShakeDeath);
+    }
+    public void CameraRotation()
+    {
+        TransitionCam.DOShakeRotation(cameraParams.RotatePlayerWinTime, cameraParams.ForceRotateWin, cameraParams.VibratoRotateWin, cameraParams.RandomnesRotateDeath, cameraParams.ShouldFadeRotateWin);
+    }
+    
     void OnDrawGizmos()
     {
         Camera cam;
@@ -91,11 +100,11 @@ public class CameraTransition : MonoBehaviour
         TransitionCam.aspect = MainCam.aspect;
         renderTex.width = Screen.width;
         renderTex.height = Screen.height;
+        DOTween.To(() => RenderSettings.skybox.GetFloat("_Rotation"), x => RenderSettings.skybox.SetFloat("_Rotation", x), 360, 240).SetLoops(-1);
     }
 
     void ChangedActiveScene(Scene PreviousScene, Scene NextScene)
     {
-        print("changedScene");
         Camera[] cams = FindObjectsOfType<Camera>();
         foreach(Camera cam in cams)
         {

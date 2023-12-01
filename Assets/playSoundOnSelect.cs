@@ -14,12 +14,12 @@ public class playSoundOnSelect : MonoBehaviour
     {
         if (currentSelected == null || currentSelected.gameObject.activeSelf == false||currentSelected != EventSystem.current.currentSelectedGameObject?.GetComponent<Button>() )
         {
-            currentSelected = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-            SoundManager.instance.PlayClip("click Menu 1");
+            //currentSelected = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+            //SoundManager.instance.PlayClip("click Menu 1");
         }
     }
 
-
+        
     public void setitslef()
     { 
         

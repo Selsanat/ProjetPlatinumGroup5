@@ -6,14 +6,17 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
-using PlayerInput = UnityEngine.InputSystem.PlayerInput;
-using UnityEditor.Animations;
-using UnityEditorInternal;
-using UnityEngine.Animations;
-using static Unity.Collections.AllocatorManager;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using Unity.Collections.LowLevel.Unsafe;
+using MoreMountains;
 
 public class CharacterSelector : MonoBehaviour
 {
+    private Gamepad gamepad;
+    private TMP_Text nom => GetComponentInChildren<TMP_Text>();
     public UnityEngine.InputSystem.PlayerInput playerInputs => GetComponent<UnityEngine.InputSystem.PlayerInput>();
     public int index = 0;
     private float PaddingLeft = 0;
@@ -33,6 +36,14 @@ public class CharacterSelector : MonoBehaviour
     {
         ManagerManager manager = ManagerManager.Instance;
         manager.characterSelector.Add(this);
+        nom.text = "Joueur " + manager.characterSelector.Count + " (" + playerInputs.devices[0].displayName + ")";
+        if (Gamepad.all.Contains(playerInputs.devices[0]))
+        {
+
+            gamepad = (Gamepad)playerInputs.devices[0];
+            StartCoroutine(Vibrations(10f, 0.25f));
+
+        }
         playerInputs.actions.actionMaps[1].actions[2].started += ctx => SwipeRight();
         playerInputs.actions.actionMaps[1].actions[3].started += ctx => SwipeLeft();
         toggle.onValueChanged.AddListener((value) =>
@@ -61,11 +72,13 @@ public class CharacterSelector : MonoBehaviour
 
     void Update()
     {
+
         playerInputs.actions.actionMaps[1].actions[4].performed += ctx =>
         {
             if (ManagerManager.Instance.ReadyToFight.isOn)
             {
                 ManagerManager.Instance.ReadyToFight.isOn = false;
+                playSound("start game");
                 GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.MapSelectionState);
             }
         };
@@ -123,7 +136,7 @@ public class CharacterSelector : MonoBehaviour
                 {
                     if (manager.Players.ContainsValue((RoundManager.Team)i) && (selec.index!=i || selec.index == i && !selec.toggle.isOn))
                     {
-                        selec.buttonsImages.interactable = false;
+                        //selec.buttonsImages.interactable = false;
                         selec.buttonsImages.transform.GetChild(i).GetComponent<Image>().color =
                         new Color(0.5f, 0.5f, 0.5f);
                     }
@@ -135,6 +148,7 @@ public class CharacterSelector : MonoBehaviour
                 }
             }
         }
+       
     }
 
     bool CanStart()
@@ -149,5 +163,19 @@ public class CharacterSelector : MonoBehaviour
         return true;
     }
 
-    
+    IEnumerator Vibrations(float force, float time)
+    {
+        if(gamepad is DualShockGamepad)
+        {
+            ((DualShockGamepad)gamepad).SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            ((DualShockGamepad)gamepad).ResetHaptics();
+        }
+        else
+        {
+            gamepad.SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            gamepad.ResetHaptics();
+        }
+    }
 }
