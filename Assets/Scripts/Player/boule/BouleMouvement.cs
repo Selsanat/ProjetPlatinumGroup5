@@ -512,10 +512,12 @@ public class BouleMouvement : MonoBehaviour
             {
                 if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
-                SoundManager.instance.PlayRandomClip("Narrator death");
+
                 collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
+                if (!RoundManager.Instance.ShouldEndRound())
+                    SoundManager.instance.PlayRandomClip("Narrator death");
             }
             if (stateBoule == StateBoule.throwing)
                 setUpBoule();

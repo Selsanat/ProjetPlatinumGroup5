@@ -100,6 +100,7 @@ public class CameraTransition : MonoBehaviour
         TransitionCam.aspect = MainCam.aspect;
         renderTex.width = Screen.width;
         renderTex.height = Screen.height;
+        RenderSettings.skybox.SetFloat("_Rotation", 0);
         DOTween.To(() => RenderSettings.skybox.GetFloat("_Rotation"), x => RenderSettings.skybox.SetFloat("_Rotation", x), 360, 240).SetLoops(-1);
     }
 

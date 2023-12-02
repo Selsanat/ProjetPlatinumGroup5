@@ -133,7 +133,7 @@ public class RoundManager : MonoBehaviour
         }
         #endregion
     }
-    bool ShouldEndRound()
+    public bool ShouldEndRound()
     {
         foreach (var player in alivePlayers.Skip(1))
         {
@@ -147,7 +147,6 @@ public class RoundManager : MonoBehaviour
     public void RoundEnd()
     {
         SoundManager.instance.PlayClip("Round Win");
-        SoundManager.instance.PlayRandomClip("Narrator post");
         foreach (Player player in alivePlayers)
         {
             player._points += ManagerManager.Instance.gameParams.PointsPerRound;
@@ -156,7 +155,6 @@ public class RoundManager : MonoBehaviour
     public IEnumerator NewRound()
     {
         CameraTransition.Instance.FreezeIt();
-        SoundManager.instance.PlayRandomClip("Narrator pre");
 
         alivePlayers = new List<Player>(players);
         var allboules = FindObjectsOfType<BouleMouvement>();
