@@ -72,10 +72,16 @@ public class CameraTransition : MonoBehaviour
         }
     }
 
+    IEnumerator RecordFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        Sprite sprite = Sprite.Create(ScreenCapture.CaptureScreenshotAsTexture(), new Rect(0, 0, renderTex.width, renderTex.height), new Vector2(0.5f, 0.5f));
+        Target.sprite = sprite;
+    }
+
     public void FreezeIt()
     {
-            Sprite sprite = Sprite.Create(ScreenCapture.CaptureScreenshotAsTexture(), new Rect(0, 0, renderTex.width, renderTex.height), new Vector2(0.5f, 0.5f));
-            Target.sprite = sprite;
+        StartCoroutine(RecordFrame());
     }
     public Sequence UnfreezeIt()
     {
@@ -100,6 +106,7 @@ public class CameraTransition : MonoBehaviour
         TransitionCam.aspect = MainCam.aspect;
         renderTex.width = Screen.width;
         renderTex.height = Screen.height;
+        RenderSettings.skybox.SetFloat("_Rotation", 0);
         DOTween.To(() => RenderSettings.skybox.GetFloat("_Rotation"), x => RenderSettings.skybox.SetFloat("_Rotation", x), 360, 240).SetLoops(-1);
     }
 

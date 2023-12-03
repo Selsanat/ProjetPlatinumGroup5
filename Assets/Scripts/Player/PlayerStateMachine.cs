@@ -11,7 +11,7 @@ public class PlayerStateMachine : MonoBehaviour
     public IMouvementLockedReader _iMouvementLockedReader => GetComponent<IMouvementLockedReader>();
     public  IMouvementLockedWriter _iMouvementLockedWriter => GetComponent<IMouvementLockedWriter>();
 
-    private PlayerInput _playerInputs;
+    public PlayerInput _playerInputs;
 
     public IdleState stateIdle { get; } = new IdleState();
     public WalkState stateWalk { get; } = new WalkState();
@@ -23,7 +23,7 @@ public class PlayerStateMachine : MonoBehaviour
     public FallState fallState { get; } = new FallState();
     public JumpState jumpState { get; } = new JumpState();
     public DeathState deathState { get; } = new DeathState();
-
+    public Transform WandTrackTransform;
     public TemplateState[] AllStates => new TemplateState[]
     {
         stateIdle,

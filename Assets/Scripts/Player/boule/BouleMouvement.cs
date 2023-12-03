@@ -7,7 +7,6 @@ using UnityEngine.InputSystem.UI;
 using static InputsManager;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Processors;
-using UnityEditor.ShaderGraph;
 using UnityEngine.UI;
 
 public class BouleMouvement : MonoBehaviour
@@ -100,6 +99,7 @@ public class BouleMouvement : MonoBehaviour
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         _distance = Vector3.Distance(_playerPivot.position, this.transform.position);
         setUpTrail();
+        setUpParticles();
     }
 
     private void Update()
@@ -177,6 +177,11 @@ public class BouleMouvement : MonoBehaviour
     {
         TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
         trailRenderer.material = _trailRendererMaterials[this.ParentMachine.team];
+    }
+    private void setUpParticles()
+    {
+        ParticleSystem ps = this.gameObject.GetComponent<ParticleSystem>();
+        ps.startColor = RoundManager.Instance.teamColors[ParentMachine.team];
     }
     private void ChangeAlpha(float alpha)
     {
@@ -264,12 +269,15 @@ public class BouleMouvement : MonoBehaviour
     }
     private void changeState()
     {
-        if (lastState == stateBoule)
-            return;
+
         if(stateBoule != StateBoule.reseting)
         {
             ChangeAlpha(100);
+            TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+            trailRenderer.emitting = true;
         }
+        if (lastState == stateBoule)
+            return;
         else
         {
             switch (stateBoule)
@@ -288,6 +296,7 @@ public class BouleMouvement : MonoBehaviour
                     SoundManager.instance.Pauseclip("Pet Cast");
                     break;
                 case StateBoule.throwing:
+                    Instantiate(ManagerManager.Instance.castPrefab[ParentMachine.team], ParentMachine.WandTrackTransform);
                     SoundManager.instance.PlayClip("Pet Cast");
                     SoundManager.instance.Pauseclip("Pet Return");
                     if(ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
@@ -437,6 +446,8 @@ public class BouleMouvement : MonoBehaviour
     private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
         ChangeAlpha(33);
+        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+        trailRenderer.emitting = false;
         transform.LookAt(_playerPivot);
         _sphereCollider.isTrigger = true;
         //_sphereCollider.isTrigger = true;
@@ -512,10 +523,13 @@ public class BouleMouvement : MonoBehaviour
             {
                 if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
-                SoundManager.instance.PlayRandomClip("Narrator death");
+
                 collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
+                Instantiate(ManagerManager.Instance.diePrefab[StateMachine.team], StateMachine.transform);
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
+                if (!RoundManager.Instance.ShouldEndRound())
+                    SoundManager.instance.PlayRandomClip("Narrator death");
             }
             if (stateBoule == StateBoule.throwing)
                 setUpBoule();

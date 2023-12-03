@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     public IWantsJumpWriter jump;
     public float triggers;
     public float shoulders;
+    public bool Teabag;
      
     #endregion
 
@@ -70,6 +71,7 @@ public class PlayerInput : MonoBehaviour
         Vector2 gachettes = _iaActions[1].ReadValue<Vector2>();
         triggers = gachettes.y;
         shoulders = gachettes.x;
+        Teabag = _iaActions[3].ReadValue<float>() > 0;
         //_iaActions[1].performed += ctx => SceneManager.LoadScene("LeandroMenu");
 
     }
