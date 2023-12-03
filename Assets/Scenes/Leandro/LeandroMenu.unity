@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.007953843, g: 0.017747663, b: 0.052614205, a: 1}
+  m_IndirectSpecularColor: {r: 0.008125478, g: 0.018283075, b: 0.05281605, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -171,7 +171,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 3595582e33787fa40a89f45c06def8b5, type: 2}
+  sharedProfile: {fileID: 11400000, guid: a6560a915ef98420e9faacc1c7438823, type: 2}
 --- !u!1 &19262545
 GameObject:
   m_ObjectHideFlags: 0
@@ -2549,55 +2549,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553038841}
   m_CullTransparentMesh: 1
---- !u!1 &573013036
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 573013037}
-  - component: {fileID: 573013038}
-  m_Layer: 0
-  m_Name: Global Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &573013037
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573013036}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -464.04517, y: 116.43909, z: 164.99097}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &573013038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573013036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 10
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: bb0bce7ee76136c4e8dbdb7bc225be99, type: 2}
 --- !u!1 &584003611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3662,12 +3613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3560bc7621da5564da64a02e4fd27188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posXToAdd: 2
-  posYToAdd: 2
-  HeightToAdd: -4
-  WidthToAdd: -4
-  path: D:\Repos\ProjetPlatinumGroup5\Assets\GA\Floriane\Sprite sheet\Yellow_Sprite_sheet.psb.meta
-  metaDataToModify: []
 --- !u!4 &1036267159
 Transform:
   m_ObjectHideFlags: 0
@@ -7252,7 +7197,7 @@ MonoBehaviour:
   - 
   - 
   - 
-  - 
+  - Go to scene
   Menus:
   - menuObject: {fileID: 6891497991746096609}
     thisMenu: MenuState
@@ -8286,7 +8231,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1010983276}
-  - {fileID: 573013037}
   - {fileID: 1029317726}
   - {fileID: 978535237169710646}
   - {fileID: 1036267159}
