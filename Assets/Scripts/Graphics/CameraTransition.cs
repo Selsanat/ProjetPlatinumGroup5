@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using Image = UnityEngine.UI.Image;
 
 public class CameraTransition : MonoBehaviour
 {
