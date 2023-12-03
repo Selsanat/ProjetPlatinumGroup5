@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 465097721188244283}
   - component: {fileID: 1197318535163768454}
   - component: {fileID: 6592551609393991481}
+  - component: {fileID: 4633049275691737535}
   m_Layer: 0
   m_Name: Chapeau
   m_TagString: Untagged
@@ -297,21 +298,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &465097721188244283
-Transform:
+--- !u!224 &465097721188244283
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4738592208894323669}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.03108329, w: 0.9995168}
-  m_LocalPosition: {x: -0.144, y: 0.617, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1328584550535749848}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.562}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.144, y: 0.617}
+  m_SizeDelta: {x: 2.37, y: 2.37}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1197318535163768454
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -386,6 +391,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!222 &4633049275691737535
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4738592208894323669}
+  m_CullTransparentMesh: 1
 --- !u!1 &4767398180691043962
 GameObject:
   m_ObjectHideFlags: 0
