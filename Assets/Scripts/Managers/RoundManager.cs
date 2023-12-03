@@ -11,6 +11,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using Highlighters;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class RoundManager : MonoBehaviour
 {
@@ -23,6 +25,8 @@ public class RoundManager : MonoBehaviour
     private InputsManager inputsManager => InputsManager.Instance;
     public TMP_Text[] scores;
     public GameObject[] cadrants;
+    public Volume Volume => ManagerManager.Instance.Volume;
+    public ChromaticAberration CA;
 
     public enum Team
     {
@@ -138,6 +142,8 @@ public class RoundManager : MonoBehaviour
             }
         }
         #endregion
+
+        Volume.profile.TryGet<ChromaticAberration>(out CA);
     }
     public bool ShouldEndRound()
     {
@@ -180,6 +186,7 @@ public class RoundManager : MonoBehaviour
         {
             yield return null;
         }
+        CA.intensity.value = 0;
         GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.roundState);
     }
     public void KillPlayer(PlayerStateMachine playerKilled)
