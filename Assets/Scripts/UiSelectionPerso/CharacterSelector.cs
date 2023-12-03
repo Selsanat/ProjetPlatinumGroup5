@@ -64,15 +64,16 @@ public class CharacterSelector : MonoBehaviour
             ManagerManager.Instance.ReadyToFight.isOn = CanStart();
         });
 
-        manager.ReadyToFight.isOn = CanStart();
-
         if (manager.Players.Values.Contains((RoundManager.Team)0)) buttonsImages.transform.GetChild(0).GetComponent<Image>().color =
             new Color(0.5f, 0.5f, 0.5f);
     }
 
     void Update()
     {
+        ManagerManager manager = ManagerManager.Instance;
 
+        manager.ReadyToFight.isOn = CanStart();
+        manager.ReadyToFight.interactable = manager.ReadyToFight.isOn;
         playerInputs.actions.actionMaps[1].actions[4].performed += ctx =>
         {
             if (ManagerManager.Instance.ReadyToFight.isOn)
@@ -92,7 +93,7 @@ public class CharacterSelector : MonoBehaviour
     }
     void SwipeRight()
     {
-        if (index < horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        if (index < horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject && !toggle.isOn)
         {
             index++;
             animatorCadrant.SetFloat("Blend", index);
@@ -108,7 +109,7 @@ public class CharacterSelector : MonoBehaviour
     }
     void SwipeLeft()
     {
-        if (index > 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        if (index > 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject && !toggle.isOn)
         {
             index--;
             animatorCadrant.SetFloat("Blend", index);
@@ -116,7 +117,7 @@ public class CharacterSelector : MonoBehaviour
             playSound("Click");
             playSound("click Menu 1");
         }
-        else if(index <= 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        else if(index <= 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject && !toggle.isOn)
         {
             playSound("Click");
         }

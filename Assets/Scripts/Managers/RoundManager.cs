@@ -69,10 +69,6 @@ public class RoundManager : MonoBehaviour
     }
     public void StartRound()
     {
-        foreach (var score in scores)
-        {
-            score.text = "";
-        }
         #region GetPlayableDevices
         List<InputDevice> devices = new List<InputDevice>();
         foreach (var device in InputSystem.devices)
@@ -205,7 +201,6 @@ public class RoundManager : MonoBehaviour
             }
         }
     }
-
     public void DestroyAllPlayers()
     {
         foreach(Player player in players)

@@ -72,10 +72,16 @@ public class CameraTransition : MonoBehaviour
         }
     }
 
+    IEnumerator RecordFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        Sprite sprite = Sprite.Create(ScreenCapture.CaptureScreenshotAsTexture(), new Rect(0, 0, renderTex.width, renderTex.height), new Vector2(0.5f, 0.5f));
+        Target.sprite = sprite;
+    }
+
     public void FreezeIt()
     {
-            Sprite sprite = Sprite.Create(ScreenCapture.CaptureScreenshotAsTexture(), new Rect(0, 0, renderTex.width, renderTex.height), new Vector2(0.5f, 0.5f));
-            Target.sprite = sprite;
+        StartCoroutine(RecordFrame());
     }
     public Sequence UnfreezeIt()
     {

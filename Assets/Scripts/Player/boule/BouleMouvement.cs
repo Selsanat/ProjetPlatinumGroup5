@@ -100,6 +100,7 @@ public class BouleMouvement : MonoBehaviour
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         _distance = Vector3.Distance(_playerPivot.position, this.transform.position);
         setUpTrail();
+        setUpParticles();
     }
 
     private void Update()
@@ -175,8 +176,13 @@ public class BouleMouvement : MonoBehaviour
     }
     private void setUpTrail()
     {
-        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
-        trailRenderer.material = _trailRendererMaterials[this.ParentMachine.team];
+/*        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+        trailRenderer.material = _trailRendererMaterials[this.ParentMachine.team];*/
+    }
+    private void setUpParticles()
+    {
+        ParticleSystem ps = this.gameObject.GetComponent<ParticleSystem>();
+        ps.startColor = RoundManager.Instance.teamColors[ParentMachine.team];
     }
     private void ChangeAlpha(float alpha)
     {

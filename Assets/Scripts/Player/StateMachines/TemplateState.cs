@@ -29,6 +29,7 @@ public abstract class TemplateState
         OnStateUpdate();
 
         charAnimator.SetBool("Run", StateMachine.velocity.x != 0);
+        charAnimator.SetBool("TeaBag", StateMachine._playerInputs.Teabag);
         if (_IOrientReader.orient.x != 0)
         {
             Vector3 myScale = charAnimator.transform.localScale;

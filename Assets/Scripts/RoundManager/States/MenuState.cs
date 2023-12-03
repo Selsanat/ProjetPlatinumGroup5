@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,8 +45,15 @@ public class MenuState : GameStateTemplate
             ManagerManager.Instance.Players.Clear();
             RoundManager.Instance.players.Clear();
             RoundManager.Instance.alivePlayers.Clear();
-            CameraTransition.Instance.UnfreezeIt();
-            PlayerInputManager.instance.GetComponentInChildren<PlayerInput>();
+            CameraTransition.Instance.UnfreezeIt().OnComplete(() =>
+            {
+                CameraTransition camTrans = CameraTransition.Instance;
+                Camera cam = camTrans.MainCam;
+                Camera.main.transform.position = cam.transform.position;
+                Camera.main.orthographicSize = cam.orthographicSize;
+                CameraTransition.Instance.ResetCams();
+                CameraTransition.Instance.cameraFollow.FollowPlayers = false;
+            });
         }
     }
 
