@@ -19,6 +19,8 @@ public class ManagerManager : MonoBehaviour
     public Button StartGame;
     public Toggle ReadyToFight;
     public HorizontalLayoutGroup horizontalLayoutGroup;
+    public GameObject[] diePrefab;
+    public GameObject[] castPrefab;
     public Volume Volume => FindObjectOfType<Volume>();
     void Awake()
     {

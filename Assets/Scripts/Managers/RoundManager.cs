@@ -22,7 +22,7 @@ public class RoundManager : MonoBehaviour
     private GameParams _gameParams => ManagerManager.Instance.gameParams;
     private ManagerManager managerManager => ManagerManager.Instance;
     private InputsManager inputsManager => InputsManager.Instance;
-    private TMP_Text[] scores;
+    public TMP_Text[] scores;
     public GameObject[] cadrants;
 
     public enum Team
@@ -66,14 +66,9 @@ public class RoundManager : MonoBehaviour
         else Destroy(this.gameObject);
 
         scores = transform.GetComponentsInChildren<TMP_Text>();
-        foreach (var score in scores)
-        {
-            score.text = "";
-        }
     }
     public void StartRound()
     {
-
         #region GetPlayableDevices
         List<InputDevice> devices = new List<InputDevice>();
         foreach (var device in InputSystem.devices)
@@ -134,7 +129,7 @@ public class RoundManager : MonoBehaviour
         }
         #endregion
     }
-    bool ShouldEndRound()
+    public bool ShouldEndRound()
     {
         foreach (var player in alivePlayers.Skip(1))
         {
@@ -148,7 +143,6 @@ public class RoundManager : MonoBehaviour
     public void RoundEnd()
     {
         SoundManager.instance.PlayClip("Round Win");
-        SoundManager.instance.PlayRandomClip("Narrator post");
         foreach (Player player in alivePlayers)
         {
             player._points += ManagerManager.Instance.gameParams.PointsPerRound;
@@ -157,7 +151,6 @@ public class RoundManager : MonoBehaviour
     public IEnumerator NewRound()
     {
         CameraTransition.Instance.FreezeIt();
-        SoundManager.instance.PlayRandomClip("Narrator pre");
 
         alivePlayers = new List<Player>(players);
         var allboules = FindObjectsOfType<BouleMouvement>();
@@ -165,8 +158,13 @@ public class RoundManager : MonoBehaviour
         {
             allboules[i].resetChangeScene();
         }
+        Random.InitState(System.DateTime.Now.Millisecond);
         var scenes = ManagerManager.Instance.gameParams.Scenes;
         string sceneName = scenes[Random.Range(0, scenes.Length-1)];
+        while(SceneManager.GetActiveScene().name == sceneName)
+        {
+            sceneName = scenes[Random.Range(0, scenes.Length-1)];
+        }
         var asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         while (!asyncLoadLevel.isDone)
         {
@@ -208,7 +206,6 @@ public class RoundManager : MonoBehaviour
             }
         }
     }
-
     public void DestroyAllPlayers()
     {
         foreach(Player player in players)
