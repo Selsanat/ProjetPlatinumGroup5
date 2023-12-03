@@ -23,7 +23,7 @@ public class PlayerStateMachine : MonoBehaviour
     public FallState fallState { get; } = new FallState();
     public JumpState jumpState { get; } = new JumpState();
     public DeathState deathState { get; } = new DeathState();
-
+    public Transform WandTrackTransform;
     public TemplateState[] AllStates => new TemplateState[]
     {
         stateIdle,

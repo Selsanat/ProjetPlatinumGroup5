@@ -158,8 +158,13 @@ public class RoundManager : MonoBehaviour
         {
             allboules[i].resetChangeScene();
         }
+        Random.InitState(System.DateTime.Now.Millisecond);
         var scenes = ManagerManager.Instance.gameParams.Scenes;
         string sceneName = scenes[Random.Range(0, scenes.Length-1)];
+        while(SceneManager.GetActiveScene().name == sceneName)
+        {
+            sceneName = scenes[Random.Range(0, scenes.Length-1)];
+        }
         var asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         while (!asyncLoadLevel.isDone)
         {

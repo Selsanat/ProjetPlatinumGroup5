@@ -10,7 +10,12 @@ public class IdleState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
-        if(StateMachine.bouleMouvement!= null)
+        foreach (SpriteRenderer sprite in StateMachine.GetComponentsInChildren<SpriteRenderer>())
+        {
+            sprite.enabled = true;
+        }
+
+        if (StateMachine.bouleMouvement!= null)
         if (_IOrientWriter.orient.x==0)
         StateMachine.velocity = Vector2.zero;
         StateMachine.GetComponentInChildren<CapsuleCollider>().enabled = true;
