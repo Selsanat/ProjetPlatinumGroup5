@@ -10,8 +10,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-
-
+using Highlighters;
 
 public class RoundManager : MonoBehaviour
 {
@@ -106,6 +105,17 @@ public class RoundManager : MonoBehaviour
                     spriteRenderer.color *= 1 - 0.35f * teams[playerStateMachine.team];
                     Color c = spriteRenderer.color;
                     spriteRenderer.color = new Color(c.r, c.g, c.b, 1);
+                }
+                RoundManager.Instance.teamColors = new List<Color>()
+                {
+                Color.blue,
+                Color.yellow,
+                Color.red,
+                Color.green
+                };
+                foreach (Highlighter h in playerStateMachine.GetComponentsInChildren<Highlighter>())
+                {
+                    h.Settings.OuterGlowColorFront = teamColors[playerStateMachine.team];
                 }
                 teams[playerStateMachine.team] += 1;
             }

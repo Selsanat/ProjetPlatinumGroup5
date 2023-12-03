@@ -210,20 +210,20 @@ MonoBehaviour:
   highlighterSettings:
     depthMask: 3
     infoRenderScale: 1
-    useOuterGlow: 0
+    useOuterGlow: 1
     useSingleOuterGlow: 1
-    outerGlowColorFront: {r: 0, g: 0, b: 0, a: 1}
+    outerGlowColorFront: {r: 0, g: 0.01960802, b: 1, a: 1}
     outerGlowColorBack: {r: 0, g: 0, b: 0, a: 1}
     outlineVisibleBeforeObject: 1
     blurType: 1
     blendType: 0
-    boxBlurSize: 0.04
-    blurIterations: 40
+    boxBlurSize: 0.05
+    blurIterations: 10
     blurRenderScale: 1
     blurIntensity: 1
-    blurIntensityMultiplier: 1
-    blurAdaptiveThickness: 0
-    cameraDistanceMultiplier: 1
+    blurIntensityMultiplier: 10
+    blurAdaptiveThickness: 0.837
+    cameraDistanceMultiplier: 0.1
     useMeshOutline: 0
     useSingleMeshOutline: 1
     meshOutlineFront:
@@ -261,8 +261,22 @@ MonoBehaviour:
     RenderingBoundsMaxDistanceFix: 1
     RenderingBoundsMinDistanceFix: 0
   findRenderers: 0
-  renderers: []
-  id: -1
+  renderers:
+  - renderer: {fileID: 3625480252328376045}
+    useCutout: 1
+    clippingThreshold: 1
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 0
+  - renderer: {fileID: 1197318535163768454}
+    useCutout: 1
+    clippingThreshold: 1
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 0
+  id: 1
   showRenderBounds: 0
   showScreenAdjustedRenderBounds: 0
 --- !u!1 &4738592208894323669
@@ -6180,6 +6194,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1318952304717401735}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6389024400992320988, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6698697619508593350}
     - targetCorrespondingSourceObject: {fileID: 2425195688269970674, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       insertIndex: -1
@@ -6191,6 +6209,89 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7466078354251362932}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4554979132769931176 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6389024400992320988, guid: 483f77a4afdab2944bbbeaa7913ef130,
+    type: 3}
+  m_PrefabInstance: {fileID: 7466078354251362932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6698697619508593350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554979132769931176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0970a923eff145744a66a980e20b235c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlighterSettings:
+    depthMask: 3
+    infoRenderScale: 1
+    useOuterGlow: 1
+    useSingleOuterGlow: 1
+    outerGlowColorFront: {r: 0, g: 0.01960802, b: 1, a: 1}
+    outerGlowColorBack: {r: 0, g: 0, b: 0, a: 1}
+    outlineVisibleBeforeObject: 1
+    blurType: 1
+    blendType: 0
+    boxBlurSize: 0.05
+    blurIterations: 10
+    blurRenderScale: 1
+    blurIntensity: 1
+    blurIntensityMultiplier: 10
+    blurAdaptiveThickness: 0.837
+    cameraDistanceMultiplier: 0.1
+    useMeshOutline: 0
+    useSingleMeshOutline: 1
+    meshOutlineFront:
+      color: {r: 1, g: 1, b: 1, a: 1}
+    meshOutlineBack:
+      color: {r: 1, g: 1, b: 1, a: 1}
+    meshOutlineThickness: 0.1
+    meshOutlineAdaptiveThickness: 0
+    useInnerGlow: 0
+    useSingleInnerGlow: 1
+    innerGlowFront:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      power: 4
+    innerGlowBack:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      power: 4
+    useOverlay: 0
+    useSingleOverlay: 1
+    overlayFront:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      useTexture: 0
+      texture: {fileID: 0}
+      background: 0
+      tilling: 60
+      rotation: 0
+    overlayBack:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      useTexture: 0
+      texture: {fileID: 0}
+      background: 0
+      tilling: 60
+      rotation: 0
+    RenderingBoundsSizeIncrease: 0.2
+    RenderingBoundsDistanceFix: 0
+    RenderingBoundsMaxDistanceFix: 1
+    RenderingBoundsMinDistanceFix: 0
+  findRenderers: 0
+  renderers:
+  - renderer: {fileID: 7133807588705702581}
+    useCutout: 1
+    clippingThreshold: 1
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 0
+  id: 1
+  showRenderBounds: 0
+  showScreenAdjustedRenderBounds: 0
 --- !u!4 &5047118458150591035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
@@ -6224,3 +6325,9 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &7133807588705702581 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 332341134978752705, guid: 483f77a4afdab2944bbbeaa7913ef130,
+    type: 3}
+  m_PrefabInstance: {fileID: 7466078354251362932}
+  m_PrefabAsset: {fileID: 0}
