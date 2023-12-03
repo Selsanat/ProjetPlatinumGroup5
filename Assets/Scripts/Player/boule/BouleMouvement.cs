@@ -176,8 +176,8 @@ public class BouleMouvement : MonoBehaviour
     }
     private void setUpTrail()
     {
-/*        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
-        trailRenderer.material = _trailRendererMaterials[this.ParentMachine.team];*/
+        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+        trailRenderer.material = _trailRendererMaterials[this.ParentMachine.team];
     }
     private void setUpParticles()
     {
