@@ -1,13 +1,8 @@
 using NaughtyAttributes;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Profiling.Memory.Experimental;
 using UnityEngine.UIElements;
 
 public class FixMetaArts : MonoBehaviour
@@ -37,6 +32,12 @@ public class FixMetaArts : MonoBehaviour
     [Button]
     public void FixMeta()
     {
+        if(path == null)
+        {
+            Debug.LogError("Path is null");
+            return;
+        }
+        path = path.Replace('"', '\0');
         metaDataToModify = System.IO.File.ReadAllLines(path);
         for (int i = 0; i < metaDataToModify.Length; i++)
         {

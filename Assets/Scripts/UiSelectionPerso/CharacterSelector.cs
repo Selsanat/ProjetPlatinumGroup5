@@ -23,7 +23,7 @@ public class CharacterSelector : MonoBehaviour
     private HorizontalLayoutGroup horizontalLayoutGroup => GetComponentInChildren<HorizontalLayoutGroup>();
     private Toggle toggle => GetComponentInChildren<Toggle>();
     private MultiplayerEventSystem multiplayerEventSystem => GetComponent<MultiplayerEventSystem>();
-    private Animator animatorCadrant => GetComponentInChildren<Animator>();
+    public Animator animatorCadrant;
     [SerializeField] private Button buttonsImages;
     void Awake()
     {
@@ -97,7 +97,7 @@ public class CharacterSelector : MonoBehaviour
         {
             index++;
             animatorCadrant.SetFloat("Blend", index);
-            DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
+            DOTween.To(() => PaddingLeft, x => PaddingLeft = x, (-200-horizontalLayoutGroup.spacing)*index, 1);
             playSound("Click");
             playSound("click Menu 1");
 
@@ -113,7 +113,7 @@ public class CharacterSelector : MonoBehaviour
         {
             index--;
             animatorCadrant.SetFloat("Blend", index);
-            DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
+            DOTween.To(() => PaddingLeft, x => PaddingLeft = x, (-200 - horizontalLayoutGroup.spacing) * index, 1);
             playSound("Click");
             playSound("click Menu 1");
         }
