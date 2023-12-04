@@ -4125,11 +4125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442a4b9aeb255ec40befc2fddad5dc29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionx: {x: 0, y: 0}
-  positiony: {x: 0, y: 0}
-  position: {x: 0, y: 0}
-  diameter: 0
-  timing: 0
 --- !u!4 &167987974
 Transform:
   m_ObjectHideFlags: 0
@@ -22571,6 +22566,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6588468207800784611, guid: eb9d3c70eed9f56468a0c89fb84fe3bd,
+        type: 3}
+      propertyPath: m_PlayerPrefab
+      value: 
+      objectReference: {fileID: 8885932740852423821, guid: 0841b99dcc0a41e42aae366871552646,
+        type: 3}
+    - target: {fileID: 8799705003683852645, guid: eb9d3c70eed9f56468a0c89fb84fe3bd,
+        type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 8885932740852423821, guid: 0841b99dcc0a41e42aae366871552646,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27061,10 +27068,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855fa63b442329849b001945eb970e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: 
-  Out: 
-  Key: 
-  TempFilePath: Assets/Scripts/PlanMalicieux/ToolMalicieux/test/
 --- !u!4 &732623875
 Transform:
   m_ObjectHideFlags: 0
@@ -27337,8 +27340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd5e30fbf8dfc8d4dbffe74a63c994c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _setUp: 0
-  _reset: 0
 --- !u!4 &766091901
 Transform:
   m_ObjectHideFlags: 0
@@ -32822,9 +32823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb47568516a667e4d8958e3be08ff381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPortal: {fileID: 0}
-  scriptPortail: {fileID: 0}
-  isTeleporting: 0
 --- !u!4 &906802976
 Transform:
   m_ObjectHideFlags: 0
@@ -46582,9 +46580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb47568516a667e4d8958e3be08ff381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPortal: {fileID: 0}
-  scriptPortail: {fileID: 0}
-  isTeleporting: 0
 --- !u!4 &1407212954
 Transform:
   m_ObjectHideFlags: 0
@@ -47240,9 +47235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c66f198759a924dbda57c23d4651ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
-  OutText: {fileID: 0}
-  mat: {fileID: 0}
 --- !u!1001 &1461531535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64138,8 +64130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd5e30fbf8dfc8d4dbffe74a63c994c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _setUp: 0
-  _reset: 0
 --- !u!1001 &2026040547
 PrefabInstance:
   m_ObjectHideFlags: 0
