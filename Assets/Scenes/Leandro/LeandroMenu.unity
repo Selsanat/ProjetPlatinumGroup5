@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.008291625, g: 0.018428456, b: 0.053124636, a: 1}
+  m_IndirectSpecularColor: {r: 0.007831614, g: 0.018053228, b: 0.052470855, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2225,7 +2225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bd259f0511d3642b2095f1aeabba04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finale: 0
   FollowPlayers: 0
+  LD: {fileID: 0}
 --- !u!1 &483127847
 GameObject:
   m_ObjectHideFlags: 0
@@ -7287,6 +7289,7 @@ MonoBehaviour:
   - {fileID: 1456839041}
   - {fileID: 1859134819}
   - {fileID: 761380483}
+  CA: {fileID: 0}
   teamColors:
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}

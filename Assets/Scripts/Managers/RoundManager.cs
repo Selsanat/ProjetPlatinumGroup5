@@ -142,7 +142,6 @@ public class RoundManager : MonoBehaviour
             }
         }
         #endregion
-
         Volume.profile.TryGet<ChromaticAberration>(out CA);
     }
     public bool ShouldEndRound()
