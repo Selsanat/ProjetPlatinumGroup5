@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 using TMPro;
 using Unity.VisualScripting;
@@ -15,14 +16,14 @@ using MoreMountains;
 public class CharacterSelector : MonoBehaviour
 {
     private Gamepad gamepad;
+    private TMP_Text nom => GetComponentInChildren<TMP_Text>();
     public UnityEngine.InputSystem.PlayerInput playerInputs => GetComponent<UnityEngine.InputSystem.PlayerInput>();
     public int index = 0;
-    private TMP_Text nom => GetComponentInChildren<TMP_Text>();
     private float PaddingLeft = 0;
     private HorizontalLayoutGroup horizontalLayoutGroup => GetComponentInChildren<HorizontalLayoutGroup>();
     private Toggle toggle => GetComponentInChildren<Toggle>();
     private MultiplayerEventSystem multiplayerEventSystem => GetComponent<MultiplayerEventSystem>();
-    private Animator animatorCadrant => GetComponentInChildren<Animator>();
+    public Animator animatorCadrant;
     [SerializeField] private Button buttonsImages;
     void Awake()
     {
@@ -41,7 +42,7 @@ public class CharacterSelector : MonoBehaviour
 
             gamepad = (Gamepad)playerInputs.devices[0];
             StartCoroutine(Vibrations(10f, 0.25f));
-            
+
         }
         playerInputs.actions.actionMaps[1].actions[2].started += ctx => SwipeRight();
         playerInputs.actions.actionMaps[1].actions[3].started += ctx => SwipeLeft();
@@ -63,19 +64,22 @@ public class CharacterSelector : MonoBehaviour
             ManagerManager.Instance.ReadyToFight.isOn = CanStart();
         });
 
-        manager.ReadyToFight.isOn = CanStart();
-
         if (manager.Players.Values.Contains((RoundManager.Team)0)) buttonsImages.transform.GetChild(0).GetComponent<Image>().color =
             new Color(0.5f, 0.5f, 0.5f);
     }
 
     void Update()
     {
+        ManagerManager manager = ManagerManager.Instance;
+
+        manager.ReadyToFight.isOn = CanStart();
+        manager.ReadyToFight.interactable = manager.ReadyToFight.isOn;
         playerInputs.actions.actionMaps[1].actions[4].performed += ctx =>
         {
             if (ManagerManager.Instance.ReadyToFight.isOn)
             {
                 ManagerManager.Instance.ReadyToFight.isOn = false;
+                playSound("start game");
                 GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.MapSelectionState);
             }
         };
@@ -86,28 +90,14 @@ public class CharacterSelector : MonoBehaviour
         {
             toggle.interactable = !ManagerManager.Instance.Players.ContainsValue((RoundManager.Team)index);
         }
-        
-        if (gamepad is DualShockGamepad)
-        {
-            RoundManager.Instance.teamColors = new List<Color>()
-            {
-                Color.blue,
-                Color.yellow,
-                Color.red,
-                Color.green
-            };
-
-
-            ((DualShockGamepad)gamepad).SetLightBarColor(RoundManager.Instance.teamColors[index]);
-        }
     }
     void SwipeRight()
     {
-        if (index < horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        if (index < horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject && !toggle.isOn)
         {
             index++;
             animatorCadrant.SetFloat("Blend", index);
-            DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
+            DOTween.To(() => PaddingLeft, x => PaddingLeft = x, (-200-horizontalLayoutGroup.spacing)*index, 1);
             playSound("Click");
             playSound("click Menu 1");
 
@@ -119,15 +109,15 @@ public class CharacterSelector : MonoBehaviour
     }
     void SwipeLeft()
     {
-        if (index > 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        if (index > 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject && !toggle.isOn)
         {
             index--;
             animatorCadrant.SetFloat("Blend", index);
-            DOTween.To(() => PaddingLeft, x => PaddingLeft = x, -200*index, 1);
+            DOTween.To(() => PaddingLeft, x => PaddingLeft = x, (-200 - horizontalLayoutGroup.spacing) * index, 1);
             playSound("Click");
             playSound("click Menu 1");
         }
-        else if(index <= 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
+        else if(index <= 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject && !toggle.isOn)
         {
             playSound("Click");
         }
@@ -147,7 +137,7 @@ public class CharacterSelector : MonoBehaviour
                 {
                     if (manager.Players.ContainsValue((RoundManager.Team)i) && (selec.index!=i || selec.index == i && !selec.toggle.isOn))
                     {
-                        selec.buttonsImages.interactable = false;
+                        //selec.buttonsImages.interactable = false;
                         selec.buttonsImages.transform.GetChild(i).GetComponent<Image>().color =
                         new Color(0.5f, 0.5f, 0.5f);
                     }
@@ -159,6 +149,7 @@ public class CharacterSelector : MonoBehaviour
                 }
             }
         }
+       
     }
 
     bool CanStart()

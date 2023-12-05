@@ -11,7 +11,7 @@ public class PlayerStateMachine : MonoBehaviour
     public IMouvementLockedReader _iMouvementLockedReader => GetComponent<IMouvementLockedReader>();
     public  IMouvementLockedWriter _iMouvementLockedWriter => GetComponent<IMouvementLockedWriter>();
 
-    private PlayerInput _playerInputs;
+    public PlayerInput _playerInputs;
 
     public IdleState stateIdle { get; } = new IdleState();
     public WalkState stateWalk { get; } = new WalkState();
@@ -23,7 +23,7 @@ public class PlayerStateMachine : MonoBehaviour
     public FallState fallState { get; } = new FallState();
     public JumpState jumpState { get; } = new JumpState();
     public DeathState deathState { get; } = new DeathState();
-
+    public Transform WandTrackTransform;
     public TemplateState[] AllStates => new TemplateState[]
     {
         stateIdle,
@@ -46,6 +46,8 @@ public class PlayerStateMachine : MonoBehaviour
     public float CoyoteWindow;
     public bool activeHUD = false;
 
+    public int team = 0;
+    public Animator AnimatorPerso => GetComponentInChildren<Animator>();
     public BouleMouvement bouleMouvement;
     private void Awake()
     {
@@ -79,9 +81,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        Vector3 x = gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale;
-        gameObject.GetComponentInChildren<Animator>().gameObject.transform.localScale = new Vector3(Mathf.Sign(velocity.x), x.y,x.z);
         CurrentState.StateUpdate();
 
     }

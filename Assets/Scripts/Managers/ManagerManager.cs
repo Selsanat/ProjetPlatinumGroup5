@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,6 +19,8 @@ public class ManagerManager : MonoBehaviour
     public Button StartGame;
     public Toggle ReadyToFight;
     public HorizontalLayoutGroup horizontalLayoutGroup;
+    public GameObject[] diePrefab;
+    public GameObject[] castPrefab;
     public Volume Volume => FindObjectOfType<Volume>();
     void Awake()
     {

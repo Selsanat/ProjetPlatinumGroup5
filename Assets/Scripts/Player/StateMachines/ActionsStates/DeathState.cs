@@ -9,11 +9,14 @@ public class DeathState : TemplateState
     protected override void OnStateEnter(TemplateState previousState)
     {
         SoundManager.instance.PlayClip("death");
-
-        animator.Play("Death");
+        foreach(SpriteRenderer sprite in StateMachine.GetComponentsInChildren<SpriteRenderer>())
+        {
+            sprite.enabled = false;
+        }
         StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
 
         StateMachine.bouleMouvement.gameObject.SetActive(false);
+        StateMachine.GetComponentInChildren<CapsuleCollider>().enabled = false;
     }
     protected override void OnStateUpdate()
     {

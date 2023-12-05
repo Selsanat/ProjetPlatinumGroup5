@@ -32,12 +32,13 @@ public class Pause : MonoBehaviour
         }
         else
         {
-            foreach (var player in InputsManager.Instance.playerInputs)
+            foreach (var player in RoundManager.Instance.alivePlayers)
             {
+                //if(player._playerStateMachine. != null) 
                 player._playerStateMachine._iMouvementLockedWriter.isMouvementLocked = false;
             }
             Time.timeScale = 1;
-            _continue.onClick.RemoveAllListeners();
+            _continue.onClick.RemoveAllListeners(); 
             _quit.onClick.RemoveAllListeners();
             _pauseMenu.SetActive(false);
         }

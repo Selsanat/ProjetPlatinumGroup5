@@ -42,13 +42,13 @@ public class AccelerateState : TemplateState
             if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold), ~LayerMask.GetMask("boule") + LayerMask.GetMask("Player")))
             {
                 dir.z = 0;
-                dir *= -_IOrientWriter.orient.x;
+                dir *= _IOrientWriter.orient.x;
                 dir = dir.normalized;
 
                 StateMachine.velocity = _timer / _movementParams.accelerationTime*(_movementParams.maxSpeed*dir);
                 if (dir.normalized.Abs() == Vector3.right)
                 {
-                    StateMachine.velocity.y -= 0.1f;
+                    StateMachine.velocity.y -= 0.2f;
                 }
 
             }

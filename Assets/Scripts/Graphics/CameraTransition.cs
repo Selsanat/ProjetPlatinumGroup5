@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using Image = UnityEngine.UI.Image;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 
 public class CameraTransition : MonoBehaviour
 {
@@ -23,10 +26,28 @@ public class CameraTransition : MonoBehaviour
     public float initOrtho;
     [HideInInspector]
     public Sequence mySequence;
+    ChromaticAberration CA;
+    Volume vol;
 
     public static CameraTransition Instance { get; private set; }
 
 
+    public void CameraShake()
+    {
+        Volume vol = RoundManager.Instance.Volume;
+        vol.profile.TryGet<ChromaticAberration>(out ChromaticAberration CA);
+        float init = CA.intensity.value;
+        DOTween.To(() => CA.intensity.value, x => CA.intensity.value = x, 100, cameraParams.TimeToShakePlayerDeath/3);
+        Camera.main.DOShakePosition(cameraParams.TimeToShakePlayerDeath, cameraParams.ShakeForcePlayerDeath, cameraParams.vibratoShakeDeath, cameraParams.RandomnessShakeDeath, cameraParams.ShouldFadeShakeDeath).OnComplete(() =>
+        {
+            DOTween.To(() => CA.intensity.value, x => CA.intensity.value = x, init + 0.3f, 1);
+        });
+    }
+    public void CameraRotation()
+    {
+        TransitionCam.DOShakeRotation(cameraParams.RotatePlayerWinTime, cameraParams.ForceRotateWin, cameraParams.VibratoRotateWin, cameraParams.RandomnesRotateDeath, cameraParams.ShouldFadeRotateWin);
+    }
+    
     void OnDrawGizmos()
     {
         Camera cam;
@@ -63,10 +84,16 @@ public class CameraTransition : MonoBehaviour
         }
     }
 
+    IEnumerator RecordFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        Sprite sprite = Sprite.Create(ScreenCapture.CaptureScreenshotAsTexture(), new Rect(0, 0, renderTex.width, renderTex.height), new Vector2(0.5f, 0.5f));
+        Target.sprite = sprite;
+    }
+
     public void FreezeIt()
     {
-            Sprite sprite = Sprite.Create(ScreenCapture.CaptureScreenshotAsTexture(), new Rect(0, 0, renderTex.width, renderTex.height), new Vector2(0.5f, 0.5f));
-            Target.sprite = sprite;
+        StartCoroutine(RecordFrame());
     }
     public Sequence UnfreezeIt()
     {
@@ -91,11 +118,13 @@ public class CameraTransition : MonoBehaviour
         TransitionCam.aspect = MainCam.aspect;
         renderTex.width = Screen.width;
         renderTex.height = Screen.height;
+        RenderSettings.skybox.SetFloat("_Rotation", 0);
+        DOTween.To(() => RenderSettings.skybox.GetFloat("_Rotation"), x => RenderSettings.skybox.SetFloat("_Rotation", x), 360, 240).SetLoops(-1);
+
     }
 
     void ChangedActiveScene(Scene PreviousScene, Scene NextScene)
     {
-        print("changedScene");
         Camera[] cams = FindObjectsOfType<Camera>();
         foreach(Camera cam in cams)
         {

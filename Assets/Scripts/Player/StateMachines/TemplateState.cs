@@ -6,8 +6,9 @@ public abstract class TemplateState
 
     protected MovementParams movementParams => StateMachine.movementsParam;
     protected IOrientWriter _IOrientWriter => StateMachine.GetComponent<IOrientWriter>();
+    protected IOrientReader _IOrientReader => StateMachine.GetComponent<IOrientReader>();
     protected IWantsJumpWriter _iWantsJumpWriter => StateMachine.GetComponent<IWantsJumpWriter>();
-    protected Animator animator => StateMachine.GetComponentInChildren<Animator>();
+    protected Animator charAnimator => StateMachine.AnimatorPerso;
 
     protected CharacterController _characterController => StateMachine.GetComponent<CharacterController>();
 
@@ -27,7 +28,15 @@ public abstract class TemplateState
     {
         OnStateUpdate();
 
-        if(StateMachine.CoyoteWindow>0) StateMachine.CoyoteWindow -= Time.deltaTime;
+        charAnimator.SetBool("Run", StateMachine.velocity.x != 0);
+        charAnimator.SetBool("TeaBag", StateMachine._playerInputs.Teabag);
+        if (_IOrientReader.orient.x != 0)
+        {
+            Vector3 myScale = charAnimator.transform.localScale;
+            myScale.x = Mathf.Abs(myScale.x) * Mathf.Sign(StateMachine.velocity.x);
+            charAnimator.transform.localScale = myScale;
+        }
+        if (StateMachine.CoyoteWindow>0) StateMachine.CoyoteWindow -= Time.deltaTime;
 
         if (_iWantsJumpWriter.wantsJump && StateMachine.CurrentState != StateMachine.jumpState)
         {

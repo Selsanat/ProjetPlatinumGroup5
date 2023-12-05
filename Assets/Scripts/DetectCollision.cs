@@ -40,12 +40,12 @@ namespace DetectCollisionExtension
                 if (sideway)
                 {
                     Debug.DrawRay(origin, direction * (characterController.bounds.extents.x + characterController.skinWidth+margin), Color.yellow);
-                    if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.x + characterController.skinWidth + margin, ~LayerMask.GetMask("boule") + LayerMask.GetMask("Player")))
+                    if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.x + characterController.skinWidth + margin, ~LayerMask.GetMask("boule") + LayerMask.GetMask("Player") + LayerMask.GetMask("PlatformMousse")) )
                     {
                         return true;
                     }
                 }
-                if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.y + characterController.skinWidth + margin, ~LayerMask.GetMask("boule")+ LayerMask.GetMask("Player")))
+                if (Physics.Raycast(ray, out HitInfo, characterController.bounds.extents.y + characterController.skinWidth + margin, ~LayerMask.GetMask("boule")+ LayerMask.GetMask("Player")  + LayerMask.GetMask("PlatformMousse")))
                 {
                     Debug.DrawRay(origin, direction * (characterController.bounds.extents.y + characterController.skinWidth + margin), Color.yellow);
                     return true;

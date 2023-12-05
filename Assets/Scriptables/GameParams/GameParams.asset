@@ -12,20 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c5db9ffdd65ce44a6b967527db00b3, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
-  PointsToWin: 4
+  PointsToWin: 3
   PointsPerRound: 1
   TransiTimeAfterRound: 5
   Scenes:
-  - Level 1 Reworked
+  - Level 1
   - Level 2 Rework
   - Level 3
   - Level 4
-  - "Level 5  (pi\xE9ce)"
+  - Level 5
+  - Level 6
+  - Level 7
+  - Level 8
+  - Level 9
   - Level 2 Rework
   objects:
-  - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
+  - {fileID: 102900000, guid: 155df950b3db7444a918b16f9033f4db, type: 3}
   - {fileID: 102900000, guid: 7164394ba6b55b14ba6dd12264864cf2, type: 3}
   - {fileID: 102900000, guid: f0473fe022270634ebcadb1103214ee3, type: 3}
   - {fileID: 102900000, guid: 44fb96b3448aaf94fa355e11c7b2f628, type: 3}
   - {fileID: 102900000, guid: ec733ee34b4350149961c11f51e33e97, type: 3}
+  - {fileID: 102900000, guid: 0c40ce8aef3d75c44b4f71cd005f3e65, type: 3}
+  - {fileID: 102900000, guid: 33bf0dfcf6618ea4a9a3a9428a0ad631, type: 3}
+  - {fileID: 102900000, guid: 0574bdcad5778494e8f879804a9fea30, type: 3}
+  - {fileID: 102900000, guid: 6e4cf1ca9fb090840a01bed30eff00f6, type: 3}
   - {fileID: 0}

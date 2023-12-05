@@ -1,7 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
+using static InputsManager;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.Processors;
+using UnityEngine.UI;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -17,6 +23,9 @@ public class BouleMouvement : MonoBehaviour
     public Transform _playerTransform;
     public bool _clockwise = true;
     public ParticleSystem particleSystem;
+    public ParticleSystem particleSystemDeath;
+    public Material[] _trailRendererMaterials;
+    private Image fleche => GetComponentsInChildren<Image>()[^1];
 
     #endregion
 
@@ -43,9 +52,10 @@ public class BouleMouvement : MonoBehaviour
     public float _timeThrowing = 0;
     public LayerMask _layer;
     //return boule
+    
     public BouleParams _bouleParams;// => _manager.bouleParams;
     private float _incrementation = 1;
-
+    public SpriteRenderer SpriteRenderer => GetComponentInChildren<SpriteRenderer>();
     private enum StateBoule
     {
         idle,
@@ -55,6 +65,7 @@ public class BouleMouvement : MonoBehaviour
         death
     }
     StateBoule stateBoule = StateBoule.idle;
+    StateBoule lastState = StateBoule.idle;
     private void OnGUI()
     {
         GUILayout.Label("distance base : " + _distance);
@@ -87,20 +98,30 @@ public class BouleMouvement : MonoBehaviour
         _contactPoints = new List<Vector3>();
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         _distance = Vector3.Distance(_playerPivot.position, this.transform.position);
+        setUpTrail();
+        setUpParticles();
     }
 
     private void Update()
     {
-        if(this.transform.position.z != _playerPivot.position.z)
+        Debug.DrawRay(this.transform.position, _rb.velocity * 10 , Color.blue);
+        if (stateBoule == StateBoule.throwing)
+        {
+            fleche.enabled = false;
+            MakeSpriteLookAtWhereYouGo(_rb.velocity);
+        }
+        changeState();
+        if (this.transform.position.z != _playerPivot.position.z)
         {
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         }
         if (_playerInputs.triggers > 0 && stateBoule == StateBoule.idle && !ParentMachine._iMouvementLockedReader.isMouvementLocked) // Quand le joueur appuie sur la touche && hits.Length == 1
         {
-/*            if (hits[0] != _sphereCollider)
+            /* if (hits[0] != _sphereCollider)
             {
                 return;
             }*/
+
             _sphereCollider.material = _bounce;
             stateBoule = StateBoule.throwing;
             updateThrowing();
@@ -108,6 +129,7 @@ public class BouleMouvement : MonoBehaviour
         if (_playerInputs.triggers < 1 && stateBoule == StateBoule.throwing)
         {
             setUpBoule();
+            
             _timeThrowing = 0;
         }
 
@@ -128,7 +150,7 @@ public class BouleMouvement : MonoBehaviour
             }
         }
         onCollision();
-        switch (stateBoule)
+/*        switch (stateBoule)
         {
             case StateBoule.idle:
                 this.GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
@@ -147,20 +169,32 @@ public class BouleMouvement : MonoBehaviour
             default:
                 break;
 
-        }
+        }*/
 
 
     }
-
+    private void setUpTrail()
+    {
+        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+        trailRenderer.material = _trailRendererMaterials[this.ParentMachine.team];
+    }
+    private void setUpParticles()
+    {
+        ParticleSystem ps = this.gameObject.GetComponent<ParticleSystem>();
+        ps.startColor = RoundManager.Instance.teamColors[ParentMachine.team];
+    }
+    private void ChangeAlpha(float alpha)
+    {
+        SpriteRenderer.color = new Color(SpriteRenderer.color.r, SpriteRenderer.color.g, SpriteRenderer.color.b, alpha/100);
+    }
     public void resetChangeScene()
     {
         _contactPoints.Clear();
         _collidingObject.Clear();
-        
+        stateBoule = StateBoule.reseting;
     }
     private void FixedUpdate()
     {
-        
         switch (stateBoule)
         {
             case StateBoule.idle:
@@ -170,6 +204,7 @@ public class BouleMouvement : MonoBehaviour
             case StateBoule.returning:
                 returnBoule();
                 break;
+
             case StateBoule.reseting:
                 resetBool();
                 break;
@@ -216,6 +251,7 @@ public class BouleMouvement : MonoBehaviour
     }
     private void updateThrowing() //lanc� de la boule
     {
+        SpriteRenderer.flipX = false;
         if (_beforeThrow == Vector3.zero)
         {
             _beforeThrow = this.transform.position;
@@ -224,9 +260,60 @@ public class BouleMouvement : MonoBehaviour
         this.transform.SetParent(null);
 
         _rb.AddForce(-this.transform.forward * Time.fixedDeltaTime * _bouleParams._speedThrowing, ForceMode.VelocityChange);
-
     }
+    public void MakeSpriteLookAtWhereYouGo(Vector3 dir)
+    {
+        SpriteRenderer.transform.LookAt(SpriteRenderer.transform.position + dir * 10);;
+        float angle = Mathf.Abs(SpriteRenderer.transform.localRotation.eulerAngles.y + SpriteRenderer.transform.localRotation.eulerAngles.x);
+        SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90,angle % 270 <90 ? angle*-1:angle);
+    }
+    private void changeState()
+    {
 
+        if(stateBoule != StateBoule.reseting)
+        {
+            ChangeAlpha(100);
+            TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+            trailRenderer.emitting = true;
+        }
+        if (lastState == stateBoule)
+            return;
+        else
+        {
+            switch (stateBoule)
+            {
+                
+                case StateBoule.idle:
+                    SoundManager.instance.Pauseclip("Pet Return");
+                    SoundManager.instance.Pauseclip("Pet Cast");
+                    break;
+                case StateBoule.returning:
+
+                    SoundManager.instance.Pauseclip("Pet Cast");
+                    SoundManager.instance.PlayClip("Pet Return");
+                    break;
+                case StateBoule.reseting:
+                    SoundManager.instance.Pauseclip("Pet Cast");
+                    break;
+                case StateBoule.throwing:
+                    Instantiate(ManagerManager.Instance.castPrefab[ParentMachine.team], ParentMachine.WandTrackTransform);
+                    SoundManager.instance.PlayClip("Pet Cast");
+                    SoundManager.instance.Pauseclip("Pet Return");
+                    if(ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                        StartCoroutine(Vibrations(0.25f, 1, (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
+
+                    break;
+                case StateBoule.death:
+                    SoundManager.instance.Pauseclip("Pet Return");
+                    SoundManager.instance.Pauseclip("Pet Cast");
+                    break;
+                default:
+                    break;
+
+            }
+            lastState = stateBoule;
+        }
+    }
     private void endResetboule()
     {
         stateBoule = StateBoule.idle;
@@ -244,7 +331,10 @@ public class BouleMouvement : MonoBehaviour
             return;
         }
 
+        
         Vector3 dir = (_target - this.transform.position).normalized;
+        Debug.DrawRay(transform.position, dir*10, Color.red);
+        MakeSpriteLookAtWhereYouGo(dir);
         if (_target == _contactPoints[_contactPoints.Count - 1]) //si on est sur le premier point
         {
             if (!_isLerpSlowFinished) //lorsque l'on ralentie
@@ -311,6 +401,7 @@ public class BouleMouvement : MonoBehaviour
     }
     private void onCollision()
     {
+
         _hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius, _layer);
         if(_hits.Length > _nbHits)
         {
@@ -323,16 +414,17 @@ public class BouleMouvement : MonoBehaviour
                 {
                     break;
                 }
-                
-                particleSystem.Play();
-                _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
-                print(hit.gameObject.name);
+                if (stateBoule != StateBoule.reseting)
+                    particleSystem.Play();
+                if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                    StartCoroutine(Vibrations(0.2f, 0.1f, (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
+                   _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
                 //_collidingObject.Add(hit.gameObject);
                 if (stateBoule == StateBoule.throwing)
                     _contactPoints.Add(this.transform.position);
                 
             }
-            
+
         }
         else if(_hits.Length < _nbHits)
         {
@@ -343,8 +435,9 @@ public class BouleMouvement : MonoBehaviour
     {
         if (stateBoule == StateBoule.reseting)
             return;
-
-        
+        fleche.enabled = true;
+        SpriteRenderer.flipX = !(_clockwise && transform.rotation.y > 0 || !_clockwise && transform.rotation.y < 0);
+        SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90, -90);
         transform.RotateAround(_playerPivot.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _bouleParams._rotationSpeed * _incrementation * Time.fixedDeltaTime);
         transform.LookAt(_playerPivot);
     }
@@ -352,6 +445,9 @@ public class BouleMouvement : MonoBehaviour
 
     private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
+        ChangeAlpha(33);
+        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+        trailRenderer.emitting = false;
         transform.LookAt(_playerPivot);
         _sphereCollider.isTrigger = true;
         //_sphereCollider.isTrigger = true;
@@ -362,7 +458,7 @@ public class BouleMouvement : MonoBehaviour
         {
             _rb.AddForce(this.transform.forward * Time.deltaTime * _bouleParams._resetSpeed , ForceMode.VelocityChange);
         }
-        
+        MakeSpriteLookAtWhereYouGo(ParentMachine.transform.position-transform.position);
         // T�l�porte la boule � la nouvelle position
 
     }
@@ -387,17 +483,53 @@ public class BouleMouvement : MonoBehaviour
 
 
 
+    IEnumerator Vibrations(float force, float time, Gamepad gamepad)
+    {
 
+        
+        if (gamepad is DualShockGamepad)
+        {
+            ((DualShockGamepad)gamepad).SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            ((DualShockGamepad)gamepad).ResetHaptics();
+        }
+        else
+        {
+            gamepad.SetMotorSpeeds(force, force);
+            yield return new WaitForSeconds(time);
+            gamepad.ResetHaptics();
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == ParentMachine.gameObject) return;
+            PlayerStateMachine pst = collision.gameObject.GetComponent<PlayerStateMachine>();
+
+        if (pst != null) 
+            if (pst.team == ParentMachine.team) 
+                return;
+
+        if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
+            SoundManager.instance.PlayClip("Pet Kiss");
+
+        if(collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
+        {
+            endResetboule();
+        }
         if (collision.gameObject.tag == "Player")
         {
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
             if (StateMachine.CurrentState != StateMachine.deathState)
             {
+                if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                    StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
+
+                collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
+                Instantiate(ManagerManager.Instance.diePrefab[StateMachine.team], StateMachine.transform);
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
+                if (!RoundManager.Instance.ShouldEndRound())
+                    SoundManager.instance.PlayRandomClip("Narrator death");
             }
             if (stateBoule == StateBoule.throwing)
                 setUpBoule();
@@ -405,7 +537,27 @@ public class BouleMouvement : MonoBehaviour
         }
     }
 
-
+    private void PlayDeathParticules()
+    {
+       /* var part = particleSystemDeath.main;
+        if(ParentMachine.team == 0)
+        {
+            part.startColor = Color.blue;
+        }
+        else if(ParentMachine.team == 1)
+        {
+            part.startColor = Color.yellow;
+        }
+        else if(ParentMachine.team == 2)
+        {
+            part.startColor = Color.red;
+        }
+        else
+        {
+            part.startColor = Color.green;
+        }*/
+        particleSystemDeath.Play();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.layer == 7 && stateBoule != StateBoule.throwing)

@@ -15,7 +15,7 @@ public class WalkState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
-        animator.Play("Walk");
+        SoundManager.instance.PlayClip("Step");
         StateMachine.velocity.x = _movementParams.maxSpeed* Mathf.Sign(StateMachine.velocity.x);
          characterController = StateMachine.GetComponent<CharacterController>();
     }
@@ -45,32 +45,39 @@ public class WalkState : TemplateState
         #region Fall
         if (!DetectCollision.isColliding(Vector2.down, StateMachine.transform, Vector3.zero))
         {
+            if(Mathf.Sign(_IOrientWriter.orient.x) != Mathf.Sign(StateMachine.velocity.x))
+            {
+                distanceGround = 0;
+                StateMachine.ChangeState(StateMachine.fallState);
+                return;
+            }
             Vector3 newCenter = characterController.center;
             newCenter.x += characterController.radius* -Mathf.Sign(StateMachine.velocity.x);
             Vector3 origin = StateMachine.transform.position + newCenter;
             float distance = characterController.bounds.extents.y + characterController.skinWidth;
             Ray ray = new Ray(origin, Vector2.down);
-            Vector3 dir = Vector3.Cross(StateMachine.transform.position, HitInfo.normal);
-
+            Vector3 dir = Vector3.Cross(-StateMachine.transform.forward* _IOrientWriter.orient.x, HitInfo.normal);
+            Debug.Log(dir);
+            Debug.DrawRay(origin, dir, Color.yellow);
+            Debug.DrawRay(origin, HitInfo.normal, Color.magenta);
             Debug.DrawRay(origin, Vector2.down * (distance + _movementParams.slideSlopeThresHold), Color.cyan);
             if (Physics.Raycast(ray, out HitInfo, (distance + _movementParams.slideSlopeThresHold),~LayerMask.GetMask("boule") + LayerMask.GetMask("Player")))
             {
+                if (Mathf.Abs(dir.x) == 1)
+                {
+                    Debug.Log("Descend");
+                    StateMachine.velocity.y -= 0.1f;
+                }
                 if (distanceGround == 0)
                 {
                     distanceGround = HitInfo.distance;
                 }
-
-                if (distanceGround < HitInfo.distance)
+                if (distanceGround < HitInfo.distance && dir!=Vector3.zero)
                 {
                     dir.z = 0;
-                    dir *= -_IOrientWriter.orient.x;
+                    dir.x = Mathf.Abs(dir.x)*_IOrientWriter.orient.x;
                     dir = dir.normalized;
-
                     StateMachine.velocity = dir * _movementParams.maxSpeed*_movementParams.SpeedBoostOnSlope;
-                    if (dir.normalized.Abs() == Vector3.right)
-                    {
-                        StateMachine.velocity.y -= 1f;
-                    }
                 }
             }
             else
@@ -104,7 +111,7 @@ public class WalkState : TemplateState
         }
         else
         {
-            //Debug.Log(Mathf.Sign(_IOrientWriter.orient.x) + " Mon input, et voila ma velocité : " + Mathf.Sign(StateMachine.velocity.x));
+            //Debug.Log(Mathf.Sign(_IOrientWriter.orient.x) + " Mon input, et voila ma velocitï¿½ : " + Mathf.Sign(StateMachine.velocity.x));
             if (Mathf.Sign(_IOrientWriter.orient.x) != Mathf.Sign(StateMachine.velocity.x))
             {
 
@@ -113,7 +120,6 @@ public class WalkState : TemplateState
             }
         }
         #endregion
-
         _characterController.Move(StateMachine.velocity);
 
 
