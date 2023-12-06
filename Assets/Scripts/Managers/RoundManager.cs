@@ -110,7 +110,7 @@ public class RoundManager : MonoBehaviour
                     Color c = spriteRenderer.color;
                     spriteRenderer.color = new Color(c.r, c.g, c.b, 1);
                 }
-                RoundManager.Instance.teamColors = new List<Color>()
+                List<Color> highlightsColors = new List<Color>()
                 {
                 Color.blue,
                 Color.yellow,
@@ -119,7 +119,7 @@ public class RoundManager : MonoBehaviour
                 };
                 foreach (Highlighter h in playerStateMachine.GetComponentsInChildren<Highlighter>())
                 {
-                    h.Settings.OuterGlowColorFront = teamColors[playerStateMachine.team];
+                    h.Settings.OuterGlowColorFront = highlightsColors[playerStateMachine.team];
                 }
                 teams[playerStateMachine.team] += 1;
             }

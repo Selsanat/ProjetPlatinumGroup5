@@ -84,18 +84,6 @@ public class PlayerStateMachine : MonoBehaviour
         CurrentState.StateUpdate();
 
     }
-    private void OnGUI()
-    {
-        if (!activeHUD) return;
-        GUILayout.BeginVertical(GUI.skin.box);
-        GUILayout.Label("State machine :" + CurrentState);
-        GUILayout.Label(DetectCollision.isColliding(Mathf.Sign(velocity.x) * Vector2.right,transform, Vector2.zero) ? "OnGround" : "InAir");
-        GUILayout.Label(velocity+"");
-        GUILayout.Label(Time.time + "");
-        GUILayout.Label("Jump Buffer :" + JumpBuffer);
-        GUILayout.Label("Coyote Window :" + CoyoteWindow);
-        GUILayout.EndVertical();
-    }
     private void _InitAllStates()
     {
         foreach (var state in AllStates)

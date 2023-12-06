@@ -66,13 +66,6 @@ public class BouleMouvement : MonoBehaviour
     }
     StateBoule stateBoule = StateBoule.idle;
     StateBoule lastState = StateBoule.idle;
-    private void OnGUI()
-    {
-        GUILayout.Label("distance base : " + _distance);
-        GUILayout.Label("state idle: " + stateBoule);
-        GUILayout.Label("timer : " + _timeThrowing);
-        GUILayout.Label("distance : " + Vector3.Distance(_playerPivot.position, this.transform.position));
-    }
     #endregion
 
 #if UNITY_EDITOR

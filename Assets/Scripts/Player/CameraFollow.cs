@@ -16,15 +16,6 @@ public class CameraFollow : MonoBehaviour
     {
         CameraTransition.Instance.cameraFollow = this;
     }
-    private void OnGUI()
-    {
-        if (!true) return;
-        GUILayout.BeginVertical(GUI.skin.box);
-        GUILayout.Label("height :" + height);
-        GUILayout.Label("width :" + width);
-        GUILayout.Label("center :" + center);
-        GUILayout.EndVertical();
-    }
     void Update()
     {
         finale = RoundManager.Instance.alivePlayers.Count == 2 && RoundManager.Instance.players.Count!=2;
