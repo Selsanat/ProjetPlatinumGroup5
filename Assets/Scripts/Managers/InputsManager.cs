@@ -46,6 +46,8 @@ public class InputsManager : MonoBehaviour
     private void Update()
     {
         GameObject current = EventSystem.current.currentSelectedGameObject;
+        if(GameStateMachine.Instance.CurrentState == GameStateMachine.Instance.menuState)
+        {
         if(lastSelected == null)
         {
             lastSelected = current;
@@ -68,6 +70,7 @@ public class InputsManager : MonoBehaviour
             current.GetComponent<MMPositionShaker>().enabled = true;
             current.GetComponent<MMPositionShaker>().ShakeRange = 10;*/
             lastSelected = EventSystem.current.currentSelectedGameObject;
+        }
         }
     }
     public void resetPlayers()
