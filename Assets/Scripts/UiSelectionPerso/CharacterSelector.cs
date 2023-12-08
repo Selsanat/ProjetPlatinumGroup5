@@ -33,6 +33,7 @@ public class CharacterSelector : MonoBehaviour
 
     void Start()
     {
+        transform.localScale = new Vector3(1.15f, 1.15f, 1.15f);
         ManagerManager manager = ManagerManager.Instance;
         manager.characterSelector.Add(this);
         nom.text = "Joueur " + manager.characterSelector.Count + " (" + playerInputs.devices[0].displayName + ")";
@@ -78,7 +79,6 @@ public class CharacterSelector : MonoBehaviour
             if (ManagerManager.Instance.ReadyToFight.isOn)
             {
                 ManagerManager.Instance.ReadyToFight.isOn = false;
-                playSound("start game");
                 GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.MapSelectionState);
             }
         };

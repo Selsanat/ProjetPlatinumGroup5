@@ -38,16 +38,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DensiteVague: 0.01
-    - _DenssityEcume: 5
+    - _DensiteVague: 1
+    - _DenssityEcume: 10
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speedvague: 5
+    - _Speedvague: 0.27
     - _finesse_mouss: 5
-    - _speed: 0.5
+    - _speed: 2
     m_Colors:
     - _BaseColor: {r: 0.066704, g: 0.065147735, b: 0.2264151, a: 0}
-    - _white: {r: 0.39222205, g: 0.23602708, b: 2.943396, a: 0}
+    - _white: {r: 1.0071882, g: 2.5737112, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5642992714758143839
 MonoBehaviour:

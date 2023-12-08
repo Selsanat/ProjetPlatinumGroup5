@@ -75,7 +75,7 @@ public class GameStateMachine : MonoBehaviour
     }
     void Start()
     {
-        //SoundManager.instance.PlayClip("Drill");
+        
         ChangeState(StartState);
     }
 

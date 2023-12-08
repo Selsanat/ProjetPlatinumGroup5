@@ -165,7 +165,6 @@ public class RoundManager : MonoBehaviour
     public IEnumerator NewRound()
     {
         CameraTransition.Instance.FreezeIt();
-
         alivePlayers = new List<Player>(players);
         var allboules = FindObjectsOfType<BouleMouvement>();
         for(int i = 0; i < allboules.Length; i++)

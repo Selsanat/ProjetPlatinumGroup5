@@ -517,6 +517,7 @@ public class BouleMouvement : MonoBehaviour
                 if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
 
+                SoundManager.instance.AddPist(2);
                 collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
                 Instantiate(ManagerManager.Instance.diePrefab[StateMachine.team], StateMachine.transform);
                 RoundManager.Instance.KillPlayer(StateMachine);
