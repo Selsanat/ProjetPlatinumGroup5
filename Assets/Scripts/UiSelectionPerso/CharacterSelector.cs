@@ -123,7 +123,7 @@ public class CharacterSelector : MonoBehaviour
     }
     public void playSound(string str)
     {
-        SoundManager.instance.PlayClip(str);
+        SoundManager.instance.PlayRandomClip(str);
     }
     void UpdateCard()
     {

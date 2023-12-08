@@ -283,14 +283,14 @@ public class BouleMouvement : MonoBehaviour
                 case StateBoule.returning:
 
                     SoundManager.instance.Pauseclip("Pet Cast");
-                    SoundManager.instance.PlayClip("Pet Return");
+                    SoundManager.instance.PlayRandomClip("Pet Return");
                     break;
                 case StateBoule.reseting:
                     SoundManager.instance.Pauseclip("Pet Cast");
                     break;
                 case StateBoule.throwing:
                     Instantiate(ManagerManager.Instance.castPrefab[ParentMachine.team], ParentMachine.WandTrackTransform);
-                    SoundManager.instance.PlayClip("Pet Cast");
+                    SoundManager.instance.PlayRandomClip("Pet Cast");
                     SoundManager.instance.Pauseclip("Pet Return");
                     if(ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                         StartCoroutine(Vibrations(0.25f, 1, (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
@@ -398,7 +398,7 @@ public class BouleMouvement : MonoBehaviour
         _hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius, _layer);
         if(_hits.Length > _nbHits)
         {
-            SoundManager.instance.PlayClip("bounce");
+            SoundManager.instance.PlayRandomClip("bounce");
 
             _nbHits = _hits.Length;
             foreach(var hit in _hits)
@@ -503,7 +503,7 @@ public class BouleMouvement : MonoBehaviour
                 return;
 
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
-            SoundManager.instance.PlayClip("Pet Kiss");
+            SoundManager.instance.PlayRandomClip("Pet Kiss");
 
         if(collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
         {

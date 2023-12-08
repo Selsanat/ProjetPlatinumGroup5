@@ -132,7 +132,6 @@ public class RoundManager : MonoBehaviour
                 StateMachine.ChangeState(StateMachine.stateIdle);
                 StateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
                 StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
-                SoundManager.instance.PlayClip("Spawn");
                 StateMachine.bouleMouvement.gameObject.SetActive(true);
                 Animator animator = StateMachine.bouleMouvement.GetComponentInChildren<Animator>();
                 int team = (int)managerManager.Players.Values.ToList()[i];

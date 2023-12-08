@@ -48,7 +48,6 @@ public class SoundManager : MonoBehaviour
             s.source.outputAudioMixerGroup = audioMixerGroup;
             s.source.loop = s.loop;
             s.source.playOnAwake = s.playeOnAwake;
-            
         }
 
     }
@@ -77,11 +76,15 @@ public class SoundManager : MonoBehaviour
 
     public void PlayRandomClip(string name)
     {
+        Sounds s = Array.Find(sounds, sound => sound.name == name);
+        if (s.playOneAfterAnother && s.source.isPlaying)
+        {
+            return;
+        }
         if (name == "")
         {
             return;
         }
-        Sounds s = Array.Find(sounds, sound => sound.name == name);
         if (s == null || s.clips.Length < 2)
         {
             Debug.LogWarning("The clip " + name + " doesn't exist or he only have one clip !");
@@ -90,7 +93,7 @@ public class SoundManager : MonoBehaviour
         UnityEngine.Random.seed = System.DateTime.Now.Millisecond;
         int random = UnityEngine.Random.Range(0, s.clips.Length - 1);
         s.source.clip = s.clips[random];
-        s.source.Play();
+        s.source.PlayDelayed(s.delay);
     }
 
     public void Pauseclip(string name)
@@ -123,6 +126,8 @@ public class Sounds
     public bool loop;
     public bool Oneshot;
     public bool playeOnAwake;
+    public bool playOneAfterAnother;
+    public float delay = 0;
 
     [HideInInspector]
     public AudioSource source;
