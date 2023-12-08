@@ -8,6 +8,7 @@ using DG.Tweening;
 using Image = UnityEngine.UI.Image;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
+using System.Linq;
 
 public class CameraTransition : MonoBehaviour
 {
@@ -97,6 +98,7 @@ public class CameraTransition : MonoBehaviour
     }
     public Sequence UnfreezeIt()
     {
+        Resources.UnloadUnusedAssets();
         origin = Target.rectTransform.anchoredPosition;
         Vector3 pos = Target.rectTransform.anchoredPosition;
         pos.y -= cameraParams.heighOfFall;
@@ -125,8 +127,9 @@ public class CameraTransition : MonoBehaviour
 
     void ChangedActiveScene(Scene PreviousScene, Scene NextScene)
     {
-        Camera[] cams = FindObjectsOfType<Camera>();
-        foreach(Camera cam in cams)
+        List<Camera> cams = FindObjectsOfType<Camera>().ToList();
+        cams.RemoveAll(x => x.tag == "CamDecors");
+        foreach (Camera cam in cams)
         {
                 if(!(cam == TransitionCam || cam == MainCam) && cam.tag!="EditorOnly")
                 {
