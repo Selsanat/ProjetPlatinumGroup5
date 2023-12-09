@@ -25,10 +25,6 @@ public class StateRound : GameStateTemplate
     {
         SoundManager.instance.Pauseclip("Drill");
         SoundManager.instance.PlayARandomMusic();
-        if (RoundManager.Instance.players.Count <= 2)
-        {
-            SoundManager.instance.AddPist(2);
-        }
         SoundManager.instance.PlayRandomClip("Narrator pre");
         cameraParams = CameraTransition.Instance.cameraParams;
         StateMachine.HideAllMenusExceptThis();

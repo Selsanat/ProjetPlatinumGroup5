@@ -192,6 +192,8 @@ public class RoundManager : MonoBehaviour
         Player player = players.Find(x => x._playerStateMachine == playerKilled);
         alivePlayers.Remove(player);
         SoundManager.instance.PlayClip("death");
+        if (alivePlayers.Count == 2) SoundManager.instance.AddPist(4);
+        else
         if (ShouldEndRound())
         {
             RoundEnd();

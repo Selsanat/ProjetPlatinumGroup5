@@ -97,31 +97,43 @@ public class SoundManager : MonoBehaviour
             b.sources[0].volume = b.volume;
         }
     }
-    public void StopbackgroundMusic()
+    public Sequence StopbackgroundMusic()
     {
-        if(currentMusic == null)return;
-        ResetValues();
-        foreach (AudioSource aS in currentMusic.sources)
+        Sequence mySequence = DOTween.Sequence();
+        if (currentMusic != null)
         {
-            aS.DOFade(currentMusic.volume, 1).OnComplete(() => aS.Stop());
+            foreach (AudioSource aS in currentMusic.sources)
+            {
+                mySequence.Join(aS.DOFade(0, 1.5f).OnComplete(() =>
+                {
+                    print("Stopped!" + aS);
+                    aS.Stop();
+                    ResetValues();
+                }));
+            }
         }
+        return mySequence;
     }
     public void PlayARandomMusic()
     {
-        StopbackgroundMusic();
-        UnityEngine.Random.seed = System.DateTime.Now.Millisecond;
-        int random = UnityEngine.Random.Range(0, bgMusics.Length - 1);
-        currentMusic = bgMusics[random];
-        UnityEngine.Random.seed = System.DateTime.Now.Millisecond;
-        float randomTime = UnityEngine.Random.Range(0f, currentMusic.sources[0].clip.length);
-        foreach (AudioSource aS in currentMusic.sources)
+        StopbackgroundMusic().Play().OnComplete(() =>
         {
-            aS.time = randomTime;
-            aS.Play();
-            float vol = aS.volume;
-            aS.volume = 0;
-            aS.DOFade(vol, 1).OnComplete(() => aS.volume = vol);
-        }
+            print("Completed");
+            UnityEngine.Random.seed = System.DateTime.Now.Millisecond;
+            int random = UnityEngine.Random.Range(0, bgMusics.Length - 1);
+            currentMusic = bgMusics[random];
+            float randomTime = UnityEngine.Random.Range(0f, currentMusic.sources[0].clip.length);
+
+            foreach (AudioSource aS in currentMusic.sources)
+            {
+                aS.time = randomTime;
+                aS.Play();
+                float vol = aS.volume;
+                aS.volume = 0;
+                aS.DOFade(vol, 1.5f);
+            }
+        });
+
     }
 
     public void AddPist(int numberOfTracksToAdd)
@@ -130,7 +142,7 @@ public class SoundManager : MonoBehaviour
         {
             foreach (AudioSource aS in currentMusic.sources)
             {
-                if (aS.volume != currentMusic.volume)
+                if (aS.volume < currentMusic.volume)
                 {
                     aS.volume = currentMusic.volume;
                     break;
