@@ -1,6 +1,8 @@
+using MoreMountains.Feedbacks;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 
@@ -14,6 +16,8 @@ public class InputsManager : MonoBehaviour
     public PlayerInputManager _playerInputManager => GetComponent<PlayerInputManager>();
     public List<PlayersInputs> playerInputs = new List<PlayersInputs>();
     public GameObject playerPrefab;
+
+    private GameObject lastSelected;
     public class PlayersInputs
     {
         public PlayerInput _playerInputs;
@@ -37,6 +41,37 @@ public class InputsManager : MonoBehaviour
     void Start()
     {
         _playerInputManager.playerPrefab = playerPrefab;
+    }
+
+    private void Update()
+    {
+        GameObject current = EventSystem.current.currentSelectedGameObject;
+        if(GameStateMachine.Instance.CurrentState == GameStateMachine.Instance.menuState)
+        {
+        if(lastSelected == null)
+        {
+            lastSelected = current;
+            current.transform.parent.GetComponent<MMWiggle>().RotationWiggleProperties.WigglePermitted = true;
+            current.transform.parent.GetComponent<MMWiggle>().ScaleWiggleProperties.WigglePermitted = true;
+/*
+            current.GetComponent<MMPositionShaker>().enabled = true;
+            current.GetComponent<MMPositionShaker>().ShakeRange = 10;*/
+            return;
+        }
+        if (current != null && lastSelected != current)
+        {
+            lastSelected.transform.parent.GetComponent<MMWiggle>().RotationWiggleProperties.WigglePermitted = false;
+            current.transform.parent.GetComponent<MMWiggle>().RotationWiggleProperties.WigglePermitted = true;
+
+            lastSelected.transform.parent.GetComponent<MMWiggle>().ScaleWiggleProperties.WigglePermitted = false;
+            current.transform.parent.GetComponent<MMWiggle>().ScaleWiggleProperties.WigglePermitted = true;
+/*
+            lastSelected.GetComponent<MMPositionShaker>().ShakeRange = 0;
+            current.GetComponent<MMPositionShaker>().enabled = true;
+            current.GetComponent<MMPositionShaker>().ShakeRange = 10;*/
+            lastSelected = EventSystem.current.currentSelectedGameObject;
+        }
+        }
     }
     public void resetPlayers()
     {

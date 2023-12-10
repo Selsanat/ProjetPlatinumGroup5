@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighterSettings:
-    depthMask: 3
+    depthMask: 1
     infoRenderScale: 1
     useOuterGlow: 1
     useSingleOuterGlow: 1
@@ -307,14 +307,14 @@ RectTransform:
   m_GameObject: {fileID: 4738592208894323669}
   m_LocalRotation: {x: -0, y: -0, z: 0.03108329, w: 0.9995168}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1328584550535749848}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.562}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.144, y: 0.617}
+  m_AnchoredPosition: {x: -0.144, y: 0.71}
   m_SizeDelta: {x: 2.37, y: 2.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1197318535163768454
@@ -662,18 +662,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6653954633270439346
-Transform:
+--- !u!224 &6653954633270439346
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8885932740852423821}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7536746513119400259}
   - {fileID: 5047118458150591035}
@@ -681,6 +680,11 @@ Transform:
   - {fileID: 2520014122080297900}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 33.333332}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2440285559612817661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,7 +808,7 @@ CharacterController:
   m_Radius: 0.3
   m_SlopeLimit: 80
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.1
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &9015173072555113495
@@ -5896,11 +5900,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
-      propertyPath: _playerTransform
-      value: 
-      objectReference: {fileID: 6653954633270439346}
-    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
-        type: 3}
       propertyPath: particleSystemDeath
       value: 
       objectReference: {fileID: 244036144124306980}
@@ -6241,7 +6240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighterSettings:
-    depthMask: 3
+    depthMask: 1
     infoRenderScale: 1
     useOuterGlow: 1
     useSingleOuterGlow: 1

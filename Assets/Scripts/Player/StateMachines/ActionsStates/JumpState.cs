@@ -13,7 +13,7 @@ public class JumpState : TemplateState
     {
         charAnimator.SetTrigger("Jump");
         charAnimator.SetBool("Grounded", false);
-        SoundManager.instance.PlayClip("Jump");
+        SoundManager.instance.PlayRandomClip("Jump");
         _timer = StateMachine.velocity.x / _movementParams.airMaxSpeedX * _movementParams.JumpAccelerationTime;
 
         float h = _movementParams.jumpMaxHeight;

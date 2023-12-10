@@ -66,13 +66,6 @@ public class BouleMouvement : MonoBehaviour
     }
     StateBoule stateBoule = StateBoule.idle;
     StateBoule lastState = StateBoule.idle;
-    private void OnGUI()
-    {
-        GUILayout.Label("distance base : " + _distance);
-        GUILayout.Label("state idle: " + stateBoule);
-        GUILayout.Label("timer : " + _timeThrowing);
-        GUILayout.Label("distance : " + Vector3.Distance(_playerPivot.position, this.transform.position));
-    }
     #endregion
 
 #if UNITY_EDITOR
@@ -290,14 +283,14 @@ public class BouleMouvement : MonoBehaviour
                 case StateBoule.returning:
 
                     SoundManager.instance.Pauseclip("Pet Cast");
-                    SoundManager.instance.PlayClip("Pet Return");
+                    SoundManager.instance.PlayRandomClip("Pet Return");
                     break;
                 case StateBoule.reseting:
                     SoundManager.instance.Pauseclip("Pet Cast");
                     break;
                 case StateBoule.throwing:
                     Instantiate(ManagerManager.Instance.castPrefab[ParentMachine.team], ParentMachine.WandTrackTransform);
-                    SoundManager.instance.PlayClip("Pet Cast");
+                    SoundManager.instance.PlayRandomClip("Pet Cast");
                     SoundManager.instance.Pauseclip("Pet Return");
                     if(ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                         StartCoroutine(Vibrations(0.25f, 1, (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
@@ -405,7 +398,7 @@ public class BouleMouvement : MonoBehaviour
         _hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius, _layer);
         if(_hits.Length > _nbHits)
         {
-            SoundManager.instance.PlayClip("bounce");
+            SoundManager.instance.PlayRandomClip("bounce");
 
             _nbHits = _hits.Length;
             foreach(var hit in _hits)
@@ -510,7 +503,7 @@ public class BouleMouvement : MonoBehaviour
                 return;
 
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
-            SoundManager.instance.PlayClip("Pet Kiss");
+            SoundManager.instance.PlayRandomClip("Pet Kiss");
 
         if(collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
         {
@@ -524,6 +517,7 @@ public class BouleMouvement : MonoBehaviour
                 if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
 
+                SoundManager.instance.AddPist(2);
                 collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
                 Instantiate(ManagerManager.Instance.diePrefab[StateMachine.team], StateMachine.transform);
                 RoundManager.Instance.KillPlayer(StateMachine);

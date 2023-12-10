@@ -75,7 +75,7 @@ public class GameStateMachine : MonoBehaviour
     }
     void Start()
     {
-        SoundManager.instance.PlayClip("Drill");
+        
         ChangeState(StartState);
     }
 
@@ -83,28 +83,6 @@ public class GameStateMachine : MonoBehaviour
     {
         if(CurrentState == null) CurrentState = menuState;
         CurrentState.StateUpdate();
-    }
-    private void OnGUI()
-    {
-        if (CurrentState != menuState) return;
-        GUILayout.BeginVertical(GUI.skin.box);
-        GUILayout.Label("Menu State :");
-        GUILayout.TextField("" + CurrentState);
-        foreach (Menu menu in Menus)
-        {
-            if (menu.thisMenu == CurrentState.ToString())
-            {
-                GUILayout.Label("Ma scene = ");
-                GUILayout.TextField(""+ menu.menuObject);
-            }
-        }
-        foreach(string map in ManagerManager.Instance.gameParams.Scenes)
-        {
-            GUILayout.Label("Map = ");
-            GUILayout.TextField("" + map);
-        }
-
-        GUILayout.EndVertical();
     }
     private void _InitAllStates()
     {
