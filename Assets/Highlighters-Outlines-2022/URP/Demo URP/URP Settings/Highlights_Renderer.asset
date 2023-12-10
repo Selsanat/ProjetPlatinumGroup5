@@ -51,7 +51,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_DefaultStencilState:
     overrideStencilState: 0
-    stencilReference: 0
+    stencilReference: 15
     stencilCompareFunction: 8
     passOperation: 2
     failOperation: 0
@@ -77,5 +77,5 @@ MonoBehaviour:
   m_Active: 1
   DepthLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  renderingEvent: 0
+    m_Bits: 32
+  renderingEvent: 1

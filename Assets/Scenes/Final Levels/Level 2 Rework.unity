@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.007847941, g: 0.018063888, b: 0.052523114, a: 1}
+  m_IndirectSpecularColor: {r: 0.007988657, g: 0.018187458, b: 0.0526981, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4235,7 +4235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighterSettings:
-    depthMask: 3
+    depthMask: 1
     infoRenderScale: 1
     useOuterGlow: 1
     useSingleOuterGlow: 1
@@ -4561,7 +4561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlighterSettings:
-    depthMask: 3
+    depthMask: 1
     infoRenderScale: 1
     useOuterGlow: 1
     useSingleOuterGlow: 1
