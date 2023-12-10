@@ -79,6 +79,7 @@ public class CharacterSelector : MonoBehaviour
             if (ManagerManager.Instance.ReadyToFight.isOn)
             {
                 ManagerManager.Instance.ReadyToFight.isOn = false;
+                ManagerManager.Instance.ReadyToFight.interactable = false;
                 GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.MapSelectionState);
             }
         };
