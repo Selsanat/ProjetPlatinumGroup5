@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.007988657, g: 0.018187458, b: 0.0526981, a: 1}
+  m_IndirectSpecularColor: {r: 0.00798116, g: 0.01815368, b: 0.052674975, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3631,6 +3631,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776119883}
   m_CullTransparentMesh: 1
+--- !u!1 &803144609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 803144610}
+  - component: {fileID: 803144611}
+  m_Layer: 0
+  m_Name: HapticsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &803144610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803144609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 978535237169710646}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &803144611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803144609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce97b337452efc544a9a76129c22e5df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PresetsForRumble:
+  - name: Death
+    rumble:
+      durationsMs: e8030000
+      totalDurationMs: 0
+      lowFrequencyMotorSpeeds:
+      - 3
+      highFrequencyMotorSpeeds:
+      - 3
+  - name: Pet Bounce
+    rumble:
+      durationsMs: 64000000
+      totalDurationMs: 250
+      lowFrequencyMotorSpeeds:
+      - 0.5
+      highFrequencyMotorSpeeds:
+      - 0.5
+  - name: PetCast
+    rumble:
+      durationsMs: 00000000
+      totalDurationMs: 0
+      lowFrequencyMotorSpeeds:
+      - 0
+      highFrequencyMotorSpeeds:
+      - 0
+  - name: Kill
+    rumble:
+      durationsMs: f4010000
+      totalDurationMs: 0
+      lowFrequencyMotorSpeeds:
+      - 1
+      highFrequencyMotorSpeeds:
+      - 1
+  - name: Selection
+    rumble:
+      durationsMs: f4010000
+      totalDurationMs: 0
+      lowFrequencyMotorSpeeds:
+      - 1
+      highFrequencyMotorSpeeds:
+      - 1
+  - name: PreRoundZoom
+    rumble:
+      durationsMs: f4010000
+      totalDurationMs: 0
+      lowFrequencyMotorSpeeds:
+      - 1
+      highFrequencyMotorSpeeds:
+      - 1
 --- !u!1 &838767626
 GameObject:
   m_ObjectHideFlags: 0
@@ -8383,6 +8476,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 803144610}
   - {fileID: 1249546505899568019}
   - {fileID: 5081952257955503126}
   - {fileID: 384119804910739080}
