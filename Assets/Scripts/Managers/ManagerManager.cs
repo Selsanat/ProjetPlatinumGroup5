@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;

@@ -82,7 +82,8 @@ public class StateRound : GameStateTemplate
             mySequence.Append(cam.transform.DOMove(pos, cameraParams.timeToMoveFromPlayerToPlayer, false)).SetEase(Ease.InQuad);
             mySequence.Join(cam.DOOrthoSize(cameraParams.Zoom, cameraParams.TimeToZoom).SetEase(Ease.OutSine).OnStepComplete(() =>
             {
-                Debug.Log("Spawned");
+                if (player._playerStateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                    HapticsManager.Instance.Vibrate("PreRoundZoom", (Gamepad)player._playerStateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
                 SoundManager.instance.PlayRandomClip("Spawn");
             }));
             mySequence.AppendInterval(cameraParams.intervalBetweenPlayers);

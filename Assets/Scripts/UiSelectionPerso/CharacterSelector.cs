@@ -41,7 +41,7 @@ public class CharacterSelector : MonoBehaviour
         {
 
             gamepad = (Gamepad)playerInputs.devices[0];
-            StartCoroutine(Vibrations(10f, 0.25f));
+            HapticsManager.Instance.Vibrate("Selection", gamepad);
 
         }
         playerInputs.actions.actionMaps[1].actions[2].started += ctx => SwipeRight();
@@ -161,21 +161,5 @@ public class CharacterSelector : MonoBehaviour
             }
         }
         return true;
-    }
-
-    IEnumerator Vibrations(float force, float time)
-    {
-        if(gamepad is DualShockGamepad)
-        {
-            ((DualShockGamepad)gamepad).SetMotorSpeeds(force, force);
-            yield return new WaitForSeconds(time);
-            ((DualShockGamepad)gamepad).ResetHaptics();
-        }
-        else
-        {
-            gamepad.SetMotorSpeeds(force, force);
-            yield return new WaitForSeconds(time);
-            gamepad.ResetHaptics();
-        }
     }
 }
