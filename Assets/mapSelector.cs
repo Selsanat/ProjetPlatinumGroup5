@@ -61,7 +61,7 @@ public class mapSelector : MonoBehaviour
 
     void click(Image im)
     {
-        SoundManager.instance.PlayClip("Click");
+        SoundManager.instance.PlayRandomClip("Click");
         im.DOColor(Color.gray, 0.25f).OnComplete(() => im.DOColor(Color.white, 0.25f));
     }
 }

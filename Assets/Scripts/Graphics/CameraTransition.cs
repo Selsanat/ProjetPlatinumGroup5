@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using Image = UnityEngine.UI.Image;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
+using System.Linq;
 
 public class CameraTransition : MonoBehaviour
 {
@@ -23,13 +27,22 @@ public class CameraTransition : MonoBehaviour
     public float initOrtho;
     [HideInInspector]
     public Sequence mySequence;
+    ChromaticAberration CA;
+    Volume vol;
 
     public static CameraTransition Instance { get; private set; }
 
 
     public void CameraShake()
     {
-        Camera.main.DOShakePosition(cameraParams.TimeToShakePlayerDeath, cameraParams.ShakeForcePlayerDeath, cameraParams.vibratoShakeDeath, cameraParams.RandomnessShakeDeath, cameraParams.ShouldFadeShakeDeath);
+        Volume vol = RoundManager.Instance.Volume;
+        vol.profile.TryGet<ChromaticAberration>(out ChromaticAberration CA);
+        float init = CA.intensity.value;
+        DOTween.To(() => CA.intensity.value, x => CA.intensity.value = x, 100, cameraParams.TimeToShakePlayerDeath/3);
+        Camera.main.DOShakePosition(cameraParams.TimeToShakePlayerDeath, cameraParams.ShakeForcePlayerDeath, cameraParams.vibratoShakeDeath, cameraParams.RandomnessShakeDeath, cameraParams.ShouldFadeShakeDeath).OnComplete(() =>
+        {
+            DOTween.To(() => CA.intensity.value, x => CA.intensity.value = x, init + 0.3f, 1);
+        });
     }
     public void CameraRotation()
     {
@@ -108,13 +121,16 @@ public class CameraTransition : MonoBehaviour
         renderTex.height = Screen.height;
         RenderSettings.skybox.SetFloat("_Rotation", 0);
         DOTween.To(() => RenderSettings.skybox.GetFloat("_Rotation"), x => RenderSettings.skybox.SetFloat("_Rotation", x), 360, 240).SetLoops(-1);
+
     }
 
     void ChangedActiveScene(Scene PreviousScene, Scene NextScene)
     {
-        Camera[] cams = FindObjectsOfType<Camera>();
-        foreach(Camera cam in cams)
+        List<Camera> cams = FindObjectsOfType<Camera>().ToList();
+        cams.RemoveAll(x => x.tag == "CamDecors");
+        foreach (Camera cam in cams)
         {
+            print(cam);
                 if(!(cam == TransitionCam || cam == MainCam) && cam.tag!="EditorOnly")
                 {
                     copyCharacteristics(cam, TransitionCam);

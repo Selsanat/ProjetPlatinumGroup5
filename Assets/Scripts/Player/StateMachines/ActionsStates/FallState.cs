@@ -28,7 +28,7 @@ public class FallState : TemplateState
 
         if (DetectCollision.isColliding(Mathf.Abs(StateMachine.velocity.y) * Vector2.down, StateMachine.transform, Vector2.zero))
         {
-            SoundManager.instance.PlayClip("land");
+            SoundManager.instance.PlayRandomClip("land");
             charAnimator.SetBool("Grounded", true);
             StateMachine.velocity.y = 0;
             if (_IOrientWriter.orient.x != 0 &&

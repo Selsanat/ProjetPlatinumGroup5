@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 1328584550535749848}
   - component: {fileID: 3625480252328376045}
   - component: {fileID: 4414835807673911421}
+  - component: {fileID: 9129383518671110799}
   m_Layer: 0
   m_Name: Visuel
   m_TagString: Untagged
@@ -194,6 +195,90 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9129383518671110799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945449943166643431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0970a923eff145744a66a980e20b235c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlighterSettings:
+    depthMask: 1
+    infoRenderScale: 1
+    useOuterGlow: 1
+    useSingleOuterGlow: 1
+    outerGlowColorFront: {r: 0, g: 0.01960802, b: 1, a: 1}
+    outerGlowColorBack: {r: 0, g: 0, b: 0, a: 1}
+    outlineVisibleBeforeObject: 1
+    blurType: 1
+    blendType: 0
+    boxBlurSize: 0.05
+    blurIterations: 10
+    blurRenderScale: 1
+    blurIntensity: 1
+    blurIntensityMultiplier: 10
+    blurAdaptiveThickness: 0.837
+    cameraDistanceMultiplier: 0.1
+    useMeshOutline: 0
+    useSingleMeshOutline: 1
+    meshOutlineFront:
+      color: {r: 1, g: 1, b: 1, a: 1}
+    meshOutlineBack:
+      color: {r: 1, g: 1, b: 1, a: 1}
+    meshOutlineThickness: 0.1
+    meshOutlineAdaptiveThickness: 0
+    useInnerGlow: 0
+    useSingleInnerGlow: 1
+    innerGlowFront:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      power: 4
+    innerGlowBack:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      power: 4
+    useOverlay: 0
+    useSingleOverlay: 1
+    overlayFront:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      useTexture: 0
+      texture: {fileID: 0}
+      background: 0
+      tilling: 60
+      rotation: 0
+    overlayBack:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      useTexture: 0
+      texture: {fileID: 0}
+      background: 0
+      tilling: 60
+      rotation: 0
+    RenderingBoundsSizeIncrease: 0.2
+    RenderingBoundsDistanceFix: 0
+    RenderingBoundsMaxDistanceFix: 1
+    RenderingBoundsMinDistanceFix: 0
+  findRenderers: 0
+  renderers:
+  - renderer: {fileID: 3625480252328376045}
+    useCutout: 1
+    clippingThreshold: 1
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 0
+  - renderer: {fileID: 1197318535163768454}
+    useCutout: 1
+    clippingThreshold: 1
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 0
+  id: 1
+  showRenderBounds: 0
+  showScreenAdjustedRenderBounds: 0
 --- !u!1 &4738592208894323669
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +290,7 @@ GameObject:
   - component: {fileID: 465097721188244283}
   - component: {fileID: 1197318535163768454}
   - component: {fileID: 6592551609393991481}
+  - component: {fileID: 4633049275691737535}
   m_Layer: 0
   m_Name: Chapeau
   m_TagString: Untagged
@@ -212,21 +298,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &465097721188244283
-Transform:
+--- !u!224 &465097721188244283
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4738592208894323669}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.03108329, w: 0.9995168}
-  m_LocalPosition: {x: -0.144, y: 0.617, z: 0}
-  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1328584550535749848}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.562}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.144, y: 0.71}
+  m_SizeDelta: {x: 2.37, y: 2.37}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1197318535163768454
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -301,6 +391,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!222 &4633049275691737535
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4738592208894323669}
+  m_CullTransparentMesh: 1
 --- !u!1 &4767398180691043962
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +653,6 @@ GameObject:
   - component: {fileID: 6007509169469810024}
   - component: {fileID: 9015173072555113495}
   - component: {fileID: 8682684317871151545}
-  - component: {fileID: 7882791003062768513}
   - component: {fileID: 244036144124306980}
   - component: {fileID: 7935253893663324012}
   m_Layer: 6
@@ -565,18 +662,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6653954633270439346
-Transform:
+--- !u!224 &6653954633270439346
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8885932740852423821}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7536746513119400259}
   - {fileID: 5047118458150591035}
@@ -584,6 +680,11 @@ Transform:
   - {fileID: 2520014122080297900}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 33.333332}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2440285559612817661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,7 +808,7 @@ CharacterController:
   m_Radius: 0.3
   m_SlopeLimit: 80
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.1
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &9015173072555113495
@@ -745,111 +846,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb88bc5040a015439ec207e9ac62ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7882791003062768513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8885932740852423821}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0970a923eff145744a66a980e20b235c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  highlighterSettings:
-    depthMask: 3
-    infoRenderScale: 1
-    useOuterGlow: 0
-    useSingleOuterGlow: 1
-    outerGlowColorFront: {r: 0, g: 0, b: 0, a: 1}
-    outerGlowColorBack: {r: 0, g: 0, b: 0, a: 1}
-    outlineVisibleBeforeObject: 1
-    blurType: 1
-    blendType: 1
-    boxBlurSize: 0.1439
-    blurIterations: 50
-    blurRenderScale: 1
-    blurIntensity: 6
-    blurIntensityMultiplier: 1
-    blurAdaptiveThickness: 1
-    cameraDistanceMultiplier: 20
-    useMeshOutline: 1
-    useSingleMeshOutline: 1
-    meshOutlineFront:
-      color: {r: 1, g: 1, b: 1, a: 1}
-    meshOutlineBack:
-      color: {r: 1, g: 1, b: 1, a: 1}
-    meshOutlineThickness: 0.0189
-    meshOutlineAdaptiveThickness: 0.115
-    useInnerGlow: 0
-    useSingleInnerGlow: 1
-    innerGlowFront:
-      color: {r: 0, g: 1, b: 1, a: 1}
-      power: 4
-    innerGlowBack:
-      color: {r: 0, g: 1, b: 1, a: 1}
-      power: 4
-    useOverlay: 0
-    useSingleOverlay: 1
-    overlayFront:
-      color: {r: 0, g: 1, b: 1, a: 1}
-      useTexture: 0
-      texture: {fileID: 0}
-      background: 0
-      tilling: 60
-      rotation: 0
-    overlayBack:
-      color: {r: 0, g: 1, b: 1, a: 1}
-      useTexture: 0
-      texture: {fileID: 0}
-      background: 0
-      tilling: 60
-      rotation: 0
-    RenderingBoundsSizeIncrease: 0.2
-    RenderingBoundsDistanceFix: 0
-    RenderingBoundsMaxDistanceFix: 1
-    RenderingBoundsMinDistanceFix: 0
-  findRenderers: 0
-  renderers:
-  - renderer: {fileID: 3625480252328376045}
-    useCutout: 1
-    clippingThreshold: 0
-    clippingSource: 0
-    clipTexture: {fileID: 0}
-    submeshIndexes: 00000000
-    cullMode: 2
-  - renderer: {fileID: 1197318535163768454}
-    useCutout: 1
-    clippingThreshold: 0
-    clippingSource: 0
-    clipTexture: {fileID: 0}
-    submeshIndexes: 00000000
-    cullMode: 2
-  - renderer: {fileID: 8651963277653050038}
-    useCutout: 1
-    clippingThreshold: 0
-    clippingSource: 0
-    clipTexture: {fileID: 0}
-    submeshIndexes: 00000000
-    cullMode: 2
-  - renderer: {fileID: 6157744463467622616}
-    useCutout: 1
-    clippingThreshold: 0
-    clippingSource: 0
-    clipTexture: {fileID: 0}
-    submeshIndexes: 00000000
-    cullMode: 2
-  - renderer: {fileID: 7133807588705702581}
-    useCutout: 1
-    clippingThreshold: 0
-    clippingSource: 0
-    clipTexture: {fileID: 0}
-    submeshIndexes: 00000000
-    cullMode: 2
-  id: 1
-  showRenderBounds: 0
-  showScreenAdjustedRenderBounds: 0
 --- !u!198 &244036144124306980
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5858,6 +5854,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
       propertyPath: m_PreviewTimeScale
       value: 1
       objectReference: {fileID: 0}
@@ -5883,6 +5894,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
+      propertyPath: m_Parameters.generateLightingData
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
       propertyPath: m_Parameters.colorGradient.m_ColorSpace
       value: 0
       objectReference: {fileID: 0}
@@ -5902,11 +5918,6 @@ PrefabInstance:
       propertyPath: _layer.m_Bits
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
-        type: 3}
-      propertyPath: _playerTransform
-      value: 
-      objectReference: {fileID: 6653954633270439346}
     - target: {fileID: 5668744049811435026, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       propertyPath: particleSystemDeath
@@ -6215,6 +6226,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1318952304717401735}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6389024400992320988, guid: 483f77a4afdab2944bbbeaa7913ef130,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6698697619508593350}
     - targetCorrespondingSourceObject: {fileID: 2425195688269970674, guid: 483f77a4afdab2944bbbeaa7913ef130,
         type: 3}
       insertIndex: -1
@@ -6226,6 +6241,89 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7466078354251362932}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4554979132769931176 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6389024400992320988, guid: 483f77a4afdab2944bbbeaa7913ef130,
+    type: 3}
+  m_PrefabInstance: {fileID: 7466078354251362932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6698697619508593350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554979132769931176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0970a923eff145744a66a980e20b235c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlighterSettings:
+    depthMask: 1
+    infoRenderScale: 1
+    useOuterGlow: 1
+    useSingleOuterGlow: 1
+    outerGlowColorFront: {r: 0, g: 0.01960802, b: 1, a: 1}
+    outerGlowColorBack: {r: 0, g: 0, b: 0, a: 1}
+    outlineVisibleBeforeObject: 1
+    blurType: 1
+    blendType: 0
+    boxBlurSize: 0.05
+    blurIterations: 10
+    blurRenderScale: 1
+    blurIntensity: 1
+    blurIntensityMultiplier: 10
+    blurAdaptiveThickness: 0.837
+    cameraDistanceMultiplier: 0.1
+    useMeshOutline: 0
+    useSingleMeshOutline: 1
+    meshOutlineFront:
+      color: {r: 1, g: 1, b: 1, a: 1}
+    meshOutlineBack:
+      color: {r: 1, g: 1, b: 1, a: 1}
+    meshOutlineThickness: 0.1
+    meshOutlineAdaptiveThickness: 0
+    useInnerGlow: 0
+    useSingleInnerGlow: 1
+    innerGlowFront:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      power: 4
+    innerGlowBack:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      power: 4
+    useOverlay: 0
+    useSingleOverlay: 1
+    overlayFront:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      useTexture: 0
+      texture: {fileID: 0}
+      background: 0
+      tilling: 60
+      rotation: 0
+    overlayBack:
+      color: {r: 0, g: 1, b: 1, a: 1}
+      useTexture: 0
+      texture: {fileID: 0}
+      background: 0
+      tilling: 60
+      rotation: 0
+    RenderingBoundsSizeIncrease: 0.2
+    RenderingBoundsDistanceFix: 0
+    RenderingBoundsMaxDistanceFix: 1
+    RenderingBoundsMinDistanceFix: 0
+  findRenderers: 0
+  renderers:
+  - renderer: {fileID: 7133807588705702581}
+    useCutout: 1
+    clippingThreshold: 1
+    clippingSource: 0
+    clipTexture: {fileID: 0}
+    submeshIndexes: 00000000
+    cullMode: 0
+  id: 1
+  showRenderBounds: 0
+  showScreenAdjustedRenderBounds: 0
 --- !u!4 &5047118458150591035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2420159009798531151, guid: 483f77a4afdab2944bbbeaa7913ef130,
@@ -6259,21 +6357,9 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!96 &6157744463467622616 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 3668293231323316908, guid: 483f77a4afdab2944bbbeaa7913ef130,
-    type: 3}
-  m_PrefabInstance: {fileID: 7466078354251362932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!212 &7133807588705702581 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 332341134978752705, guid: 483f77a4afdab2944bbbeaa7913ef130,
-    type: 3}
-  m_PrefabInstance: {fileID: 7466078354251362932}
-  m_PrefabAsset: {fileID: 0}
---- !u!199 &8651963277653050038 stripped
-ParticleSystemRenderer:
-  m_CorrespondingSourceObject: {fileID: 2273513476190023874, guid: 483f77a4afdab2944bbbeaa7913ef130,
     type: 3}
   m_PrefabInstance: {fileID: 7466078354251362932}
   m_PrefabAsset: {fileID: 0}

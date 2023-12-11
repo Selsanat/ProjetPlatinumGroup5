@@ -22,6 +22,7 @@ public class RoundEnd : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
+
         camparam = CameraTransition.Instance.cameraParams;
         CameraTransition.Instance.cameraFollow.FollowPlayers = false;
         //StateMachine.HideAllMenusExceptThis(ui);
@@ -73,6 +74,10 @@ public class RoundEnd : GameStateTemplate
                 #endregion
 
                 mySequence.Play().OnComplete(() => {
+                    Volume vol = RoundManager.Instance.Volume;
+                    vol.profile.TryGet<ChromaticAberration>(out ChromaticAberration CA);
+                    CA.intensity.value = 0;
+
                     RoundManager.Instance.DestroyAllPlayers();
                     StateMachine.HideAllMenusExceptThis(ui);
 
@@ -92,7 +97,6 @@ public class RoundEnd : GameStateTemplate
                     {
                         gm.SetActive(false);
                     }
-
                 });
                 yield break;
             }
