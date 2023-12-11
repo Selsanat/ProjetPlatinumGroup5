@@ -87,11 +87,10 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning("The clip " + name + " doesn't exist or he only have one clip !");
             return;
         }
-        UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
-        s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length - 1)];
-        print("Playing " + s.source.clip.name);
-        if (s.Oneshot) s.source.PlayOneShot(s.clip);
-        else s.source.Play();
+        UnityEngine.Random.seed = System.DateTime.Now.Millisecond;
+        int random = UnityEngine.Random.Range(0, s.clips.Length - 1);
+        s.source.clip = s.clips[random];
+        s.source.Play();
     }
 
     public void Pauseclip(string name)

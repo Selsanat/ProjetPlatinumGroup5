@@ -13617,7 +13617,7 @@ GameObject:
   - component: {fileID: 311434334}
   - component: {fileID: 311434333}
   - component: {fileID: 311434332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider polyshape 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13653,7 +13653,7 @@ MeshCollider:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 5
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -14448,7 +14448,6 @@ GameObject:
   m_Component:
   - component: {fileID: 330585546}
   - component: {fileID: 330585545}
-  - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
   m_Layer: 0
@@ -14458,14 +14457,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &330585544
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
 --- !u!20 &330585545
 Camera:
   m_ObjectHideFlags: 0
@@ -17016,7 +17007,7 @@ GameObject:
   - component: {fileID: 424449465}
   - component: {fileID: 424449464}
   - component: {fileID: 424449463}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider polyshape 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17052,7 +17043,7 @@ MeshCollider:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 5
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -71325,7 +71316,7 @@ GameObject:
   - component: {fileID: 2112384181}
   - component: {fileID: 2112384180}
   - component: {fileID: 2112384179}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider polyshape 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71361,7 +71352,7 @@ MeshCollider:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 5
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
