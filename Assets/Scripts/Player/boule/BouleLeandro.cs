@@ -38,18 +38,4 @@ public class BouleLeandro : MonoBehaviour
         }
         controller.Move(move);
     }
-
-    private void OnGUI()
-    {
-        if (!activeHUD) return;
-        GUILayout.BeginVertical(GUI.skin.box);
-        GUILayout.Label("move :" + move);
-        GUILayout.Label("PlayerVelocity :" + player.velocity);
-        GUILayout.Label("dir = move + velocity :" + dir);
-
-        GUILayout.Label("sens :" + sens);
-        
-        GUILayout.Label("time :" + time);
-        GUILayout.EndVertical();
-    }
 }

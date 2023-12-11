@@ -7,7 +7,8 @@ using UnityEngine.InputSystem.UI;
 using static InputsManager;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Processors;
-using UnityEditor.ShaderGraph;
+using UnityEngine.UI;
+using Lofelt.NiceVibrations;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class BouleMouvement : MonoBehaviour
     public ParticleSystem particleSystem;
     public ParticleSystem particleSystemDeath;
     public Material[] _trailRendererMaterials;
+    private Image fleche => GetComponentsInChildren<Image>()[^1];
 
     #endregion
 
@@ -65,13 +67,6 @@ public class BouleMouvement : MonoBehaviour
     }
     StateBoule stateBoule = StateBoule.idle;
     StateBoule lastState = StateBoule.idle;
-    private void OnGUI()
-    {
-        GUILayout.Label("distance base : " + _distance);
-        GUILayout.Label("state idle: " + stateBoule);
-        GUILayout.Label("timer : " + _timeThrowing);
-        GUILayout.Label("distance : " + Vector3.Distance(_playerPivot.position, this.transform.position));
-    }
     #endregion
 
 #if UNITY_EDITOR
@@ -98,6 +93,7 @@ public class BouleMouvement : MonoBehaviour
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _playerPivot.position.z);
         _distance = Vector3.Distance(_playerPivot.position, this.transform.position);
         setUpTrail();
+        setUpParticles();
     }
 
     private void Update()
@@ -105,6 +101,7 @@ public class BouleMouvement : MonoBehaviour
         Debug.DrawRay(this.transform.position, _rb.velocity * 10 , Color.blue);
         if (stateBoule == StateBoule.throwing)
         {
+            fleche.enabled = false;
             MakeSpriteLookAtWhereYouGo(_rb.velocity);
         }
         changeState();
@@ -174,6 +171,11 @@ public class BouleMouvement : MonoBehaviour
     {
         TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
         trailRenderer.material = _trailRendererMaterials[this.ParentMachine.team];
+    }
+    private void setUpParticles()
+    {
+        ParticleSystem ps = this.gameObject.GetComponent<ParticleSystem>();
+        ps.startColor = RoundManager.Instance.teamColors[ParentMachine.team];
     }
     private void ChangeAlpha(float alpha)
     {
@@ -261,12 +263,15 @@ public class BouleMouvement : MonoBehaviour
     }
     private void changeState()
     {
-        if (lastState == stateBoule)
-            return;
+
         if(stateBoule != StateBoule.reseting)
         {
             ChangeAlpha(100);
+            TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+            trailRenderer.emitting = true;
         }
+        if (lastState == stateBoule)
+            return;
         else
         {
             switch (stateBoule)
@@ -279,16 +284,17 @@ public class BouleMouvement : MonoBehaviour
                 case StateBoule.returning:
 
                     SoundManager.instance.Pauseclip("Pet Cast");
-                    SoundManager.instance.PlayClip("Pet Return");
+                    SoundManager.instance.PlayRandomClip("Pet Return");
                     break;
                 case StateBoule.reseting:
                     SoundManager.instance.Pauseclip("Pet Cast");
                     break;
                 case StateBoule.throwing:
-                    SoundManager.instance.PlayClip("Pet Cast");
+                    Instantiate(ManagerManager.Instance.castPrefab[ParentMachine.team], ParentMachine.WandTrackTransform);
+                    SoundManager.instance.PlayRandomClip("Pet Cast");
                     SoundManager.instance.Pauseclip("Pet Return");
                     if(ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
-                        StartCoroutine(Vibrations(0.25f, 1, (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
+                        HapticsManager.Instance.Vibrate("Pet Cast", (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
 
                     break;
                 case StateBoule.death:
@@ -393,7 +399,7 @@ public class BouleMouvement : MonoBehaviour
         _hits = Physics.OverlapSphere(this.transform.position, _sphereCollider.radius, _layer);
         if(_hits.Length > _nbHits)
         {
-            SoundManager.instance.PlayClip("bounce");
+            SoundManager.instance.PlayRandomClip("bounce");
 
             _nbHits = _hits.Length;
             foreach(var hit in _hits)
@@ -405,7 +411,7 @@ public class BouleMouvement : MonoBehaviour
                 if (stateBoule != StateBoule.reseting)
                     particleSystem.Play();
                 if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
-                    StartCoroutine(Vibrations(0.2f, 0.1f, (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
+                    HapticsManager.Instance.Vibrate("Pet Bounce", (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
                    _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
                 //_collidingObject.Add(hit.gameObject);
                 if (stateBoule == StateBoule.throwing)
@@ -423,7 +429,7 @@ public class BouleMouvement : MonoBehaviour
     {
         if (stateBoule == StateBoule.reseting)
             return;
-
+        fleche.enabled = true;
         SpriteRenderer.flipX = !(_clockwise && transform.rotation.y > 0 || !_clockwise && transform.rotation.y < 0);
         SpriteRenderer.transform.localRotation = Quaternion.Euler(0, -90, -90);
         transform.RotateAround(_playerPivot.transform.position, (_clockwise ? Vector3.forward : -Vector3.forward) * 2, _bouleParams._rotationSpeed * _incrementation * Time.fixedDeltaTime);
@@ -434,6 +440,8 @@ public class BouleMouvement : MonoBehaviour
     private void resetBool() // Quand la boule est trop loin ou trop proche du joueur
     {
         ChangeAlpha(33);
+        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+        trailRenderer.emitting = false;
         transform.LookAt(_playerPivot);
         _sphereCollider.isTrigger = true;
         //_sphereCollider.isTrigger = true;
@@ -469,22 +477,10 @@ public class BouleMouvement : MonoBehaviour
 
 
 
-    IEnumerator Vibrations(float force, float time, Gamepad gamepad)
+    IEnumerator Vibrations(string nom, Gamepad gamepad)
     {
-
+        yield return null;
         
-        if (gamepad is DualShockGamepad)
-        {
-            ((DualShockGamepad)gamepad).SetMotorSpeeds(force, force);
-            yield return new WaitForSeconds(time);
-            ((DualShockGamepad)gamepad).ResetHaptics();
-        }
-        else
-        {
-            gamepad.SetMotorSpeeds(force, force);
-            yield return new WaitForSeconds(time);
-            gamepad.ResetHaptics();
-        }
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -496,7 +492,7 @@ public class BouleMouvement : MonoBehaviour
                 return;
 
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
-            SoundManager.instance.PlayClip("Pet Kiss");
+            SoundManager.instance.PlayRandomClip("Pet Kiss");
 
         if(collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
         {
@@ -508,11 +504,16 @@ public class BouleMouvement : MonoBehaviour
             if (StateMachine.CurrentState != StateMachine.deathState)
             {
                 if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
-                    StartCoroutine(Vibrations(0.25f, 1,(Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]));
-                SoundManager.instance.PlayRandomClip("Narrator death");
+                    HapticsManager.Instance.Vibrate("Death", (Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
+                if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                    HapticsManager.Instance.Vibrate("Kill", (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
+                SoundManager.instance.AddPist(2);
                 collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
+                Instantiate(ManagerManager.Instance.diePrefab[StateMachine.team], StateMachine.transform);
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
+                if (!RoundManager.Instance.ShouldEndRound())
+                    SoundManager.instance.PlayRandomClip("Narrator death");
             }
             if (stateBoule == StateBoule.throwing)
                 setUpBoule();

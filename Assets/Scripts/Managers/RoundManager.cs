@@ -10,8 +10,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-
-
+using Highlighters;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class RoundManager : MonoBehaviour
 {
@@ -22,8 +23,10 @@ public class RoundManager : MonoBehaviour
     private GameParams _gameParams => ManagerManager.Instance.gameParams;
     private ManagerManager managerManager => ManagerManager.Instance;
     private InputsManager inputsManager => InputsManager.Instance;
-    private TMP_Text[] scores;
+    public TMP_Text[] scores;
     public GameObject[] cadrants;
+    public Volume Volume => ManagerManager.Instance.Volume;
+    public ChromaticAberration CA;
 
     public enum Team
     {
@@ -66,14 +69,9 @@ public class RoundManager : MonoBehaviour
         else Destroy(this.gameObject);
 
         scores = transform.GetComponentsInChildren<TMP_Text>();
-        foreach (var score in scores)
-        {
-            score.text = "";
-        }
     }
     public void StartRound()
     {
-
         #region GetPlayableDevices
         List<InputDevice> devices = new List<InputDevice>();
         foreach (var device in InputSystem.devices)
@@ -112,6 +110,17 @@ public class RoundManager : MonoBehaviour
                     Color c = spriteRenderer.color;
                     spriteRenderer.color = new Color(c.r, c.g, c.b, 1);
                 }
+                List<Color> highlightsColors = new List<Color>()
+                {
+                Color.blue,
+                Color.yellow,
+                Color.red,
+                Color.green
+                };
+                foreach (Highlighter h in playerStateMachine.GetComponentsInChildren<Highlighter>())
+                {
+                    h.Settings.OuterGlowColorFront = highlightsColors[playerStateMachine.team];
+                }
                 teams[playerStateMachine.team] += 1;
             }
         }
@@ -123,7 +132,6 @@ public class RoundManager : MonoBehaviour
                 StateMachine.ChangeState(StateMachine.stateIdle);
                 StateMachine.gameObject.transform.position = spawnpoints[i].transform.position;
                 StateMachine._iMouvementLockedWriter.isMouvementLocked = true;
-                SoundManager.instance.PlayClip("Spawn");
                 StateMachine.bouleMouvement.gameObject.SetActive(true);
                 Animator animator = StateMachine.bouleMouvement.GetComponentInChildren<Animator>();
                 int team = (int)managerManager.Players.Values.ToList()[i];
@@ -133,8 +141,9 @@ public class RoundManager : MonoBehaviour
             }
         }
         #endregion
+        Volume.profile.TryGet<ChromaticAberration>(out CA);
     }
-    bool ShouldEndRound()
+    public bool ShouldEndRound()
     {
         foreach (var player in alivePlayers.Skip(1))
         {
@@ -148,7 +157,6 @@ public class RoundManager : MonoBehaviour
     public void RoundEnd()
     {
         SoundManager.instance.PlayClip("Round Win");
-        SoundManager.instance.PlayRandomClip("Narrator post");
         foreach (Player player in alivePlayers)
         {
             player._points += ManagerManager.Instance.gameParams.PointsPerRound;
@@ -157,21 +165,25 @@ public class RoundManager : MonoBehaviour
     public IEnumerator NewRound()
     {
         CameraTransition.Instance.FreezeIt();
-        SoundManager.instance.PlayRandomClip("Narrator pre");
-
         alivePlayers = new List<Player>(players);
         var allboules = FindObjectsOfType<BouleMouvement>();
         for(int i = 0; i < allboules.Length; i++)
         {
             allboules[i].resetChangeScene();
         }
+        Random.InitState(System.DateTime.Now.Millisecond);
         var scenes = ManagerManager.Instance.gameParams.Scenes;
         string sceneName = scenes[Random.Range(0, scenes.Length-1)];
+        while(SceneManager.GetActiveScene().name == sceneName)
+        {
+            sceneName = scenes[Random.Range(0, scenes.Length-1)];
+        }
         var asyncLoadLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         while (!asyncLoadLevel.isDone)
         {
             yield return null;
         }
+        CA.intensity.value = 0;
         GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.roundState);
     }
     public void KillPlayer(PlayerStateMachine playerKilled)
@@ -180,6 +192,8 @@ public class RoundManager : MonoBehaviour
         Player player = players.Find(x => x._playerStateMachine == playerKilled);
         alivePlayers.Remove(player);
         SoundManager.instance.PlayClip("death");
+        if (alivePlayers.Count == 2) SoundManager.instance.AddPist(4);
+        else
         if (ShouldEndRound())
         {
             RoundEnd();
@@ -208,7 +222,6 @@ public class RoundManager : MonoBehaviour
             }
         }
     }
-
     public void DestroyAllPlayers()
     {
         foreach(Player player in players)

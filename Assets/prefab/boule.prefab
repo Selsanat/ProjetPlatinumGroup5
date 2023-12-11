@@ -8,15 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2420159009798531151}
-  - component: {fileID: 8457202235334482485}
-  - component: {fileID: 7370322618117794569}
-  - component: {fileID: 1841883139596242434}
-  - component: {fileID: 5668744049811435026}
-  - component: {fileID: 3963803855671988263}
-  - component: {fileID: 7233310333415401530}
-  - component: {fileID: 2273513476190023874}
-  - component: {fileID: 3668293231323316908}
+  - component: {fileID: 6691354492578429428}
+  - component: {fileID: 332341134978752705}
   m_Layer: 0
   m_Name: boule
   m_TagString: Untagged
@@ -106,6 +99,7 @@ GameObject:
   - component: {fileID: 3963803855671988263}
   - component: {fileID: 7233310333415401530}
   - component: {fileID: 2273513476190023874}
+  - component: {fileID: 3668293231323316908}
   m_Layer: 3
   m_Name: boule
   m_TagString: Untagged
@@ -167,6 +161,8 @@ MonoBehaviour:
   _playerTransform: {fileID: 0}
   _clockwise: 1
   particleSystem: {fileID: 7233310333415401530}
+  particleSystemDeath: {fileID: 0}
+  _trailRendererMaterials: []
   _needColor: 1
   _playerInputs: {fileID: 0}
   ParentMachine: {fileID: 0}

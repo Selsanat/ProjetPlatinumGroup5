@@ -23,12 +23,8 @@ public class StateRound : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
-        Camera[] cameras = new Camera[10];
-        if (Camera.GetAllCameras(cameras) > 3)
-        {
-            int rand = Random.Range(0, cameras.Length);
-            //Camera.main = cameras[rand];
-        }
+        SoundManager.instance.Pauseclip("Drill");
+        SoundManager.instance.PlayARandomMusic();
         SoundManager.instance.PlayRandomClip("Narrator pre");
         cameraParams = CameraTransition.Instance.cameraParams;
         StateMachine.HideAllMenusExceptThis();
@@ -84,7 +80,12 @@ public class StateRound : GameStateTemplate
             pos.y -= (Camera.main.transform.rotation * Camera.main.transform.forward).y * Mathf.Abs(pos.x - Camera.main.transform.position.x);
             pos.z = StartPos.z;
             mySequence.Append(cam.transform.DOMove(pos, cameraParams.timeToMoveFromPlayerToPlayer, false)).SetEase(Ease.InQuad);
-            mySequence.Join(cam.DOOrthoSize(cameraParams.Zoom, cameraParams.TimeToZoom).SetEase(Ease.OutSine));
+            mySequence.Join(cam.DOOrthoSize(cameraParams.Zoom, cameraParams.TimeToZoom).SetEase(Ease.OutSine).OnStepComplete(() =>
+            {
+                if (player._playerStateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                    HapticsManager.Instance.Vibrate("PreRoundZoom", (Gamepad)player._playerStateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
+                SoundManager.instance.PlayRandomClip("Spawn");
+            }));
             mySequence.AppendInterval(cameraParams.intervalBetweenPlayers);
         }
         mySequence.Append(cam.transform.DOMove(StartPos, cameraParams.timeToMoveFromPlayerToPlayer, false));
@@ -121,6 +122,7 @@ public class StateRound : GameStateTemplate
     {
         foreach (var player in inputsManager.playerInputs)
         {
+            if(player._playerStateMachine != null)
             player._playerStateMachine._iMouvementLockedWriter.isMouvementLocked = true;
         }
     }

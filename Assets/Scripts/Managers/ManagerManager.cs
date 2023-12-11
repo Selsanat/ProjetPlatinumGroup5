@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -19,6 +20,8 @@ public class ManagerManager : MonoBehaviour
     public Button StartGame;
     public Toggle ReadyToFight;
     public HorizontalLayoutGroup horizontalLayoutGroup;
+    public GameObject[] diePrefab;
+    public GameObject[] castPrefab;
     public Volume Volume => FindObjectOfType<Volume>();
     void Awake()
     {

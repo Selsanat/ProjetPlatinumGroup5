@@ -2,6 +2,7 @@ using UnityEngine.Audio;
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
 /// <summary>
 /// Script managing every audio in the game
@@ -10,12 +11,17 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
+
     [Header("Main Mixer")]
     [SerializeField] private AudioMixerGroup audioMixerGroup;
     [SerializeField] private AudioMixer audioMixer;
 
     [Header("All the clips")]
     [SerializeField] private Sounds[] sounds;
+
+    [Header("BgMusics")]
+    [SerializeField] private BGMusic[] bgMusics;
+    private BGMusic currentMusic;
 
     //Singleton initialization
     private void Awake()
@@ -48,9 +54,101 @@ public class SoundManager : MonoBehaviour
             s.source.outputAudioMixerGroup = audioMixerGroup;
             s.source.loop = s.loop;
             s.source.playOnAwake = s.playeOnAwake;
-            
         }
 
+        foreach (BGMusic b in bgMusics)
+        {
+
+            b.sources = new AudioSource[4];
+            b.sources[0] = gameObject.AddComponent<AudioSource>();
+            b.sources[0].clip = b.Music;
+            b.sources[1] = gameObject.AddComponent<AudioSource>();
+            b.sources[1].clip = b.Vocals;
+            b.sources[2] = gameObject.AddComponent<AudioSource>();
+            b.sources[2].clip = b.Drums;
+            b.sources[3] = gameObject.AddComponent<AudioSource>();
+            b.sources[3].clip = b.Bass;
+
+            for(int i = 0; i < 4; i++)
+            {
+                b.sources[i].pitch = b.pitch;
+                b.sources[i].volume = 0;
+                b.sources[i].outputAudioMixerGroup = audioMixerGroup;
+                b.sources[i].loop = true;
+                b.sources[i].playOnAwake = true;
+            }
+            b.sources[0].volume = b.volume;
+        }
+
+    }
+
+    private void ResetValues()
+    {
+        foreach (BGMusic b in bgMusics)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                b.sources[i].pitch = b.pitch;
+                b.sources[i].volume = 0;
+                b.sources[i].outputAudioMixerGroup = audioMixerGroup;
+                b.sources[i].loop = true;
+                b.sources[i].playOnAwake = true;
+            }
+            b.sources[0].volume = b.volume;
+        }
+    }
+    public Sequence StopbackgroundMusic()
+    {
+        Sequence mySequence = DOTween.Sequence();
+        if (currentMusic != null)
+        {
+            foreach (AudioSource aS in currentMusic.sources)
+            {
+                mySequence.Join(aS.DOFade(0, 1.5f).OnComplete(() =>
+                {
+                    print("Stopped!" + aS);
+                    aS.Stop();
+                    ResetValues();
+                }));
+            }
+        }
+        return mySequence;
+    }
+    public void PlayARandomMusic()
+    {
+        StopbackgroundMusic().Play().OnComplete(() =>
+        {
+            print("Completed");
+            UnityEngine.Random.seed = System.DateTime.Now.Millisecond;
+            int random = UnityEngine.Random.Range(0, bgMusics.Length - 1);
+            currentMusic = bgMusics[random];
+            float randomTime = UnityEngine.Random.Range(0f, currentMusic.sources[0].clip.length);
+
+            foreach (AudioSource aS in currentMusic.sources)
+            {
+                aS.time = randomTime;
+                aS.Play();
+                float vol = aS.volume;
+                aS.volume = 0;
+                aS.DOFade(vol, 1.5f);
+            }
+        });
+
+    }
+
+    public void AddPist(int numberOfTracksToAdd)
+    {
+       for(int i = 0; i < numberOfTracksToAdd; i++)
+        {
+            foreach (AudioSource aS in currentMusic.sources)
+            {
+                if (aS.volume < currentMusic.volume)
+                {
+                    aS.volume = currentMusic.volume;
+                    break;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -77,21 +175,24 @@ public class SoundManager : MonoBehaviour
 
     public void PlayRandomClip(string name)
     {
+        Sounds s = Array.Find(sounds, sound => sound.name == name);
+        if (s.playOneAfterAnother && s.source.isPlaying)
+        {
+            return;
+        }
         if (name == "")
         {
             return;
         }
-        Sounds s = Array.Find(sounds, sound => sound.name == name);
         if (s == null || s.clips.Length < 2)
         {
             Debug.LogWarning("The clip " + name + " doesn't exist or he only have one clip !");
             return;
         }
-        UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
-        s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length - 1)];
-        print("Playing " + s.source.clip.name);
-        if (s.Oneshot) s.source.PlayOneShot(s.clip);
-        else s.source.Play();
+        UnityEngine.Random.seed = System.DateTime.Now.Millisecond;
+        int random = UnityEngine.Random.Range(0, s.clips.Length - 1);
+        s.source.clip = s.clips[random];
+        s.source.PlayDelayed(s.delay);
     }
 
     public void Pauseclip(string name)
@@ -124,7 +225,26 @@ public class Sounds
     public bool loop;
     public bool Oneshot;
     public bool playeOnAwake;
+    public bool playOneAfterAnother;
+    public float delay = 0;
 
     [HideInInspector]
     public AudioSource source;
+}
+
+[System.Serializable]
+public class BGMusic
+{
+    public string name;
+    public AudioClip Music;
+    public AudioClip Drums;
+    public AudioClip Vocals;
+    public AudioClip Bass;
+    [Range(0f, 1f)]
+    public float volume;
+    [Range(.1f, 3f)]
+    public float pitch;
+
+    [HideInInspector]
+    public AudioSource[] sources;
 }

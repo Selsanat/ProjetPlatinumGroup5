@@ -15,13 +15,13 @@ public class WalkState : TemplateState
 
     protected override void OnStateEnter(TemplateState previousState)
     {
-        SoundManager.instance.PlayClip("Step");
         StateMachine.velocity.x = _movementParams.maxSpeed* Mathf.Sign(StateMachine.velocity.x);
          characterController = StateMachine.GetComponent<CharacterController>();
     }
 
     protected override void OnStateUpdate()
     {
+        SoundManager.instance.PlayRandomClip("Step");
         if (StateMachine._iMouvementLockedReader.isMouvementLocked) return;
         #region Death
         if (StateMachine._iMouvementLockedReader.isMouvementLocked)
