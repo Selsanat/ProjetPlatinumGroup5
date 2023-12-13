@@ -22,7 +22,10 @@ public class FixMetaArts : MonoBehaviour
         {
             string resultString = Regex.Match(metaDataToModify[index], @"\d+").Value;
             metaDataToModify[index] = new String(metaDataToModify[index].Where(c => !Char.IsNumber(c)).ToArray());
-            metaDataToModify[index] += Int32.Parse(resultString) + thingToAdd;
+
+            int result;
+            if(int.TryParse(resultString, out result))
+            metaDataToModify[index] += result + thingToAdd;
 
 
         }

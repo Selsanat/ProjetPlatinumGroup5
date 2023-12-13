@@ -24,6 +24,7 @@ public class PlayerStateMachine : MonoBehaviour
     public JumpState jumpState { get; } = new JumpState();
     public DeathState deathState { get; } = new DeathState();
     public Transform WandTrackTransform;
+    public ParticleSystem particleSystemDeath;
     public TemplateState[] AllStates => new TemplateState[]
     {
         stateIdle,

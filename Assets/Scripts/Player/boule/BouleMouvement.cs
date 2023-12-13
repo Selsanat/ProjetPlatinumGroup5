@@ -9,6 +9,7 @@ using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Processors;
 using UnityEngine.UI;
 using Lofelt.NiceVibrations;
+using Highlighters;
 
 public class BouleMouvement : MonoBehaviour
 {
@@ -24,7 +25,6 @@ public class BouleMouvement : MonoBehaviour
     public Transform _playerTransform;
     public bool _clockwise = true;
     public ParticleSystem particleSystem;
-    public ParticleSystem particleSystemDeath;
     public Material[] _trailRendererMaterials;
     private Image fleche => GetComponentsInChildren<Image>()[^1];
 
@@ -57,6 +57,7 @@ public class BouleMouvement : MonoBehaviour
     public BouleParams _bouleParams;// => _manager.bouleParams;
     private float _incrementation = 1;
     public SpriteRenderer SpriteRenderer => GetComponentInChildren<SpriteRenderer>();
+    public Animator Animator => SpriteRenderer.gameObject.GetComponent<Animator>();
     private enum StateBoule
     {
         idle,
@@ -99,6 +100,7 @@ public class BouleMouvement : MonoBehaviour
     private void Update()
     {
         Debug.DrawRay(this.transform.position, _rb.velocity * 10 , Color.blue);
+        Animator.SetBool("Launch", stateBoule == StateBoule.throwing|| stateBoule == StateBoule.returning);
         if (stateBoule == StateBoule.throwing)
         {
             fleche.enabled = false;
@@ -412,7 +414,8 @@ public class BouleMouvement : MonoBehaviour
                     particleSystem.Play();
                 if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     HapticsManager.Instance.Vibrate("Pet Bounce", (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
-                   _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
+                if (stateBoule == StateBoule.idle) Animator.SetTrigger("Bounce");
+                _clockwise = !_clockwise; // Change le sens de rotation lorsque la collision se produit
                 //_collidingObject.Add(hit.gameObject);
                 if (stateBoule == StateBoule.throwing)
                     _contactPoints.Add(this.transform.position);
@@ -474,16 +477,9 @@ public class BouleMouvement : MonoBehaviour
     }
 
 
-
-
-
-    IEnumerator Vibrations(string nom, Gamepad gamepad)
-    {
-        yield return null;
-        
-    }
     private void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.gameObject == ParentMachine.gameObject) return;
             PlayerStateMachine pst = collision.gameObject.GetComponent<PlayerStateMachine>();
 
@@ -494,10 +490,11 @@ public class BouleMouvement : MonoBehaviour
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
             SoundManager.instance.PlayRandomClip("Pet Kiss");
 
-        if(collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
+        if (collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
         {
             endResetboule();
         }
+
         if (collision.gameObject.tag == "Player")
         {
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
@@ -508,39 +505,28 @@ public class BouleMouvement : MonoBehaviour
                 if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     HapticsManager.Instance.Vibrate("Kill", (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
                 SoundManager.instance.AddPist(2);
-                collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
+
+                GameObject dieprefab = Instantiate(ManagerManager.Instance.petDiePrefab, null);
+                dieprefab.transform.position = StateMachine.bouleMouvement.transform.position;
+                dieprefab.GetComponent<Animator>().SetFloat("Blend", StateMachine.team);
+                List<Color> highlightsColors = new List<Color>()
+                {
+                Color.blue,
+                Color.yellow,
+                Color.red,
+                Color.green
+                };
+                    dieprefab.GetComponent<Highlighter>().Settings.OuterGlowColorFront = highlightsColors[StateMachine.team];
                 Instantiate(ManagerManager.Instance.diePrefab[StateMachine.team], StateMachine.transform);
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
                 if (!RoundManager.Instance.ShouldEndRound())
                     SoundManager.instance.PlayRandomClip("Narrator death");
+                collision.gameObject.GetComponent<PlayerStateMachine>().particleSystemDeath.Play();
             }
             if (stateBoule == StateBoule.throwing)
                 setUpBoule();
-
         }
-    }
-
-    private void PlayDeathParticules()
-    {
-       /* var part = particleSystemDeath.main;
-        if(ParentMachine.team == 0)
-        {
-            part.startColor = Color.blue;
-        }
-        else if(ParentMachine.team == 1)
-        {
-            part.startColor = Color.yellow;
-        }
-        else if(ParentMachine.team == 2)
-        {
-            part.startColor = Color.red;
-        }
-        else
-        {
-            part.startColor = Color.green;
-        }*/
-        particleSystemDeath.Play();
     }
     private void OnTriggerEnter(Collider other)
     {
