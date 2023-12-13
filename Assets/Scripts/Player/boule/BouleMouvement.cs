@@ -24,7 +24,6 @@ public class BouleMouvement : MonoBehaviour
     public Transform _playerTransform;
     public bool _clockwise = true;
     public ParticleSystem particleSystem;
-    public ParticleSystem particleSystemDeath;
     public Material[] _trailRendererMaterials;
     private Image fleche => GetComponentsInChildren<Image>()[^1];
 
@@ -508,39 +507,17 @@ public class BouleMouvement : MonoBehaviour
                 if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     HapticsManager.Instance.Vibrate("Kill", (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
                 SoundManager.instance.AddPist(2);
-                collision.gameObject.GetComponentInChildren<BouleMouvement>().PlayDeathParticules();
                 Instantiate(ManagerManager.Instance.diePrefab[StateMachine.team], StateMachine.transform);
                 RoundManager.Instance.KillPlayer(StateMachine);
                 StateMachine.ChangeState(StateMachine.deathState);
                 if (!RoundManager.Instance.ShouldEndRound())
                     SoundManager.instance.PlayRandomClip("Narrator death");
+                collision.gameObject.GetComponent<PlayerStateMachine>().particleSystemDeath.Play();
             }
             if (stateBoule == StateBoule.throwing)
                 setUpBoule();
 
         }
-    }
-
-    private void PlayDeathParticules()
-    {
-       /* var part = particleSystemDeath.main;
-        if(ParentMachine.team == 0)
-        {
-            part.startColor = Color.blue;
-        }
-        else if(ParentMachine.team == 1)
-        {
-            part.startColor = Color.yellow;
-        }
-        else if(ParentMachine.team == 2)
-        {
-            part.startColor = Color.red;
-        }
-        else
-        {
-            part.startColor = Color.green;
-        }*/
-        particleSystemDeath.Play();
     }
     private void OnTriggerEnter(Collider other)
     {
