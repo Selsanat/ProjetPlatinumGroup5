@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.007892103, g: 0.01808577, b: 0.05255668, a: 1}
+  m_IndirectSpecularColor: {r: 0.008119814, g: 0.01830365, b: 0.052840095, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9007,6 +9007,8 @@ MonoBehaviour:
   - {fileID: 4166990820060858811, guid: 748a122bb25cdb14ea6abab26bf7ba7d, type: 3}
   - {fileID: 8133661389240524731, guid: a5259d8fc8a5cd746a5c816d5395f10e, type: 3}
   - {fileID: 2117087817786341750, guid: 438de83dd509f9f4186f38b17b17dcad, type: 3}
+  petDiePrefab: {fileID: 3943061374218569790, guid: 49d61f1dd062c4f47aa0a1f1fc4f90f3,
+    type: 3}
 --- !u!222 &3973798119064062918
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -22,6 +22,7 @@ public class ManagerManager : MonoBehaviour
     public HorizontalLayoutGroup horizontalLayoutGroup;
     public GameObject[] diePrefab;
     public GameObject[] castPrefab;
+    public GameObject petDiePrefab;
     public Volume Volume => FindObjectOfType<Volume>();
     void Awake()
     {
