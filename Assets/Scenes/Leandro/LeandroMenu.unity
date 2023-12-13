@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00798116, g: 0.01815368, b: 0.052674975, a: 1}
+  m_IndirectSpecularColor: {r: 0.008081354, g: 0.018232057, b: 0.05280757, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1683,7 +1683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &343182125
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3679,7 +3679,7 @@ MonoBehaviour:
   - name: Death
     rumble:
       durationsMs: e8030000
-      totalDurationMs: 0
+      totalDurationMs: 2000
       lowFrequencyMotorSpeeds:
       - 3
       highFrequencyMotorSpeeds:
@@ -3695,23 +3695,23 @@ MonoBehaviour:
   - name: PetCast
     rumble:
       durationsMs: 00000000
-      totalDurationMs: 0
+      totalDurationMs: 1000
       lowFrequencyMotorSpeeds:
-      - 0
+      - 1.5
       highFrequencyMotorSpeeds:
-      - 0
+      - 1.5
   - name: Kill
     rumble:
       durationsMs: f4010000
-      totalDurationMs: 0
+      totalDurationMs: 500
       lowFrequencyMotorSpeeds:
-      - 1
+      - 6
       highFrequencyMotorSpeeds:
-      - 1
+      - 6
   - name: Selection
     rumble:
       durationsMs: f4010000
-      totalDurationMs: 0
+      totalDurationMs: 750
       lowFrequencyMotorSpeeds:
       - 1
       highFrequencyMotorSpeeds:
@@ -3719,11 +3719,11 @@ MonoBehaviour:
   - name: PreRoundZoom
     rumble:
       durationsMs: f4010000
-      totalDurationMs: 0
+      totalDurationMs: 500
       lowFrequencyMotorSpeeds:
-      - 1
+      - 10
       highFrequencyMotorSpeeds:
-      - 1
+      - 10
 --- !u!1 &838767626
 GameObject:
   m_ObjectHideFlags: 0
@@ -5415,6 +5415,7 @@ GameObject:
   - component: {fileID: 1330495831}
   - component: {fileID: 1330495833}
   - component: {fileID: 1330495832}
+  - component: {fileID: 1330495834}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -5479,6 +5480,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330495830}
   m_CullTransparentMesh: 1
+--- !u!95 &1330495834
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330495830}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d74ca097e3bb6c7489849fb7d939f1bb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1370617942
 GameObject:
   m_ObjectHideFlags: 0
@@ -9327,6 +9349,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: background_04 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3533829735309236316, guid: cca76f7e10a576b4d9f42f7ccf40ca72,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4197776821693022950, guid: cca76f7e10a576b4d9f42f7ccf40ca72,
         type: 3}
