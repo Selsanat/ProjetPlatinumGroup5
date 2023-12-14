@@ -500,10 +500,11 @@ public class BouleMouvement : MonoBehaviour
             PlayerStateMachine StateMachine = collision.gameObject.GetComponentInChildren<PlayerStateMachine>();
             if (StateMachine.CurrentState != StateMachine.deathState)
             {
-                if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
+                if (StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad) { }
                     HapticsManager.Instance.Vibrate("Death", (Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
                 if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     HapticsManager.Instance.Vibrate("Kill", (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
+
                 SoundManager.instance.AddPist(2);
 
                 GameObject dieprefab = Instantiate(ManagerManager.Instance.petDiePrefab, null);

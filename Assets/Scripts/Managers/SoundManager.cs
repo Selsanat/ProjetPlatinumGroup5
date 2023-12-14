@@ -54,6 +54,7 @@ public class SoundManager : MonoBehaviour
             s.source.outputAudioMixerGroup = audioMixerGroup;
             s.source.loop = s.loop;
             s.source.playOnAwake = s.playeOnAwake;
+            s.source.clip.LoadAudioData();
         }
 
         foreach (BGMusic b in bgMusics)
@@ -108,9 +109,9 @@ public class SoundManager : MonoBehaviour
                 {
                     print("Stopped!" + aS);
                     aS.Stop();
-                    ResetValues();
                 }));
             }
+            ResetValues();
         }
         return mySequence;
     }

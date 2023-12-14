@@ -135,8 +135,6 @@ public class CameraTransition : MonoBehaviour
     }
     public void Update()
     {
-        TransitionCam.Render();
-        
         if (res.x != Screen.width || res.y != Screen.height)
         {
             print("Changed Resolution");
@@ -147,9 +145,6 @@ public class CameraTransition : MonoBehaviour
             mat.mainTexture = rd;
             Target.material = mat;
         }
-
-        Resources.UnloadUnusedAssets();
-
     }
 
     void ChangedActiveScene(Scene PreviousScene, Scene NextScene)

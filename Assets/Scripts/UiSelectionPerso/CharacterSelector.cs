@@ -23,6 +23,8 @@ public class CharacterSelector : MonoBehaviour
     private Toggle toggle => GetComponentInChildren<Toggle>();
     private MultiplayerEventSystem multiplayerEventSystem => GetComponent<MultiplayerEventSystem>();
     public Animator animatorCadrant;
+
+    private string[] ListeDesPitisMages = new string[] { "Inkspire", "Sightwarn", "Bloodmaw", "Viridius" };
     [SerializeField] private Button buttonsImages;
     void Awake()
     {
@@ -36,7 +38,7 @@ public class CharacterSelector : MonoBehaviour
         transform.localScale = new Vector3(1.15f, 1.15f, 1.15f);
         ManagerManager manager = ManagerManager.Instance;
         manager.characterSelector.Add(this);
-        nom.text = "Joueur " + manager.characterSelector.Count + " (" + playerInputs.devices[0].displayName + ")";
+        nom.text = ListeDesPitisMages[index] + " (" + playerInputs.devices[0].displayName + ")";
         if (Gamepad.all.Contains(playerInputs.devices[0]))
         {
 
@@ -100,6 +102,7 @@ public class CharacterSelector : MonoBehaviour
             DOTween.To(() => PaddingLeft, x => PaddingLeft = x, (-200-horizontalLayoutGroup.spacing)*index, 1);
             playSound("Click");
             playSound("click Menu 1");
+            nom.text = ListeDesPitisMages[index] + " (" + playerInputs.devices[0].displayName + ")";
 
         }
         else if (index >= horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject)
@@ -116,6 +119,7 @@ public class CharacterSelector : MonoBehaviour
             DOTween.To(() => PaddingLeft, x => PaddingLeft = x, (-200 - horizontalLayoutGroup.spacing) * index, 1);
             playSound("Click");
             playSound("click Menu 1");
+            nom.text = ListeDesPitisMages[index] + " (" + playerInputs.devices[0].displayName + ")";
         }
         else if(index <= 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject && !toggle.isOn)
         {
