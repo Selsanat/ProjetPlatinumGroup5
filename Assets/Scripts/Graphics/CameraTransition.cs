@@ -19,6 +19,7 @@ public class CameraTransition : MonoBehaviour
     public RenderTexture renderTex;
     public Image Target;
     public CameraFollow cameraFollow;
+    private Vector2 res;
 
 
     [HideInInspector]
@@ -88,7 +89,8 @@ public class CameraTransition : MonoBehaviour
     IEnumerator RecordFrame()
     {
         yield return new WaitForEndOfFrame();
-        Sprite sprite = Sprite.Create(ScreenCapture.CaptureScreenshotAsTexture(), new Rect(0, 0, renderTex.width, renderTex.height), new Vector2(0.5f, 0.5f));
+        Debug.Log("RecordFrame");
+        Sprite sprite = Sprite.Create(ScreenCapture.CaptureScreenshotAsTexture(), new Rect(0, 0, Screen.width, Screen.height), new Vector2(0.5f, 0.5f));
         Target.sprite = sprite;
     }
 
@@ -102,7 +104,18 @@ public class CameraTransition : MonoBehaviour
         Vector3 pos = Target.rectTransform.anchoredPosition;
         pos.y -= cameraParams.heighOfFall;
         mySequence = DOTween.Sequence();
-        mySequence.Append(Target.rectTransform.DOJumpAnchorPos(pos, cameraParams.jumpForce, cameraParams.numberOfJumps, cameraParams.jumpDuration));
+        mySequence.Append(Target.rectTransform.DOJumpAnchorPos(pos, cameraParams.jumpForce, cameraParams.numberOfJumps, cameraParams.jumpDuration).OnComplete( ()=>
+        {
+            if(TransitionCam.targetTexture != null)
+            {
+                TransitionCam.targetTexture.Release();
+            }
+            RenderTexture rd = new RenderTexture(Screen.width, Screen.height, 0);
+            TransitionCam.targetTexture = rd;
+            Material mat = new Material(Shader.Find("Sprites/Default"));//"Sprites/Default
+            mat.mainTexture = rd;
+            Target.material = mat;
+        }));
         return (mySequence);
     }
     public void ResetCams()
@@ -117,11 +130,21 @@ public class CameraTransition : MonoBehaviour
     {
         SceneManager.activeSceneChanged += ChangedActiveScene;
         TransitionCam.aspect = MainCam.aspect;
-        renderTex.width = Screen.width;
-        renderTex.height = Screen.height;
         RenderSettings.skybox.SetFloat("_Rotation", 0);
         DOTween.To(() => RenderSettings.skybox.GetFloat("_Rotation"), x => RenderSettings.skybox.SetFloat("_Rotation", x), 360, 240).SetLoops(-1);
-
+    }
+    public void Update()
+    {
+        if (res.x != Screen.width || res.y != Screen.height)
+        {
+            print("Changed Resolution");
+            res = new Vector2(Screen.width, Screen.height);
+            RenderTexture rd = new RenderTexture(Screen.width, Screen.height, 0);
+            TransitionCam.targetTexture = rd;
+            Material mat = new Material(Shader.Find("Sprites/Default"));//"Sprites/Default
+            mat.mainTexture = rd;
+            Target.material = mat;
+        }
     }
 
     void ChangedActiveScene(Scene PreviousScene, Scene NextScene)
