@@ -6831,6 +6831,81 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: d91540c1f40aec54fb0674b297c8f86f,
         type: 3}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1691187978709810144}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1691187978709810144}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ChangeState
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameStateMachine, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GameStateMachine, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: LeandroMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: MenuState
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324615300119888473, guid: 279fb6a7e6470d040806726a02c19112,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12438,7 +12513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slider: {fileID: 852898785}
-  _quit: {fileID: 1682482910}
+  _quit: {fileID: 19262547}
   _audioMixer: {fileID: 24100000, guid: e7de63300607ff244b8b5be9742a73b8, type: 2}
   _inputSystemUIInputModule: {fileID: 672695316}
 --- !u!114 &8326718399730937240
