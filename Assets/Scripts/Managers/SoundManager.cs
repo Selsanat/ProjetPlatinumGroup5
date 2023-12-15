@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
+using System.Linq;
 
 /// <summary>
 /// Script managing every audio in the game
@@ -69,9 +70,10 @@ public class SoundManager : MonoBehaviour
             b.sources[2].clip = b.Drums;
             b.sources[3] = gameObject.AddComponent<AudioSource>();
             b.sources[3].clip = b.Bass;
-
-            for(int i = 0; i < 4; i++)
+            
+            for (int i = 0; i < 4; i++)
             {
+                b.sources[i].clip.LoadAudioData();
                 b.sources[i].pitch = b.pitch;
                 b.sources[i].volume = 0;
                 b.sources[i].outputAudioMixerGroup = audioMixerGroup;
@@ -83,7 +85,7 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    private void ResetValues()
+    public void ResetValues()
     {
         foreach (BGMusic b in bgMusics)
         {
@@ -107,7 +109,6 @@ public class SoundManager : MonoBehaviour
             {
                 mySequence.Join(aS.DOFade(0, 1.5f).OnComplete(() =>
                 {
-                    print("Stopped!" + aS);
                     aS.Stop();
                 }));
             }
@@ -119,7 +120,6 @@ public class SoundManager : MonoBehaviour
     {
         StopbackgroundMusic().Play().OnComplete(() =>
         {
-            print("Completed");
             UnityEngine.Random.seed = System.DateTime.Now.Millisecond;
             int random = UnityEngine.Random.Range(0, bgMusics.Length - 1);
             currentMusic = bgMusics[random];
@@ -185,11 +185,18 @@ public class SoundManager : MonoBehaviour
         {
             return;
         }
-        if (s == null || s.clips.Length < 2)
+
+        if (s.clips.Length ==0)
         {
-            Debug.LogWarning("The clip " + name + " doesn't exist or he only have one clip !");
+            if (s.clip == null)
+            {
+                Debug.LogWarning("The clip " + name + " doesn't exist or he only have one clip !");
+                return;
+            }
+            PlayClip(name);
             return;
         }
+
         UnityEngine.Random.seed = System.DateTime.Now.Millisecond;
         int random = UnityEngine.Random.Range(0, s.clips.Length - 1);
         s.source.clip = s.clips[random];

@@ -34,8 +34,6 @@ public class HapticsManager : MonoBehaviour
     {
         GamepadRumble preset = Array.Find(PresetsForRumble, p => p.name == name).rumble;
         gamepad.SetMotorSpeeds(preset.lowFrequencyMotorSpeeds[0], preset.highFrequencyMotorSpeeds[0]);
-        print(preset.durationsMs[0] /1000f);
-        print(preset.durationsMs[0]);
         yield return new WaitForSeconds(preset.durationsMs[0]/1000f);
         gamepad.SetMotorSpeeds(0, 0);
     }
