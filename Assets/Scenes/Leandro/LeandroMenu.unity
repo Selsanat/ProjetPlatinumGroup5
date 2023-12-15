@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.008322333, g: 0.018492296, b: 0.05310962, a: 1}
+  m_IndirectSpecularColor: {r: 0.008222026, g: 0.018399592, b: 0.052935258, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8872,7 +8872,7 @@ MonoBehaviour:
     - MenuState
     - MenuState
   - choices:
-    - MenuState
+    - StateRound
     - MenuState
   _choices:
   - MenuState
@@ -8942,7 +8942,7 @@ MonoBehaviour:
     - {fileID: 1682482911}
     - {fileID: 1682482910}
     scenes:
-    - {fileID: 102900000, guid: 149de5c2f7826344484cc2803d4328d7, type: 3}
+    - {fileID: 0}
     - {fileID: 102900000, guid: 149de5c2f7826344484cc2803d4328d7, type: 3}
 --- !u!1 &2002755627771000101
 GameObject:
