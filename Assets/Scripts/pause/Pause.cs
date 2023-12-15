@@ -28,7 +28,7 @@ public class Pause : MonoBehaviour
 
             _pauseMenu.SetActive(true);
             _continue.onClick.AddListener(() => onPause());
-            _quit.onClick.AddListener(() => onQuit());
+            //_quit.onClick.AddListener(() => onQuit());
             _continue.Select();
 
         }
