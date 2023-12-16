@@ -137,7 +137,6 @@ public class CameraTransition : MonoBehaviour
     {
         if (res.x != Screen.width || res.y != Screen.height)
         {
-            print("Changed Resolution");
             res = new Vector2(Screen.width, Screen.height);
             RenderTexture rd = new RenderTexture(Screen.width, Screen.height, 0);
             TransitionCam.targetTexture = rd;

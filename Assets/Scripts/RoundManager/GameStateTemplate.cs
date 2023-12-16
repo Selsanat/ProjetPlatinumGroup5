@@ -23,7 +23,7 @@ public abstract class GameStateTemplate
 
     protected virtual void OnStateEnter(GameStateTemplate previousState)
     {
-        StateMachine.HideAllMenusExceptThis(ui);
+        
     }
     protected virtual void OnStateExit(GameStateTemplate nextState) { }
     protected virtual void OnStateUpdate() { }
