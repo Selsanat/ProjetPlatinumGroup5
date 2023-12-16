@@ -97,6 +97,8 @@ public class RoundEnd : GameStateTemplate
                     {
                         gm.SetActive(false);
                     }
+                    SoundManager.instance.StopbackgroundMusic();
+                    SoundManager.instance.ResetValues();
                 });
                 yield break;
             }
