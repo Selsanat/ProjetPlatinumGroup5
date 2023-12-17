@@ -23,6 +23,7 @@ public class CameraFollow : MonoBehaviour
 
             foreach(var player in RoundManager.Instance.alivePlayers)
             {
+                if(player._playerStateMachine != null)
                 center += player._playerStateMachine.transform.position;
             }
 

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class RoundEnd : GameStateTemplate
 {
@@ -22,7 +23,6 @@ public class RoundEnd : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
-
         camparam = CameraTransition.Instance.cameraParams;
         CameraTransition.Instance.cameraFollow.FollowPlayers = false;
         //StateMachine.HideAllMenusExceptThis(ui);
@@ -61,15 +61,26 @@ public class RoundEnd : GameStateTemplate
                 horizontalLayoutGroup = ManagerManager.Instance.horizontalLayoutGroup;
                 Volume vol = ManagerManager.Instance.Volume;
                 vol.profile.TryGet<DepthOfField>(out dof);
-                mySequence.Append(DOTween.To(() => dof.focalLength.value, x => dof.focalLength.value = x, 50, 0.5f));
-                mySequence.Join(DOTween.To(() => horizontalLayoutGroup.padding.top, x => horizontalLayoutGroup.padding.top = x, 0, 0.5f));
-                mySequence.Join(DOTween.To(() => horizontalLayoutGroup.spacing, x => horizontalLayoutGroup.spacing = x, -360, 0.5f));
+                mySequence.Append(DOTween.To(() => dof.focalLength.value, x => dof.focalLength.value = x, 50, 1.5f));
+                mySequence.Join(DOTween.To(() => horizontalLayoutGroup.padding.top, x => horizontalLayoutGroup.padding.top = x, -100, 1.5f));
+                mySequence.Join(DOTween.To(() => horizontalLayoutGroup.spacing, x => horizontalLayoutGroup.spacing = x, -360, 1.5f));
                 foreach (Transform child in horizontalLayoutGroup.transform)
                 {
-                    mySequence.Join(child.DOScale(Vector3.one, 0.5f));
+                    if (horizontalLayoutGroup.transform.GetChild(player._playerStateMachine.team) == child) mySequence.Join(child.DOScale(new Vector3(1.5f,1.5f,1.5f), 1.5f)) ;
+                    mySequence.Join(child.DOScale(Vector3.one, 1.5f));
+                }
+                mySequence.AppendInterval(1f);
+                mySequence.AppendInterval(1f);
+                foreach (Transform child in horizontalLayoutGroup.transform)
+                {
+                    if (horizontalLayoutGroup.transform.GetChild(player._playerStateMachine.team) == child) mySequence.Join(child.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 2f));
+                    else mySequence.Join(child.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 2f));
                 }
                 mySequence.AppendInterval(0.5f);
-                mySequence.AppendCallback(() => RoundManager.Instance.UpdateScores());
+                mySequence.AppendCallback(() => {
+                    RoundManager.Instance.UpdateScores();
+                    SoundManager.instance.PlayClip("Win");
+                });
                 mySequence.AppendInterval(4f);
                 #endregion
 
@@ -77,18 +88,8 @@ public class RoundEnd : GameStateTemplate
                     Volume vol = RoundManager.Instance.Volume;
                     vol.profile.TryGet<ChromaticAberration>(out ChromaticAberration CA);
                     CA.intensity.value = 0;
-
-                    RoundManager.Instance.DestroyAllPlayers();
-                    StateMachine.HideAllMenusExceptThis(ui);
-
-                    InputsManager.Instance.resetPlayers();
-                    foreach (Image image in ui.GetComponentsInChildren<Image>())
-                    {
-                        image.DOFade(1, 2f);
-                    }
-
-                    RoundManager.Instance.alivePlayers.Clear();
-                    ManagerManager.Instance.characterSelector.Clear();
+                    
+                    StateMachine.HideAllMenusExceptThis(ui, false);
                     foreach(BouleMouvement boule in GameObject.FindObjectsOfType<BouleMouvement>())
                     {
                         GameObject.Destroy(boule.gameObject);
@@ -97,6 +98,21 @@ public class RoundEnd : GameStateTemplate
                     {
                         gm.SetActive(false);
                     }
+                    foreach(TMP_Text gm in RoundManager.Instance.scores)
+                    {
+                        gm.text = "";
+                    }
+                    foreach(CharacterSelector selec in ManagerManager.Instance.characterSelector)
+                    {
+                        GameObject.Destroy(selec.gameObject);
+                    }
+
+                    RoundManager.Instance.DestroyAllPlayers();
+                    RoundManager.Instance.alivePlayers.Clear();
+                    ManagerManager.Instance.characterSelector.Clear();
+                    SoundManager.instance.StopbackgroundMusic();
+                    SoundManager.instance.ResetValues();
+                    InputsManager.Instance.resetPlayers();
                 });
                 yield break;
             }

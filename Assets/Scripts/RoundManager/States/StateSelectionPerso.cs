@@ -10,7 +10,7 @@ public class StateSelectionPerso : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
-        StateMachine.HideAllMenusExceptThis(ui);
+        StateMachine.HideAllMenusExceptThis(ui, false);
         foreach(CharacterSelector player in ManagerManager.Instance.characterSelector)
         {
             GameObject.Destroy(player.gameObject);

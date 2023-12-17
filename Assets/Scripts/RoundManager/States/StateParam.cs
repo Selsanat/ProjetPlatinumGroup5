@@ -8,7 +8,7 @@ public class StateParam : GameStateTemplate
 
     protected override void OnStateEnter(GameStateTemplate gameStateTemplate)
     {
-        StateMachine.HideAllMenusExceptThis(ui);
+        StateMachine.HideAllMenusExceptThis(ui, true);
     }
 
     protected override void OnStateUpdate()

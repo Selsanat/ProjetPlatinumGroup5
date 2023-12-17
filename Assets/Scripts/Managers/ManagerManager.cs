@@ -32,5 +32,6 @@ public class ManagerManager : MonoBehaviour
         }
         else Destroy(this.gameObject);
         DontDestroyOnLoad(gameObject);
+        Application.targetFrameRate = 60;
     }
 }

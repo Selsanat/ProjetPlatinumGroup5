@@ -39,7 +39,7 @@ public class MenuState : GameStateTemplate
         }
 
         if (ui == null) ui = StateMachine.Menus[StateMachine.AllStates.ToList().IndexOf(this)].menuObject;
-        StateMachine.HideAllMenusExceptThis(ui);
+        StateMachine.HideAllMenusExceptThis(ui,true);
         if(StateMachine.PreviousState == StateMachine.endRound)
         {
             ManagerManager.Instance.Players.Clear();

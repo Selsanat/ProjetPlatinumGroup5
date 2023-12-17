@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.IO;
 using System.Linq;
@@ -130,8 +131,10 @@ public class GameStateMachine : MonoBehaviour
         asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
     }
 
-    public void HideAllMenusExceptThis(GameObject ui)
+    public void HideAllMenusExceptThis(GameObject ui, bool shouldSnap)
     {
+        Sequence s = DOTween.Sequence();
+        s.AppendInterval(0.1f);
         foreach (Menu menu in Menus)
         {
             if (menu.thisMenu == CurrentState.ToString())
@@ -144,17 +147,31 @@ public class GameStateMachine : MonoBehaviour
                     }
                 }
             }
-            menu.menuObject.SetActive(false);
+            if (shouldSnap) menu.menuObject.SetActive(false);
+            else s.Join(menu.menuObject.GetComponentInChildren<CanvasGroup>().DOFade(0, 0.5f));
         }
+        foreach(Menu menu in Menus) if(!shouldSnap) s.AppendCallback(()=>menu.menuObject.SetActive(false));
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
         if (ui != null)
         {
-            ui.SetActive(true);
-            /*if (ui.GetComponentInChildren<Slider>() != null)
-                ui.GetComponentInChildren<Slider>().Select();*/
+            if (shouldSnap)
+            {
+                ui.SetActive(true);
+                ui.GetComponentInChildren<CanvasGroup>().alpha = 1;
+            }
+            else
+            {
+                s.AppendCallback(() =>
+                {
+                    ui.SetActive(true);
+                    ui.GetComponentInChildren<CanvasGroup>().alpha = 0;
+                });
+                s.Join(ui.GetComponentInChildren<CanvasGroup>().DOFade(1, 0.5f));
+            }
             if (ui.GetComponentInChildren<Button>() != null)
                     ui.GetComponentInChildren<Button>().Select(); 
         }
+        s.Play();
     }
     public void HideAllMenusExceptThis()
     {

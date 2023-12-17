@@ -488,7 +488,10 @@ public class BouleMouvement : MonoBehaviour
                 return;
 
         if(collision.gameObject != this.gameObject && collision.gameObject.layer == 3)
+        {
             SoundManager.instance.PlayRandomClip("Pet Kiss");
+        }
+            
 
         if (collision.gameObject.layer == 7 && stateBoule != StateBoule.throwing)
         {
@@ -504,6 +507,7 @@ public class BouleMouvement : MonoBehaviour
                     HapticsManager.Instance.Vibrate("Death", (Gamepad)StateMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
                 if (ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0] is Gamepad)
                     HapticsManager.Instance.Vibrate("Kill", (Gamepad)ParentMachine.GetComponent<UnityEngine.InputSystem.PlayerInput>().devices[0]);
+
                 SoundManager.instance.AddPist(2);
 
                 GameObject dieprefab = Instantiate(ManagerManager.Instance.petDiePrefab, null);
