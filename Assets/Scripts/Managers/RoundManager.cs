@@ -239,5 +239,12 @@ public class RoundManager : MonoBehaviour
         SoundManager.instance.PlayClip("Win");
         GameStateMachine.Instance.ChangeState(GameStateMachine.Instance.endRound);
     }
+
+    [Button]
+    public void killTwo()
+    {
+        KillPlayer(alivePlayers[0]._playerStateMachine);
+        KillPlayer(alivePlayers[1]._playerStateMachine);
+    }
 }
 
