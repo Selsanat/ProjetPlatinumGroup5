@@ -11,7 +11,7 @@ public class BouleParams : ScriptableObject
     public float _rotationSpeed = 100.0f; // Vitesse de rotation de la boule autour du joueur
     [Space(10)]
 
-    [Header("Sens de rotation initial (true va de gauche � droite)")]
+    [Header("Sens de rotation initial")]
     [Space(5)]
     public bool _clockwise = true; // Sens de rotation initial
     [Space(15)]
@@ -25,23 +25,23 @@ public class BouleParams : ScriptableObject
     public float _resetSpeed = 400;
     [Space(10)]
 
-    [Header("Vitesse de lancer de la boule")]
+    [Header("Vitesse de lancé de la boule")]
     [Space(5)]
     [Range(0, 9999)]
     public float _speedThrowing = 10.0f;
     [Space(10)]
 
-    [Header("Vitesse du lancer de la boule")]
+    [Header("Vitesse du retour de la boule")]
     [Range(0, 1000)]
     public float _speedBack = 2.0f;
     [Space(10)]
 
-    [Header("Combien de temps avant que la boule ai sa vitesse max au retour (en seconde)")]
+    [Header("Combien de temps avant que la boule ait sa vitesse max au retour (en seconde)")]
     [Space(5)]
     public float _lerpDurationFast = 2.0f;
     [Space(10)]
 
-    [Header("Combien de temps avant que la boule ai fini de ralentire (en seconde)")]
+    [Header("Combien de temps avant que la boule ait fini de ralentire (en seconde)")]
     [Space(5)]
     public float _lerpDurationSlow = 2.0f;
     [Space(10)]
