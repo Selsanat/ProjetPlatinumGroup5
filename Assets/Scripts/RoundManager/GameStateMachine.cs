@@ -1,4 +1,4 @@
-using DG.Tweening;
+using Highlighters;
 using System.Collections;
 using System.IO;
 using System.Linq;
@@ -76,7 +76,7 @@ public class GameStateMachine : MonoBehaviour
     }
     void Start()
     {
-        
+        SoundManager.instance.PlayClip("Drill");
         ChangeState(StartState);
     }
 
@@ -84,6 +84,28 @@ public class GameStateMachine : MonoBehaviour
     {
         if(CurrentState == null) CurrentState = menuState;
         CurrentState.StateUpdate();
+    }
+    private void OnGUI()
+    {
+        if (CurrentState != menuState) return;
+        GUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("Menu State :");
+        GUILayout.TextField("" + CurrentState);
+        foreach (Menu menu in Menus)
+        {
+            if (menu.thisMenu == CurrentState.ToString())
+            {
+                GUILayout.Label("Ma scene = ");
+                GUILayout.TextField(""+ menu.menuObject);
+            }
+        }
+        foreach(string map in ManagerManager.Instance.gameParams.Scenes)
+        {
+            GUILayout.Label("Map = ");
+            GUILayout.TextField("" + map);
+        }
+
+        GUILayout.EndVertical();
     }
     private void _InitAllStates()
     {
@@ -131,10 +153,8 @@ public class GameStateMachine : MonoBehaviour
         asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
     }
 
-    public void HideAllMenusExceptThis(GameObject ui, bool shouldSnap)
+    public void HideAllMenusExceptThis(GameObject ui)
     {
-        Sequence s = DOTween.Sequence();
-        s.AppendInterval(0.1f);
         foreach (Menu menu in Menus)
         {
             if (menu.thisMenu == CurrentState.ToString())
@@ -147,31 +167,17 @@ public class GameStateMachine : MonoBehaviour
                     }
                 }
             }
-            if (shouldSnap) menu.menuObject.SetActive(false);
-            else s.Join(menu.menuObject.GetComponentInChildren<CanvasGroup>().DOFade(0, 0.5f));
+            menu.menuObject.SetActive(false);
         }
-        foreach(Menu menu in Menus) if(!shouldSnap) s.AppendCallback(()=>menu.menuObject.SetActive(false));
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
         if (ui != null)
         {
-            if (shouldSnap)
-            {
-                ui.SetActive(true);
-                ui.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            }
-            else
-            {
-                s.AppendCallback(() =>
-                {
-                    ui.SetActive(true);
-                    ui.GetComponentInChildren<CanvasGroup>().alpha = 0;
-                });
-                s.Join(ui.GetComponentInChildren<CanvasGroup>().DOFade(1, 0.5f));
-            }
+            ui.SetActive(true);
+            /*if (ui.GetComponentInChildren<Slider>() != null)
+                ui.GetComponentInChildren<Slider>().Select();*/
             if (ui.GetComponentInChildren<Button>() != null)
                     ui.GetComponentInChildren<Button>().Select(); 
         }
-        s.Play();
     }
     public void HideAllMenusExceptThis()
     {
