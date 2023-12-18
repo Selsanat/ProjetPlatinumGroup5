@@ -11,6 +11,7 @@ using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using Unity.Collections.LowLevel.Unsafe;
+using static UnityEngine.InputSystem.InputAction;
 
 public class CharacterSelector : MonoBehaviour
 {
@@ -46,8 +47,8 @@ public class CharacterSelector : MonoBehaviour
             HapticsManager.Instance.Vibrate("Selection", gamepad);
 
         }
-        playerInputs.actions.actionMaps[1].actions[2].started += ctx => SwipeRight();
-        playerInputs.actions.actionMaps[1].actions[3].started += ctx => SwipeLeft();
+        playerInputs.actions.actionMaps[1].actions[2].started += SwipeRight;
+        playerInputs.actions.actionMaps[1].actions[3].started += SwipeLeft;
         toggle.onValueChanged.AddListener((value) =>
         {
             
@@ -93,7 +94,7 @@ public class CharacterSelector : MonoBehaviour
             toggle.interactable = !ManagerManager.Instance.Players.ContainsValue((RoundManager.Team)index);
         }
     }
-    void SwipeRight()
+    private void SwipeRight(CallbackContext ctx)
     {
         if (index < horizontalLayoutGroup.transform.childCount - 1 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject && !toggle.isOn)
         {
@@ -110,7 +111,7 @@ public class CharacterSelector : MonoBehaviour
             playSound("Click");
         }
     }
-    void SwipeLeft()
+    private void SwipeLeft(CallbackContext ctx)
     {
         if (index > 0 && multiplayerEventSystem.currentSelectedGameObject != toggle.gameObject && !toggle.isOn)
         {
@@ -154,6 +155,12 @@ public class CharacterSelector : MonoBehaviour
             }
         }
        
+    }
+
+    private void OnDestroy()
+    {
+        playerInputs.actions.actionMaps[1].actions[2].started -= SwipeRight;
+        playerInputs.actions.actionMaps[1].actions[3].started -= SwipeLeft;
     }
 
     bool CanStart()
