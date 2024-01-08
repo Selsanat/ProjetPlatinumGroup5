@@ -16,16 +16,16 @@ public class BouleParams : ScriptableObject
     public bool _clockwise = true; // Sens de rotation initial
     [Space(15)]
 
-    [Header("Lancé de la boule")]
+    [Header("Lancer de la boule")]
     [Space(10)]
 
-    [Header("vitesse � laquelle la boule va revenir en place apr�s un bug de d�placement")]
+    [Header("vitesse à laquelle la boule revient en place après un bug de déplacement")]
     [Space(5)]
     [Range(0, 9999)]
     public float _resetSpeed = 400;
     [Space(10)]
 
-    [Header("Vitesse de lancé de la boule")]
+    [Header("Vitesse de lancer de la boule")]
     [Space(5)]
     [Range(0, 9999)]
     public float _speedThrowing = 10.0f;
@@ -41,7 +41,7 @@ public class BouleParams : ScriptableObject
     public float _lerpDurationFast = 2.0f;
     [Space(10)]
 
-    [Header("Combien de temps avant que la boule ait fini de ralentire (en seconde)")]
+    [Header("Combien de temps avant que la boule ait fini de ralentir (en seconde)")]
     [Space(5)]
     public float _lerpDurationSlow = 2.0f;
     [Space(10)]
@@ -63,7 +63,7 @@ public class BouleParams : ScriptableObject
 
     [Header("Les distances des boules")]
     [Space(10)]
-    [Header("la distances acceptable lorsque la boule reviens et va rebondire sur les endroits sur lesquelles elle avait rebondi")]
+    [Header("la distances acceptable lorsque la boule revient et va rebondire sur les endroits sur lesquelles elle avait rebondi")]
     [Space(5)]
     [Range (0, 50)]
     public float _distancePoints = 0.5f;
